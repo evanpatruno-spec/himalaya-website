@@ -147,50 +147,103 @@ button, select, input, textarea {
   color: var(--gold-light);
 }
 
-/* Header Navigation */
+/* Header Navigation avec Losange Central Officiel Himalaya */
 .main-header {
-  position: sticky;
+  position: relative;
   top: 0;
-  z-index: 100;
-  background: rgba(9, 9, 11, 0.94);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border-subtle);
+  z-index: 120;
+  background: #000000;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .header-inner {
+  display: grid;
+  grid-template-columns: 1fr 290px 1fr;
+  align-items: center;
+  height: 86px;
+  gap: 8px;
+  position: relative;
+}
+
+.header-nav-side {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  height: 76px;
-  gap: 20px;
+  gap: 6px;
+}
+
+.header-nav-left {
+  justify-content: flex-end;
+  padding-right: 12px;
+}
+
+.header-nav-right {
+  justify-content: flex-start;
+  padding-left: 12px;
+}
+
+.header-diamond-wrap {
+  position: relative;
+  width: 290px;
+  height: 86px;
+  display: flex;
+  justify-content: center;
+}
+
+.header-diamond-box {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 290px;
+  height: 206px;
+  background: url('https://www.himalayacorp.com/gx/m/bg-logo.png') top center / 100% auto no-repeat;
+  padding-top: 23px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  z-index: 130;
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.7));
+  transition: transform 0.2s ease;
+}
+
+.header-diamond-box:hover {
+  transform: translateX(-50%) scale(1.02);
+}
+
+.header-diamond-box img {
+  width: 172px;
+  height: auto;
+  display: block;
 }
 
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
   list-style: none;
 }
 
 .nav-btn {
   background: transparent;
   border: none;
-  color: var(--text-secondary);
-  font-size: 0.88rem;
+  color: #ffffff;
+  font-size: 0.82rem;
   font-weight: 500;
-  padding: 8px 14px;
-  border-radius: 7px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 8px 11px;
+  border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s ease;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   white-space: nowrap;
 }
 
 .nav-btn:hover, .nav-btn.active {
-  color: var(--gold-light);
-  background: rgba(200, 164, 93, 0.12);
+  color: var(--gold);
 }
 
 .mobile-menu-btn {
@@ -200,11 +253,11 @@ button, select, input, textarea {
 /* Hero Section (Fond lever de soleil lumineux et dégagé) */
 .hero-section {
   position: relative;
-  min-height: 560px;
+  min-height: 610px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 72px 0 80px;
+  padding: 135px 0 80px;
   overflow: hidden;
   border-bottom: 1px solid var(--border-subtle);
 }
@@ -415,12 +468,35 @@ button, select, input, textarea {
 }
 
 /* Responsive */
-@media (max-width: 1060px) {
+@media (max-width: 1120px) {
   .desktop-nav {
     display: none !important;
   }
+  .header-inner {
+    display: flex;
+    justify-content: flex-end;
+    height: 74px;
+  }
+  .header-diamond-wrap {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    width: 210px;
+    height: 74px;
+  }
+  .header-diamond-box {
+    width: 210px;
+    height: 150px;
+    padding-top: 16px;
+  }
+  .header-diamond-box img {
+    width: 124px;
+  }
   .mobile-menu-btn {
     display: inline-flex !important;
+    position: relative;
+    z-index: 140;
   }
   .search-grid {
     grid-template-columns: 1fr 1fr;

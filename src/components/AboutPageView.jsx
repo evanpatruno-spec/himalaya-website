@@ -33,7 +33,7 @@ export default function AboutPageView({
   };
 
   return (
-    <main style={{ flex: 1, padding: '44px 0 80px' }}>
+    <main style={{ flex: 1, padding: '125px 0 80px' }}>
       <div className="container">
         {/* En-tête de la page À propos */}
         <div style={{ marginBottom: '28px' }}>

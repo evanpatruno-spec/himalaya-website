@@ -20,8 +20,9 @@ import BuyerNDAModal from './components/BuyerNDAModal';
 import BrokerDetailModal from './components/BrokerDetailModal';
 import PropertiesMapView from './components/PropertiesMapView';
 import AboutPageView from './components/AboutPageView';
+import ToolsHubView from './components/ToolsHubView';
 
-const VALID_PAGES = ['home', 'proprietes', 'courtiers', 'agences', 'a-propos', 'evenements', 'balados', 'nous-joindre', 'zone-equipe'];
+const VALID_PAGES = ['home', 'proprietes', 'courtiers', 'agences', 'a-propos', 'outils', 'evenements', 'balados', 'nous-joindre', 'zone-equipe'];
 
 export default function App() {
   const [activePage, setActivePage] = useState('home');
@@ -238,41 +239,15 @@ export default function App() {
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      {/* HEADER PRINCIPAL ÉPURÉ (Logo seul à gauche, navigation sur 1 ligne, FR/EN/ES fonctionnel) */}
+      {/* HEADER PRINCIPAL — Losange central officiel Himalaya au centre de la barre en haut */}
       <header className="main-header">
         <div className="container header-inner">
-          <div 
-            onClick={() => navigateTo('home', { filtrePropriete: 'all', filtreCourtier: 'all' })}
-            style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', flexShrink: 0 }}
-          >
-            <img 
-              src="https://www.himalayacorp.com/gx/himalaya-immobilier-logo.svg" 
-              alt="Immobilier Himalaya"
-              style={{ height: '48px', width: 'auto', display: 'block' }}
-              onError={e => { e.target.src = 'https://www.himalayacorp.com/gx/himalaya-immobilier-logo.png'; }}
-            />
-          </div>
-
-          <nav className="desktop-nav">
+          {/* Navigation Gauche (comme sur la photo : À propos, Agences, Courtiers, Actualités) */}
+          <nav className="desktop-nav header-nav-side header-nav-left">
             <ul className="nav-links">
               <li>
                 <button className={`nav-btn ${activePage === 'home' ? 'active' : ''}`} onClick={() => navigateTo('home')}>
                   {t.nav.home}
-                </button>
-              </li>
-              <li>
-                <button className={`nav-btn ${activePage === 'proprietes' ? 'active' : ''}`} onClick={() => navigateTo('proprietes')}>
-                  {t.nav.properties} ({liveDealsData.length})
-                </button>
-              </li>
-              <li>
-                <button className={`nav-btn ${activePage === 'courtiers' ? 'active' : ''}`} onClick={() => navigateTo('courtiers')}>
-                  {t.nav.brokers}
-                </button>
-              </li>
-              <li>
-                <button className={`nav-btn ${activePage === 'agences' ? 'active' : ''}`} onClick={() => navigateTo('agences')}>
-                  {t.nav.agencies}
                 </button>
               </li>
               <li>
@@ -281,8 +256,49 @@ export default function App() {
                 </button>
               </li>
               <li>
+                <button className={`nav-btn ${activePage === 'agences' ? 'active' : ''}`} onClick={() => navigateTo('agences')}>
+                  {t.nav.agencies}
+                </button>
+              </li>
+              <li>
+                <button className={`nav-btn ${activePage === 'courtiers' ? 'active' : ''}`} onClick={() => navigateTo('courtiers')}>
+                  {t.nav.brokers}
+                </button>
+              </li>
+              <li>
                 <button className={`nav-btn ${activePage === 'evenements' ? 'active' : ''}`} onClick={() => navigateTo('evenements')}>
                   {t.nav.news}
+                </button>
+              </li>
+            </ul>
+          </nav>
+
+          {/* Losange Central Officiel Himalaya */}
+          <div className="header-diamond-wrap">
+            <div
+              className="header-diamond-box"
+              onClick={() => navigateTo('home', { filtrePropriete: 'all', filtreCourtier: 'all' })}
+              title={t.nav.home}
+            >
+              <img
+                src="https://www.himalayacorp.com/gx/himalaya-immobilier-logo.svg"
+                alt="Immobilier Himalaya Real Estate Corp."
+                onError={e => { e.target.src = 'https://www.himalayacorp.com/gx/himalaya-immobilier-logo.png'; }}
+              />
+            </div>
+          </div>
+
+          {/* Navigation Droite (Propriétés, Outils, Balados, Nous joindre, FR | EN) */}
+          <div className="desktop-nav header-nav-side header-nav-right">
+            <ul className="nav-links">
+              <li>
+                <button className={`nav-btn ${activePage === 'proprietes' ? 'active' : ''}`} onClick={() => navigateTo('proprietes')}>
+                  {t.nav.properties}
+                </button>
+              </li>
+              <li>
+                <button className={`nav-btn ${activePage === 'outils' ? 'active' : ''}`} onClick={() => navigateTo('outils')}>
+                  {t.nav.tools}
                 </button>
               </li>
               <li>
@@ -290,52 +306,44 @@ export default function App() {
                   {t.nav.podcasts}
                 </button>
               </li>
-            </ul>
-          </nav>
-
-          <div className="desktop-nav" style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
-            <div style={{
-              display: 'inline-flex',
-              background: 'rgba(255,255,255,0.03)',
-              border: '1px solid var(--border-subtle)',
-              borderRadius: '7px',
-              padding: '2px'
-            }}>
-              {['FR', 'EN'].map(code => (
-                <button
-                  key={code}
-                  type="button"
-                  onClick={() => handleLanguageChange(code)}
-                  style={{
-                    background: lang === code ? 'var(--gold)' : 'transparent',
-                    color: lang === code ? '#09090b' : 'var(--text-secondary)',
-                    border: 'none',
-                    borderRadius: '5px',
-                    padding: '4px 10px',
-                    fontSize: '0.76rem',
-                    fontWeight: 700,
-                    cursor: 'pointer'
-                  }}
-                >
-                  {code}
+              <li>
+                <button className={`nav-btn ${activePage === 'nous-joindre' ? 'active' : ''}`} onClick={() => navigateTo('nous-joindre')}>
+                  {t.nav.contact}
                 </button>
+              </li>
+            </ul>
+
+            <div
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '4px',
+                marginLeft: '6px',
+                paddingLeft: '8px',
+                borderLeft: '1px solid rgba(255,255,255,0.16)'
+              }}
+            >
+              {['FR', 'EN'].map((code, idx) => (
+                <React.Fragment key={code}>
+                  {idx > 0 && <span style={{ color: 'rgba(255,255,255,0.35)', fontSize: '0.78rem' }}>|</span>}
+                  <button
+                    type="button"
+                    onClick={() => handleLanguageChange(code)}
+                    style={{
+                      background: 'transparent',
+                      color: lang === code ? 'var(--gold)' : '#ffffff',
+                      border: 'none',
+                      padding: '4px 5px',
+                      fontSize: '0.8rem',
+                      fontWeight: lang === code ? 700 : 500,
+                      cursor: 'pointer'
+                    }}
+                  >
+                    {code}
+                  </button>
+                </React.Fragment>
               ))}
             </div>
-
-            <button 
-              onClick={() => { setWebLeads(getStoredWebLeads()); navigateTo('zone-equipe'); }}
-              className="btn-outline"
-              style={{ padding: '7px 12px', fontSize: '0.8rem' }}
-            >
-              <Lock size={13} /> {t.nav.team}
-            </button>
-            <button 
-              className="btn-gold" 
-              style={{ padding: '8px 16px', fontSize: '0.84rem' }} 
-              onClick={() => navigateTo('nous-joindre')}
-            >
-              {t.nav.contact}
-            </button>
           </div>
 
           <button 
@@ -361,7 +369,7 @@ export default function App() {
           <div style={{
             background: '#0d0d10',
             borderBottom: '1px solid var(--border-gold)',
-            padding: '16px 24px'
+            padding: '64px 24px 16px'
           }}>
             <div className="container">
               <div style={{ display: 'flex', gap: '6px', marginBottom: '12px' }}>
@@ -380,10 +388,11 @@ export default function App() {
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))', gap: '8px' }}>
                 {[
                   { id: 'home', label: t.nav.home },
-                  { id: 'proprietes', label: `${t.nav.properties} (${liveDealsData.length})` },
-                  { id: 'courtiers', label: t.nav.brokers },
-                  { id: 'agences', label: t.nav.agencies },
                   { id: 'a-propos', label: t.nav.about },
+                  { id: 'agences', label: t.nav.agencies },
+                  { id: 'courtiers', label: t.nav.brokers },
+                  { id: 'proprietes', label: `${t.nav.properties} (${liveDealsData.length})` },
+                  { id: 'outils', label: t.nav.tools },
                   { id: 'evenements', label: t.nav.news },
                   { id: 'balados', label: t.nav.podcasts },
                   { id: 'nous-joindre', label: t.nav.contact },
@@ -651,7 +660,7 @@ export default function App() {
           PAGE 2 : NOS PROPRIÉTÉS (Grille + Vue Carte Interactive - Point 11)
          ===================================================================== */}
       {activePage === 'proprietes' && (
-        <main style={{ flex: 1, padding: '44px 0 72px' }}>
+        <main style={{ flex: 1, padding: '125px 0 80px' }}>
           <div className="container">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px', flexWrap: 'wrap', gap: '12px' }}>
               <div>
@@ -829,10 +838,20 @@ export default function App() {
       )}
 
       {/* =====================================================================
+          PAGE 3B : OUTILS IMMOBILIERS & FINANCIERS (Snippet evanpatruno.ca)
+         ===================================================================== */}
+      {activePage === 'outils' && (
+        <ToolsHubView
+          lang={lang}
+          onNavigate={navigateTo}
+        />
+      )}
+
+      {/* =====================================================================
           PAGE 4 : AGENCES
          ===================================================================== */}
       {activePage === 'agences' && (
-        <main style={{ flex: 1, padding: '44px 0 72px' }}>
+        <main style={{ flex: 1, padding: '125px 0 80px' }}>
           <div className="container">
             <div style={{ marginBottom: '28px' }}>
               <h1 style={{ fontSize: '2.1rem', fontWeight: 700, marginBottom: '6px' }}>{t.agencies.title}</h1>
@@ -889,7 +908,7 @@ export default function App() {
           PAGE 5 : COURTIERS (Correspondance exacte mandats + Modale profil - Points 8 & 16)
          ===================================================================== */}
       {activePage === 'courtiers' && (
-        <main style={{ flex: 1, padding: '44px 0 72px' }}>
+        <main style={{ flex: 1, padding: '125px 0 80px' }}>
           <div className="container">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '28px', flexWrap: 'wrap', gap: '14px' }}>
               <div>
@@ -986,7 +1005,7 @@ export default function App() {
           PAGE 6 : ÉVÉNEMENTS & ACTUALITÉS
          ===================================================================== */}
       {activePage === 'evenements' && (
-        <main style={{ flex: 1, padding: '44px 0 72px' }}>
+        <main style={{ flex: 1, padding: '125px 0 80px' }}>
           <div className="container">
             <h1 style={{ fontSize: '2.1rem', fontWeight: 700, marginBottom: '28px' }}>{t.news.title}</h1>
 
@@ -1052,7 +1071,7 @@ export default function App() {
           PAGE 7 : BALADOS (Lecteur intégré propre — Point 5)
          ===================================================================== */}
       {activePage === 'balados' && (
-        <main style={{ flex: 1, padding: '44px 0 72px' }}>
+        <main style={{ flex: 1, padding: '125px 0 80px' }}>
           <div className="container">
             <div style={{ marginBottom: '28px' }}>
               <h1 style={{ fontSize: '2.1rem', fontWeight: 700, marginBottom: '6px' }}>{t.podcasts.title}</h1>
@@ -1130,7 +1149,7 @@ export default function App() {
           PAGE 8 : NOUS JOINDRE + ÉVALUER MA PROPRIÉTÉ (Connecté à Himalaya Prospection - Points 9, 17, 20)
          ===================================================================== */}
       {activePage === 'nous-joindre' && (
-        <main style={{ flex: 1, padding: '44px 0 72px' }}>
+        <main style={{ flex: 1, padding: '125px 0 80px' }}>
           <div className="container">
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '32px' }}>
               <div>
@@ -1314,7 +1333,7 @@ export default function App() {
           PAGE 9 : ZONE ÉQUIPE & SYNCHRONISATION HIMALAYA PROSPECTION (Point 20)
          ===================================================================== */}
       {activePage === 'zone-equipe' && (
-        <main style={{ flex: 1, padding: '44px 0 72px' }}>
+        <main style={{ flex: 1, padding: '125px 0 80px' }}>
           <div className="container">
             <div style={{
               background: 'var(--bg-card)',

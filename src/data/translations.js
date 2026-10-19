@@ -9,6 +9,7 @@ export const TRANSLATIONS = {
       about: 'À propos',
       news: 'Actualités',
       podcasts: 'Balados',
+      tools: 'Outils',
       team: 'Équipe',
       contact: 'Nous joindre',
       menu: 'Menu'
@@ -201,6 +202,7 @@ export const TRANSLATIONS = {
       about: 'About Us',
       news: 'News',
       podcasts: 'Podcasts',
+      tools: 'Tools',
       team: 'Team',
       contact: 'Contact Us',
       menu: 'Menu'
