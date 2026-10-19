@@ -67,7 +67,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-boul-ste-rose-e-.html?NoMLS=22685883",
     "status": "Actif sur le marché",
     "lat": 45.621,
-    "lng": -73.712
+    "lng": -73.712,
+    "category_en": "Commercial",
+    "price_raw_en": "19 000 000 $ + GST/QST",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-vendre-boul-ste-rose-e-.html?NoMLS=22685883",
+    "title_en": "Boul. Ste-Rose E."
   },
   {
     "id": "himalaya_11416336",
@@ -155,7 +159,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-109-ch-du-lac-s-.html?NoMLS=11416336",
     "status": "Actif sur le marché",
     "lat": 48.16009,
-    "lng": -68.96176
+    "lng": -68.96176,
+    "category_en": "Commercial",
+    "price_raw_en": "6 500 000 $ + GST/QST",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-vendre-109-ch-du-lac-s-.html?NoMLS=11416336",
+    "title_en": "109 Ch. du Lac S."
   },
   {
     "id": "himalaya_13527693",
@@ -240,7 +248,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-109z-ch-du-lac-s-.html?NoMLS=13527693",
     "status": "Actif sur le marché",
     "lat": 48.1834,
-    "lng": -69.01885
+    "lng": -69.01885,
+    "category_en": "Commercial",
+    "price_raw_en": "6 500 000 $",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-vendre-109z-ch-du-lac-s-.html?NoMLS=13527693",
+    "title_en": "109Z Ch. du Lac S."
   },
   {
     "id": "himalaya_27906839",
@@ -331,7 +343,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-2840-rue-des-champs-boises.html?NoMLS=27906839",
     "status": "Actif sur le marché",
     "lat": 46.05105,
-    "lng": -73.63954
+    "lng": -73.63954,
+    "category_en": "Commercial",
+    "price_raw_en": "6 200 000 $ + GST/QST",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-vendre-2840-rue-des-champs-boises.html?NoMLS=27906839",
+    "title_en": "2840 Rue des Champs-Boises"
   },
   {
     "id": "himalaya_28172223",
@@ -420,7 +436,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-2840z-rue-des-champs-boises.html?NoMLS=28172223",
     "status": "Actif sur le marché",
     "lat": 45.95796,
-    "lng": -73.69094
+    "lng": -73.69094,
+    "category_en": "Commercial",
+    "price_raw_en": "6 200 000 $",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-vendre-2840z-rue-des-champs-boises.html?NoMLS=28172223",
+    "title_en": "2840Z Rue des Champs-Boises"
   },
   {
     "id": "himalaya_27865522",
@@ -521,7 +541,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-111-ch-de-la-pourvoirie.html?NoMLS=27865522",
     "status": "Actif sur le marché",
     "lat": 46.08325,
-    "lng": -73.7203
+    "lng": -73.7203,
+    "category_en": "Outfitter",
+    "price_raw_en": "4 950 000 $ + GST/QST",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-vendre-111-ch-de-la-pourvoirie.html?NoMLS=27865522",
+    "title_en": "111 Ch. de la Pourvoirie"
   },
   {
     "id": "himalaya_25954195",
@@ -592,7 +616,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-rue-angele-chartrand.html?NoMLS=25954195",
     "status": "Actif sur le marché",
     "lat": 45.58348,
-    "lng": -73.62796
+    "lng": -73.62796,
+    "category_en": "Commercial",
+    "price_raw_en": "4 700 000 $ + GST/QST",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-vendre-rue-angele-chartrand.html?NoMLS=25954195",
+    "title_en": "Rue Angèle-Chartrand"
   },
   {
     "id": "himalaya_16230981",
@@ -709,7 +737,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-1-lac-dumoulin.html?NoMLS=16230981",
     "status": "Actif sur le marché",
     "lat": 47.43307,
-    "lng": -72.79331
+    "lng": -72.79331,
+    "category_en": "Outfitter",
+    "price_raw_en": "3 150 000 $ + GST/QST",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-vendre-1-lac-dumoulin.html?NoMLS=16230981",
+    "title_en": "1 Lac Dumoulin"
   },
   {
     "id": "himalaya_HIM100373",
@@ -775,7 +807,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-.html?NoMLS=HIM100373",
     "status": "Actif sur le marché",
     "lat": 19.33537,
-    "lng": -69.53077
+    "lng": -69.53077,
+    "category_en": "Commercial",
+    "price_raw_en": "3 100 000 US",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-vendre-plage-de-las-bellenas-las-terrenas.html?NoMLS=HIM100373",
+    "title_en": "PLAGE de LAS BELLENAS, LAS TERRENAS"
   },
   {
     "id": "himalaya_HIM100369",
@@ -830,7 +866,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-.html?NoMLS=HIM100369",
     "status": "Actif sur le marché",
     "lat": 19.27397,
-    "lng": -69.52508
+    "lng": -69.52508,
+    "category_en": "Commercial",
+    "price_raw_en": "3 000 000 US",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-vendre-hotel-sur-la-plage-27-cc-resto.html?NoMLS=HIM100369",
+    "title_en": "HOTEL SUR LA PLAGE , 27 CC + RESTO"
   },
   {
     "id": "himalaya_11142661",
@@ -895,7 +935,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-boul-laurier.html?NoMLS=11142661",
     "status": "Actif sur le marché",
     "lat": 46.04155,
-    "lng": -73.72622
+    "lng": -73.72622,
+    "category_en": "Commercial",
+    "price_raw_en": "3 000 000 $ + GST/QST",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-vendre-boul-laurier.html?NoMLS=11142661",
+    "title_en": "Boul. Laurier"
   },
   {
     "id": "himalaya_22941652",
@@ -978,7 +1022,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-1658-ch-pink.html?NoMLS=22941652",
     "status": "Actif sur le marché",
     "lat": 45.66894,
-    "lng": -75.68992
+    "lng": -75.68992,
+    "category_en": "Commercial",
+    "price_raw_en": "2 400 000 $ + GST/QST",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-vendre-1658-ch-pink.html?NoMLS=22941652",
+    "title_en": "1658 Ch. Pink"
   },
   {
     "id": "himalaya_25564260",
@@ -1066,7 +1114,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-1-baie-coucoucache.html?NoMLS=25564260",
     "status": "Actif sur le marché",
     "lat": 47.37505,
-    "lng": -72.8175
+    "lng": -72.8175,
+    "category_en": "Outfitter",
+    "price_raw_en": "1 950 000 $ + GST/QST",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-vendre-1-baie-coucoucache.html?NoMLS=25564260",
+    "title_en": "1 Baie Coucoucache"
   },
   {
     "id": "himalaya_25094457",
@@ -1177,7 +1229,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-1-rue-non-disponible-unavailable.html?NoMLS=25094457",
     "status": "Actif sur le marché",
     "lat": 45.73494,
-    "lng": -75.76883
+    "lng": -75.76883,
+    "category_en": "Outfitter",
+    "price_raw_en": "1 750 000 $ + GST/QST",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-vendre-1-rue-non-disponible-unavailable.html?NoMLS=25094457",
+    "title_en": "1 Rue Non Disponible-Unavailable"
   },
   {
     "id": "himalaya_14672093",
@@ -1271,7 +1327,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-1-lac-doolittle.html?NoMLS=14672093",
     "status": "Actif sur le marché",
     "lat": 45.6414,
-    "lng": -75.73771
+    "lng": -75.73771,
+    "category_en": "Outfitter",
+    "price_raw_en": "1 650 000 $ + GST/QST",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-vendre-1-lac-doolittle.html?NoMLS=14672093",
+    "title_en": "1 Lac Doolittle"
   },
   {
     "id": "himalaya_19392321",
@@ -1413,7 +1473,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-29-petite-ligne.html?NoMLS=19392321",
     "status": "Actif sur le marché",
     "lat": 46.01648,
-    "lng": -73.70677
+    "lng": -73.70677,
+    "category_en": "Commercial",
+    "price_raw_en": "1 600 000 $",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-vendre-29-petite-ligne.html?NoMLS=19392321",
+    "title_en": "29 Petite Ligne"
   },
   {
     "id": "himalaya_28731496",
@@ -1562,7 +1626,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-29z-petite-ligne.html?NoMLS=28731496",
     "status": "Actif sur le marché",
     "lat": 46.04988,
-    "lng": -73.65493
+    "lng": -73.65493,
+    "category_en": "Commercial",
+    "price_raw_en": "1 600 000 $ + GST/QST",
+    "url_en": "https://www.himalayacorp.com/en/properties/fermette-a-vendre-29z-petite-ligne.html?NoMLS=28731496",
+    "title_en": "29Z Petite Ligne"
   },
   {
     "id": "himalaya_17928798",
@@ -1687,7 +1755,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-1-lac-brule.html?NoMLS=17928798",
     "status": "Actif sur le marché",
     "lat": 45.59905,
-    "lng": -75.74778
+    "lng": -75.74778,
+    "category_en": "Outfitter",
+    "price_raw_en": "1 499 000 $ + GST/QST",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-vendre-1-lac-brule.html?NoMLS=17928798",
+    "title_en": "1 Lac brulé"
   },
   {
     "id": "himalaya_15003507",
@@ -1842,7 +1914,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-95-route-obedjiwan.html?NoMLS=15003507",
     "status": "Actif sur le marché",
     "lat": 47.48455,
-    "lng": -72.82455
+    "lng": -72.82455,
+    "category_en": "Outfitter",
+    "price_raw_en": "1 495 000 $ + GST/QST",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-vendre-95-route-obedjiwan.html?NoMLS=15003507",
+    "title_en": "95 Route Obedjiwan"
   },
   {
     "id": "himalaya_15722971",
@@ -1925,7 +2001,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-250-ch-du-lac-giles.html?NoMLS=15722971",
     "status": "Actif sur le marché",
     "lat": 45.64673,
-    "lng": -75.67507
+    "lng": -75.67507,
+    "category_en": "Outfitter",
+    "price_raw_en": "1 450 000 $ + GST/QST",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-vendre-250-ch-du-lac-giles.html?NoMLS=15722971",
+    "title_en": "250 Ch. du Lac-Giles"
   },
   {
     "id": "himalaya_17418281",
@@ -2037,7 +2117,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-1-lac-malbaie.html?NoMLS=17418281",
     "status": "Actif sur le marché",
     "lat": 47.59408,
-    "lng": -70.21665
+    "lng": -70.21665,
+    "category_en": "Outfitter",
+    "price_raw_en": "1 298 000 $ + GST/QST",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-vendre-1-lac-malbaie.html?NoMLS=17418281",
+    "title_en": "1 Lac Malbaie"
   },
   {
     "id": "himalaya_HIM100374",
@@ -2101,7 +2185,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-.html?NoMLS=HIM100374",
     "status": "Actif sur le marché",
     "lat": 19.32487,
-    "lng": -69.53804
+    "lng": -69.53804,
+    "category_en": "Commercial",
+    "price_raw_en": "1 250 000 US",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-vendre-auberge-ecolodge-las-terrenas.html?NoMLS=HIM100374",
+    "title_en": "AUBERGE Ecolodge LAS TERRÉNAS"
   },
   {
     "id": "himalaya_HIM100370",
@@ -2151,7 +2239,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-.html?NoMLS=HIM100370",
     "status": "Actif sur le marché",
     "lat": 19.28788,
-    "lng": -69.52451
+    "lng": -69.52451,
+    "category_en": "Commercial",
+    "price_raw_en": "1 000 000 US",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-vendre-residence-hoteliere-4-bungalows-piscine.html?NoMLS=HIM100370",
+    "title_en": "RÉSIDENCE HOTELIERE , 4 BUNGALOWS + PISCINE"
   },
   {
     "id": "himalaya_24131223",
@@ -2237,7 +2329,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-829-boul-du-griffon.html?NoMLS=24131223",
     "status": "Actif sur le marché",
     "lat": 48.83844,
-    "lng": -64.51808
+    "lng": -64.51808,
+    "category_en": "Commercial",
+    "price_raw_en": "999 999 $ + GST/QST",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-vendre-829-boul-du-griffon.html?NoMLS=24131223",
+    "title_en": "829 Boul. du Griffon"
   },
   {
     "id": "himalaya_11456437",
@@ -2346,7 +2442,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-391-409-ch-des-lacs.html?NoMLS=11456437",
     "status": "Actif sur le marché",
     "lat": 47.6755,
-    "lng": -70.10583
+    "lng": -70.10583,
+    "category_en": "Outfitter",
+    "price_raw_en": "999 500 $ + GST/QST",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-vendre-391-409-ch-des-lacs.html?NoMLS=11456437",
+    "title_en": "391 409 Ch. des Lacs"
   },
   {
     "id": "himalaya_19512383",
@@ -2405,7 +2505,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-180-boul-greber.html?NoMLS=19512383",
     "status": "Actif sur le marché",
     "lat": 45.58992,
-    "lng": -75.76894
+    "lng": -75.76894,
+    "category_en": "Commercial",
+    "price_raw_en": "950 000 $ + GST/QST",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-vendre-180-boul-greber.html?NoMLS=19512383",
+    "title_en": "180 Boul. Gréber"
   },
   {
     "id": "himalaya_18513660",
@@ -2465,7 +2569,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-541-boul-st-joseph.html?NoMLS=18513660",
     "status": "Actif sur le marché",
     "lat": 45.71797,
-    "lng": -75.7817
+    "lng": -75.7817,
+    "category_en": "Commercial",
+    "price_raw_en": "950 000 $ + GST/QST",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-vendre-541-boul-st-joseph.html?NoMLS=18513660",
+    "title_en": "541 Boul. St-Joseph"
   },
   {
     "id": "himalaya_HIM100371",
@@ -2527,7 +2635,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-.html?NoMLS=HIM100371",
     "status": "Actif sur le marché",
     "lat": 19.27671,
-    "lng": -69.45962
+    "lng": -69.45962,
+    "category_en": "Commercial",
+    "price_raw_en": "900 000 US",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-vendre-hotelbungalows-suitepiscine-terrain-de-3200-mc.html?NoMLS=HIM100371",
+    "title_en": "HOTEL,BUNGALOWS, SUITE,PISCINE , Land DE 3,200 MC"
   },
   {
     "id": "himalaya_25913619",
@@ -2657,7 +2769,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-3550-place-cabral.html?NoMLS=25913619",
     "status": "Actif sur le marché",
     "lat": 45.43487,
-    "lng": -73.4741
+    "lng": -73.4741,
+    "category_en": "Commercial",
+    "price_raw_en": "898 000 $",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-vendre-3550-place-cabral.html?NoMLS=25913619",
+    "title_en": "3550 Place Cabral"
   },
   {
     "id": "himalaya_HIM100368",
@@ -2711,7 +2827,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-.html?NoMLS=HIM100368",
     "status": "Actif sur le marché",
     "lat": 19.33395,
-    "lng": -69.52753
+    "lng": -69.52753,
+    "category_en": "Commercial",
+    "price_raw_en": "890 000 US",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-vendre-boulangerie-las-terrenas-samana.html?NoMLS=HIM100368",
+    "title_en": "BOULANGERIE LAS TERRENAS , SAMANA"
   },
   {
     "id": "himalaya_17495728",
@@ -2812,7 +2932,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-214-boul-perron-e-.html?NoMLS=17495728",
     "status": "Actif sur le marché",
     "lat": 48.79233,
-    "lng": -64.46991
+    "lng": -64.46991,
+    "category_en": "Outfitter",
+    "price_raw_en": "850 000 $",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-vendre-214-boul-perron-e-.html?NoMLS=17495728",
+    "title_en": "214 Boul. Perron E."
   },
   {
     "id": "himalaya_HIM100372",
@@ -2878,7 +3002,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-.html?NoMLS=HIM100372",
     "status": "Actif sur le marché",
     "lat": 19.3374,
-    "lng": -69.58301
+    "lng": -69.58301,
+    "category_en": "Commercial",
+    "price_raw_en": "845 000 US",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-vendre-maison-villa-420-mc-meublee-coson-las-terrenas.html?NoMLS=HIM100372",
+    "title_en": "MAISON VILLA 420 MC , MEUBLÉE , COSON, LAS TERRÉNAS"
   },
   {
     "id": "himalaya_28549479",
@@ -3007,7 +3135,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-1001-boul-mont-royal.html?NoMLS=28549479",
     "status": "Actif sur le marché",
     "lat": 45.53094,
-    "lng": -73.52296
+    "lng": -73.52296,
+    "category_en": "Commercial",
+    "price_raw_en": "795 000 $",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-vendre-1001-boul-mont-royal.html?NoMLS=28549479",
+    "title_en": "1001 Boul. Mont-Royal"
   },
   {
     "id": "himalaya_17943779",
@@ -3084,7 +3216,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-76-rue-lois.html?NoMLS=17943779",
     "status": "Actif sur le marché",
     "lat": 45.5905,
-    "lng": -75.79566
+    "lng": -75.79566,
+    "category_en": "Commercial",
+    "price_raw_en": "785 000 $ + GST/QST",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-vendre-76-rue-lois.html?NoMLS=17943779",
+    "title_en": "76 Rue Lois"
   },
   {
     "id": "himalaya_23751244",
@@ -3167,7 +3303,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-2-riv-nemio.html?NoMLS=23751244",
     "status": "Actif sur le marché",
     "lat": 47.52667,
-    "lng": -72.78758
+    "lng": -72.78758,
+    "category_en": "Outfitter",
+    "price_raw_en": "750 000 $ + GST/QST",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-vendre-2-riv-nemio.html?NoMLS=23751244",
+    "title_en": "2 Riv. Némio"
   },
   {
     "id": "himalaya_16267342",
@@ -3279,7 +3419,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-1220-rue-de-roquetaillade.html?NoMLS=16267342",
     "status": "Actif sur le marché",
     "lat": 46.00987,
-    "lng": -73.66894
+    "lng": -73.66894,
+    "category_en": "Commercial",
+    "price_raw_en": "680 000 $",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-vendre-1220-rue-de-roquetaillade.html?NoMLS=16267342",
+    "title_en": "1220 Rue de Roquetaillade"
   },
   {
     "id": "himalaya_19881973",
@@ -3367,7 +3511,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-1126-av-bernard.html?NoMLS=19881973",
     "status": "Actif sur le marché",
     "lat": 45.52,
-    "lng": -73.612
+    "lng": -73.612,
+    "category_en": "Commercial",
+    "price_raw_en": "575 000 $ + GST/QST",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-vendre-1126-av-bernard.html?NoMLS=19881973",
+    "title_en": "1126 Av. Bernard"
   },
   {
     "id": "himalaya_21226793",
@@ -3486,7 +3634,10 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-2628-rue-de-l-atlas.html?NoMLS=21226793",
     "status": "Actif sur le marché",
     "lat": 45.43035,
-    "lng": -71.86325
+    "lng": -71.86325,
+    "category_en": "Commercial",
+    "price_raw_en": "499 000 $",
+    "title_en": "2628 Rue de l'Atlas"
   },
   {
     "id": "himalaya_12330063",
@@ -3553,7 +3704,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-5184-boul-cousineau.html?NoMLS=12330063",
     "status": "Actif sur le marché",
     "lat": 45.38919,
-    "lng": -73.46444
+    "lng": -73.46444,
+    "category_en": "Commercial",
+    "price_raw_en": "449 000 $ + GST/QST",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-vendre-5184-boul-cousineau.html?NoMLS=12330063",
+    "title_en": "5184 Boul. Cousineau"
   },
   {
     "id": "himalaya_21392440",
@@ -3621,7 +3776,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-293-boul-de-l-ange-gardien.html?NoMLS=21392440",
     "status": "Actif sur le marché",
     "lat": 46.06998,
-    "lng": -73.71835
+    "lng": -73.71835,
+    "category_en": "Commercial",
+    "price_raw_en": "439 000 $ + GST/QST",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-vendre-rue-non-disponible-unavailable.html?NoMLS=21392440",
+    "title_en": "293 Boul. de l'Ange-Gardien"
   },
   {
     "id": "himalaya_17710360",
@@ -3715,7 +3874,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-125-rue-chabanel-o-.html?NoMLS=17710360",
     "status": "Actif sur le marché",
     "lat": 45.50698,
-    "lng": -73.51114
+    "lng": -73.51114,
+    "category_en": "Commercial",
+    "price_raw_en": "429 000 $",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-vendre-125-rue-chabanel-o-.html?NoMLS=17710360",
+    "title_en": "125 Rue Chabanel O."
   },
   {
     "id": "himalaya_20226166",
@@ -3812,7 +3975,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-47-56-ch-de-moffet-latulipe.html?NoMLS=20226166",
     "status": "Actif sur le marché",
     "lat": 47.50325,
-    "lng": -79.12338
+    "lng": -79.12338,
+    "category_en": "Commercial",
+    "price_raw_en": "250 000 $",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-vendre-47-56-ch-de-moffet-latulipe.html?NoMLS=20226166",
+    "title_en": "47-56 Ch. de Moffet-Latulipe"
   },
   {
     "id": "himalaya_24881548",
@@ -3904,7 +4071,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-1-lac-falaise.html?NoMLS=24881548",
     "status": "Actif sur le marché",
     "lat": 49.21449,
-    "lng": -68.14612
+    "lng": -68.14612,
+    "category_en": "Outfitter",
+    "price_raw_en": "225 000 $ + GST/QST",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-vendre-1-lac-falaise.html?NoMLS=24881548",
+    "title_en": "1 Lac Falaise"
   },
   {
     "id": "himalaya_24772383",
@@ -3971,7 +4142,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-route-rousseau.html?NoMLS=24772383",
     "status": "Actif sur le marché",
     "lat": 47.41605,
-    "lng": -72.76753
+    "lng": -72.76753,
+    "category_en": "Commercial",
+    "price_raw_en": "119 900 $",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-vendre-route-rousseau.html?NoMLS=24772383",
+    "title_en": "Route Rousseau"
   },
   {
     "id": "himalaya_18173856",
@@ -4047,7 +4222,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-950-boul-du-seminaire-n-.html?NoMLS=18173856",
     "status": "Actif sur le marché",
     "lat": 45.45334,
-    "lng": -73.49665
+    "lng": -73.49665,
+    "category_en": "Commercial",
+    "price_raw_en": "99 000 $ + GST/QST",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-vendre-950-boul-du-seminaire-n-.html?NoMLS=18173856",
+    "title_en": "950 Boul. du Séminaire N."
   },
   {
     "id": "himalaya_12431189",
@@ -4120,7 +4299,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-37-route-132.html?NoMLS=12431189",
     "status": "Actif sur le marché",
     "lat": 45.45952,
-    "lng": -73.41288
+    "lng": -73.41288,
+    "category_en": "Commercial",
+    "price_raw_en": "40 000 $ + GST/QST",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-vendre-37-route-132.html?NoMLS=12431189",
+    "title_en": "37 Route 132"
   },
   {
     "id": "himalaya_25807488",
@@ -4189,7 +4372,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/louer-4482-rue-jean-talon-e-.html?NoMLS=25807488",
     "status": "Actif sur le marché",
     "lat": 45.4629,
-    "lng": -73.61162
+    "lng": -73.61162,
+    "category_en": "For Lease",
+    "price_raw_en": "5 500 $ /mo + GST/QST",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-louer-4482-rue-jean-talon-e-.html?NoMLS=25807488",
+    "title_en": "4482 Rue Jean-Talon E."
   },
   {
     "id": "himalaya_13602331",
@@ -4260,7 +4447,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/louer-37-route-132.html?NoMLS=13602331",
     "status": "Actif sur le marché",
     "lat": 45.51153,
-    "lng": -73.48255
+    "lng": -73.48255,
+    "category_en": "For Lease",
+    "price_raw_en": "32,32 $ /PC /yrnée + GST/QST",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-louer-37-route-132.html?NoMLS=13602331",
+    "title_en": "37 Route 132"
   },
   {
     "id": "himalaya_24458819",
@@ -4329,7 +4520,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/louer-1083-av-laurier-o-.html?NoMLS=24458819",
     "status": "Actif sur le marché",
     "lat": 45.4765,
-    "lng": -73.50966
+    "lng": -73.50966,
+    "category_en": "For Lease",
+    "price_raw_en": "2 680 $ /mo + GST/QST",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-louer-1083-av-laurier-o-.html?NoMLS=24458819",
+    "title_en": "1083 Av. Laurier O."
   },
   {
     "id": "himalaya_25695350",
@@ -4418,7 +4613,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/louer-3875-rue-st-urbain.html?NoMLS=25695350",
     "status": "Actif sur le marché",
     "lat": 45.51675,
-    "lng": -73.59964
+    "lng": -73.59964,
+    "category_en": "For Lease",
+    "price_raw_en": "2 400 $ /mo + GST/QST",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-louer-3875-rue-st-urbain.html?NoMLS=25695350",
+    "title_en": "3875 Rue St-Urbain"
   },
   {
     "id": "himalaya_27571104",
@@ -4507,7 +4706,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/louer-3875-rue-st-urbain.html?NoMLS=27571104",
     "status": "Actif sur le marché",
     "lat": 45.54212,
-    "lng": -73.56951
+    "lng": -73.56951,
+    "category_en": "For Lease",
+    "price_raw_en": "2 350 $ /mo + GST/QST",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-louer-3875-rue-st-urbain.html?NoMLS=27571104",
+    "title_en": "3875 Rue St-Urbain"
   },
   {
     "id": "himalaya_18465947",
@@ -4591,7 +4794,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/louer-15-boul-la-fayette.html?NoMLS=18465947",
     "status": "Actif sur le marché",
     "lat": 45.40133,
-    "lng": -73.45491
+    "lng": -73.45491,
+    "category_en": "For Lease",
+    "price_raw_en": "2 150 $ /mo",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-louer-15-boul-la-fayette.html?NoMLS=18465947",
+    "title_en": "15 Boul. La Fayette"
   },
   {
     "id": "himalaya_15856137",
@@ -4696,7 +4903,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/louer-695-boul-de-palerme.html?NoMLS=15856137",
     "status": "Actif sur le marché",
     "lat": 45.47278,
-    "lng": -73.49907
+    "lng": -73.49907,
+    "category_en": "For Lease",
+    "price_raw_en": "1 800 $ /mo",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-louer-695-boul-de-palerme.html?NoMLS=15856137",
+    "title_en": "695 Boul. de Palerme"
   },
   {
     "id": "himalaya_28003512",
@@ -4769,7 +4980,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/louer-3970-rue-masson.html?NoMLS=28003512",
     "status": "Actif sur le marché",
     "lat": 45.52275,
-    "lng": -73.52206
+    "lng": -73.52206,
+    "category_en": "For Lease",
+    "price_raw_en": "1 275 $ /mo + GST/QST",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-louer-3970-rue-masson.html?NoMLS=28003512",
+    "title_en": "3970 Rue Masson"
   },
   {
     "id": "himalaya_20570938",
@@ -4851,7 +5066,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/louer-1470-boul-shevchenko.html?NoMLS=20570938",
     "status": "Actif sur le marché",
     "lat": 45.46697,
-    "lng": -73.63803
+    "lng": -73.63803,
+    "category_en": "For Lease",
+    "price_raw_en": "1 100 $ /mo + GST/QST",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-louer-1470-boul-shevchenko.html?NoMLS=20570938",
+    "title_en": "1470 Boul. Shevchenko"
   },
   {
     "id": "himalaya_21435926",
@@ -4909,7 +5128,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/louer-5773-boul-taschereau.html?NoMLS=21435926",
     "status": "Actif sur le marché",
     "lat": 45.52692,
-    "lng": -73.45621
+    "lng": -73.45621,
+    "category_en": "For Lease",
+    "price_raw_en": "30 $ /PC /yrnée + GST/QST",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-louer-5773-boul-taschereau.html?NoMLS=21435926",
+    "title_en": "5773 Boul. Taschereau"
   },
   {
     "id": "himalaya_22217075",
@@ -4981,7 +5204,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/louer-40-boul-st-jean-baptiste.html?NoMLS=22217075",
     "status": "Actif sur le marché",
     "lat": 45.42851,
-    "lng": -73.45036
+    "lng": -73.45036,
+    "category_en": "For Lease",
+    "price_raw_en": "22 $ /PC /yrnée + GST/QST",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-louer-40-boul-st-jean-baptiste.html?NoMLS=22217075",
+    "title_en": "40 Boul. St-Jean-Baptiste"
   },
   {
     "id": "himalaya_21738401",
@@ -5070,7 +5297,11 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/louer-3875-rue-st-urbain.html?NoMLS=21738401",
     "status": "Actif sur le marché",
     "lat": 45.52352,
-    "lng": -73.61177
+    "lng": -73.61177,
+    "category_en": "For Lease",
+    "price_raw_en": "15 $ /PC /yrnée + GST/QST",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-louer-3875-rue-st-urbain.html?NoMLS=21738401",
+    "title_en": "3875 Rue St-Urbain"
   },
   {
     "id": "himalaya_HIM100199",
@@ -5128,6 +5359,10 @@
     "url": "https://www.himalayacorp.com/fr/proprietes/louer-3875-st-denis.html?NoMLS=HIM100199",
     "status": "Actif sur le marché",
     "lat": 45.54237,
-    "lng": -73.55305
+    "lng": -73.55305,
+    "category_en": "For Lease",
+    "price_raw_en": "Vendu",
+    "url_en": "https://www.himalayacorp.com/en/properties/-a-louer-3875-rue-st-denis-montreal-le-plateau-mont-royal-h2w-2m4.html?NoMLS=HIM100199",
+    "title_en": "3875 Rue St-Denis Montréal (Le Plateau-Mont-Royal) H2W 2M4"
   }
 ]

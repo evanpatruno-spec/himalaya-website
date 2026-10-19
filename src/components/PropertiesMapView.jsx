@@ -73,7 +73,7 @@ export default function PropertiesMapView({ properties, onSelectDeal, t }) {
           position: 'absolute', top: '12px', left: '14px',
           fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em'
         }}>
-          Québec &amp; International — Cliquez sur une région
+          {t?.properties?.mapTitle || 'Québec & International — Cliquez sur une région'}
         </div>
 
         {regionsList.map(reg => {
@@ -136,7 +136,7 @@ export default function PropertiesMapView({ properties, onSelectDeal, t }) {
           <div>
             <h3 style={{ fontSize: '1.15rem', fontWeight: 700 }}>{currentRegion}</h3>
             <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
-              {regionDeals.length} {t?.properties?.activeMandates || 'mandat(s)'}
+              {regionDeals.length} {t?.properties?.activeMandates || 'inscriptions'}
             </span>
           </div>
         </div>
@@ -160,19 +160,19 @@ export default function PropertiesMapView({ properties, onSelectDeal, t }) {
             >
               <img
                 src={deal.main_photo}
-                alt={deal.title}
+                alt={t?.code === 'EN' ? (deal.title_en || deal.title) : deal.title}
                 style={{ width: '78px', height: '62px', objectFit: 'cover', borderRadius: '7px', flexShrink: 0 }}
                 onError={e => { e.target.src = 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80'; }}
               />
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ fontSize: '0.88rem', fontWeight: 700, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                  {deal.title}
+                  {t?.code === 'EN' ? (deal.title_en || deal.title) : deal.title}
                 </div>
                 <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '2px' }}>
                   {deal.city} • MLS {deal.mls_number}
                 </div>
                 <div style={{ fontSize: '0.84rem', fontWeight: 700, color: 'var(--gold-light)', marginTop: '3px' }}>
-                  {deal.price_raw}
+                  {t?.code === 'EN' ? (deal.price_raw_en || deal.price_raw) : deal.price_raw}
                 </div>
               </div>
               <ChevronRight size={16} color="var(--gold)" style={{ flexShrink: 0 }} />

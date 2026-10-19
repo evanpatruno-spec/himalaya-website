@@ -17,6 +17,13 @@ export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSe
 
   if (!broker) return null;
 
+  const isEn = t?.code === 'EN';
+  const displayShortTitle = isEn ? (broker.shortTitle_en || broker.shortTitle) : broker.shortTitle;
+  const displayTitle = isEn ? (broker.title_en || broker.title) : broker.title;
+  const displayAddress = isEn ? (broker.address_en || broker.city_en || broker.city) : (broker.address || broker.city);
+  const displayBio = isEn ? (broker.bio_en || broker.bio) : broker.bio;
+  const displayMarkets = isEn ? (broker.markets_en || broker.markets) : broker.markets;
+
   return (
     <div className="modal-backdrop" onClick={onClose}>
       <div className="modal-panel" style={{ maxWidth: '780px' }} onClick={e => e.stopPropagation()}>
@@ -28,7 +35,7 @@ export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSe
           borderBottom: '1px solid var(--border-subtle)',
           background: 'rgba(12, 19, 17, 0.96)'
         }}>
-          <span className="badge-gold">{broker.shortTitle}</span>
+          <span className="badge-gold">{displayShortTitle}</span>
           <button
             onClick={onClose}
             style={{
@@ -74,9 +81,9 @@ export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSe
               />
               <div>
                 <h2 style={{ fontSize: '1.45rem', fontWeight: 700, marginBottom: '4px' }}>{broker.name}</h2>
-                <div style={{ fontSize: '0.84rem', color: 'var(--gold-light)', marginBottom: '6px' }}>{broker.title}</div>
+                <div style={{ fontSize: '0.84rem', color: 'var(--gold-light)', marginBottom: '6px' }}>{displayTitle}</div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.82rem', color: 'var(--text-secondary)' }}>
-                  <MapPin size={13} color="var(--gold)" /> {broker.address || broker.city}
+                  <MapPin size={13} color="var(--gold)" /> {displayAddress}
                 </div>
               </div>
             </div>
@@ -91,7 +98,7 @@ export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSe
             </div>
           </div>
 
-          {broker.bio && (
+          {displayBio && (
             <p style={{
               color: 'var(--text-secondary)',
               fontSize: '0.92rem',
@@ -103,26 +110,18 @@ export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSe
               marginBottom: '22px',
               whiteSpace: 'pre-line'
             }}>
-              {broker.bio}
+              {displayBio}
             </p>
           )}
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '14px', marginBottom: deals.length > 0 ? '26px' : '0' }}>
-            {broker.languages && broker.languages.length > 0 && (
+            {displayMarkets && displayMarkets.length > 0 && (
               <div style={{ background: 'rgba(255,255,255,0.02)', padding: '12px 14px', borderRadius: '8px', border: '1px solid var(--border-subtle)' }}>
                 <div style={{ fontSize: '0.73rem', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '4px' }}>
                   <Globe size={12} style={{ display: 'inline', marginRight: '5px', color: 'var(--gold)' }} />
-                  {t?.brokers?.languages || 'Langues parlées'}
+                  {t?.brokers?.specialties || 'Marchés & Pays'}
                 </div>
-                <div style={{ fontSize: '0.88rem', fontWeight: 600 }}>{broker.languages.join(' • ')}</div>
-              </div>
-            )}
-            {broker.markets && broker.markets.length > 0 && (
-              <div style={{ background: 'rgba(255,255,255,0.02)', padding: '12px 14px', borderRadius: '8px', border: '1px solid var(--border-subtle)' }}>
-                <div style={{ fontSize: '0.73rem', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '4px' }}>
-                  {t?.brokers?.specialties || 'Marchés & Spécialités'}
-                </div>
-                <div style={{ fontSize: '0.88rem', fontWeight: 600 }}>{broker.markets.join(' • ')}</div>
+                <div style={{ fontSize: '0.88rem', fontWeight: 600 }}>{displayMarkets.join(' • ')}</div>
               </div>
             )}
           </div>
@@ -130,7 +129,7 @@ export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSe
           {deals.length > 0 && (
             <div>
               <h3 style={{ fontSize: '1rem', fontWeight: 700, marginBottom: '12px', color: 'var(--gold-light)' }}>
-                {deals.length} {t?.brokers?.activeMandates || 'mandat(s) actif(s)'}
+                {deals.length} {t?.brokers?.activeMandates || 'inscription(s)'}
               </h3>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '12px' }}>
                 {deals.map(d => (
@@ -150,7 +149,7 @@ export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSe
                     <div style={{ height: '120px', overflow: 'hidden', position: 'relative' }}>
                       <img
                         src={d.main_photo}
-                        alt={d.title}
+                        alt={isEn ? (d.title_en || d.title) : d.title}
                         style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                         onError={e => { e.target.src = 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80'; }}
                       />
@@ -159,13 +158,13 @@ export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSe
                         background: 'rgba(7,11,10,0.9)', padding: '3px 8px', borderRadius: '5px',
                         fontSize: '0.78rem', fontWeight: 700, color: 'var(--gold-light)'
                       }}>
-                        {d.price_raw}
+                        {isEn ? (d.price_raw_en || d.price_raw) : d.price_raw}
                       </span>
                     </div>
                     <div style={{ padding: '10px 12px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '6px' }}>
                       <div style={{ minWidth: 0 }}>
                         <div style={{ fontSize: '0.84rem', fontWeight: 600, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                          {d.title}
+                          {isEn ? (d.title_en || d.title) : d.title}
                         </div>
                         <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                           {d.city}

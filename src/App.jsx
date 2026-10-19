@@ -24,10 +24,25 @@ const VALID_PAGES = ['home', 'proprietes', 'courtiers', 'agences', 'a-propos', '
 
 export default function App() {
   const [activePage, setActivePage] = useState('home');
-  const [lang, setLang] = useState('FR');
+  const [lang, setLang] = useState(() => {
+    try {
+      const saved = localStorage.getItem('himalaya_site_lang');
+      if (saved === 'FR' || saved === 'EN') return saved;
+    } catch {}
+    return 'FR';
+  });
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  const isEn = lang === 'EN';
   const t = TRANSLATIONS[lang] || TRANSLATIONS.FR;
+
+  const handleLanguageChange = (code) => {
+    setLang(code);
+    try {
+      localStorage.setItem('himalaya_site_lang', code);
+      document.documentElement.lang = code.toLowerCase();
+    } catch {}
+  };
 
   // Filtres de recherche
   const [searchKeyword, setSearchKeyword] = useState('');
@@ -285,17 +300,18 @@ export default function App() {
               borderRadius: '7px',
               padding: '2px'
             }}>
-              {['FR', 'EN', 'ES'].map(code => (
+              {['FR', 'EN'].map(code => (
                 <button
                   key={code}
-                  onClick={() => setLang(code)}
+                  type="button"
+                  onClick={() => handleLanguageChange(code)}
                   style={{
                     background: lang === code ? 'var(--gold)' : 'transparent',
                     color: lang === code ? '#070b0a' : 'var(--text-secondary)',
                     border: 'none',
                     borderRadius: '5px',
-                    padding: '4px 8px',
-                    fontSize: '0.74rem',
+                    padding: '4px 10px',
+                    fontSize: '0.76rem',
                     fontWeight: 700,
                     cursor: 'pointer'
                   }}
@@ -348,10 +364,11 @@ export default function App() {
           }}>
             <div className="container">
               <div style={{ display: 'flex', gap: '6px', marginBottom: '12px' }}>
-                {['FR', 'EN', 'ES'].map(code => (
+                {['FR', 'EN'].map(code => (
                   <button
                     key={code}
-                    onClick={() => setLang(code)}
+                    type="button"
+                    onClick={() => handleLanguageChange(code)}
                     className={lang === code ? 'btn-gold' : 'btn-outline'}
                     style={{ padding: '5px 12px', fontSize: '0.76rem' }}
                   >
@@ -420,7 +437,7 @@ export default function App() {
                 {t.hero.titleStart} <span className="gold-gradient-text">{t.hero.titleHighlight}</span>
               </h1>
 
-              <p style={{ color: '#e6ece9', fontSize: '1.02rem', maxWidth: '620px', margin: '0 auto' }}>
+              <p style={{ color: '#e6ece9', fontSize: '1.02rem', maxWidth: '640px', margin: '0 auto' }}>
                 {t.hero.subtitle}
               </p>
 
@@ -498,15 +515,15 @@ export default function App() {
                   >
                     <img 
                       src={spec.image} 
-                      alt={spec.title}
+                      alt={isEn ? (spec.title_en || spec.title) : spec.title}
                       onError={e => { e.target.src = spec.fallbackImage; }}
                     />
                     <div className="specialty-overlay">
                       <span style={{ fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--gold-light)', fontWeight: 600, marginBottom: '4px' }}>
-                        {spec.subtitle}
+                        {isEn ? (spec.subtitle_en || spec.subtitle) : spec.subtitle}
                       </span>
                       <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '10px', color: '#fff', lineHeight: 1.25 }}>
-                        {spec.title}
+                        {isEn ? (spec.title_en || spec.title) : spec.title}
                       </h3>
                       <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '0.82rem', fontWeight: 600, color: 'var(--gold-light)' }}>
                         {t.home.explore} <ChevronRight size={15} />
@@ -564,7 +581,7 @@ export default function App() {
             </div>
           </section>
 
-          {/* BANNIÈRE CHIFFRES CLÉS & PRÉSENTATION CONCISE */}
+          {/* BANNIÈRE CHIFFRES CLÉS AUTHENTIQUES & PRÉSENTATION CONCISE */}
           <section style={{ padding: '64px 0', background: 'var(--bg-dark)' }}>
             <div className="container">
               <div style={{
@@ -575,9 +592,9 @@ export default function App() {
               }}>
                 {[
                   { num: `${liveDealsData.length}`, label: t.home.statMandates },
-                  { num: '1 115+', label: t.home.statOutfitterDb },
                   { num: `${INITIAL_HIMALAYA_BROKERS.length}`, label: t.home.statBrokers },
-                  { num: '5', label: t.home.statOffices }
+                  { num: t.home.statFoundedNum, label: t.home.statFounded },
+                  { num: t.home.statPolesNum, label: t.home.statPoles }
                 ].map((stat, i) => (
                   <div key={i} style={{
                     background: 'var(--bg-card)',
@@ -819,9 +836,19 @@ export default function App() {
                 <p style={{ fontSize: '0.98rem', color: 'var(--text-secondary)', lineHeight: 1.7, marginBottom: '14px' }}>
                   {t.about.p1}
                 </p>
-                <p style={{ fontSize: '0.98rem', color: 'var(--text-secondary)', lineHeight: 1.7 }}>
+                <p style={{ fontSize: '0.98rem', color: 'var(--text-secondary)', lineHeight: 1.7, marginBottom: '18px' }}>
                   {t.about.p2}
                 </p>
+                {t.about.missionTitle && (
+                  <div style={{ paddingTop: '14px', borderTop: '1px solid var(--border-subtle)' }}>
+                    <h3 style={{ fontSize: '1.05rem', fontWeight: 700, color: 'var(--gold-light)', marginBottom: '6px' }}>
+                      {t.about.missionTitle}
+                    </h3>
+                    <p style={{ fontSize: '0.94rem', color: 'var(--text-secondary)', lineHeight: 1.7 }}>
+                      {t.about.missionText}
+                    </p>
+                  </div>
+                )}
               </div>
 
               <h2 style={{ fontSize: '1.55rem', fontWeight: 700, marginBottom: '18px' }}>
@@ -844,11 +871,11 @@ export default function App() {
                     </div>
                     <div style={{ padding: '18px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
                       <div style={{ fontSize: '0.75rem', color: 'var(--gold)', fontWeight: 600 }}>
-                        {dir.shortTitle}
+                        {isEn ? (dir.shortTitle_en || dir.shortTitle) : dir.shortTitle}
                       </div>
                       <h3 style={{ fontSize: '1.18rem', fontWeight: 700 }}>{dir.name}</h3>
                       <p style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', marginBottom: '8px' }}>
-                        {dir.phone} • {dir.city}
+                        {dir.phone} • {isEn ? (dir.city_en || dir.city) : dir.city}
                       </p>
                       <span className="btn-outline" style={{ fontSize: '0.8rem', padding: '8px 14px', width: '100%' }}>
                         {t.brokers.viewProfile} <ChevronRight size={14} />
@@ -878,21 +905,28 @@ export default function App() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(330px, 1fr))', gap: '22px' }}>
               {HIMALAYA_AGENCIES.map(ag => (
                 <div key={ag.id} className="property-card">
-                  <div className="property-img-wrap" style={{ height: '195px' }}>
-                    <img src={ag.image} alt={ag.name} />
+                  <div className="property-img-wrap" style={{ height: '195px', background: '#070b0a' }}>
+                    <img 
+                      src={ag.image} 
+                      alt={isEn ? (ag.name_en || ag.name) : ag.name}
+                      style={{ objectFit: ag.id === 'montreal_hq' ? 'contain' : 'cover', padding: ag.id === 'montreal_hq' ? '28px' : '0' }}
+                      onError={e => { if (ag.fallbackImage) e.target.src = ag.fallbackImage; }}
+                    />
                     <span className="badge-gold" style={{ position: 'absolute', top: '12px', left: '12px', background: 'rgba(7,11,10,0.88)' }}>
-                      {ag.badge}
+                      {isEn ? (ag.badge_en || ag.badge) : ag.badge}
                     </span>
                   </div>
                   <div style={{ padding: '20px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                     <div>
                       <div style={{ fontSize: '0.75rem', color: 'var(--gold)', textTransform: 'uppercase', fontWeight: 600 }}>
-                        {ag.city} • {ag.country}
+                        {isEn ? (ag.city_en || ag.city) : ag.city} • {isEn ? (ag.country_en || ag.country) : ag.country}
                       </div>
-                      <h3 style={{ fontSize: '1.2rem', fontWeight: 700, margin: '4px 0 8px' }}>{ag.name}</h3>
+                      <h3 style={{ fontSize: '1.2rem', fontWeight: 700, margin: '4px 0 8px' }}>
+                        {isEn ? (ag.name_en || ag.name) : ag.name}
+                      </h3>
                       <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '16px' }}>
                         <MapPin size={13} style={{ display: 'inline', marginRight: '5px', color: 'var(--gold)' }} />
-                        {ag.address}
+                        {isEn ? (ag.address_en || ag.address) : ag.address}
                       </p>
                     </div>
 
@@ -975,11 +1009,11 @@ export default function App() {
                     <div style={{ padding: '16px 18px 18px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                       <div onClick={() => setSelectedBroker(broker)} style={{ marginBottom: '14px', cursor: 'pointer' }}>
                         <div style={{ fontSize: '0.74rem', color: 'var(--gold)', fontWeight: 600, marginBottom: '4px', lineHeight: 1.35 }}>
-                          {broker.shortTitle}
+                          {isEn ? (broker.shortTitle_en || broker.shortTitle) : broker.shortTitle}
                         </div>
                         <h3 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: '4px' }}>{broker.name}</h3>
                         <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px' }}>
-                          <span>{broker.city}</span>
+                          <span>{isEn ? (broker.city_en || broker.city) : broker.city}</span>
                           {brokerDeals.length > 0 && (
                             <span style={{ color: 'var(--gold-light)', fontWeight: 600, fontSize: '0.76rem' }}>
                               {brokerDeals.length} {t.brokers.activeMandates}
@@ -1020,12 +1054,18 @@ export default function App() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '20px', marginBottom: '44px' }}>
               {HIMALAYA_EVENTS.map(ev => (
                 <div key={ev.id} className="property-card" style={{ padding: '22px' }}>
-                  <span className="badge-gold" style={{ alignSelf: 'flex-start', marginBottom: '10px' }}>{ev.dateRange}</span>
-                  <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '6px' }}>{ev.title}</h3>
+                  <span className="badge-gold" style={{ alignSelf: 'flex-start', marginBottom: '10px' }}>
+                    {isEn ? (ev.dateRange_en || ev.dateRange) : ev.dateRange}
+                  </span>
+                  <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '6px' }}>
+                    {isEn ? (ev.title_en || ev.title) : ev.title}
+                  </h3>
                   <div style={{ fontSize: '0.84rem', color: 'var(--gold)', marginBottom: '10px' }}>
-                    <MapPin size={13} style={{ display: 'inline', marginRight: '5px' }} /> {ev.location}
+                    <MapPin size={13} style={{ display: 'inline', marginRight: '5px' }} /> {isEn ? (ev.location_en || ev.location) : ev.location}
                   </div>
-                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', marginBottom: '16px' }}>{ev.description}</p>
+                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', marginBottom: '16px' }}>
+                    {isEn ? (ev.description_en || ev.description) : ev.description}
+                  </p>
                   <a href={ev.url} target="_blank" rel="noreferrer" className="btn-outline" style={{ alignSelf: 'flex-start', padding: '8px 14px', fontSize: '0.82rem' }}>
                     {t.news.detailsBtn} <ExternalLink size={13} />
                   </a>
@@ -1042,15 +1082,21 @@ export default function App() {
                   <div className="property-img-wrap" style={{ height: '190px' }}>
                     <img 
                       src={news.image} 
-                      alt={news.title}
+                      alt={isEn ? (news.title_en || news.title) : news.title}
                       onError={e => { e.target.src = 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=800&q=80'; }}
                     />
                   </div>
                   <div style={{ padding: '18px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                     <div>
-                      <div style={{ fontSize: '0.75rem', color: 'var(--gold)', marginBottom: '6px' }}>{news.date} • {news.category}</div>
-                      <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '8px' }}>{news.title}</h3>
-                      <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '14px' }}>{news.excerpt}</p>
+                      <div style={{ fontSize: '0.75rem', color: 'var(--gold)', marginBottom: '6px' }}>
+                        {isEn ? (news.date_en || news.date) : news.date} • {isEn ? (news.category_en || news.category) : news.category}
+                      </div>
+                      <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '8px' }}>
+                        {isEn ? (news.title_en || news.title) : news.title}
+                      </h3>
+                      <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '14px' }}>
+                        {isEn ? (news.excerpt_en || news.excerpt) : news.excerpt}
+                      </p>
                     </div>
                     <a href={news.url} target="_blank" rel="noreferrer" style={{ color: 'var(--gold-light)', fontSize: '0.82rem', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
                       {t.news.readArticle} <ExternalLink size={13} />
@@ -1095,11 +1141,15 @@ export default function App() {
                     }}>
                       <div style={{ flex: 1, minWidth: '260px' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
-                          <span className="badge-gold">{pod.episode}</span>
+                          <span className="badge-gold">{isEn ? (pod.episode_en || pod.episode) : pod.episode}</span>
                           <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>{pod.duration}</span>
                         </div>
-                        <h3 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: '4px' }}>{pod.title}</h3>
-                        <p style={{ fontSize: '0.86rem', color: 'var(--text-secondary)' }}>{pod.description}</p>
+                        <h3 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: '4px' }}>
+                          {isEn ? (pod.title_en || pod.title) : pod.title}
+                        </h3>
+                        <p style={{ fontSize: '0.86rem', color: 'var(--text-secondary)' }}>
+                          {isEn ? (pod.description_en || pod.description) : pod.description}
+                        </p>
                       </div>
                       <button
                         onClick={() => setPlayingPodcastId(isPlaying ? null : pod.id)}
@@ -1122,7 +1172,7 @@ export default function App() {
                         flexWrap: 'wrap'
                       }}>
                         <span style={{ fontSize: '0.8rem', color: 'var(--gold-light)', fontWeight: 600 }}>
-                          {t.podcasts.playingLabel} • {pod.hosts}
+                          {t.podcasts.playingLabel} • {isEn ? (pod.hosts_en || pod.hosts) : pod.hosts}
                         </span>
                         <audio controls autoPlay style={{ height: '34px', maxWidth: '320px' }}>
                           <source src="https://www.himalayacorp.com/gx/video/Himalaya.mp4" type="audio/mp4" />
@@ -1154,7 +1204,7 @@ export default function App() {
                   <div style={{ background: 'var(--bg-card)', padding: '18px', borderRadius: '12px', border: '1px solid var(--border-subtle)' }}>
                     <div style={{ fontSize: '0.74rem', textTransform: 'uppercase', color: 'var(--gold)', fontWeight: 600 }}>{t.contact.hqLabel}</div>
                     <div style={{ fontWeight: 600, fontSize: '1rem', marginTop: '4px' }}>Immobilier Himalaya Real Estate Corp.</div>
-                    <div style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', marginTop: '4px' }}>2000, avenue McGill College, bureau 600, Montréal (QC) H3A 3H3</div>
+                    <div style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', marginTop: '4px' }}>{t.contact.hqAddress}</div>
                     <div style={{ display: 'flex', gap: '16px', marginTop: '10px', fontSize: '0.88rem', flexWrap: 'wrap' }}>
                       <a href="tel:18008204828" style={{ color: 'var(--gold-light)', fontWeight: 600 }}>1 800 820-4828</a>
                       <a href="tel:5148984898" style={{ color: 'var(--gold-light)', fontWeight: 600 }}>(514) 898-4898</a>
@@ -1165,9 +1215,9 @@ export default function App() {
                   <div style={{ background: 'var(--bg-card)', padding: '18px', borderRadius: '12px', border: '1px solid var(--border-subtle)' }}>
                     <div style={{ fontSize: '0.74rem', textTransform: 'uppercase', color: 'var(--gold)', fontWeight: 600 }}>{t.contact.leadershipLabel}</div>
                     <div style={{ color: 'var(--text-secondary)', fontSize: '0.86rem', marginTop: '6px', lineHeight: 1.7 }}>
-                      <strong>Roger Rhéaume</strong> (Président) : (514) 585-2605<br />
-                      <strong>Geniev Mondoux</strong> (Vice-Présidente) : (514) 884-1052<br />
-                      <strong>Mike Ainajian</strong> (Directeur d’Agence) : (514) 898-4898
+                      <strong>Roger Rhéaume</strong> ({t.contact.rolePresident}) : (514) 585-2605<br />
+                      <strong>Geniev Mondoux</strong> ({t.contact.roleVP}) : (514) 884-1052<br />
+                      <strong>Mike Ainajian</strong> ({t.contact.roleDirector}) : (514) 898-4898
                     </div>
                   </div>
                 </div>
@@ -1238,11 +1288,11 @@ export default function App() {
                               value={contactForm.assetType}
                               onChange={e => setContactForm({ ...contactForm, assetType: e.target.value })}
                             >
-                              <option>Pourvoirie / Camping / Domaine de villégiature</option>
-                              <option>Immeuble commercial / Industriel / Bureau</option>
-                              <option>Hôtel / Auberge / Restauration</option>
-                              <option>Terrain de développement</option>
-                              <option>Résidentiel de prestige</option>
+                              <option value={t.contact.assetOpt1}>{t.contact.assetOpt1}</option>
+                              <option value={t.contact.assetOpt2}>{t.contact.assetOpt2}</option>
+                              <option value={t.contact.assetOpt3}>{t.contact.assetOpt3}</option>
+                              <option value={t.contact.assetOpt4}>{t.contact.assetOpt4}</option>
+                              <option value={t.contact.assetOpt5}>{t.contact.assetOpt5}</option>
                             </select>
                           </div>
                           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
@@ -1269,9 +1319,9 @@ export default function App() {
                           value={contactForm.subject}
                           onChange={e => setContactForm({ ...contactForm, subject: e.target.value })}
                         >
-                          <option>Acquérir une propriété / Dossiers hors-marché</option>
-                          <option>Implanter une franchise au Québec / Canada</option>
-                          <option>Devenir courtier ou agence affiliée Himalaya</option>
+                          <option value={t.contact.subjectOpt1}>{t.contact.subjectOpt1}</option>
+                          <option value={t.contact.subjectOpt2}>{t.contact.subjectOpt2}</option>
+                          <option value={t.contact.subjectOpt3}>{t.contact.subjectOpt3}</option>
                         </select>
                       )}
 
@@ -1336,13 +1386,13 @@ export default function App() {
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '20px', marginBottom: '28px' }}>
                 <div>
                   <span className="badge-gold" style={{ marginBottom: '10px' }}>
-                    <Lock size={12} /> Portail Interne
+                    <Lock size={12} /> {t.team.badge}
                   </span>
                   <h1 style={{ fontSize: '2rem', fontWeight: 700 }}>
-                    Zone Équipe &amp; <span className="gold-gradient-text">Himalaya Prospection CRM</span>
+                    {t.team.titleStart} <span className="gold-gradient-text">Himalaya Prospection CRM</span>
                   </h1>
                   <p style={{ color: 'var(--text-secondary)', fontSize: '0.92rem', marginTop: '6px' }}>
-                    Passerelle directe vers le logiciel interne de prospection, gestion des 1 115+ actifs et salle de données NDA.
+                    {t.team.subtitle}
                   </p>
                 </div>
 
@@ -1352,7 +1402,7 @@ export default function App() {
                   rel="noreferrer" 
                   className="btn-gold"
                 >
-                  <Sparkles size={16} /> Ouvrir Himalaya Prospection <ExternalLink size={14} />
+                  <Sparkles size={16} /> {t.team.openCrmBtn} <ExternalLink size={14} />
                 </a>
               </div>
 
@@ -1360,7 +1410,7 @@ export default function App() {
               {webLeads.length > 0 && (
                 <div style={{ marginTop: '16px' }}>
                   <h3 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--gold-light)', marginBottom: '12px' }}>
-                    Dernières demandes &amp; signatures NDA capturées ({webLeads.length})
+                    {t.team.leadsTitle} ({webLeads.length})
                   </h3>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                     {webLeads.slice(0, 8).map(lead => (
@@ -1378,7 +1428,7 @@ export default function App() {
                       }}>
                         <div>
                           <span className="badge-gold" style={{ marginRight: '10px' }}>
-                            {lead.type === 'nda' ? 'NDA Signé' : (lead.type === 'valuation' ? 'Évaluation Vendeur' : 'Contact')}
+                            {lead.type === 'nda' ? t.team.badgeNda : (lead.type === 'valuation' ? t.team.badgeValuation : t.team.badgeContact)}
                           </span>
                           <strong>{lead.fullName}</strong> • {lead.phone} • {lead.email}
                         </div>
@@ -1486,6 +1536,7 @@ export default function App() {
 
 /* Carte Propriété épurée (sans pavé de texte, régions nettoyées, boutons sur 1 ligne) */
 function PropertyCard({ deal, t, onSelect }) {
+  const isEn = t?.code === 'EN';
   const broker = (deal.brokers_details && deal.brokers_details[0]) || {
     name: deal.assigned_broker || 'Équipe Himalaya',
     photo: 'https://www.himalayacorp.com/gx/00/defaut_courtier.jpg'
@@ -1495,12 +1546,16 @@ function PropertyCard({ deal, t, onSelect }) {
     ? `${deal.city} (${deal.region})`
     : (deal.city || deal.region);
 
+  const displayCategory = isEn ? (deal.category_en || deal.category || deal.transaction_type) : (deal.category || deal.transaction_type);
+  const displayPrice = isEn ? (deal.price_raw_en || deal.price_raw) : deal.price_raw;
+  const displayTitle = isEn ? (deal.title_en || deal.title) : deal.title;
+
   return (
     <div className="property-card" onClick={onSelect} style={{ cursor: 'pointer' }}>
       <div className="property-img-wrap">
         <img 
           src={deal.main_photo} 
-          alt={deal.title}
+          alt={displayTitle}
           onError={e => { e.target.src = 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=900&q=80'; }}
         />
         <div style={{
@@ -1508,7 +1563,7 @@ function PropertyCard({ deal, t, onSelect }) {
           display: 'flex', alignItems: 'center', gap: '6px'
         }}>
           <span className="badge-gold" style={{ background: 'rgba(7,11,10,0.88)', backdropFilter: 'blur(6px)' }}>
-            {deal.category || deal.transaction_type}
+            {displayCategory}
           </span>
         </div>
 
@@ -1518,7 +1573,7 @@ function PropertyCard({ deal, t, onSelect }) {
           padding: '5px 11px', borderRadius: '7px', fontWeight: 700, color: 'var(--gold-light)',
           fontSize: '0.96rem', whiteSpace: 'nowrap'
         }}>
-          {deal.price_raw}
+          {displayPrice}
         </div>
       </div>
 
@@ -1534,7 +1589,7 @@ function PropertyCard({ deal, t, onSelect }) {
             WebkitBoxOrient: 'vertical',
             overflow: 'hidden'
           }}>
-            {deal.title}
+            {displayTitle}
           </h3>
           <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '0.82rem', color: 'var(--text-muted)', marginBottom: '16px' }}>
             <MapPin size={13} color="var(--gold)" style={{ flexShrink: 0 }} />
@@ -1556,7 +1611,7 @@ function PropertyCard({ deal, t, onSelect }) {
             <img 
               src={broker.photo} 
               alt={broker.name}
-              style={{ width: '28px', height: '28px', borderRadius: '50%', objectFit: 'cover', border: '1px solid var(--gold)', flexShrink: 0 }}
+              style={{ width: '28px', height: '28px', borderRadius: '50%', objectFit: 'cover', objectPosition: 'top center', border: '1px solid var(--gold)', flexShrink: 0 }}
               onError={e => { e.target.src = 'https://www.himalayacorp.com/gx/00/defaut_courtier.jpg'; }}
             />
             <span style={{ fontSize: '0.8rem', fontWeight: 500, color: 'var(--text-secondary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>

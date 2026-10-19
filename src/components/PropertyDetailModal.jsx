@@ -84,6 +84,12 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
     : Math.round(loanAmount / totalMonths);
 
   const ndaUnlocked = isNdaSignedForDeal(deal.mls_number);
+  const isEn = t?.code === 'EN';
+  const displayCategory = isEn ? (deal.category_en || deal.category || 'Real Estate') : (deal.category || deal.transaction_type || 'Immobilier');
+  const displayTitle = isEn ? (deal.title_en || deal.title) : deal.title;
+  const displayPrice = isEn ? (deal.price_raw_en || deal.price_raw) : deal.price_raw;
+  const displayDesc = isEn ? (deal.description_en || deal.description) : deal.description;
+  const displayUrl = isEn ? (deal.url_en || deal.url) : deal.url;
 
   return (
     <div className="modal-backdrop" onClick={onClose}>
@@ -105,7 +111,7 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <span className="badge-gold">
-              {deal.category || deal.transaction_type || 'Immobilier'}
+              {displayCategory}
             </span>
             <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
               MLS <strong style={{ color: 'var(--text-main)' }}>{deal.mls_number}</strong>
@@ -117,8 +123,8 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
               <Share2 size={13} />
               {copied ? (t?.modal?.copied || 'Lien copié !') : (t?.modal?.share || 'Partager')}
             </button>
-            {deal.url && (
-              <a href={deal.url} target="_blank" rel="noreferrer" className="btn-outline" style={{ padding: '6px 12px', fontSize: '0.78rem' }}>
+            {displayUrl && (
+              <a href={displayUrl} target="_blank" rel="noreferrer" className="btn-outline" style={{ padding: '6px 12px', fontSize: '0.78rem' }}>
                 <ExternalLink size={13} /> {t?.modal?.originalListing || 'Source'}
               </a>
             )}
@@ -156,7 +162,7 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
           }}>
             <img 
               src={photos[photoIdx]} 
-              alt={deal.title}
+              alt={displayTitle}
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               onError={e => { e.target.src = FALLBACK_IMG; }}
             />
@@ -227,7 +233,7 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
           }}>
             <div>
               <h2 style={{ fontSize: '1.6rem', fontWeight: 700, lineHeight: 1.25, marginBottom: '6px' }}>
-                {deal.title}
+                {displayTitle}
               </h2>
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--text-secondary)', fontSize: '0.88rem', marginBottom: '14px' }}>
                 <MapPin size={15} color="var(--gold)" />
@@ -245,14 +251,14 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
                 marginBottom: '20px',
                 display: 'inline-block'
               }}>
-                {deal.price_raw}
+                {displayPrice}
               </div>
 
               <h3 style={{ fontSize: '0.86rem', fontWeight: 600, color: 'var(--gold-light)', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                 {t?.modal?.description || 'Description'}
               </h3>
               <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', lineHeight: 1.7, marginBottom: '22px', whiteSpace: 'pre-line' }}>
-                {deal.description || 'Description détaillée disponible auprès du courtier inscripteur.'}
+                {displayDesc || t?.modal?.defaultDesc || 'Description détaillée disponible auprès du courtier inscripteur.'}
               </p>
 
               {cleanSpecs.length > 0 && (
