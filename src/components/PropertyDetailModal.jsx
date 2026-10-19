@@ -286,25 +286,25 @@ export default function PropertyDetailModal({ deal, onClose, onOpenNDA, onFilter
                 )}
               </div>
 
-              {/* INNOVATION : Pont vers Himalaya Prospection (Salle de données & NDA électronique) */}
+              {/* Salle de données & NDA électronique */}
               <div style={{
-                background: 'linear-gradient(145deg, rgba(200, 164, 93, 0.14) 0%, rgba(14, 21, 19, 0.95) 100%)',
+                background: 'linear-gradient(145deg, rgba(200, 164, 93, 0.12) 0%, rgba(14, 21, 19, 0.95) 100%)',
                 border: '1px solid var(--gold)',
-                borderRadius: '14px',
-                padding: '22px'
+                borderRadius: '12px',
+                padding: '20px'
               }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--gold-light)', fontWeight: 700, fontSize: '0.85rem', marginBottom: '8px' }}>
-                  <Sparkles size={16} /> SALLE DE DONNÉES & NDA AUTOMATISÉ
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--gold-light)', fontWeight: 700, fontSize: '0.84rem', marginBottom: '6px' }}>
+                  <Sparkles size={15} /> SALLE DE DONNÉES CONFIDENTIELLE
                 </div>
-                <p style={{ fontSize: '0.84rem', color: 'var(--text-secondary)', marginBottom: '16px' }}>
-                  Ce dossier bénéficie de la technologie <strong>Himalaya Prospection & CRM</strong> : signature d’entente de confidentialité (NDA) en ligne et accès rapide au mémorandum financier pour acheteurs qualifiés.
+                <p style={{ fontSize: '0.83rem', color: 'var(--text-secondary)', marginBottom: '14px' }}>
+                  Accès aux états financiers et au mémorandum après signature de l’entente de confidentialité (NDA).
                 </p>
                 <button 
                   onClick={() => { onClose(); onOpenNDA(deal); }}
                   className="btn-gold" 
                   style={{ width: '100%', justifyContent: 'center' }}
                 >
-                  <Lock size={15} /> Signer le NDA & Accéder au Dossier Financier
+                  <Lock size={14} /> Signer le NDA (États financiers)
                 </button>
               </div>
             </div>

@@ -223,12 +223,12 @@ export default function BuyerNDAModal({ deal, onClose }) {
                 </label>
               </div>
 
-              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px' }}>
+              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px', flexWrap: 'wrap' }}>
                 <button type="button" onClick={onClose} className="btn-outline">
                   Annuler
                 </button>
                 <button type="submit" className="btn-gold">
-                  <Lock size={15} /> Signer l’Engagement & Demander les États Financiers
+                  <Lock size={15} /> Signer le NDA
                 </button>
               </div>
             </form>
