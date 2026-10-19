@@ -38,7 +38,11 @@ if not exist ".git" (
     git remote add origin https://github.com/evanpatruno-spec/himalaya-website.git
 )
 
-echo [2/4] Verification de la compilation de production (Vite Build)...
+echo [2/4] Verification des dependances et compilation (Vite Build)...
+if not exist "node_modules" (
+    echo Installation initiale des dependances npm...
+    call "C:\Program Files\nodejs\npm.cmd" install
+)
 call "C:\Program Files\nodejs\npm.cmd" run build
 if errorlevel 1 (
     echo [ERREUR] La compilation a echoue. Corrigez les erreurs avant de publier.
@@ -48,14 +52,20 @@ if errorlevel 1 (
 
 echo [3/4] Ajout et sauvegarde des fichiers (Commit)...
 git add .
-git commit -m "Refonte structuree Portail Web Officiel Himalaya Corp 2.0"
+git diff --cached --quiet
+if errorlevel 1 (
+    git commit -m "Mise a jour Portail Web Officiel Himalaya Corp 2.0"
+) else (
+    echo Aucun nouveau changement local a commiter.
+)
 
 echo [4/4] Envoi vers GitHub (evanpatruno-spec/himalaya-website)...
 git push -u origin main
 
 echo.
 echo  ================================================================
-echo    SUCCES ! VOTRE CODE EST SUR GITHUB.
+echo    SUCCES ! VOTRE CODE EST SUR GITHUB (SEPAREMENT DE PROSPECTION)
+echo    Depot : https://github.com/evanpatruno-spec/himalaya-website
 echo    Si Vercel est connecte a ce depot, la mise en ligne est
 echo    automatique en moins de 30 secondes !
 echo  ================================================================
