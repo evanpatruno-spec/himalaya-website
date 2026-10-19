@@ -158,9 +158,9 @@ button, select, input, textarea {
 
 .header-inner {
   display: grid;
-  grid-template-columns: 1fr 290px 1fr;
+  grid-template-columns: 1fr 310px 1fr;
   align-items: center;
-  height: 86px;
+  height: 88px;
   gap: 8px;
   position: relative;
 }
@@ -183,8 +183,8 @@ button, select, input, textarea {
 
 .header-diamond-wrap {
   position: relative;
-  width: 290px;
-  height: 86px;
+  width: 310px;
+  height: 88px;
   display: flex;
   justify-content: center;
 }
@@ -194,10 +194,10 @@ button, select, input, textarea {
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 290px;
-  height: 206px;
+  width: 310px;
+  height: 220px;
   background: url('https://www.himalayacorp.com/gx/m/bg-logo.png') top center / 100% auto no-repeat;
-  padding-top: 23px;
+  padding-top: 22px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -212,7 +212,7 @@ button, select, input, textarea {
 }
 
 .header-diamond-box img {
-  width: 172px;
+  width: 134px;
   height: auto;
   display: block;
 }
@@ -488,10 +488,10 @@ button, select, input, textarea {
   .header-diamond-box {
     width: 210px;
     height: 150px;
-    padding-top: 16px;
+    padding-top: 15px;
   }
   .header-diamond-box img {
-    width: 124px;
+    width: 92px;
   }
   .mobile-menu-btn {
     display: inline-flex !important;
