@@ -135,85 +135,19 @@ export default function App() {
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      {/* TOP BAR ÉPURÉE */}
-      <div className="top-bar">
-        <div className="container top-bar-inner">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-            <a href="tel:5148984898" style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', whiteSpace: 'nowrap' }}>
-              <Phone size={12} color="var(--gold)" /> (514) 898-4898
-            </a>
-            <span className="top-bar-cities" style={{ opacity: 0.3 }}>|</span>
-            <span className="top-bar-cities" style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', whiteSpace: 'nowrap' }}>
-              <Globe size={12} color="var(--gold)" /> Montréal • Saint-Sauveur • Québec • Paris • Caraïbes
-            </span>
-          </div>
-
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-              {['FR', 'EN', 'ES'].map(code => (
-                <button
-                  key={code}
-                  onClick={() => setLang(code)}
-                  style={{
-                    background: lang === code ? 'rgba(200, 164, 93, 0.2)' : 'transparent',
-                    border: 'none',
-                    color: lang === code ? 'var(--gold-light)' : 'var(--text-muted)',
-                    padding: '2px 6px',
-                    borderRadius: '4px',
-                    fontSize: '0.72rem',
-                    cursor: 'pointer',
-                    fontWeight: lang === code ? 700 : 500
-                  }}
-                >
-                  {code}
-                </button>
-              ))}
-            </div>
-
-            <button 
-              onClick={() => navigateTo('zone-equipe')}
-              style={{
-                background: 'rgba(200, 164, 93, 0.14)',
-                border: '1px solid var(--border-gold)',
-                color: 'var(--gold-light)',
-                padding: '4px 10px',
-                borderRadius: '6px',
-                fontSize: '0.74rem',
-                fontWeight: 600,
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '5px',
-                cursor: 'pointer',
-                whiteSpace: 'nowrap'
-              }}
-            >
-              <Lock size={11} /> Accès Équipe
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* HEADER PRINCIPAL (1 seule ligne, sans troncature) */}
+      {/* HEADER PRINCIPAL ÉPURÉ (Logo seul à gauche, sans texte qui déborde) */}
       <header className="main-header">
         <div className="container header-inner">
           <div 
             onClick={() => navigateTo('home', { filtrePropriete: 'all', filtreCourtier: 'all' })}
-            style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer', flexShrink: 0 }}
+            style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', flexShrink: 0 }}
           >
             <img 
               src="https://www.himalayacorp.com/gx/himalaya-immobilier-logo.svg" 
               alt="Immobilier Himalaya"
-              style={{ height: '46px', width: 'auto' }}
+              style={{ height: '48px', width: 'auto', display: 'block' }}
               onError={e => { e.target.src = 'https://www.himalayacorp.com/gx/himalaya-immobilier-logo.png'; }}
             />
-            <div>
-              <div style={{ fontSize: '1.15rem', fontWeight: 700, letterSpacing: '0.02em', whiteSpace: 'nowrap' }}>
-                IMMOBILIER <span className="gold-gradient-text">HIMALAYA</span>
-              </div>
-              <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', letterSpacing: '0.08em', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>
-                Real Estate Corp.
-              </div>
-            </div>
           </div>
 
           <nav className="desktop-nav">
@@ -225,7 +159,7 @@ export default function App() {
               </li>
               <li>
                 <button className={`nav-btn ${activePage === 'proprietes' ? 'active' : ''}`} onClick={() => navigateTo('proprietes')}>
-                  Propriétés <span style={{ fontSize: '0.7rem', background: 'rgba(200,164,93,0.2)', color: 'var(--gold-light)', padding: '1px 6px', borderRadius: '99px' }}>{liveDealsData.length}</span>
+                  Propriétés ({liveDealsData.length})
                 </button>
               </li>
               <li>
@@ -248,18 +182,32 @@ export default function App() {
                   Actualités
                 </button>
               </li>
-              <li>
-                <button className={`nav-btn ${activePage === 'balados' ? 'active' : ''}`} onClick={() => navigateTo('balados')}>
-                  Balados
-                </button>
-              </li>
-              <li>
-                <button className="btn-gold" style={{ padding: '8px 16px', fontSize: '0.84rem', marginLeft: '6px' }} onClick={() => navigateTo('nous-joindre')}>
-                  Nous joindre
-                </button>
-              </li>
             </ul>
           </nav>
+
+          <div className="desktop-nav" style={{ display: 'flex', alignItems: 'center', gap: '10px', flexShrink: 0 }}>
+            <button 
+              onClick={() => setLang(lang === 'FR' ? 'EN' : 'FR')}
+              className="btn-outline"
+              style={{ padding: '7px 11px', fontSize: '0.78rem' }}
+            >
+              {lang}
+            </button>
+            <button 
+              onClick={() => navigateTo('zone-equipe')}
+              className="btn-outline"
+              style={{ padding: '7px 12px', fontSize: '0.8rem' }}
+            >
+              <Lock size={13} /> Équipe
+            </button>
+            <button 
+              className="btn-gold" 
+              style={{ padding: '8px 16px', fontSize: '0.84rem' }} 
+              onClick={() => navigateTo('nous-joindre')}
+            >
+              Nous joindre
+            </button>
+          </div>
 
           <button 
             className="mobile-menu-btn"
@@ -1154,16 +1102,13 @@ export default function App() {
             paddingBottom: '24px',
             borderBottom: '1px solid rgba(255,255,255,0.06)'
           }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
               <img 
                 src="https://www.himalayacorp.com/gx/himalaya-immobilier-logo.svg" 
                 alt="Himalaya" 
-                style={{ height: '38px' }}
+                style={{ height: '42px', display: 'block' }}
                 onError={e => { e.target.src = 'https://www.himalayacorp.com/gx/himalaya-immobilier-logo.png'; }}
               />
-              <span style={{ fontWeight: 700, fontSize: '0.95rem' }}>
-                Immobilier Himalaya Real Estate Corp.
-              </span>
             </div>
 
             <div style={{ display: 'flex', gap: '18px', flexWrap: 'wrap', fontSize: '0.84rem', color: 'var(--text-secondary)' }}>
