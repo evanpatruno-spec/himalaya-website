@@ -5,10 +5,10 @@ export const HIMALAYA_AGENCIES = [
     type: 'Siège Social & Direction Commerciale',
     city: 'Montréal, Québec',
     country: 'Canada',
-    address: '3905, boul. Henri-Bourassa Ouest, Montréal (Québec) H4R 1Z2',
-    phone: '514-898-4898',
+    address: '2000, avenue McGill College, bureau 600, Montréal (Québec) H3A 3H3',
+    phone: '(514) 898-4898',
     email: 'info@himalayacorp.com',
-    director: 'Roger Rhéaume & Geniev Mondoux',
+    director: 'Roger Rhéaume, Geniev Mondoux & Mike Ainajian',
     specialties: ['Commercial & Industriel', 'Investissement Multirésidentiel', 'Hôtellerie & Villégiature', 'Franchises'],
     image: 'https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1000&q=80',
     badge: 'Direction Générale'

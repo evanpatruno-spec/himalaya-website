@@ -296,7 +296,7 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
                   <img 
                     src={broker.photo} 
                     alt={broker.name}
-                    style={{ width: '60px', height: '60px', borderRadius: '50%', objectFit: 'cover', objectPosition: 'top center', border: '2px solid var(--gold)' }}
+                    style={{ width: '54px', aspectRatio: '314 / 543', borderRadius: '8px', objectFit: 'cover', objectPosition: 'top center', border: '1px solid var(--border-gold)', flexShrink: 0, display: 'block' }}
                     onError={e => { e.target.src = 'https://www.himalayacorp.com/gx/00/defaut_courtier.jpg'; }}
                   />
                   <div>

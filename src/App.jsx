@@ -827,25 +827,33 @@ export default function App() {
               <h2 style={{ fontSize: '1.55rem', fontWeight: 700, marginBottom: '18px' }}>
                 {t.about.leadershipTitle}
               </h2>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '22px' }}>
                 {INITIAL_HIMALAYA_BROKERS.filter(b => b.category === 'direction').map(dir => (
                   <div 
                     key={dir.id} 
                     className="broker-card" 
                     onClick={() => setSelectedBroker(dir)}
-                    style={{ padding: '22px', textAlign: 'center', cursor: 'pointer' }}
+                    style={{ cursor: 'pointer' }}
                   >
-                    <img 
-                      src={dir.photo} 
-                      alt={dir.name}
-                      style={{ width: '96px', height: '96px', borderRadius: '50%', objectFit: 'cover', margin: '0 auto 12px', border: '2px solid var(--gold)' }}
-                    />
-                    <span className="badge-gold" style={{ margin: '0 auto 8px' }}>{dir.shortTitle}</span>
-                    <h3 style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: '6px' }}>{dir.name}</h3>
-                    <p style={{ fontSize: '0.84rem', color: 'var(--text-secondary)', marginBottom: '16px' }}>{dir.city}</p>
-                    <span className="btn-outline" style={{ fontSize: '0.8rem', padding: '8px 14px', width: '100%' }}>
-                      {t.brokers.viewProfile} <ChevronRight size={14} />
-                    </span>
+                    <div style={{ width: '100%', aspectRatio: '314 / 543', background: '#070b0a', overflow: 'hidden' }}>
+                      <img 
+                        src={dir.photo} 
+                        alt={dir.name}
+                        style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center', display: 'block' }}
+                      />
+                    </div>
+                    <div style={{ padding: '18px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                      <div style={{ fontSize: '0.75rem', color: 'var(--gold)', fontWeight: 600 }}>
+                        {dir.shortTitle}
+                      </div>
+                      <h3 style={{ fontSize: '1.18rem', fontWeight: 700 }}>{dir.name}</h3>
+                      <p style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', marginBottom: '8px' }}>
+                        {dir.phone} • {dir.city}
+                      </p>
+                      <span className="btn-outline" style={{ fontSize: '0.8rem', padding: '8px 14px', width: '100%' }}>
+                        {t.brokers.viewProfile} <ChevronRight size={14} />
+                      </span>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -954,38 +962,29 @@ export default function App() {
                   <div key={broker.id} className="broker-card">
                     <div 
                       onClick={() => setSelectedBroker(broker)}
-                      style={{ position: 'relative', height: '250px', background: '#070b0a', overflow: 'hidden', cursor: 'pointer' }}
+                      style={{ position: 'relative', width: '100%', aspectRatio: '314 / 543', background: '#070b0a', overflow: 'hidden', cursor: 'pointer' }}
                     >
                       <img 
                         src={broker.photo} 
                         alt={broker.name}
-                        style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center' }}
+                        style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center', display: 'block' }}
                         onError={e => { e.target.src = 'https://www.himalayacorp.com/gx/00/defaut_courtier.jpg'; }}
                       />
-                      <div style={{
-                        position: 'absolute', inset: 0,
-                        background: 'linear-gradient(180deg, transparent 60%, rgba(14,21,19,0.96) 100%)'
-                      }} />
-                      <span className="badge-gold" style={{ position: 'absolute', top: '12px', left: '12px', background: 'rgba(7,11,10,0.85)' }}>
-                        {broker.shortTitle}
-                      </span>
-                      {brokerDeals.length > 0 && (
-                        <span style={{
-                          position: 'absolute', bottom: '10px', right: '12px',
-                          background: 'rgba(7,11,10,0.88)', border: '1px solid var(--border-gold)',
-                          color: 'var(--gold-light)', fontSize: '0.72rem', fontWeight: 700,
-                          padding: '3px 8px', borderRadius: '99px'
-                        }}>
-                          {brokerDeals.length} {t.brokers.activeMandates}
-                        </span>
-                      )}
                     </div>
 
-                    <div style={{ padding: '18px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                    <div style={{ padding: '16px 18px 18px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                       <div onClick={() => setSelectedBroker(broker)} style={{ marginBottom: '14px', cursor: 'pointer' }}>
+                        <div style={{ fontSize: '0.74rem', color: 'var(--gold)', fontWeight: 600, marginBottom: '4px', lineHeight: 1.35 }}>
+                          {broker.shortTitle}
+                        </div>
                         <h3 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: '4px' }}>{broker.name}</h3>
-                        <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
-                          {broker.city}
+                        <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px' }}>
+                          <span>{broker.city}</span>
+                          {brokerDeals.length > 0 && (
+                            <span style={{ color: 'var(--gold-light)', fontWeight: 600, fontSize: '0.76rem' }}>
+                              {brokerDeals.length} {t.brokers.activeMandates}
+                            </span>
+                          )}
                         </div>
                       </div>
 
@@ -1155,8 +1154,9 @@ export default function App() {
                   <div style={{ background: 'var(--bg-card)', padding: '18px', borderRadius: '12px', border: '1px solid var(--border-subtle)' }}>
                     <div style={{ fontSize: '0.74rem', textTransform: 'uppercase', color: 'var(--gold)', fontWeight: 600 }}>{t.contact.hqLabel}</div>
                     <div style={{ fontWeight: 600, fontSize: '1rem', marginTop: '4px' }}>Immobilier Himalaya Real Estate Corp.</div>
-                    <div style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', marginTop: '4px' }}>3905, boul. Henri-Bourassa Ouest, Montréal (QC) H4R 1Z2</div>
+                    <div style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', marginTop: '4px' }}>2000, avenue McGill College, bureau 600, Montréal (QC) H3A 3H3</div>
                     <div style={{ display: 'flex', gap: '16px', marginTop: '10px', fontSize: '0.88rem', flexWrap: 'wrap' }}>
+                      <a href="tel:18008204828" style={{ color: 'var(--gold-light)', fontWeight: 600 }}>1 800 820-4828</a>
                       <a href="tel:5148984898" style={{ color: 'var(--gold-light)', fontWeight: 600 }}>(514) 898-4898</a>
                       <a href="mailto:info@himalayacorp.com" style={{ color: 'var(--gold-light)', fontWeight: 600 }}>info@himalayacorp.com</a>
                     </div>
@@ -1165,9 +1165,9 @@ export default function App() {
                   <div style={{ background: 'var(--bg-card)', padding: '18px', borderRadius: '12px', border: '1px solid var(--border-subtle)' }}>
                     <div style={{ fontSize: '0.74rem', textTransform: 'uppercase', color: 'var(--gold)', fontWeight: 600 }}>{t.contact.leadershipLabel}</div>
                     <div style={{ color: 'var(--text-secondary)', fontSize: '0.86rem', marginTop: '6px', lineHeight: 1.7 }}>
-                      <strong>Roger Rhéaume</strong> (Président) : 514-585-2605<br />
-                      <strong>Geniev Mondoux</strong> (Vice-Présidente) : 514-898-4898<br />
-                      <strong>Mike Ainajian</strong> (Directeur d’Agence) : 514-898-4898
+                      <strong>Roger Rhéaume</strong> (Président) : (514) 585-2605<br />
+                      <strong>Geniev Mondoux</strong> (Vice-Présidente) : (514) 884-1052<br />
+                      <strong>Mike Ainajian</strong> (Directeur d’Agence) : (514) 898-4898
                     </div>
                   </div>
                 </div>

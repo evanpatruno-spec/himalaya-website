@@ -11,9 +11,15 @@
     "city": "Laval",
     "region": "Laval",
     "postal_code": "H7H1N8",
-    "assigned_broker": "Nathan Thérien",
+    "assigned_broker": "Sylvain Lessard",
     "co_brokers": [],
     "brokers_details": [
+      {
+        "name": "Sylvain Lessard",
+        "phone": "(418) 805-5683",
+        "email": "immoslessard@gmail.com",
+        "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/133_courtierGrand.jpg"
+      },
       {
         "name": "Nathan Thérien",
         "phone": "(418) 906-7929",
@@ -529,9 +535,15 @@
     "city": "Laval",
     "region": "Laval",
     "postal_code": "H7H0B8",
-    "assigned_broker": "Nathan Thérien",
+    "assigned_broker": "Sylvain Lessard",
     "co_brokers": [],
     "brokers_details": [
+      {
+        "name": "Sylvain Lessard",
+        "phone": "(418) 805-5683",
+        "email": "immoslessard@gmail.com",
+        "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/133_courtierGrand.jpg"
+      },
       {
         "name": "Nathan Thérien",
         "phone": "(418) 906-7929",
@@ -607,9 +619,9 @@
       },
       {
         "name": "Evan Patruno",
-        "phone": "",
-        "email": "",
-        "photo": ""
+        "phone": "514 567 3249",
+        "email": "epatrunocourtier@gmail.com",
+        "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/132_courtierGrand.jpg"
       }
     ],
     "description": "Batiment autre, il y a un batiment principal de 4 chambres (plus salon et cuisine) comme résidence personnel du propriétaire, il y a 11 chalets locatifs plus un pour le personnel et entrepôt garage mécanique, moulin à scie et fish house. Imaginez posséder une destination véritablement unique, nichée sur un paradis insulaire vierge. Cette exceptionnelle station offre une expérience inégalée pour les aventuriers, les amoureux de la nature et les voyageurs de luxe. Entourée d'eaux cristallines, d'une végétation tropicale luxuriante et de panoramas à couper le souffle, cette perle insulaire offre un décor parfait pour des activités de plein air et des retraites exclusives. Saisissez cette rare opportunité de posséder un coin de paradis, un endroit où la beauté naturelle et l'aventure s'harmonisent parfaitement. Que vous cherchiez à développer votre portefeuille dans l'hôtellerie ou à créer la escapade ultime pour une clientèle en quête d'exclusivité et de paysages à couper le souffle, cette station insulaire est la clé pour réaliser vos rêves. De plus, cette propriété est ouverte toute l'année, y compris en hiver, offrant des expériences inoubliables à chaque saison. En hiver, vous pouvez venir avec vos amis pour profiter des paysages enneigés spectaculaires et des activités de sports d'hiver, comme la motoneige. Imaginez explorer des terrains immaculés, partager des moments d'aventure et de détente dans un cadre à couper le souffle, même lorsque la neige recouvre cette île paradisiaque. C'est l'endroit idéal pour des escapades hivernales exceptionnelles, offrant des possibilités d'activités toute l'année pour des visiteurs en quête de découvertes.",
@@ -897,9 +909,15 @@
     "city": "Gatineau (Aylmer)",
     "region": "Outaouais",
     "postal_code": "J9J3N7",
-    "assigned_broker": "Michel Potvin",
+    "assigned_broker": "Geniev Mondoux",
     "co_brokers": [],
     "brokers_details": [
+      {
+        "name": "Geniev Mondoux",
+        "phone": "(514) 884-1052",
+        "email": "g.mondoux@himalayacorp.com",
+        "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/11_courtierGrand.JPG"
+      },
       {
         "name": "Michel Potvin",
         "phone": "(819) 664-9984",
@@ -974,22 +992,22 @@
     "city": "La Tuque",
     "region": "Mauricie",
     "postal_code": "G9X3P1",
-    "assigned_broker": "Nathan Thérien",
+    "assigned_broker": "Roger Rhéaume",
     "co_brokers": [
       "Roger Rhéaume"
     ],
     "brokers_details": [
       {
+        "name": "Roger Rhéaume",
+        "phone": "(514) 585-2605",
+        "email": "r.rheaume@himalayacorp.com",
+        "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/99_courtierGrand.jpg"
+      },
+      {
         "name": "Nathan Thérien",
         "phone": "(418) 906-7929",
         "email": "n.therien@himalayacorp.com",
         "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/119_courtierGrand.jpg"
-      },
-      {
-        "name": "Roger Rhéaume",
-        "phone": "",
-        "email": "",
-        "photo": ""
       }
     ],
     "description": "Bienvenue à la pourvoirie Québec Azimut, actif rare en Haute-Mauricie, sur les rives du Réservoir Blanc, avec territoire exclusif d'environ 104 km², comprenant de nombreux lacs, chemins forestiers et secteurs de chasse. La pourvoirie comprend 10 chalets, dont 9 rénovés récemment, et une auberge/bâtiment d'accueil avec dortoirs, salle de réception/bar et terrasse. Capacité autorisée de 72 personnes. Pêche à la truite grise, brochet et doré jaune; chasse à l'orignal, petit gibier et fort potentiel de chasse à l'ours à développer. Idéal pour villégiature, groupes, événements nature. Site bénéficiant d'un accès ferroviaire par VIA Rail.",
@@ -1173,22 +1191,22 @@
     "city": "Pontiac",
     "region": "Outaouais",
     "postal_code": "J1L1N1",
-    "assigned_broker": "Evan Patruno",
+    "assigned_broker": "Roger Rhéaume",
     "co_brokers": [
       "Roger Rhéaume"
     ],
     "brokers_details": [
       {
+        "name": "Roger Rhéaume",
+        "phone": "(514) 585-2605",
+        "email": "r.rheaume@himalayacorp.com",
+        "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/99_courtierGrand.jpg"
+      },
+      {
         "name": "Evan Patruno",
         "phone": "514 567 3249",
         "email": "epatrunocourtier@gmail.com",
         "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/132_courtierGrand.jpg"
-      },
-      {
-        "name": "Roger Rhéaume",
-        "phone": "",
-        "email": "",
-        "photo": ""
       }
     ],
     "description": "Pourvoirie de renom à droits exclusifs sur un immense territoire préservé de 120 km² (Zone 12). Réputée pour ses touladis trophées (truite grise), sa truite mouchetée et la qualité de sa chasse (orignal, ours noir). Parc complet d'hébergements comprenant plusieurs chalets et camps aménagés pouvant accueillir de petits et grands groupes. Activités 3 saisons : villégiature, baignade, VTT et plein air. Entreprise établie avec clientèle fidèle, flotte d'embarcations et fort potentiel de développement récréotouristique. OPPORTUNITÉ COMMERCIALE UNIQUE | POURVOIRIE DU LAC DOOLITTLE (DROITS EXCLUSIFS) Située au coeur d'une nature sauvage et préservée, la Pourvoirie du Lac Doolittle représente une occasion exceptionnelle d'acquérir une entreprise récréotouristique établie et rentable, dotée de droits exclusifs de chasse et de pêche sur un vaste territoire de 120.3 km² (Zone 12). UN DOMAINE FAUNIQUE DE PREMIER PLAN * Pêche de renommée mondiale : Le Lac Doolittle est célébré depuis des décennies pour l'incroyable productivité de ses touladis (truites grises), reconnus pour leur taille et la finesse de leur chair, en plus d'excellents plans d'eau pour la truite mouchetée. * Chasse exceptionnelle : Territoire giboyeux sous gestion exclusive, idéal pour l'orignal, l'ours noir, et le petit gibier. * Villégiature 3 saisons : Un véritable havre de paix familial permettant le VTT, la motoneige, la randonnée, la baignade et les activités nautiques (canot, kayak, pédalo). INFRASTRUCTURES D'ACCUEIL COMPLÈTES Le domaine comprend un parc immobilier diversifié, prêt à opérer sans interruption : * 12 chalets aménagés pouvant accueillir un total de 76 personnes * 3 camps de chasse * Commodités installées : cuisines complètes, poêles au bois, génératrices/systèmes d'énergie, blocs sanitaires et aires de détente avec vues imprenables sur l'eau. * Flotte d'embarcations, moteurs et dépendances d'entretien inclus dans les opérations. POTENTIEL D'AFFAIRES & DE CROISSANCE Bénéficiant d'une clientèle récurrente et fidèle, l'entreprise présente un fort potentiel d'optimisation.",
@@ -1558,22 +1576,22 @@
     "city": "Pontiac",
     "region": "Outaouais",
     "postal_code": "J1L1N1",
-    "assigned_broker": "Evan Patruno",
+    "assigned_broker": "Roger Rhéaume",
     "co_brokers": [
       "Roger Rhéaume"
     ],
     "brokers_details": [
       {
+        "name": "Roger Rhéaume",
+        "phone": "(514) 585-2605",
+        "email": "r.rheaume@himalayacorp.com",
+        "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/99_courtierGrand.jpg"
+      },
+      {
         "name": "Evan Patruno",
         "phone": "514 567 3249",
         "email": "epatrunocourtier@gmail.com",
         "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/132_courtierGrand.jpg"
-      },
-      {
-        "name": "Roger Rhéaume",
-        "phone": "",
-        "email": "",
-        "photo": ""
       }
     ],
     "description": "Comprend un grand chalet d'accueil principal avec espace restauration, un chalet (Bear Lodge) de 8 chambres pouvant accueillir jusqu'à 16 personnes, 5 chalets locatifs entièrement équipés, 3 maisons mobiles/roulottes aménagées, ainsi que 8 camps de chasse autonomes répartis sur le territoire, avec remises et dépendances. Le tout établi sur un territoire à bail gouvernemental exclusif de 154 km² comprenant de nombreux lacs et 22 km bordant la rivière Coulonge. Imaginez posséder un domaine d'exception au coeur de la nature sauvage du Québec, immédiatement adjacent au prestigieux parc de La Vérendrye. Cette pourvoirie renommée s'étend sur un vaste territoire sous bail exclusif de 154 kilomètres carrés, offrant des droits de chasse et de pêche exclusifs dans un décor préservé de lacs sauvages, de forêts majestueuses et de rivières sinueuses. Saisissez cette opportunité rare d'acquérir une véritable destination plein air, réputée pour la qualité exceptionnelle de ses territoires de chasse contingentés (orignal, ours noir et petit gibier) ainsi que pour ses plans d'eau abritant doré, brochet et truite. Traversé par 22 km de la majestueuse rivière Coulonge, le domaine constitue un relais recherché pour les amateurs de VTT/Quad et offre un cadre idéal pour la villégiature, la randonnée, le canot/kayak et la cueillette en nature. Que vous souhaitiez développer un projet commercial d'envergure dans le domaine de l'hôtellerie de plein air ou acquérir une exploitation faunique établie, cette propriété offre un potentiel remarquable pour faire vivre des moments inoubliables à une clientèle en quête de grands espaces et d'aventures authentiques.",
@@ -1696,9 +1714,9 @@
       },
       {
         "name": "Nathan Thérien",
-        "phone": "",
-        "email": "",
-        "photo": ""
+        "phone": "(418) 906-7929",
+        "email": "n.therien@himalayacorp.com",
+        "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/119_courtierGrand.jpg"
       }
     ],
     "description": "Pourvoirie Camp Cooper -- Située près de la Réserve faunique Ashuapmushuan, à 1 h 30 de Chibougamau et 2 h 30 de Saint-Félicien, ce site historique (ancien camp de bûcherons de la CIP) offre une expérience en pleine nature. Il comprend une auberge de 20 chambres et 6 chalets. Les lacs du plateau laurentien offrent une excellente pêche au doré et au brochet. Sur 72 000 m² en territoire non exclusif, on y pratique aussi la chasse à l'ours et au petit gibier, dans une région riche en faune et paysages. La présente vente est faite sans garantie légale de qualité, aux risques et périls de l'acheteur. Visite sur promesse d'achat accepté. Les amateurs de plein air seront séduits par l'exceptionnelle qualité de la pêche, avec une abondance de brochets du Nord ainsi que des dorés de taille trophée. Le territoire est également riche en faune, avec une forte concentration d'ours, offrant d'excellentes opportunités pour la chasse à l'ours au printemps, ainsi que pour la chasse au petit gibier à l'automne. Les propriétaires actuels ont investi de manière importante dans plusieurs rénovations, assurant une exploitation optimisée et une propriété bien entretenue. La pourvoirie est alimentée par 40 panneaux solaires bifaciaux de 550W, offrant une source d'énergie fiable et durable. De plus, tous les bâtiments sont entièrement isolés, permettant un potentiel d'exploitation quatre saisons.",
@@ -1921,22 +1939,22 @@
     "city": "Baie-Sainte-Catherine",
     "region": "Région de Québec",
     "postal_code": "G0T1A0",
-    "assigned_broker": "Nathan Thérien",
+    "assigned_broker": "Roger Rhéaume",
     "co_brokers": [
       "Roger Rhéaume"
     ],
     "brokers_details": [
       {
+        "name": "Roger Rhéaume",
+        "phone": "(514) 585-2605",
+        "email": "r.rheaume@himalayacorp.com",
+        "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/99_courtierGrand.jpg"
+      },
+      {
         "name": "Nathan Thérien",
         "phone": "(418) 906-7929",
         "email": "n.therien@himalayacorp.com",
         "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/119_courtierGrand.jpg"
-      },
-      {
-        "name": "Roger Rhéaume",
-        "phone": "",
-        "email": "",
-        "photo": ""
       }
     ],
     "description": "Rare occasion d'acquérir une pourvoirie en exploitation à Baie-Sainte-Catherine, dans Charlevoix, au coeur d'un environnement naturel remarquable. L'entreprise bénéficie d'un territoire exclusif de 4,5 km² comptant cinq lacs et huit chalets quatre étoiles. Réputée pour la chasse à l'orignal et à l'ours et la pêche à l'omble de fontaine, elle est la seule pourvoirie de la région à offrir la pêche à l'omble moulac. À 6 km de la route 138 et 12 km de Tadoussac, elle permet de combiner activités récréotouristiques et observation des baleines. Évaluée à 1246000$ en 2026. Communiquez avec le courtier inscripteur pour obtenir plus de renseignements.",
@@ -2233,22 +2251,22 @@
     "city": "Saint-Siméon",
     "region": "Région de Québec",
     "postal_code": "G0T1X0",
-    "assigned_broker": "Nathan Thérien",
+    "assigned_broker": "Roger Rhéaume",
     "co_brokers": [
       "Roger Rhéaume"
     ],
     "brokers_details": [
       {
+        "name": "Roger Rhéaume",
+        "phone": "(514) 585-2605",
+        "email": "r.rheaume@himalayacorp.com",
+        "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/99_courtierGrand.jpg"
+      },
+      {
         "name": "Nathan Thérien",
         "phone": "(418) 906-7929",
         "email": "n.therien@himalayacorp.com",
         "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/119_courtierGrand.jpg"
-      },
-      {
-        "name": "Roger Rhéaume",
-        "phone": "",
-        "email": "",
-        "photo": ""
       }
     ],
     "description": "Rare opportunité d'acquérir une pourvoirie à droits exclusifs dans Charlevoix. Territoire exclusif de 35,4 km² comprenant 15 lacs, 8 chalets et un bâtiment d'accueil. Située à 12 km de Saint-Siméon, près de la route 138, elle offre un accès pratique en pleine nature. Atouts majeurs et rares dans le domaine : la pourvoirie est desservie par le réseau d'Hydro-Québec et les chalets sont situés sur un terrain privé. Entreprise familiale établie, avec clientèle fidèle et fort potentiel de croissance. VISITE SUR OFFRE ACCEPTÉ SEULEMENT. La présente vente est faite sans garantie légale de qualité, aux risques et périls de l'acheteur. Pourvoirie à droits exclusifs située dans la magnifique région de Charlevoix, à Saint-Siméon, offrant un environnement naturel exceptionnel et un fort potentiel de croissance. La propriété bénéficie d'un territoire exclusif d'environ 35 km² sur les terres de l'État, comprenant 15 lacs, dont 5 ensemencés, permettant d'offrir une expérience complète axée sur la pêche, la chasse et les séjours en nature. Le site principal, situé en bordure du lac du Port aux Quilles, comprend notamment 8 chalets locatifs, un bâtiment d'accueil avec logement, un garage, des quais flottants ainsi que des aménagements extérieurs. Les chalets sont situés sur un terrain privé, un avantage rare dans le domaine des pourvoiries. Autre atout majeur : la propriété est desservie par le réseau d'Hydro-Québec, ce qui représente un avantage important pour ce type d'exploitation, plusieurs pourvoiries étant situées en secteurs plus isolés et non raccordés au réseau électrique. La pourvoirie est située à seulement 12 km de Saint-Siméon, à proximité de la route 138, combinant ainsi accessibilité et immersion en pleine nature. L'exploitation montre également un historique de revenus en croissance au cours des dernières années, démontrant une demande soutenue et un potentiel de développement. Une occasion rare d'acquérir une pourvoirie familiale bien établie, avec un territoire exclusif, des installations en place et plusieurs caractéristiques distinctives difficiles à retrouver sur le marché.",
@@ -3170,7 +3188,7 @@
         "name": "Geniev Mondoux",
         "phone": "(514) 884-1052",
         "email": "g.mondoux@himalayacorp.com",
-        "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/11_courtierGrand.jpg"
+        "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/11_courtierGrand.JPG"
       }
     ],
     "description": "Charmante maison de plain-pied isolée située à Terrebonne, sur un terrain de 7 799 pi². Elle propose des espaces de vie lumineux, une cuisine fonctionnelle avec coin-repas, une salle à manger conviviale et un sous-sol aménagé offrant de belles possibilités. Profitez d'une thermopompe centrale, d'un foyer électrique et d'une cour intime bordée de haies avec piscine hors terre et terrasse couverte. Le grand garage détaché, aménagé à l'intérieur, complète avantageusement la propriété. Immeuble présentement loué; occupation selon le bail. Les visites sont possibles les dimanches entre 11 h 00 et 12 h, avec un préavis obligatoire de 36 heures. Merci ***AUCUNE VISITE EXCEPTIONNELLEMENT LE DIMANCHE 11 octobre 2026.***",
@@ -3282,7 +3300,7 @@
         "name": "Geniev Mondoux",
         "phone": "(514) 884-1052",
         "email": "g.mondoux@himalayacorp.com",
-        "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/11_courtierGrand.jpg"
+        "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/11_courtierGrand.JPG"
       }
     ],
     "description": "condo commercial de 742 pc au RDC avec 674 pc au sous-sol (usage exclusif), idéalement situé au coeur d'Outremont sur la prisée avenue Bernard, dans l'immeuble Royal York. Grande façade vitrée offrant excellente visibilité et luminosité, belle hauteur sous plafond et cachet architectural distinctif. Comprend également l'utilisation du sous-sol immédiat d'environ 674 pi², idéal pour entreposage et besoins complémentaires. Les frais de copropriété comprennent chauffage, eau chaude, entretien et assurance de l'immeuble. Emplacement exceptionnel au coeur d'une artère animée, entourée de commerces, cafés, restaurants et services. ** Présence du courtier du vendeur obligatoire lors de toutes les visites. Veuillez planifier en conséquence.*** A) Autres parties communes a usages exclusif a d'autres propriétaires de condo: 1513244, 1513245, 1513246, 1513240, 1513239, 1513238, 1513237 B) Les visites auront lieu Mardi et Vendredi entre 9-11h. Sur demande. C) Le rangement est un espace au sou-sol à usage exclusif de 674pc (6.6p haut) D) Depuis plusieurs années et de façon récurrentes un montant annuel d'environ 1750$ a été demandé. Ceci couvre entre autre la remaçonnerie des murs extérieures, refaire le toit pour la climatisation pour pouvoir accueillir les travaux pour la climatisation pour tous les condominiums résidentiels et commerciaux. La structure du toit doit être renforcie mais la réfection du toit était aussi dû (selon les assurances). Chaque propriétaire sera responsable des coût pour la machine, son installation et son raccordements et son opération. E) droit de premier refus: un courriel daté du 27 août indique que la locataire a renoncé à son droit de préemption. F) Affichage: La réglementation limite l'utilisation d'enseignes lumineuses sur l'avenue Bernard, les limitant à des lettres détachées dont la surface est translucide, à des enseignes illuminées par réflexion et à des enseignes néons appliquées à la surface intérieur des vitrines. Pour superficie d'affichage autorisé et autres détails à ce niveau, voir les règlements de l'immeuble.",
@@ -3482,9 +3500,15 @@
     "city": "Longueuil (Saint-Hubert)",
     "region": "Montérégie",
     "postal_code": "J3Y7G5",
-    "assigned_broker": "Olivier Meunier",
+    "assigned_broker": "Shella Hubert",
     "co_brokers": [],
     "brokers_details": [
+      {
+        "name": "Shella Hubert",
+        "phone": "(514) 746-2305",
+        "email": "Shellahubert.immo@gmail.com",
+        "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/151_courtierGrand.jpeg"
+      },
       {
         "name": "Olivier Meunier",
         "phone": "(514) 299-4490",
@@ -3616,9 +3640,9 @@
     "brokers_details": [
       {
         "name": "Shella Hubert",
-        "phone": "",
+        "phone": "(514) 746-2305",
         "email": "Shellahubert.immo@gmail.com",
-        "photo": "https://www.himalayacorp.com/gx/00/defaut_courtier_tn.jpg"
+        "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/151_courtierGrand.jpeg"
       }
     ],
     "description": "Situé à proximité du Marché Central, du métro, des commodités et des grands axes routiers, ce loft offre un emplacement stratégique. Ancienne fabrique de textile de 1969 convertie en copropriété en 2013, il propose un concept à aire ouverte avec plafonds de 12 pieds et une luminosité impressionnante. Son espace polyvalent permet une multitude de configurations selon vos besoins : salon, chambre, bureau ou espace hybride. Les photos mettent en valeur tout le potentiel d'aménagement.Les images ont été générées à l'aide de IA uniquement à titre illustratif afin de présenter des possibilités d'aménagement et de mise en va Situé à proximité du Marché Central, du métro, des commodités et des grands axes routiers, ce loft offre un emplacement stratégique. Ancienne fabrique de textile de 1969 convertie en copropriété en 2013, il propose un concept à aire ouverte avec plafonds de 12 pieds et une luminosité impressionnante. Son espace polyvalent permet une multitude de configurations selon vos besoins : salon, chambre, bureau ou espace hybride. Les photos mettent en valeur tout le potentiel d'aménagement. Les images ont été générées à l'aide de l'intelligence artificielle uniquement à titre illustratif afin de présenter des possibilités d'aménagement et de mise en valeur du potentiel de l'espace.",
@@ -3810,6 +3834,18 @@
         "phone": "(514) 585-2605",
         "email": "r.rheaume@himalayacorp.com",
         "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/99_courtierGrand.jpg"
+      },
+      {
+        "name": "Geniev Mondoux",
+        "phone": "(514) 884-1052",
+        "email": "g.mondoux@himalayacorp.com",
+        "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/11_courtierGrand.JPG"
+      },
+      {
+        "name": "Mike Ainajian",
+        "phone": "(514) 898-4898",
+        "email": "m.ainajian@himalayacorp.com",
+        "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/147_courtierGrand.jpg"
       }
     ],
     "description": "Détails Roger Rhéaume Président - Immobilier HIMALAYA Real Estate corp. Courtier immobilier agréé - DA Cell. (514) 585-2605 Immobilier Himalaya Real Estate Corp Contacter le courtier Roger Rhéaume Président - Immobilier HIMALAYA Real Estate corp. Courtier immobilier agréé - DA Cell. (514) 585-2605 Immobilier Himalaya Real Estate Corp Contacter le courtier Geniev Mondoux Vice-Président - Courtier Immobilier Résidentiel et Commercial agréé, DA Cell. (514) 884-1052 Immobilier Himalaya Real Estate Corp Contacter le courtier Roger Rhéaume Président de Immobilier HIMALAYA Real Estate corp & FHERMAN Real Estate MEXICO Inmobiliaria Himalaya Real Estate México TM Contacter le courtier Mike Ainajian Courtier Immobilier Résidentiel et Commercial agréé, Associé et DIRECTEUR D'AGENCE Cell. (514) 898-4898 Immobilier Himalaya Real Estate Corp Contacter le courtier Éric Barelier Courtier immobilier Rép-Dominicaine Agence 1 809 890 1174 Immobilier Himalaya Real Estate Corp Contacter le courtier Lucie Bourbeau Courtier Immobilier Résidentiel et Commercial Cell. (514) 884-1209 Immobilier Himalaya Real Estate Corp Contacter le courtier Sylvie Castonguay Courtier Immobilier Résidentiel et Commercial Cell. (514) 945-4090 Immobilier Himalaya Real Estate Corp Suivre sur instagram Contacter le courtier Marie-Cristelle Comeau Courtier Immobilier Commercial Cell. (514) 773-7359 Immobilier Himalaya Real Estate Corp Contacter le courtier Shella Hubert Immobilier Himalaya Real Estate Corp Contacter le courtier Joseph Jacob Courtier Immobilier Résidentiel et Commercial Cell. (514) 449-1137 Immobilier Himalaya Real Estate Corp Contacter le courtier Sylvain Lessard Courtier Immobilier Résidentiel et Commercial, Immobilier Sylvain Lessard Inc. Cell. (418) 805-5683 Immobilier Himalaya Real Estate Corp Contacter le courtier Lyna Lyna Brassard Courtier Affilié international Contacter le courtier Olivier Meunier Courtier Immobilier Résidentiel et Commercial, Conseiller Chine-Canada Cell. (514) 299-4490 Immobilier Himalaya Real Estate Corp Contacter le courtier Taline Ovayan Courtier Immobilier Résidentiel Cell. (514) 574-8282 Immobilier Himalaya Real Estate Corp Contacter le courtier Evan Patruno Courtier Immobilier Résidentiel et Commercial Cell. 514 567 3249 Immobilier Himalaya Real Estate Corp Contacter le courtier Michel Potvin Courtier Immobilier Résidentiel et Commercial Cell. (819) 664-9984 Immobilier Himalaya Real Estate Corp Contacter le courtier Nagatharsini Rajartnam Courtier Immobilier Résidentiel Cell. 514.823.2332 Immobilier Himalaya Real Estate Corp Contacter le courtier Hemkesh Nivan Ramgolam Courtier Immobilier Résidentiel et Commercial Cell. 514-458-4236 Immobilier Himalaya Real Estate Corp Contacter le courtier Nathan Thérien Courtier Immobilier Commercial Cell. (418) 906-7929 Immobilier Himalaya Real Estate Corp Contacter le courtier Yun Zhang Courtier Immobilier Résidentiel Cell. 514-518-6188 Immobilier Himalaya Real Estate Corp Contacter le courtier Pengbo Zhao Courtier Immobilier Résidentiel et Commercial Cell. (514) 803-8803 Immobilier Himalaya Real Estate Corp Contacter le courtier Nombre d'unités au total 1 Type de bâtiment Détaché (Isolé) Nombre d'étages 1 Année de construction Inconnue COÛTS/REVENUS ET ÉVALUATION Taxes municipales 0 $ Taxes scolaires 0 $ Reprise de finance Non",
@@ -4025,22 +4061,22 @@
     "city": "Delson",
     "region": "Montérégie",
     "postal_code": "J0L1G0",
-    "assigned_broker": "Mike Ainajian",
+    "assigned_broker": "Roger Rhéaume",
     "co_brokers": [
       "Roger Rhéaume"
     ],
     "brokers_details": [
       {
+        "name": "Roger Rhéaume",
+        "phone": "(514) 585-2605",
+        "email": "r.rheaume@himalayacorp.com",
+        "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/99_courtierGrand.jpg"
+      },
+      {
         "name": "Mike Ainajian",
         "phone": "(514) 898-4898",
         "email": "m.ainajian@himalayacorp.com",
         "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/147_courtierGrand.jpg"
-      },
-      {
-        "name": "Roger Rhéaume",
-        "phone": "",
-        "email": "",
-        "photo": ""
       }
     ],
     "description": "Pizzeria familiale à vendre à Delson, située sur une artère principale très achalandée. Entièrement équipée, bail jusqu'en septembre 2028 + option de renouvellement de 5 ans. Fort potentiel d'augmentation des ventes et de la clientèle -- prix compétitif, vendeur très motivé ! Excellente opportunité d'acquérir une pizzeria familiale bien établie, vendue entièrement équipée et prête à être exploitée immédiatement. Idéalement située sur une artère principale très achalandée dans la ville de Delson, sur la Rive-Sud de Montréal, cet emplacement bénéficie d'une grande visibilité et d'un flux constant de clientèle. Cette entreprise clé en main est parfaite pour une exploitation familiale, offrant un environnement chaleureux avec tout l'équipement nécessaire pour assurer une continuité des opérations sans interruption. Le bail est en vigueur jusqu'en septembre 2028, avec une option de renouvellement de 5 ans, garantissant une stabilité à long terme. Avec une base solide déjà en place, cette entreprise offre un fort potentiel d'augmentation du chiffre d'affaires et de développement de la clientèle grâce à des stratégies de croissance telles que l'extension des heures d'ouverture, la livraison ou le marketing. Offerte à un prix très compétitif, avec un vendeur très motivé -- une occasion à saisir !",
@@ -4105,7 +4141,7 @@
         "name": "Geniev Mondoux",
         "phone": "(514) 884-1052",
         "email": "g.mondoux@himalayacorp.com",
-        "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/11_courtierGrand.jpg"
+        "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/11_courtierGrand.JPG"
       }
     ],
     "description": "Occasion exceptionnelle de louer un espace commercial de 3 400pc dans un emplacement très visible sur Jean-Talon Est, l'un des axes commerciaux les plus achalandés de Saint-Léonard. 40 pieds de façade vitrée offrent une excellente visibilité sur la rue. Idéal pour commerces de détail, bureaux ou entreprises de services. Situé sur une artère commerciale importante avec une circulation piétonnière et automobile intense. Accès pour le chargement arrière + stationnement sur place disponibles. À proximité des principaux détaillants: Maxi, Canadian Tire, SAQ, et plus. Options d'aménagement flexibles pour répondre à divers besoins commerciaux. *Conformément aux règles municipales, aucun restaurant n'est autorisé.** Hauteur plafond (jusqu'au plafond suspendu) à l'avant : 12,4 pieds et à l'arrière : 10,7 pieds. Local commercial exceptionnel à louer -- Emplacement de choix sur Jean-Talon Est Stratégiquement situé sur l'une des artères commerciales les plus dynamiques de Saint-Léonard, cet immeuble offre jusqu'à 3 400 pi² de superficie locative. Avec ses 12 mètres de vitrine et ses vastes vitrines pleine hauteur, l'espace offre une excellente visibilité sur la rue, idéal pour les commerces de détail, les services professionnels ou les bureaux. Un accès de chargement arrière et un stationnement sur place assurent fonctionnalité et commodité. Entouré de détaillants nationaux très achalandés, comme Maxi, Canadian Tire et la SAQ, l'emplacement bénéficie d'une circulation piétonnière et routière constante. Jean-Talon Est compte près de 270 commerces entre les boulevards Viau et Saint-Michel, ce qui en fait l'un des axes commerciaux les plus achalandés et les plus diversifiés de l'arrondissement. Le secteur est en développement continu, offrant un fort potentiel de croissance et de réussite à long terme. Le locateur et le locataire devront s'entendre sur une augmentation annuelle du loyer, une durée de bail acceptable, une clause de redéveloppement, le nombre de mois de loyer payés d'avance, lesquels seront appliqués aux derniers mois du bail, ainsi que d'autres clause usuels retrouvées dans un bail commercial. Il est entendu que les lieux seront livrés dans leur état actuel, tels que vus. Le locataire sera responsable d'obtenir tous les permis requis, de soumettre des plans acceptables au locateur et sera assujetti à une enquête de crédit ainsi qu'à la fourniture d'une garantie personnelle.",
@@ -4167,22 +4203,22 @@
     "city": "Delson",
     "region": "Montérégie",
     "postal_code": "J0L1G0",
-    "assigned_broker": "Mike Ainajian",
+    "assigned_broker": "Roger Rhéaume",
     "co_brokers": [
       "Roger Rhéaume"
     ],
     "brokers_details": [
       {
+        "name": "Roger Rhéaume",
+        "phone": "(514) 585-2605",
+        "email": "r.rheaume@himalayacorp.com",
+        "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/99_courtierGrand.jpg"
+      },
+      {
         "name": "Mike Ainajian",
         "phone": "(514) 898-4898",
         "email": "m.ainajian@himalayacorp.com",
         "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/147_courtierGrand.jpg"
-      },
-      {
-        "name": "Roger Rhéaume",
-        "phone": "",
-        "email": "",
-        "photo": ""
       }
     ],
     "description": "Cessation du bail. Très important, LE BAIL DOIT ÊTRE MAINTENU TEL QUEL. Le locataire a un projet différent. Le bail expire le 30 septembre 2028. Loyer mensuel incluant les taxes (TPS et TVQ) est à 4 769.00$ (Dans le loyer mensuel, les frais additionnels sont inclus). (Loyer de base est de 16$ du pied carré et loyer additionnel est de 16.32$ du pied carré pour l'année 2025). Cessation du bail. Très important, LE BAIL DOIT ÊTRE MAINTENU TEL QUEL. Le locataire a un projet différent. Le bail expire le 30 septembre 2028. Loyer mensuel incluant les taxes (TPS et TVQ) est à 4 769.00$ (Dans le loyer mensuel, les frais additionnels sont inclus). (Loyer de base est de 16$ du pied carré et loyer additionnel est de 16.32$ du pied carré pour l'année 2025).",
@@ -4245,7 +4281,7 @@
         "name": "Geniev Mondoux",
         "phone": "(514) 884-1052",
         "email": "g.mondoux@himalayacorp.com",
-        "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/11_courtierGrand.jpg"
+        "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/11_courtierGrand.JPG"
       }
     ],
     "description": "*EMPLACEMENT DE PRIX* Secteur commercial d'Outremont près du Mile-End, du Mont-Royal et de l'Ave. Park. Situé sur l'une des rues commerçantes les plus convoitées et établies de Montréal, offrant un trafic continu de consommateurs de haute qualité, ainsi qu'une clientèle à revenu disponible élevé consommant régulièrement une variété de biens et services sélectionnés. Grandes fenêtres en façade et plusieurs lumières encastrées donnant beaucoup de luminosité, propriété bien entretenue, aire ouverte, salle de bain et plus encore. Idéal pour commerce ou vente au détail. Appelez-moi pour discuter de votre projet! -Le propriétaire se réserve le droit d'effectuer une vérification de crédit/antécédents, de demander des dépôts et des garanties aux locataures potentiels. -Le locataire bénéficierait d'être automatiquement membre de l'association des commerçants Laurier Ouest, un organisme à but non lucratif voué à donner de la visibilité à la rue et à son commerce comme destination commerciale de choix par une série d'initiatives continues, d'événements, de marketing, de relations publiques et promotions.",
@@ -4314,7 +4350,7 @@
         "name": "Geniev Mondoux",
         "phone": "(514) 884-1052",
         "email": "g.mondoux@himalayacorp.com",
-        "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/11_courtierGrand.jpg"
+        "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/11_courtierGrand.JPG"
       }
     ],
     "description": "*EMPLACEMENT DE CHOIX* Bel espace de bureau 1840pc (brute, espace commun inclu) situé au coeur du Plateau Mont-Royal face à l'hôpital Hôtel-Dieu-de-Montréal, à quelques pas du parc Mont-Royal & accès facile au métro St-Laurent par autobus. Rue achalander, bel immeuble bien entretenu, possibilité de louer stationnement dans le garage souterrain. Idéal pour les professionnels! Le Locateur se réserve le droit d'effectuer une vérification de solvabilité des locataires potentiels, demande dépôts et/ou garanties.",
@@ -4403,7 +4439,7 @@
         "name": "Geniev Mondoux",
         "phone": "(514) 884-1052",
         "email": "g.mondoux@himalayacorp.com",
-        "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/11_courtierGrand.jpg"
+        "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/11_courtierGrand.JPG"
       }
     ],
     "description": "*EMPLACEMENT DE CHOIX* Bel espace de bureau 1770pc (brute, espace commun inclu) situé au coeur du Plateau Mont-Royal face à l'hôpital Hôtel-Dieu-de-Montréal, à quelques pas du parc Mont-Royal & accès facile au métro St-Laurent par autobus. Rue achalander, bel immeuble bien entretenu, possibilité de louer stationnement dans le garage souterrain. Idéal pour les professionnels! Le Locateur se réserve le droit d'effectuer une vérification de solvabilité des locataires potentiels, demande dépôts et/ou garanties.",
@@ -4681,7 +4717,7 @@
         "name": "Geniev Mondoux",
         "phone": "(514) 884-1052",
         "email": "g.mondoux@himalayacorp.com",
-        "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/11_courtierGrand.jpg"
+        "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/11_courtierGrand.JPG"
       }
     ],
     "description": "Local commercial à louer idéalement situé à l'angle des rues Masson et Charlemagne, dans un secteur dynamique de Rosemont. Excellente visibilité et fort potentiel pour plusieurs types d'usages dont l'usage idéal; traiteur ou épiceries. Aussi excellent divers commerce tel que détail, clinique, esthétique ou services professionnels. Emplacement stratégique au coeur d'un quartier résidentiel dense et en pleine effervescence. Espace de rangement disponible au sous-sol. A ne pas manquer! Local commercial à louer bénéficiant d'un emplacement stratégique sur la rue Masson, à l'angle de la rue Charlemagne, dans un secteur en pleine effervescence de Rosemont. Offrant une excellente visibilité et un fort potentiel pour plusieurs types d'usages commerciaux ou professionnels, ce local convient parfaitement pour bureau, commerce de détail, clinique, studio, esthétique, services spécialisés ou concept de quartier. Le secteur profite d'une clientèle locale établie ainsi que d'une importante densité résidentielle. À moins de 1 km, on retrouve plusieurs commerces de proximité, cafés, restaurants, épiceries, pharmacies, écoles, garderies et services essentiels contribuant à un achalandage constant. À proximité des parcs Maisonneuve et Étienne-Desmarteau, ainsi que de plusieurs axes routiers et lignes d'autobus facilitant les déplacements vers les quartiers voisins et le centre-ville. Un emplacement de choix pour une entreprise souhaitant s'établir dans un secteur urbain dynamique et accessible.",
@@ -4754,7 +4790,7 @@
         "name": "Geniev Mondoux",
         "phone": "(514) 884-1052",
         "email": "g.mondoux@himalayacorp.com",
-        "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/11_courtierGrand.jpg"
+        "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/11_courtierGrand.JPG"
       }
     ],
     "description": "*DISPONBLE IMMÉDIATEMENT* Espace de 775pc dans IMMEUBLE avec façade fenestré situé dans un centre d'achat. Emplacement de choix (coin rue Robert) près des services et des quartier près du Boul. Newman. Ensoleillé, porte arrière, stationnement communs avant. Développements de condos résidentiels devant. Appelez-moi pour discuter de votre projet! A) La superficie est approximative. Voir le plan. B) Zonage C2 (commerce mixte). Les commerces de marchandises, les prêteurs sur gages et les bars de restauration ne sont pas autorisés. C) Vitrine : 2,74 m de large x 2,13 m de haut. Porte : 0,91 m. Hauteur sous plafond : 2,74 m. Chauffe-eau : 178 litres. Chauffage : plinthes chauffantes. Éclairage de secours (piles à la charge du locataire). Extincteur : petit modèle fourni.",
@@ -4966,7 +5002,7 @@
         "name": "Geniev Mondoux",
         "phone": "(514) 884-1052",
         "email": "g.mondoux@himalayacorp.com",
-        "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/11_courtierGrand.jpg"
+        "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/11_courtierGrand.JPG"
       }
     ],
     "description": "*EMPLACEMENT DE CHOIX* Bel espace de bureau 3622pc (brute, incluant espace commun) situé au coeur du Plateau Mont-Royal face à l'hôpital Hôtel-Dieu-de-Montréal, à quelques pas du parc Mont-Royal & accès facile au métro St-Laurent par autobus. Rue achalander, bel immeuble bien entretenu, possibilité de louer stationnement dans le garage souterrain. Idéal pour les professionnels! Le Locateur se réserve le droit d'effectuer une vérification de solvabilité des locataires potentiels, demande dépôts et/ou garanties.",
@@ -5055,7 +5091,7 @@
         "name": "Geniev Mondoux",
         "phone": "(514) 884-1052",
         "email": "g.mondoux@himalayacorp.com",
-        "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/11_courtierGrand.jpg"
+        "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/11_courtierGrand.JPG"
       }
     ],
     "description": "*Emplacement de choix* Local commercial de 1 300pc au RDC, idéal pour commerce de détail, est situé dans le secteur recherché du Plateau Mont-Royal. Rue achalandée, près du métro Sherbrooke et autobus au deux coin de rue. Appelez moi pour discuter!",

@@ -62,12 +62,13 @@ export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSe
                 alt={broker.name}
                 style={{
                   width: '96px',
-                  height: '96px',
-                  borderRadius: '50%',
+                  aspectRatio: '314 / 543',
+                  borderRadius: '10px',
                   objectFit: 'cover',
                   objectPosition: 'top center',
-                  border: '2px solid var(--gold)',
-                  flexShrink: 0
+                  border: '1px solid var(--border-gold)',
+                  flexShrink: 0,
+                  display: 'block'
                 }}
                 onError={e => { e.target.src = 'https://www.himalayacorp.com/gx/00/defaut_courtier.jpg'; }}
               />
@@ -75,7 +76,7 @@ export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSe
                 <h2 style={{ fontSize: '1.45rem', fontWeight: 700, marginBottom: '4px' }}>{broker.name}</h2>
                 <div style={{ fontSize: '0.84rem', color: 'var(--gold-light)', marginBottom: '6px' }}>{broker.title}</div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.82rem', color: 'var(--text-secondary)' }}>
-                  <MapPin size={13} color="var(--gold)" /> {broker.city}
+                  <MapPin size={13} color="var(--gold)" /> {broker.address || broker.city}
                 </div>
               </div>
             </div>
@@ -99,7 +100,8 @@ export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSe
               background: 'rgba(255,255,255,0.025)',
               borderRadius: '10px',
               border: '1px solid var(--border-subtle)',
-              marginBottom: '22px'
+              marginBottom: '22px',
+              whiteSpace: 'pre-line'
             }}>
               {broker.bio}
             </p>
