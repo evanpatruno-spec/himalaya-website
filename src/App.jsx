@@ -19,6 +19,7 @@ import PropertyDetailModal from './components/PropertyDetailModal';
 import BuyerNDAModal from './components/BuyerNDAModal';
 import BrokerDetailModal from './components/BrokerDetailModal';
 import PropertiesMapView from './components/PropertiesMapView';
+import AboutPageView from './components/AboutPageView';
 
 const VALID_PAGES = ['home', 'proprietes', 'courtiers', 'agences', 'a-propos', 'evenements', 'balados', 'nous-joindre', 'zone-equipe'];
 
@@ -816,77 +817,15 @@ export default function App() {
       )}
 
       {/* =====================================================================
-          PAGE 3 : À PROPOS
+          PAGE 3 : À PROPOS (Contenu intégral himalayacorp.com FR & EN)
          ===================================================================== */}
       {activePage === 'a-propos' && (
-        <main style={{ flex: 1, padding: '44px 0 72px' }}>
-          <div className="container">
-            <div style={{ maxWidth: '880px', margin: '0 auto' }}>
-              <h1 style={{ fontSize: '2.2rem', fontWeight: 700, lineHeight: 1.2, marginBottom: '18px' }}>
-                {t.about.title} <span className="gold-gradient-text">Himalaya</span>
-              </h1>
-
-              <div style={{
-                background: 'var(--bg-card)',
-                border: '1px solid var(--border-gold)',
-                borderRadius: '14px',
-                padding: '28px',
-                marginBottom: '36px'
-              }}>
-                <p style={{ fontSize: '0.98rem', color: 'var(--text-secondary)', lineHeight: 1.7, marginBottom: '14px' }}>
-                  {t.about.p1}
-                </p>
-                <p style={{ fontSize: '0.98rem', color: 'var(--text-secondary)', lineHeight: 1.7, marginBottom: '18px' }}>
-                  {t.about.p2}
-                </p>
-                {t.about.missionTitle && (
-                  <div style={{ paddingTop: '14px', borderTop: '1px solid var(--border-subtle)' }}>
-                    <h3 style={{ fontSize: '1.05rem', fontWeight: 700, color: 'var(--gold-light)', marginBottom: '6px' }}>
-                      {t.about.missionTitle}
-                    </h3>
-                    <p style={{ fontSize: '0.94rem', color: 'var(--text-secondary)', lineHeight: 1.7 }}>
-                      {t.about.missionText}
-                    </p>
-                  </div>
-                )}
-              </div>
-
-              <h2 style={{ fontSize: '1.55rem', fontWeight: 700, marginBottom: '18px' }}>
-                {t.about.leadershipTitle}
-              </h2>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '22px' }}>
-                {INITIAL_HIMALAYA_BROKERS.filter(b => b.category === 'direction').map(dir => (
-                  <div 
-                    key={dir.id} 
-                    className="broker-card" 
-                    onClick={() => setSelectedBroker(dir)}
-                    style={{ cursor: 'pointer' }}
-                  >
-                    <div style={{ width: '100%', aspectRatio: '314 / 543', background: '#070b0a', overflow: 'hidden' }}>
-                      <img 
-                        src={dir.photo} 
-                        alt={dir.name}
-                        style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center', display: 'block' }}
-                      />
-                    </div>
-                    <div style={{ padding: '18px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                      <div style={{ fontSize: '0.75rem', color: 'var(--gold)', fontWeight: 600 }}>
-                        {isEn ? (dir.shortTitle_en || dir.shortTitle) : dir.shortTitle}
-                      </div>
-                      <h3 style={{ fontSize: '1.18rem', fontWeight: 700 }}>{dir.name}</h3>
-                      <p style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', marginBottom: '8px' }}>
-                        {dir.phone} • {isEn ? (dir.city_en || dir.city) : dir.city}
-                      </p>
-                      <span className="btn-outline" style={{ fontSize: '0.8rem', padding: '8px 14px', width: '100%' }}>
-                        {t.brokers.viewProfile} <ChevronRight size={14} />
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </main>
+        <AboutPageView
+          lang={lang}
+          directors={INITIAL_HIMALAYA_BROKERS.filter(b => b.category === 'direction')}
+          onSelectBroker={setSelectedBroker}
+          onNavigate={navigateTo}
+        />
       )}
 
       {/* =====================================================================
