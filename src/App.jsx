@@ -308,7 +308,7 @@ export default function App() {
                   onClick={() => handleLanguageChange(code)}
                   style={{
                     background: lang === code ? 'var(--gold)' : 'transparent',
-                    color: lang === code ? '#070b0a' : 'var(--text-secondary)',
+                    color: lang === code ? '#09090b' : 'var(--text-secondary)',
                     border: 'none',
                     borderRadius: '5px',
                     padding: '4px 10px',
@@ -359,7 +359,7 @@ export default function App() {
 
         {mobileMenuOpen && (
           <div style={{
-            background: '#080d0b',
+            background: '#0d0d10',
             borderBottom: '1px solid var(--border-gold)',
             padding: '16px 24px'
           }}>
@@ -438,7 +438,7 @@ export default function App() {
                 {t.hero.titleStart} <span className="gold-gradient-text">{t.hero.titleHighlight}</span>
               </h1>
 
-              <p style={{ color: '#e6ece9', fontSize: '1.02rem', maxWidth: '640px', margin: '0 auto' }}>
+              <p style={{ color: '#f4f4f6', fontSize: '1.02rem', maxWidth: '640px', margin: '0 auto' }}>
                 {t.hero.subtitle}
               </p>
 
@@ -677,7 +677,7 @@ export default function App() {
                       padding: '6px 12px', borderRadius: '6px', border: 'none', cursor: 'pointer',
                       fontSize: '0.8rem', fontWeight: 600,
                       background: propertiesViewMode === 'grid' ? 'var(--gold)' : 'transparent',
-                      color: propertiesViewMode === 'grid' ? '#070b0a' : 'var(--text-secondary)'
+                      color: propertiesViewMode === 'grid' ? '#09090b' : 'var(--text-secondary)'
                     }}
                   >
                     <LayoutGrid size={14} /> {t.properties.viewGrid}
@@ -689,7 +689,7 @@ export default function App() {
                       padding: '6px 12px', borderRadius: '6px', border: 'none', cursor: 'pointer',
                       fontSize: '0.8rem', fontWeight: 600,
                       background: propertiesViewMode === 'map' ? 'var(--gold)' : 'transparent',
-                      color: propertiesViewMode === 'map' ? '#070b0a' : 'var(--text-secondary)'
+                      color: propertiesViewMode === 'map' ? '#09090b' : 'var(--text-secondary)'
                     }}
                   >
                     <MapIcon size={14} /> {t.properties.viewMap}
@@ -844,14 +844,14 @@ export default function App() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(330px, 1fr))', gap: '22px' }}>
               {HIMALAYA_AGENCIES.map(ag => (
                 <div key={ag.id} className="property-card">
-                  <div className="property-img-wrap" style={{ height: '195px', background: '#070b0a' }}>
+                  <div className="property-img-wrap" style={{ height: '195px', background: '#09090b' }}>
                     <img 
                       src={ag.image} 
                       alt={isEn ? (ag.name_en || ag.name) : ag.name}
                       style={{ objectFit: ag.id === 'montreal_hq' ? 'contain' : 'cover', padding: ag.id === 'montreal_hq' ? '28px' : '0' }}
                       onError={e => { if (ag.fallbackImage) e.target.src = ag.fallbackImage; }}
                     />
-                    <span className="badge-gold" style={{ position: 'absolute', top: '12px', left: '12px', background: 'rgba(7,11,10,0.88)' }}>
+                    <span className="badge-gold" style={{ position: 'absolute', top: '12px', left: '12px', background: 'rgba(9,9,11,0.88)' }}>
                       {isEn ? (ag.badge_en || ag.badge) : ag.badge}
                     </span>
                   </div>
@@ -935,7 +935,7 @@ export default function App() {
                   <div key={broker.id} className="broker-card">
                     <div 
                       onClick={() => setSelectedBroker(broker)}
-                      style={{ position: 'relative', width: '100%', aspectRatio: '314 / 543', background: '#070b0a', overflow: 'hidden', cursor: 'pointer' }}
+                      style={{ position: 'relative', width: '100%', aspectRatio: '314 / 543', background: '#09090b', overflow: 'hidden', cursor: 'pointer' }}
                     >
                       <img 
                         src={broker.photo} 
@@ -1185,7 +1185,7 @@ export default function App() {
                       padding: '8px 10px', borderRadius: '7px', border: 'none', cursor: 'pointer',
                       fontSize: '0.8rem', fontWeight: 600,
                       background: contactTab === 'general' ? 'var(--gold)' : 'transparent',
-                      color: contactTab === 'general' ? '#070b0a' : 'var(--text-secondary)'
+                      color: contactTab === 'general' ? '#09090b' : 'var(--text-secondary)'
                     }}
                   >
                     {t.contact.tabGeneral}
@@ -1197,7 +1197,7 @@ export default function App() {
                       padding: '8px 10px', borderRadius: '7px', border: 'none', cursor: 'pointer',
                       fontSize: '0.8rem', fontWeight: 600,
                       background: contactTab === 'valuation' ? 'var(--gold)' : 'transparent',
-                      color: contactTab === 'valuation' ? '#070b0a' : 'var(--text-secondary)'
+                      color: contactTab === 'valuation' ? '#09090b' : 'var(--text-secondary)'
                     }}
                   >
                     {t.contact.tabValuation}
@@ -1206,7 +1206,7 @@ export default function App() {
 
                 {contactSubmitted ? (
                   <div style={{ textAlign: 'center', padding: '28px 10px' }}>
-                    <CheckCircle2 size={42} color="#70e000" style={{ margin: '0 auto 12px' }} />
+                    <CheckCircle2 size={42} color="#e3c485" style={{ margin: '0 auto 12px' }} />
                     <h3 style={{ fontSize: '1.35rem', fontWeight: 700, marginBottom: '8px' }}>{t.contact.sentTitle}</h3>
                     <p style={{ color: 'var(--text-secondary)', marginBottom: '18px', fontSize: '0.88rem' }}>
                       {t.contact.sentDesc}
@@ -1388,7 +1388,7 @@ export default function App() {
           FOOTER ÉPURÉ
          ===================================================================== */}
       <footer style={{
-        background: '#030504',
+        background: '#050506',
         borderTop: '1px solid var(--border-subtle)',
         padding: '44px 0 28px',
         marginTop: 'auto'
@@ -1501,14 +1501,14 @@ function PropertyCard({ deal, t, onSelect }) {
           position: 'absolute', top: '12px', left: '12px',
           display: 'flex', alignItems: 'center', gap: '6px'
         }}>
-          <span className="badge-gold" style={{ background: 'rgba(7,11,10,0.88)', backdropFilter: 'blur(6px)' }}>
+          <span className="badge-gold" style={{ background: 'rgba(9,9,11,0.88)', backdropFilter: 'blur(6px)' }}>
             {displayCategory}
           </span>
         </div>
 
         <div style={{
           position: 'absolute', bottom: '12px', left: '12px',
-          background: 'rgba(7,11,10,0.92)', border: '1px solid var(--border-gold)',
+          background: 'rgba(9,9,11,0.92)', border: '1px solid var(--border-gold)',
           padding: '5px 11px', borderRadius: '7px', fontWeight: 700, color: 'var(--gold-light)',
           fontSize: '0.96rem', whiteSpace: 'nowrap'
         }}>

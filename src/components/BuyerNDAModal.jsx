@@ -59,7 +59,7 @@ export default function BuyerNDAModal({ deal, t, onClose }) {
           justifyContent: 'space-between',
           padding: '18px 24px',
           borderBottom: '1px solid var(--border-subtle)',
-          background: 'rgba(12, 19, 17, 0.98)'
+          background: 'rgba(18, 18, 21, 0.98)'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <Shield size={18} color="var(--gold)" />
@@ -78,7 +78,7 @@ export default function BuyerNDAModal({ deal, t, onClose }) {
         <div style={{ padding: '24px' }}>
           {submitted ? (
             <div style={{ textAlign: 'center', padding: '16px 8px' }}>
-              <CheckCircle2 size={44} color="#70e000" style={{ margin: '0 auto 14px' }} />
+              <CheckCircle2 size={44} color="#e3c485" style={{ margin: '0 auto 14px' }} />
               <h3 style={{ fontSize: '1.4rem', fontWeight: 700, marginBottom: '8px' }}>
                 {t?.nda?.successTitle || 'NDA enregistré et synchronisé'}
               </h3>

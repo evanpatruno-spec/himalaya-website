@@ -33,7 +33,7 @@ export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSe
           justifyContent: 'space-between',
           padding: '16px 24px',
           borderBottom: '1px solid var(--border-subtle)',
-          background: 'rgba(12, 19, 17, 0.96)'
+          background: 'rgba(18, 18, 21, 0.96)'
         }}>
           <span className="badge-gold">{displayShortTitle}</span>
           <button
@@ -155,7 +155,7 @@ export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSe
                       />
                       <span style={{
                         position: 'absolute', bottom: '8px', left: '8px',
-                        background: 'rgba(7,11,10,0.9)', padding: '3px 8px', borderRadius: '5px',
+                        background: 'rgba(9,9,11,0.9)', padding: '3px 8px', borderRadius: '5px',
                         fontSize: '0.78rem', fontWeight: 700, color: 'var(--gold-light)'
                       }}>
                         {isEn ? (d.price_raw_en || d.price_raw) : d.price_raw}

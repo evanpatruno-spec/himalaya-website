@@ -103,7 +103,7 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
           borderBottom: '1px solid var(--border-subtle)',
           position: 'sticky',
           top: 0,
-          background: 'rgba(12, 19, 17, 0.96)',
+          background: 'rgba(18, 18, 21, 0.96)',
           backdropFilter: 'blur(12px)',
           zIndex: 10,
           gap: '12px',
@@ -156,7 +156,7 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
             height: '400px',
             borderRadius: '12px',
             overflow: 'hidden',
-            background: '#050807',
+            background: '#09090b',
             border: '1px solid var(--border-subtle)',
             marginBottom: '12px'
           }}>
@@ -172,7 +172,7 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
                   onClick={handlePrev}
                   style={{
                     position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)',
-                    background: 'rgba(7,11,10,0.78)', border: '1px solid var(--border-gold)',
+                    background: 'rgba(9,9,11,0.78)', border: '1px solid var(--border-gold)',
                     color: '#fff', width: '40px', height: '40px', borderRadius: '50%',
                     display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer'
                   }}
@@ -183,7 +183,7 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
                   onClick={handleNext}
                   style={{
                     position: 'absolute', right: '14px', top: '50%', transform: 'translateY(-50%)',
-                    background: 'rgba(7,11,10,0.78)', border: '1px solid var(--border-gold)',
+                    background: 'rgba(9,9,11,0.78)', border: '1px solid var(--border-gold)',
                     color: '#fff', width: '40px', height: '40px', borderRadius: '50%',
                     display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer'
                   }}
@@ -192,7 +192,7 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
                 </button>
                 <div style={{
                   position: 'absolute', bottom: '12px', right: '14px',
-                  background: 'rgba(7,11,10,0.85)', padding: '4px 11px',
+                  background: 'rgba(9,9,11,0.85)', padding: '4px 11px',
                   borderRadius: '999px', fontSize: '0.75rem', border: '1px solid var(--border-subtle)'
                 }}>
                   {photoIdx + 1} / {photos.length}
@@ -351,8 +351,8 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
                   <div style={{
                     display: 'flex', alignItems: 'center', gap: '8px',
                     padding: '9px 12px', borderRadius: '8px',
-                    background: 'rgba(56, 176, 0, 0.14)', border: '1px solid var(--success)',
-                    color: '#80ed99', fontSize: '0.8rem', fontWeight: 600
+                    background: 'rgba(200, 164, 93, 0.14)', border: '1px solid var(--success)',
+                    color: '#e3c485', fontSize: '0.8rem', fontWeight: 600
                   }}>
                     <CheckCircle2 size={15} /> {t?.modal?.ndaUnlocked || 'NDA signé — Dossier demandé'}
                   </div>

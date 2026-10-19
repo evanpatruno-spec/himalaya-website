@@ -289,7 +289,7 @@ export default function AboutPageView({
                     <div
                       onClick={() => onSelectBroker && onSelectBroker(dir)}
                       style={{
-                        background: '#070b0a',
+                        background: '#09090b',
                         cursor: 'pointer',
                         minHeight: '195px'
                       }}
@@ -501,7 +501,7 @@ export default function AboutPageView({
                           borderRadius: '12px',
                           overflow: 'hidden',
                           border: '1px solid var(--border-gold)',
-                          background: '#070b0a',
+                          background: '#09090b',
                           marginBottom: '14px'
                         }}
                       >
@@ -534,7 +534,7 @@ export default function AboutPageView({
                                 overflow: 'hidden',
                                 border: '1px solid var(--border-subtle)',
                                 height: '82px',
-                                background: '#070b0a'
+                                background: '#09090b'
                               }}
                             >
                               <img

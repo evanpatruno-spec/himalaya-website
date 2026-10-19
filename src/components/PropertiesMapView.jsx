@@ -53,7 +53,7 @@ export default function PropertiesMapView({ properties, onSelectDeal, t }) {
       <div style={{
         position: 'relative',
         height: '440px',
-        background: 'radial-gradient(circle at 45% 55%, #13201c 0%, #070b0a 100%)',
+        background: 'radial-gradient(circle at 45% 55%, #18181c 0%, #09090b 100%)',
         borderRadius: '10px',
         border: '1px solid var(--border-subtle)',
         overflow: 'hidden'
@@ -90,8 +90,8 @@ export default function PropertiesMapView({ properties, onSelectDeal, t }) {
                 left: `${pos.x}%`,
                 top: `${pos.y}%`,
                 transform: 'translate(-50%, -50%)',
-                background: isSelected ? 'var(--gold)' : 'rgba(14, 21, 19, 0.92)',
-                color: isSelected ? '#070b0a' : 'var(--text-main)',
+                background: isSelected ? 'var(--gold)' : 'rgba(18, 18, 21, 0.92)',
+                color: isSelected ? '#09090b' : 'var(--text-main)',
                 border: isSelected ? '2px solid #fff' : '1px solid var(--gold)',
                 borderRadius: '999px',
                 padding: '5px 11px',
@@ -111,7 +111,7 @@ export default function PropertiesMapView({ properties, onSelectDeal, t }) {
               <span>{reg}</span>
               <span style={{
                 background: isSelected ? 'rgba(0,0,0,0.2)' : 'rgba(200,164,93,0.2)',
-                color: isSelected ? '#070b0a' : 'var(--gold-light)',
+                color: isSelected ? '#09090b' : 'var(--gold-light)',
                 padding: '1px 6px',
                 borderRadius: '99px',
                 fontSize: '0.7rem'
