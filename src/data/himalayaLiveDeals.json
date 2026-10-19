@@ -9,7 +9,7 @@
     "price": 19000000,
     "address": "Boul. Ste-Rose E. Laval (Auteuil)",
     "city": "Laval",
-    "region": "H7H1N8",
+    "region": "Laval",
     "postal_code": "H7H1N8",
     "assigned_broker": "Nathan Thérien",
     "co_brokers": [],
@@ -59,7 +59,9 @@
       "https://immo.vrtx.co/PicFull/22685883.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-boul-ste-rose-e-.html?NoMLS=22685883",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 45.621,
+    "lng": -73.712
   },
   {
     "id": "himalaya_11416336",
@@ -70,7 +72,7 @@
     "price_raw": "6 500 000 $ + TPS/TVQ",
     "price": 6500000,
     "address": "109",
-    "city": "Ch. du Lac S. Saint-Mathieu-de-Rioux",
+    "city": "Saint-Mathieu-de-Rioux",
     "region": "Bas-Saint-Laurent",
     "postal_code": "G0L3T0",
     "assigned_broker": "Sylvie Castonguay",
@@ -145,7 +147,9 @@
       "https://immo.vrtx.co/PicFull/11416336.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-109-ch-du-lac-s-.html?NoMLS=11416336",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 48.16009,
+    "lng": -68.96176
   },
   {
     "id": "himalaya_13527693",
@@ -156,7 +160,7 @@
     "price_raw": "6 500 000 $",
     "price": 6500000,
     "address": "109Z",
-    "city": "Ch. du Lac S. Saint-Mathieu-de-Rioux",
+    "city": "Saint-Mathieu-de-Rioux",
     "region": "Bas-Saint-Laurent",
     "postal_code": "G0L3T0",
     "assigned_broker": "Sylvie Castonguay",
@@ -228,7 +232,9 @@
       "https://immo.vrtx.co/PicFull/13527693.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-109z-ch-du-lac-s-.html?NoMLS=13527693",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 48.1834,
+    "lng": -69.01885
   },
   {
     "id": "himalaya_27906839",
@@ -239,7 +245,7 @@
     "price_raw": "6 200 000 $ + TPS/TVQ",
     "price": 6200000,
     "address": "2840",
-    "city": "Rue des Champs-Boises Sainte-Julienne",
+    "city": "Sainte-Julienne",
     "region": "Lanaudière",
     "postal_code": "J0K2T0",
     "assigned_broker": "Sylvie Castonguay",
@@ -317,7 +323,9 @@
       "https://immo.vrtx.co/PicFull/27906839.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-2840-rue-des-champs-boises.html?NoMLS=27906839",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 46.05105,
+    "lng": -73.63954
   },
   {
     "id": "himalaya_28172223",
@@ -328,7 +336,7 @@
     "price_raw": "6 200 000 $",
     "price": 6200000,
     "address": "2840Z",
-    "city": "Rue des Champs-Boises Sainte-Julienne",
+    "city": "Sainte-Julienne",
     "region": "Lanaudière",
     "postal_code": "J0K2T0",
     "assigned_broker": "Sylvie Castonguay",
@@ -404,7 +412,9 @@
       "https://immo.vrtx.co/PicFull/28172223.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-2840z-rue-des-champs-boises.html?NoMLS=28172223",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 45.95796,
+    "lng": -73.69094
   },
   {
     "id": "himalaya_27865522",
@@ -415,7 +425,7 @@
     "price_raw": "4 950 000 $ + TPS/TVQ",
     "price": 4950000,
     "address": "111",
-    "city": "Ch. de la Pourvoirie Saint-Zénon",
+    "city": "Saint-Zénon",
     "region": "Lanaudière",
     "postal_code": "J0K3N0",
     "assigned_broker": "Roger Rhéaume",
@@ -503,7 +513,9 @@
       "https://immo.vrtx.co/PicFull/27865522.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-111-ch-de-la-pourvoirie.html?NoMLS=27865522",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 46.08325,
+    "lng": -73.7203
   },
   {
     "id": "himalaya_25954195",
@@ -515,7 +527,7 @@
     "price": 4700000,
     "address": "Rue Angèle-Chartrand Laval (Auteuil)",
     "city": "Laval",
-    "region": "H7H0B8",
+    "region": "Laval",
     "postal_code": "H7H0B8",
     "assigned_broker": "Nathan Thérien",
     "co_brokers": [],
@@ -566,7 +578,9 @@
       "https://immo.vrtx.co/PicFull/25954195.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-rue-angele-chartrand.html?NoMLS=25954195",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 45.58348,
+    "lng": -73.62796
   },
   {
     "id": "himalaya_16230981",
@@ -577,7 +591,7 @@
     "price_raw": "3 150 000 $ + TPS/TVQ",
     "price": 3150000,
     "address": "1",
-    "city": "Lac Dumoulin La Tuque",
+    "city": "La Tuque",
     "region": "Mauricie",
     "postal_code": "G9X3N7",
     "assigned_broker": "Roger Rhéaume",
@@ -681,7 +695,9 @@
       "https://immo.vrtx.co/PicFull/16230981.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-1-lac-dumoulin.html?NoMLS=16230981",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 47.43307,
+    "lng": -72.79331
   },
   {
     "id": "himalaya_HIM100373",
@@ -692,8 +708,8 @@
     "price_raw": "3 100 000 US",
     "price": 3100000,
     "address": "PLAGE de LAS BELLENAS",
-    "city": "LAS TERRENAS LAS TERRENAS",
-    "region": "SAMANA",
+    "city": "Las Terrenas (Samaná)",
+    "region": "République Dominicaine",
     "postal_code": "",
     "assigned_broker": "Roger Rhéaume",
     "co_brokers": [],
@@ -745,7 +761,9 @@
       "https://www.himalayacorp.com/DATA/CMSIMAGE/4572.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-.html?NoMLS=HIM100373",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 19.33537,
+    "lng": -69.53077
   },
   {
     "id": "himalaya_HIM100369",
@@ -756,8 +774,8 @@
     "price_raw": "3 000 000 US",
     "price": 3000000,
     "address": "HOTEL SUR LA PLAGE",
-    "city": "27 CC + RESTO LAS TERRENAS",
-    "region": "SAMANA",
+    "city": "Las Terrenas (Samaná)",
+    "region": "République Dominicaine",
     "postal_code": "",
     "assigned_broker": "Roger Rhéaume",
     "co_brokers": [],
@@ -798,7 +816,9 @@
       "https://www.himalayacorp.com/DATA/CMSIMAGE/4522.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-.html?NoMLS=HIM100369",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 19.27397,
+    "lng": -69.52508
   },
   {
     "id": "himalaya_11142661",
@@ -809,8 +829,8 @@
     "price_raw": "3 000 000 $ + TPS/TVQ",
     "price": 3000000,
     "address": "Boul. Laurier Terrebonne (La Plaine)",
-    "city": "Lanaudière",
-    "region": "J7M1W3",
+    "city": "Terrebonne",
+    "region": "Lanaudière",
     "postal_code": "J7M1W3",
     "assigned_broker": "Sylvie Castonguay",
     "co_brokers": [],
@@ -861,7 +881,9 @@
       "https://immo.vrtx.co/PicFull/11142661.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-boul-laurier.html?NoMLS=11142661",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 46.04155,
+    "lng": -73.72622
   },
   {
     "id": "himalaya_22941652",
@@ -872,7 +894,7 @@
     "price_raw": "2 400 000 $ + TPS/TVQ",
     "price": 2400000,
     "address": "1658",
-    "city": "Ch. Pink Gatineau (Aylmer)",
+    "city": "Gatineau (Aylmer)",
     "region": "Outaouais",
     "postal_code": "J9J3N7",
     "assigned_broker": "Michel Potvin",
@@ -936,7 +958,9 @@
       "https://immo.vrtx.co/PicFull/22941652.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-1658-ch-pink.html?NoMLS=22941652",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 45.66894,
+    "lng": -75.68992
   },
   {
     "id": "himalaya_25564260",
@@ -947,7 +971,7 @@
     "price_raw": "1 950 000 $ + TPS/TVQ",
     "price": 1950000,
     "address": "1",
-    "city": "Baie Coucoucache La Tuque",
+    "city": "La Tuque",
     "region": "Mauricie",
     "postal_code": "G9X3P1",
     "assigned_broker": "Nathan Thérien",
@@ -1022,7 +1046,9 @@
       "https://immo.vrtx.co/PicFull/25564260.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-1-baie-coucoucache.html?NoMLS=25564260",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 47.37505,
+    "lng": -72.8175
   },
   {
     "id": "himalaya_25094457",
@@ -1033,7 +1059,7 @@
     "price_raw": "1 750 000 $ + TPS/TVQ",
     "price": 1750000,
     "address": "1",
-    "city": "Rue Non Disponible-Unavailable Territoires Autres / Other Territories",
+    "city": "Outaouais",
     "region": "Outaouais",
     "postal_code": "J0W1E0",
     "assigned_broker": "Roger Rhéaume",
@@ -1131,7 +1157,9 @@
       "https://immo.vrtx.co/PicFull/25094457.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-1-rue-non-disponible-unavailable.html?NoMLS=25094457",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 45.73494,
+    "lng": -75.76883
   },
   {
     "id": "himalaya_14672093",
@@ -1142,7 +1170,7 @@
     "price_raw": "1 650 000 $ + TPS/TVQ",
     "price": 1650000,
     "address": "1",
-    "city": "Lac Doolittle Pontiac",
+    "city": "Pontiac",
     "region": "Outaouais",
     "postal_code": "J1L1N1",
     "assigned_broker": "Evan Patruno",
@@ -1223,7 +1251,9 @@
       "https://immo.vrtx.co/PicFull/14672093.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-1-lac-doolittle.html?NoMLS=14672093",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 45.6414,
+    "lng": -75.73771
   },
   {
     "id": "himalaya_19392321",
@@ -1234,7 +1264,7 @@
     "price_raw": "1 600 000 $",
     "price": 1600000,
     "address": "29",
-    "city": "Petite Ligne Saint-Alexis",
+    "city": "Saint-Alexis",
     "region": "Lanaudière",
     "postal_code": "J0K1T0",
     "assigned_broker": "Sylvie Castonguay",
@@ -1363,7 +1393,9 @@
       "https://immo.vrtx.co/PicFull/19392321.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-29-petite-ligne.html?NoMLS=19392321",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 46.01648,
+    "lng": -73.70677
   },
   {
     "id": "himalaya_28731496",
@@ -1374,7 +1406,7 @@
     "price_raw": "1 600 000 $ + TPS/TVQ",
     "price": 1600000,
     "address": "29Z",
-    "city": "Petite Ligne Saint-Alexis",
+    "city": "Saint-Alexis",
     "region": "Lanaudière",
     "postal_code": "J0K1T0",
     "assigned_broker": "Sylvie Castonguay",
@@ -1510,7 +1542,9 @@
       "https://immo.vrtx.co/PicFull/28731496.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-29z-petite-ligne.html?NoMLS=28731496",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 46.04988,
+    "lng": -73.65493
   },
   {
     "id": "himalaya_17928798",
@@ -1521,7 +1555,7 @@
     "price_raw": "1 499 000 $ + TPS/TVQ",
     "price": 1499000,
     "address": "1",
-    "city": "Lac brulé Pontiac",
+    "city": "Pontiac",
     "region": "Outaouais",
     "postal_code": "J1L1N1",
     "assigned_broker": "Evan Patruno",
@@ -1633,7 +1667,9 @@
       "https://immo.vrtx.co/PicFull/17928798.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-1-lac-brule.html?NoMLS=17928798",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 45.59905,
+    "lng": -75.74778
   },
   {
     "id": "himalaya_15003507",
@@ -1644,7 +1680,7 @@
     "price_raw": "1 495 000 $ + TPS/TVQ",
     "price": 1495000,
     "address": "95",
-    "city": "Route Obedjiwan La Tuque",
+    "city": "La Tuque",
     "region": "Mauricie",
     "postal_code": "G0W3B0",
     "assigned_broker": "Roger Rhéaume",
@@ -1786,7 +1822,9 @@
       "https://immo.vrtx.co/PicFull/15003507.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-95-route-obedjiwan.html?NoMLS=15003507",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 47.48455,
+    "lng": -72.82455
   },
   {
     "id": "himalaya_15722971",
@@ -1797,7 +1835,7 @@
     "price_raw": "1 450 000 $ + TPS/TVQ",
     "price": 1450000,
     "address": "250",
-    "city": "Ch. du Lac-Giles Gracefield",
+    "city": "Gracefield",
     "region": "Outaouais",
     "postal_code": "J0X1W0",
     "assigned_broker": "Roger Rhéaume",
@@ -1867,7 +1905,9 @@
       "https://immo.vrtx.co/PicFull/15722971.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-250-ch-du-lac-giles.html?NoMLS=15722971",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 45.64673,
+    "lng": -75.67507
   },
   {
     "id": "himalaya_17418281",
@@ -1878,7 +1918,7 @@
     "price_raw": "1 298 000 $ + TPS/TVQ",
     "price": 1298000,
     "address": "1",
-    "city": "Lac Malbaie Baie-Sainte-Catherine",
+    "city": "Baie-Sainte-Catherine",
     "region": "Région de Québec",
     "postal_code": "G0T1A0",
     "assigned_broker": "Nathan Thérien",
@@ -1977,7 +2017,9 @@
       "https://immo.vrtx.co/PicFull/17418281.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-1-lac-malbaie.html?NoMLS=17418281",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 47.59408,
+    "lng": -70.21665
   },
   {
     "id": "himalaya_HIM100374",
@@ -1988,8 +2030,8 @@
     "price_raw": "1 250 000 US",
     "price": 1250000,
     "address": "AUBERGE Ecolodge LAS TERRÉNAS Autres pays / Other countries",
-    "city": "SAMANA",
-    "region": "Québec",
+    "city": "Las Terrenas (Samaná)",
+    "region": "République Dominicaine",
     "postal_code": "",
     "assigned_broker": "Roger Rhéaume",
     "co_brokers": [],
@@ -2039,7 +2081,9 @@
       "https://www.himalayacorp.com/DATA/CMSIMAGE/4586.JPG"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-.html?NoMLS=HIM100374",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 19.32487,
+    "lng": -69.53804
   },
   {
     "id": "himalaya_HIM100370",
@@ -2050,8 +2094,8 @@
     "price_raw": "1 000 000 US",
     "price": 1000000,
     "address": "RÉSIDENCE HOTELIERE",
-    "city": "4 BUNGALOWS + PISCINE LAS TERRENAS",
-    "region": "SAMANA",
+    "city": "Las Terrenas (Samaná)",
+    "region": "République Dominicaine",
     "postal_code": "",
     "assigned_broker": "Roger Rhéaume",
     "co_brokers": [],
@@ -2087,7 +2131,9 @@
       "https://www.himalayacorp.com/DATA/CMSIMAGE/4526.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-.html?NoMLS=HIM100370",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 19.28788,
+    "lng": -69.52451
   },
   {
     "id": "himalaya_24131223",
@@ -2098,8 +2144,8 @@
     "price_raw": "999 999 $ + TPS/TVQ",
     "price": 999999,
     "address": "829",
-    "city": "Boul. du Griffon Gaspé",
-    "region": "Gaspésie/Iles-de-la-Madeleine",
+    "city": "Gaspé",
+    "region": "Gaspésie",
     "postal_code": "G4X6A9",
     "assigned_broker": "Roger Rhéaume",
     "co_brokers": [],
@@ -2171,7 +2217,9 @@
       "https://immo.vrtx.co/PicFull/24131223.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-829-boul-du-griffon.html?NoMLS=24131223",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 48.83844,
+    "lng": -64.51808
   },
   {
     "id": "himalaya_11456437",
@@ -2182,7 +2230,7 @@
     "price_raw": "999 500 $ + TPS/TVQ",
     "price": 999500,
     "address": "391 - 409",
-    "city": "Ch. des Lacs Saint-Siméon",
+    "city": "Saint-Siméon",
     "region": "Région de Québec",
     "postal_code": "G0T1X0",
     "assigned_broker": "Nathan Thérien",
@@ -2278,7 +2326,9 @@
       "https://immo.vrtx.co/PicFull/11456437.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-391-409-ch-des-lacs.html?NoMLS=11456437",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 47.6755,
+    "lng": -70.10583
   },
   {
     "id": "himalaya_19512383",
@@ -2289,7 +2339,7 @@
     "price_raw": "950 000 $ + TPS/TVQ",
     "price": 950000,
     "address": "180",
-    "city": "Boul. Gréber Gatineau (Gatineau)",
+    "city": "Gatineau (Gatineau)",
     "region": "Outaouais",
     "postal_code": "J8T6K2",
     "assigned_broker": "Michel Potvin",
@@ -2335,7 +2385,9 @@
       "https://immo.vrtx.co/PicFull/19512383.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-180-boul-greber.html?NoMLS=19512383",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 45.58992,
+    "lng": -75.76894
   },
   {
     "id": "himalaya_18513660",
@@ -2346,7 +2398,7 @@
     "price_raw": "950 000 $ + TPS/TVQ",
     "price": 950000,
     "address": "541",
-    "city": "Boul. St-Joseph Gatineau (Hull)",
+    "city": "Gatineau (Hull)",
     "region": "Outaouais",
     "postal_code": "J8Y4A1",
     "assigned_broker": "Michel Potvin",
@@ -2393,7 +2445,9 @@
       "https://immo.vrtx.co/PicFull/18513660.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-541-boul-st-joseph.html?NoMLS=18513660",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 45.71797,
+    "lng": -75.7817
   },
   {
     "id": "himalaya_HIM100371",
@@ -2404,8 +2458,8 @@
     "price_raw": "900 000 US",
     "price": 900000,
     "address": "HOTEL",
-    "city": "BUNGALOWS",
-    "region": "SUITE",
+    "city": "Las Terrenas (Samaná)",
+    "region": "République Dominicaine",
     "postal_code": "PISCINE",
     "assigned_broker": "Roger Rhéaume",
     "co_brokers": [],
@@ -2453,7 +2507,9 @@
       "https://www.himalayacorp.com/DATA/CMSIMAGE/4539.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-.html?NoMLS=HIM100371",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 19.27671,
+    "lng": -69.45962
   },
   {
     "id": "himalaya_25913619",
@@ -2464,7 +2520,7 @@
     "price_raw": "898 000 $",
     "price": 898000,
     "address": "3550",
-    "city": "Place Cabral Brossard",
+    "city": "Brossard",
     "region": "Montérégie",
     "postal_code": "J4Z3W4",
     "assigned_broker": "Olivier Meunier",
@@ -2581,7 +2637,9 @@
       "https://immo.vrtx.co/PicFull/25913619.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-3550-place-cabral.html?NoMLS=25913619",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 45.43487,
+    "lng": -73.4741
   },
   {
     "id": "himalaya_HIM100368",
@@ -2592,8 +2650,8 @@
     "price_raw": "890 000 US",
     "price": 890000,
     "address": "BOULANGERIE LAS TERRENAS",
-    "city": "SAMANA Autres pays / Other countries",
-    "region": "SAMANA",
+    "city": "Las Terrenas (Samaná)",
+    "region": "République Dominicaine",
     "postal_code": "",
     "assigned_broker": "Roger Rhéaume",
     "co_brokers": [],
@@ -2633,7 +2691,9 @@
       "https://www.himalayacorp.com/DATA/CMSIMAGE/4515.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-.html?NoMLS=HIM100368",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 19.33395,
+    "lng": -69.52753
   },
   {
     "id": "himalaya_17495728",
@@ -2644,8 +2704,8 @@
     "price_raw": "850 000 $",
     "price": 850000,
     "address": "214",
-    "city": "Boul. Perron E. Sainte-Anne-des-Monts",
-    "region": "Gaspésie/Iles-de-la-Madeleine",
+    "city": "Sainte-Anne-des-Monts",
+    "region": "Gaspésie",
     "postal_code": "G4V3A7",
     "assigned_broker": "Sylvie Castonguay",
     "co_brokers": [],
@@ -2732,7 +2792,9 @@
       "https://immo.vrtx.co/PicFull/17495728.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-214-boul-perron-e-.html?NoMLS=17495728",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 48.79233,
+    "lng": -64.46991
   },
   {
     "id": "himalaya_HIM100372",
@@ -2743,8 +2805,8 @@
     "price_raw": "845 000 US",
     "price": 845000,
     "address": "MAISON VILLA 420 MC",
-    "city": "MEUBLÉE",
-    "region": "COSON",
+    "city": "Las Terrenas (Samaná)",
+    "region": "République Dominicaine",
     "postal_code": "LAS TERRÉNAS LAS TERRÉNAS",
     "assigned_broker": "Roger Rhéaume",
     "co_brokers": [],
@@ -2796,7 +2858,9 @@
       "https://www.himalayacorp.com/DATA/CMSIMAGE/4557.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-.html?NoMLS=HIM100372",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 19.3374,
+    "lng": -69.58301
   },
   {
     "id": "himalaya_28549479",
@@ -2807,8 +2871,8 @@
     "price_raw": "795 000 $",
     "price": 795000,
     "address": "1001",
-    "city": "Boul. Mont-Royal",
-    "region": "app. #104 Montréal (Outremont)",
+    "city": "Montréal (Outremont)",
+    "region": "Montréal",
     "postal_code": "H2V2H4",
     "assigned_broker": "Roger Rhéaume",
     "co_brokers": [],
@@ -2923,7 +2987,9 @@
       "https://immo.vrtx.co/PicFull/28549479.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-1001-boul-mont-royal.html?NoMLS=28549479",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 45.53094,
+    "lng": -73.52296
   },
   {
     "id": "himalaya_17943779",
@@ -2934,8 +3000,8 @@
     "price_raw": "785 000 $ + TPS/TVQ",
     "price": 785000,
     "address": "76",
-    "city": "Rue Lois",
-    "region": "app. #10 Gatineau (Hull)",
+    "city": "Gatineau (Hull)",
+    "region": "Outaouais",
     "postal_code": "J8Y3R4",
     "assigned_broker": "Michel Potvin",
     "co_brokers": [],
@@ -2998,7 +3064,9 @@
       "https://immo.vrtx.co/PicFull/17943779.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-76-rue-lois.html?NoMLS=17943779",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 45.5905,
+    "lng": -75.79566
   },
   {
     "id": "himalaya_23751244",
@@ -3009,7 +3077,7 @@
     "price_raw": "750 000 $ + TPS/TVQ",
     "price": 750000,
     "address": "2",
-    "city": "Riv. Némio La Tuque",
+    "city": "La Tuque",
     "region": "Mauricie",
     "postal_code": "G0X3P0",
     "assigned_broker": "Roger Rhéaume",
@@ -3079,7 +3147,9 @@
       "https://immo.vrtx.co/PicFull/23751244.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-2-riv-nemio.html?NoMLS=23751244",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 47.52667,
+    "lng": -72.78758
   },
   {
     "id": "himalaya_16267342",
@@ -3090,7 +3160,7 @@
     "price_raw": "680 000 $",
     "price": 680000,
     "address": "1220",
-    "city": "Rue de Roquetaillade Terrebonne (Terrebonne)",
+    "city": "Terrebonne",
     "region": "Lanaudière",
     "postal_code": "J6X1T3",
     "assigned_broker": "Geniev Mondoux",
@@ -3189,7 +3259,9 @@
       "https://immo.vrtx.co/PicFull/16267342.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-1220-rue-de-roquetaillade.html?NoMLS=16267342",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 46.00987,
+    "lng": -73.66894
   },
   {
     "id": "himalaya_19881973",
@@ -3200,7 +3272,7 @@
     "price_raw": "575 000 $ + TPS/TVQ",
     "price": 575000,
     "address": "1126",
-    "city": "Av. Bernard Montréal (Outremont)",
+    "city": "Montréal (Outremont)",
     "region": "Montréal",
     "postal_code": "H2V1V3",
     "assigned_broker": "Geniev Mondoux",
@@ -3275,7 +3347,9 @@
       "https://immo.vrtx.co/PicFull/19881973.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-1126-av-bernard.html?NoMLS=19881973",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 45.52,
+    "lng": -73.612
   },
   {
     "id": "himalaya_21226793",
@@ -3286,7 +3360,7 @@
     "price_raw": "499 000 $",
     "price": 499000,
     "address": "2628",
-    "city": "Rue de l'Atlas Sherbrooke (Fleurimont)",
+    "city": "Sherbrooke",
     "region": "Estrie",
     "postal_code": "J1E0C7",
     "assigned_broker": "Pengbo Zhao",
@@ -3392,7 +3466,9 @@
       "https://immo.vrtx.co/PicFull/21226793.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-2628-rue-de-l-atlas.html?NoMLS=21226793",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 45.43035,
+    "lng": -71.86325
   },
   {
     "id": "himalaya_12330063",
@@ -3403,7 +3479,7 @@
     "price_raw": "449 000 $ + TPS/TVQ",
     "price": 449000,
     "address": "5184",
-    "city": "Boul. Cousineau Longueuil (Saint-Hubert)",
+    "city": "Longueuil (Saint-Hubert)",
     "region": "Montérégie",
     "postal_code": "J3Y7G5",
     "assigned_broker": "Olivier Meunier",
@@ -3451,7 +3527,9 @@
       "https://immo.vrtx.co/PicFull/12330063.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-5184-boul-cousineau.html?NoMLS=12330063",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 45.38919,
+    "lng": -73.46444
   },
   {
     "id": "himalaya_21392440",
@@ -3462,7 +3540,7 @@
     "price_raw": "439 000 $ + TPS/TVQ",
     "price": 439000,
     "address": "293",
-    "city": "Boul. de l'Ange-Gardien L'Assomption",
+    "city": "L'Assomption",
     "region": "Lanaudière",
     "postal_code": "J5W1R9",
     "assigned_broker": "Roger Rhéaume",
@@ -3517,7 +3595,9 @@
       "https://immo.vrtx.co/PicFull/21392440.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-293-boul-de-l-ange-gardien.html?NoMLS=21392440",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 46.06998,
+    "lng": -73.71835
   },
   {
     "id": "himalaya_17710360",
@@ -3528,8 +3608,8 @@
     "price_raw": "429 000 $",
     "price": 429000,
     "address": "125",
-    "city": "Rue Chabanel O.",
-    "region": "app. #222 Montréal (Ahuntsic-Cartierville)",
+    "city": "Montréal (Ahuntsic-Cartierville)",
+    "region": "Montréal",
     "postal_code": "H2N1E4",
     "assigned_broker": "Shella Hubert",
     "co_brokers": [],
@@ -3609,7 +3689,9 @@
       "https://immo.vrtx.co/PicFull/17710360.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-125-rue-chabanel-o-.html?NoMLS=17710360",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 45.50698,
+    "lng": -73.51114
   },
   {
     "id": "himalaya_20226166",
@@ -3620,7 +3702,7 @@
     "price_raw": "250 000 $",
     "price": 250000,
     "address": "47-56",
-    "city": "Ch. de Moffet-Latulipe Moffet",
+    "city": "Moffet",
     "region": "Abitibi-Témiscamingue",
     "postal_code": "J0Z2W0",
     "assigned_broker": "Sylvie Castonguay",
@@ -3704,7 +3786,9 @@
       "https://immo.vrtx.co/PicFull/20226166.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-47-56-ch-de-moffet-latulipe.html?NoMLS=20226166",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 47.50325,
+    "lng": -79.12338
   },
   {
     "id": "himalaya_24881548",
@@ -3715,7 +3799,7 @@
     "price_raw": "225 000 $ + TPS/TVQ",
     "price": 225000,
     "address": "1",
-    "city": "Lac Falaise Territoires Autres / Other Territories",
+    "city": "Lac Falaise (Côte-Nord)",
     "region": "Côte-Nord",
     "postal_code": "H1N1N1",
     "assigned_broker": "Roger Rhéaume",
@@ -3782,7 +3866,9 @@
       "https://immo.vrtx.co/PicFull/24881548.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-1-lac-falaise.html?NoMLS=24881548",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 49.21449,
+    "lng": -68.14612
   },
   {
     "id": "himalaya_24772383",
@@ -3794,7 +3880,7 @@
     "price": 119900,
     "address": "Route Rousseau Notre-Dame-de-Montauban",
     "city": "Mauricie",
-    "region": "G0X1W0",
+    "region": "Mauricie",
     "postal_code": "G0X1W0",
     "assigned_broker": "Joseph Jacob",
     "co_brokers": [],
@@ -3847,7 +3933,9 @@
       "https://immo.vrtx.co/PicFull/24772383.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-route-rousseau.html?NoMLS=24772383",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 47.41605,
+    "lng": -72.76753
   },
   {
     "id": "himalaya_18173856",
@@ -3858,8 +3946,8 @@
     "price_raw": "99 000 $ + TPS/TVQ",
     "price": 99000,
     "address": "950",
-    "city": "Boul. du Séminaire N.",
-    "region": "app. #A4 Saint-Jean-sur-Richelieu",
+    "city": "Saint-Jean-sur-Richelieu",
+    "region": "Montérégie",
     "postal_code": "J3A1L2",
     "assigned_broker": "Mike Ainajian",
     "co_brokers": [],
@@ -3921,7 +4009,9 @@
       "https://immo.vrtx.co/PicFull/18173856.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-950-boul-du-seminaire-n-.html?NoMLS=18173856",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 45.45334,
+    "lng": -73.49665
   },
   {
     "id": "himalaya_12431189",
@@ -3932,7 +4022,7 @@
     "price_raw": "40 000 $ + TPS/TVQ",
     "price": 40000,
     "address": "37",
-    "city": "Route 132 Delson",
+    "city": "Delson",
     "region": "Montérégie",
     "postal_code": "J0L1G0",
     "assigned_broker": "Mike Ainajian",
@@ -3992,7 +4082,9 @@
       "https://immo.vrtx.co/PicFull/12431189.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/vendre-37-route-132.html?NoMLS=12431189",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 45.45952,
+    "lng": -73.41288
   },
   {
     "id": "himalaya_25807488",
@@ -4003,7 +4095,7 @@
     "price_raw": "5 500 $ /Mois + TPS/TVQ",
     "price": 5500,
     "address": "4482",
-    "city": "Rue Jean-Talon E. Montréal (Saint-Léonard)",
+    "city": "Montréal (Saint-Léonard)",
     "region": "Montréal",
     "postal_code": "H1S1K1",
     "assigned_broker": "Geniev Mondoux",
@@ -4059,7 +4151,9 @@
       "https://immo.vrtx.co/PicFull/25807488.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/louer-4482-rue-jean-talon-e-.html?NoMLS=25807488",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 45.4629,
+    "lng": -73.61162
   },
   {
     "id": "himalaya_13602331",
@@ -4070,7 +4164,7 @@
     "price_raw": "32,32 $ /PC /Année + TPS/TVQ",
     "price": 3232,
     "address": "37",
-    "city": "Route 132 Delson",
+    "city": "Delson",
     "region": "Montérégie",
     "postal_code": "J0L1G0",
     "assigned_broker": "Mike Ainajian",
@@ -4128,7 +4222,9 @@
       "https://immo.vrtx.co/PicFull/13602331.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/louer-37-route-132.html?NoMLS=13602331",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 45.51153,
+    "lng": -73.48255
   },
   {
     "id": "himalaya_24458819",
@@ -4139,7 +4235,7 @@
     "price_raw": "2 680 $ /Mois + TPS/TVQ",
     "price": 2680,
     "address": "1083",
-    "city": "Av. Laurier O. Montréal (Outremont)",
+    "city": "Montréal (Outremont)",
     "region": "Montréal",
     "postal_code": "H2V2L2",
     "assigned_broker": "Geniev Mondoux",
@@ -4195,7 +4291,9 @@
       "https://immo.vrtx.co/PicFull/24458819.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/louer-1083-av-laurier-o-.html?NoMLS=24458819",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 45.4765,
+    "lng": -73.50966
   },
   {
     "id": "himalaya_25695350",
@@ -4206,8 +4304,8 @@
     "price_raw": "2 400 $ /Mois + TPS/TVQ",
     "price": 2400,
     "address": "3875",
-    "city": "Rue St-Urbain",
-    "region": "app. #201A Montréal (Le Plateau-Mont-Royal)",
+    "city": "Montréal (Le Plateau-Mont-Royal)",
+    "region": "Montréal",
     "postal_code": "H2W1T9",
     "assigned_broker": "Geniev Mondoux",
     "co_brokers": [],
@@ -4282,7 +4380,9 @@
       "https://immo.vrtx.co/PicFull/25695350.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/louer-3875-rue-st-urbain.html?NoMLS=25695350",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 45.51675,
+    "lng": -73.59964
   },
   {
     "id": "himalaya_27571104",
@@ -4293,8 +4393,8 @@
     "price_raw": "2 350 $ /Mois + TPS/TVQ",
     "price": 2350,
     "address": "3875",
-    "city": "Rue St-Urbain",
-    "region": "app. #201B Montréal (Le Plateau-Mont-Royal)",
+    "city": "Montréal (Le Plateau-Mont-Royal)",
+    "region": "Montréal",
     "postal_code": "H2W1T9",
     "assigned_broker": "Geniev Mondoux",
     "co_brokers": [],
@@ -4369,7 +4469,9 @@
       "https://immo.vrtx.co/PicFull/27571104.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/louer-3875-rue-st-urbain.html?NoMLS=27571104",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 45.54212,
+    "lng": -73.56951
   },
   {
     "id": "himalaya_18465947",
@@ -4380,8 +4482,8 @@
     "price_raw": "2 150 $ /Mois",
     "price": 2150,
     "address": "15",
-    "city": "Boul. La Fayette",
-    "region": "app. #1508 Longueuil (Le Vieux-Longueuil)",
+    "city": "Longueuil (Le Vieux-Longueuil)",
+    "region": "Montérégie",
     "postal_code": "J4K0B2",
     "assigned_broker": "Olivier Meunier",
     "co_brokers": [],
@@ -4451,7 +4553,9 @@
       "https://immo.vrtx.co/PicFull/18465947.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/louer-15-boul-la-fayette.html?NoMLS=18465947",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 45.40133,
+    "lng": -73.45491
   },
   {
     "id": "himalaya_15856137",
@@ -4462,8 +4566,8 @@
     "price_raw": "1 800 $ /Mois",
     "price": 1800,
     "address": "695",
-    "city": "Boul. de Palerme",
-    "region": "app. #8 La Prairie",
+    "city": "La Prairie",
+    "region": "Montérégie",
     "postal_code": "J5R6K9",
     "assigned_broker": "Taline Ovayan",
     "co_brokers": [],
@@ -4554,7 +4658,9 @@
       "https://immo.vrtx.co/PicFull/15856137.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/louer-695-boul-de-palerme.html?NoMLS=15856137",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 45.47278,
+    "lng": -73.49907
   },
   {
     "id": "himalaya_28003512",
@@ -4565,7 +4671,7 @@
     "price_raw": "1 275 $ /Mois + TPS/TVQ",
     "price": 1275,
     "address": "3970",
-    "city": "Rue Masson Montréal (Rosemont/La Petite-Patrie)",
+    "city": "Montréal (Rosemont/La Petite-Patrie)",
     "region": "Montréal",
     "postal_code": "H1X1T5",
     "assigned_broker": "Geniev Mondoux",
@@ -4625,7 +4731,9 @@
       "https://immo.vrtx.co/PicFull/28003512.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/louer-3970-rue-masson.html?NoMLS=28003512",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 45.52275,
+    "lng": -73.52206
   },
   {
     "id": "himalaya_20570938",
@@ -4636,7 +4744,7 @@
     "price_raw": "1 100 $ /Mois + TPS/TVQ",
     "price": 1100,
     "address": "1470",
-    "city": "Boul. Shevchenko Montréal (LaSalle)",
+    "city": "Montréal (LaSalle)",
     "region": "Montréal",
     "postal_code": "H8N1P1",
     "assigned_broker": "Geniev Mondoux",
@@ -4705,7 +4813,9 @@
       "https://immo.vrtx.co/PicFull/20570938.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/louer-1470-boul-shevchenko.html?NoMLS=20570938",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 45.46697,
+    "lng": -73.63803
   },
   {
     "id": "himalaya_21435926",
@@ -4716,8 +4826,8 @@
     "price_raw": "30 $ /PC /Année + TPS/TVQ",
     "price": 30,
     "address": "5773",
-    "city": "Boul. Taschereau",
-    "region": "app. #104 Brossard",
+    "city": "Brossard",
+    "region": "Montérégie",
     "postal_code": "J4Z1A5",
     "assigned_broker": "Mike Ainajian",
     "co_brokers": [],
@@ -4761,7 +4871,9 @@
       "https://immo.vrtx.co/PicFull/21435926.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/louer-5773-boul-taschereau.html?NoMLS=21435926",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 45.52692,
+    "lng": -73.45621
   },
   {
     "id": "himalaya_22217075",
@@ -4772,8 +4884,8 @@
     "price_raw": "22 $ /PC /Année + TPS/TVQ",
     "price": 22,
     "address": "40",
-    "city": "Boul. St-Jean-Baptiste",
-    "region": "app. #AB Châteauguay",
+    "city": "Châteauguay",
+    "region": "Montérégie",
     "postal_code": "J6K3A3",
     "assigned_broker": "Mike Ainajian",
     "co_brokers": [],
@@ -4831,7 +4943,9 @@
       "https://immo.vrtx.co/PicFull/22217075.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/louer-40-boul-st-jean-baptiste.html?NoMLS=22217075",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 45.42851,
+    "lng": -73.45036
   },
   {
     "id": "himalaya_21738401",
@@ -4842,8 +4956,8 @@
     "price_raw": "15 $ /PC /Année + TPS/TVQ",
     "price": 15,
     "address": "3875",
-    "city": "Rue St-Urbain",
-    "region": "app. #201AB Montréal (Le Plateau-Mont-Royal)",
+    "city": "Montréal (Le Plateau-Mont-Royal)",
+    "region": "Montréal",
     "postal_code": "H2W1T9",
     "assigned_broker": "Geniev Mondoux",
     "co_brokers": [],
@@ -4918,7 +5032,9 @@
       "https://immo.vrtx.co/PicFull/21738401.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/louer-3875-rue-st-urbain.html?NoMLS=21738401",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 45.52352,
+    "lng": -73.61177
   },
   {
     "id": "himalaya_HIM100199",
@@ -4929,8 +5045,8 @@
     "price_raw": "Vendu",
     "price": 0,
     "address": "3875 Rue St-Denis Montréal (Le Plateau-Mont-Royal) H2W 2M4 3875",
-    "city": "St-Denis",
-    "region": "Montréal (Le Plateau-Mont-Royal)",
+    "city": "Montréal (Le Plateau-Mont-Royal)",
+    "region": "Montréal",
     "postal_code": "H2W 2M4",
     "assigned_broker": "Geniev Mondoux",
     "co_brokers": [],
@@ -4974,6 +5090,8 @@
       "https://www.himalayacorp.com/DATA/CMSIMAGE/2535.jpg"
     ],
     "url": "https://www.himalayacorp.com/fr/proprietes/louer-3875-st-denis.html?NoMLS=HIM100199",
-    "status": "Actif sur le marché"
+    "status": "Actif sur le marché",
+    "lat": 45.54237,
+    "lng": -73.55305
   }
 ]
