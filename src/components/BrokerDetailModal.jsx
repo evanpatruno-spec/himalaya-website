@@ -3,6 +3,7 @@ import { X, Phone, Mail, MapPin, Globe, ChevronRight, Share2 } from 'lucide-reac
 
 export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSelectDeal }) {
   const [copied, setCopied] = useState(false);
+  const [emailCopied, setEmailCopied] = useState(false);
 
   useEffect(() => {
     const prev = document.body.style.overflow;
@@ -74,13 +75,15 @@ export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSe
           </div>
         </div>
 
-        <div style={{ padding: '26px' }}>
+        <div style={{ padding: '28px' }}>
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
             gap: '24px',
             alignItems: 'center',
-            marginBottom: '26px'
+            paddingBottom: '24px',
+            marginBottom: '24px',
+            borderBottom: '1px solid var(--border-subtle)'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '18px' }}>
               <img
@@ -88,8 +91,8 @@ export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSe
                 alt={broker.name}
                 style={{
                   width: '96px',
-                  aspectRatio: '314 / 543',
-                  borderRadius: '10px',
+                  aspectRatio: '314 / 460',
+                  borderRadius: '6px',
                   objectFit: 'cover',
                   objectPosition: 'top center',
                   border: '1px solid var(--border-gold)',
@@ -99,7 +102,7 @@ export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSe
                 onError={e => { e.target.src = 'https://www.himalayacorp.com/gx/00/defaut_courtier.jpg'; }}
               />
               <div>
-                <h2 style={{ fontSize: '1.45rem', fontWeight: 700, marginBottom: '4px' }}>{broker.name}</h2>
+                <h2 className="serif-title" style={{ fontSize: '1.85rem', fontWeight: 600, marginBottom: '4px' }}>{broker.name}</h2>
                 <div style={{ fontSize: '0.84rem', color: 'var(--gold-light)', marginBottom: '6px' }}>{displayTitle}</div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.82rem', color: 'var(--text-secondary)' }}>
                   <MapPin size={13} color="var(--gold)" /> {displayAddress}
@@ -107,65 +110,87 @@ export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSe
               </div>
             </div>
 
-            <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
               <a href={`tel:${broker.phone}`} className="btn-gold">
                 <Phone size={15} /> {broker.phone}
               </a>
-              <a href={`mailto:${broker.email}`} className="btn-outline">
+              <a href={`mailto:${broker.email}`} className="btn-outline" title={broker.email}>
                 <Mail size={15} /> {broker.email}
               </a>
+              <button
+                type="button"
+                onClick={() => {
+                  if (navigator.clipboard && broker.email) {
+                    navigator.clipboard.writeText(broker.email);
+                    setEmailCopied(true);
+                    setTimeout(() => setEmailCopied(false), 2200);
+                  }
+                }}
+                className="btn-outline"
+                style={{ padding: '8px 12px', fontSize: '0.76rem' }}
+              >
+                {emailCopied ? (isEn ? 'Copied!' : 'Copié !') : (isEn ? 'Copy Email' : 'Copier courriel')}
+              </button>
             </div>
           </div>
 
           {displayBio && (
-            <p style={{
-              color: 'var(--text-secondary)',
-              fontSize: '0.92rem',
-              lineHeight: 1.65,
-              padding: '16px 18px',
-              background: 'rgba(255,255,255,0.025)',
-              borderRadius: '10px',
-              border: '1px solid var(--border-subtle)',
-              marginBottom: '22px',
-              whiteSpace: 'pre-line'
-            }}>
-              {displayBio}
-            </p>
+            <div style={{ marginBottom: '24px' }}>
+              <div className="badge-gold" style={{ marginBottom: '8px' }}>
+                {isEn ? 'Biography & Expertise' : 'Parcours & Expertise'}
+              </div>
+              <p style={{
+                color: 'var(--text-secondary)',
+                fontSize: '0.94rem',
+                lineHeight: 1.75,
+                whiteSpace: 'pre-line'
+              }}>
+                {displayBio}
+              </p>
+            </div>
           )}
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '14px', marginBottom: deals.length > 0 ? '26px' : '0' }}>
-            {displayMarkets && displayMarkets.length > 0 && (
-              <div style={{ background: 'rgba(255,255,255,0.02)', padding: '12px 14px', borderRadius: '8px', border: '1px solid var(--border-subtle)' }}>
-                <div style={{ fontSize: '0.73rem', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '4px' }}>
-                  <Globe size={12} style={{ display: 'inline', marginRight: '5px', color: 'var(--gold)' }} />
-                  {t?.brokers?.specialties || 'Marchés & Pays'}
-                </div>
-                <div style={{ fontSize: '0.88rem', fontWeight: 600 }}>{displayMarkets.join(' • ')}</div>
+          {displayMarkets && displayMarkets.length > 0 && (
+            <div style={{
+              paddingTop: '16px',
+              paddingBottom: deals.length > 0 ? '20px' : '4px',
+              marginBottom: deals.length > 0 ? '24px' : '0',
+              borderTop: '1px solid var(--border-subtle)',
+              borderBottom: deals.length > 0 ? '1px solid var(--border-subtle)' : 'none',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              flexWrap: 'wrap',
+              gap: '12px'
+            }}>
+              <div style={{ fontSize: '0.73rem', color: 'var(--gold)', textTransform: 'uppercase', letterSpacing: '0.09em', fontWeight: 700 }}>
+                <Globe size={13} style={{ display: 'inline', marginRight: '6px' }} />
+                {t?.brokers?.specialties || 'Marchés & Pays'}
               </div>
-            )}
-          </div>
+              <div style={{ fontSize: '0.88rem', fontWeight: 600, color: '#fff' }}>{displayMarkets.join(' • ')}</div>
+            </div>
+          )}
 
           {deals.length > 0 && (
             <div>
-              <h3 style={{ fontSize: '1rem', fontWeight: 700, marginBottom: '12px', color: 'var(--gold-light)' }}>
+              <div className="badge-gold" style={{ marginBottom: '14px' }}>
                 {deals.length} {t?.brokers?.activeMandates || 'inscription(s)'}
-              </h3>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '12px' }}>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '20px' }}>
                 {deals.map(d => (
                   <div
                     key={d.id}
                     onClick={() => { onClose(); onSelectDeal(d); }}
                     style={{
-                      background: 'var(--bg-card)',
-                      border: '1px solid var(--border-subtle)',
-                      borderRadius: '10px',
-                      overflow: 'hidden',
+                      background: 'transparent',
+                      borderBottom: '1px solid var(--border-subtle)',
+                      paddingBottom: '12px',
                       cursor: 'pointer',
                       display: 'flex',
                       flexDirection: 'column'
                     }}
                   >
-                    <div style={{ height: '120px', overflow: 'hidden', position: 'relative' }}>
+                    <div style={{ aspectRatio: '16 / 10', borderRadius: '6px', overflow: 'hidden', position: 'relative', marginBottom: '10px' }}>
                       <img
                         src={d.main_photo}
                         alt={isEn ? (d.title_en || d.title) : d.title}
@@ -173,19 +198,19 @@ export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSe
                         onError={e => { e.target.src = 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80'; }}
                       />
                       <span style={{
-                        position: 'absolute', bottom: '8px', left: '8px',
-                        background: 'rgba(9,9,11,0.9)', padding: '3px 8px', borderRadius: '5px',
-                        fontSize: '0.78rem', fontWeight: 700, color: 'var(--gold-light)'
+                        position: 'absolute', bottom: '8px', left: '10px',
+                        fontSize: '0.86rem', fontWeight: 700, color: 'var(--gold-light)',
+                        textShadow: '0 2px 8px rgba(0,0,0,0.9)'
                       }}>
                         {isEn ? (d.price_raw_en || d.price_raw) : d.price_raw}
                       </span>
                     </div>
-                    <div style={{ padding: '10px 12px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '6px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '6px' }}>
                       <div style={{ minWidth: 0 }}>
-                        <div style={{ fontSize: '0.84rem', fontWeight: 600, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                        <div className="serif-title" style={{ fontSize: '1.05rem', fontWeight: 600, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                           {isEn ? (d.title_en || d.title) : d.title}
                         </div>
-                        <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                        <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                           {d.city}
                         </div>
                       </div>

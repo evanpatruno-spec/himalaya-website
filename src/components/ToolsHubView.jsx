@@ -827,37 +827,34 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                 </div>
               </div>
 
-              {/* Colonne 2 : Bilan Financier Complet */}
+              {/* Colonne 2 : Bilan Financier Complet (Épuré sans boîte) */}
               <div
                 style={{
-                  background: 'var(--bg-dark)',
-                  border: '1px solid var(--border-subtle)',
-                  borderRadius: '12px',
-                  padding: '24px',
+                  padding: '4px 0',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between'
                 }}
               >
                 <div>
-                  <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--gold-light)', marginBottom: '16px' }}>
+                  <h3 className="serif-title" style={{ fontSize: '1.35rem', fontWeight: 600, color: 'var(--gold-light)', marginBottom: '16px', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
                     {isEn ? 'Financial Operating Summary' : 'Sommaire financier d’exploitation'}
                   </h3>
 
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '0.9rem' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '10px', borderBottom: '1px solid var(--border-subtle)' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
                       <span style={{ color: 'var(--text-secondary)' }}>
                         {isEn ? 'Down Payment Injected' : 'Mise de fonds injectée'} ({plexDownPct}%)
                       </span>
                       <strong>{fmtCAD(plexResult.downAmount)}</strong>
                     </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '10px', borderBottom: '1px solid var(--border-subtle)' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
                       <span style={{ color: 'var(--text-secondary)' }}>
                         {isEn ? 'Effective Gross Income (Net of Vacancy)' : 'Revenus effectifs nets de vacance'}
                       </span>
                       <strong>{fmtCAD(plexResult.effectiveIncome)}</strong>
                     </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '10px', borderBottom: '1px solid var(--border-subtle)' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
                       <span style={{ color: 'var(--text-secondary)' }}>
                         {isEn ? 'Total Operating Expenses' : 'Total des dépenses d’exploitation'}
                       </span>
@@ -867,9 +864,8 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                       style={{
                         display: 'flex',
                         justifyContent: 'space-between',
-                        padding: '10px 12px',
-                        borderRadius: '8px',
-                        background: 'rgba(200, 164, 93, 0.12)',
+                        padding: '10px 0',
+                        borderBottom: '1px solid rgba(200, 164, 93, 0.35)',
                         color: 'var(--gold-light)',
                         fontWeight: 700
                       }}
@@ -877,13 +873,13 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                       <span>{isEn ? 'Net Operating Income (NOI / RNO)' : 'Revenu Net d’Opération (RNO / NOI)'}</span>
                       <span>{fmtCAD(plexResult.noi)}</span>
                     </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '10px', borderBottom: '1px solid var(--border-subtle)' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
                       <span style={{ color: 'var(--text-secondary)' }}>
                         {isEn ? 'Annual Mortgage Debt Service' : 'Service de la dette hypothécaire (annuel)'}
                       </span>
                       <strong style={{ color: '#f87171' }}>- {fmtCAD(plexResult.annualDebtService)}</strong>
                     </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '10px', borderBottom: '1px solid var(--border-subtle)' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
                       <span style={{ color: 'var(--text-secondary)' }}>
                         {isEn ? '1st Year Principal Repaid (Equity)' : 'Capital remboursé la 1re année (Équité)'}
                       </span>
@@ -893,22 +889,21 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                       style={{
                         display: 'flex',
                         justifyContent: 'space-between',
-                        padding: '12px',
-                        borderRadius: '8px',
-                        border: '1px solid var(--border-gold)',
-                        fontSize: '1rem',
+                        padding: '14px 0 4px',
+                        borderTop: '1px solid var(--border-gold)',
+                        fontSize: '1.05rem',
                         fontWeight: 700
                       }}
                     >
                       <span>{isEn ? 'Real Net Annual Cashflow' : 'Cashflow net annuel réel'}</span>
-                      <span style={{ color: plexResult.annualCashflow >= 0 ? 'var(--gold-light)' : '#f87171' }}>
+                      <span className="serif-title" style={{ fontSize: '1.35rem', color: plexResult.annualCashflow >= 0 ? 'var(--gold-light)' : '#f87171' }}>
                         {(plexResult.annualCashflow >= 0 ? '+ ' : '') + fmtCAD(plexResult.annualCashflow)}
                       </span>
                     </div>
                   </div>
                 </div>
 
-                <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginTop: '22px' }}>
+                <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginTop: '26px' }}>
                   <button
                     onClick={() => {
                       setLeadSent(false);
@@ -932,20 +927,13 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
         )}
 
         {/* =================================================================
-            OUTIL 2 : CAPACITÉ D'EMPRUNT (TEST B-20)
+            OUTIL 2 : CAPACITÉ D'EMPRUNT (TEST B-20) — Épuré sans boîte
            ================================================================= */}
         {activeTool === 'affordability' && (
-          <div
-            style={{
-              background: 'var(--bg-card)',
-              border: '1px solid var(--border-gold)',
-              borderRadius: '14px',
-              padding: '30px'
-            }}
-          >
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(310px, 1fr))', gap: '26px' }}>
+          <div style={{ paddingTop: '8px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '40px' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--gold-light)' }}>
+                <h3 className="serif-title" style={{ fontSize: '1.35rem', fontWeight: 600, color: 'var(--gold-light)', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
                   {isEn ? 'Household Income, Debts & Rate' : 'Revenus du ménage, dettes et taux'}
                 </h3>
                 <div>
@@ -1042,41 +1030,37 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
 
               <div
                 style={{
-                  background: 'var(--bg-dark)',
-                  border: '1px solid var(--border-subtle)',
-                  borderRadius: '12px',
-                  padding: '28px',
+                  padding: '4px 0',
                   display: 'flex',
                   flexDirection: 'column',
-                  justifyContent: 'space-between',
-                  textAlign: 'center'
+                  justifyContent: 'space-between'
                 }}
               >
                 <div>
                   <span className="badge-gold" style={{ marginBottom: '12px' }}>
                     {isEn ? `B-20 Qualifying Rate: ${affResult.stressRate}%` : `Taux de qualification B-20 : ${affResult.stressRate} %`}
                   </span>
-                  <div style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
+                  <div style={{ fontSize: '0.84rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '6px' }}>
                     {isEn ? 'Maximum Estimated Purchase Price' : 'Prix d’achat maximal estimé'}
                   </div>
-                  <div className="gold-gradient-text" style={{ fontSize: '2.6rem', fontWeight: 800, marginBottom: '20px' }}>
+                  <div className="serif-title gold-gradient-text" style={{ fontSize: '3rem', fontWeight: 700, marginBottom: '24px', paddingBottom: '20px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
                     {fmtCAD(affResult.maxPrice)}
                   </div>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', textAlign: 'left' }}>
-                    <div style={{ padding: '14px', borderRadius: '10px', background: 'var(--bg-card)', border: '1px solid var(--border-subtle)' }}>
-                      <div style={{ fontSize: '0.76rem', color: 'var(--text-muted)' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+                    <div style={{ borderLeft: '2px solid rgba(255,255,255,0.18)', paddingLeft: '14px' }}>
+                      <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                         {isEn ? 'Net Mortgage Loan' : 'Prêt hypothécaire net'}
                       </div>
-                      <div style={{ fontSize: '1.15rem', fontWeight: 700, marginTop: '4px' }}>
+                      <div className="serif-title" style={{ fontSize: '1.45rem', fontWeight: 600, marginTop: '4px' }}>
                         {fmtCAD(affResult.netLoan)}
                       </div>
                     </div>
-                    <div style={{ padding: '14px', borderRadius: '10px', background: 'var(--bg-card)', border: '1px solid var(--border-subtle)' }}>
-                      <div style={{ fontSize: '0.76rem', color: 'var(--text-muted)' }}>
+                    <div style={{ borderLeft: '2px solid var(--gold)', paddingLeft: '14px' }}>
+                      <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                         {isEn ? 'Down Payment Applied' : 'Mise de fonds appliquée'}
                       </div>
-                      <div style={{ fontSize: '1.15rem', fontWeight: 700, marginTop: '4px', color: 'var(--gold-light)' }}>
+                      <div className="serif-title" style={{ fontSize: '1.45rem', fontWeight: 600, marginTop: '4px', color: 'var(--gold-light)' }}>
                         {fmtCAD(affDown)}
                       </div>
                     </div>
@@ -1089,7 +1073,7 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                     setLeadModalOpen(true);
                   }}
                   className="btn-gold"
-                  style={{ width: '100%', marginTop: '22px' }}
+                  style={{ width: '100%', marginTop: '28px' }}
                 >
                   {isEn ? 'Receive My Pre-Qualification Report' : 'Recevoir mon bilan de capacité d’emprunt'}
                 </button>
@@ -1099,20 +1083,13 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
         )}
 
         {/* =================================================================
-            OUTIL 3 : CALCULATRICE HYPOTHÉCAIRE CANADIENNE
+            OUTIL 3 : CALCULATRICE HYPOTHÉCAIRE CANADIENNE — Épuré sans boîte
            ================================================================= */}
         {activeTool === 'mortgage' && (
-          <div
-            style={{
-              background: 'var(--bg-card)',
-              border: '1px solid var(--border-gold)',
-              borderRadius: '14px',
-              padding: '30px'
-            }}
-          >
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(310px, 1fr))', gap: '26px' }}>
+          <div style={{ paddingTop: '8px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '40px' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--gold-light)' }}>
+                <h3 className="serif-title" style={{ fontSize: '1.35rem', fontWeight: 600, color: 'var(--gold-light)', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
                   {isEn ? 'Mortgage Parameters' : 'Paramètres du prêt hypothécaire'}
                 </h3>
                 <div>
@@ -1175,38 +1152,34 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
 
               <div
                 style={{
-                  background: 'var(--bg-dark)',
-                  border: '1px solid var(--border-subtle)',
-                  borderRadius: '12px',
-                  padding: '28px',
-                  textAlign: 'center',
+                  padding: '4px 0',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between'
                 }}
               >
                 <div>
-                  <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '4px' }}>
+                  <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '4px' }}>
                     {isEn ? 'Estimated Mortgage Payment' : 'Versement hypothécaire estimé'}
                   </div>
-                  <div className="gold-gradient-text" style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '18px' }}>
+                  <div className="serif-title gold-gradient-text" style={{ fontSize: '2.9rem', fontWeight: 700, marginBottom: '20px', paddingBottom: '18px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
                     {fmtCAD(mcResult.payment)}
                   </div>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', textAlign: 'left', marginBottom: '16px' }}>
-                    <div style={{ padding: '12px', borderRadius: '8px', background: 'var(--bg-card)', border: '1px solid var(--border-subtle)' }}>
-                      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '20px' }}>
+                    <div style={{ borderLeft: '2px solid rgba(255,255,255,0.18)', paddingLeft: '14px' }}>
+                      <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                         {isEn ? 'Total Interest Over Term' : 'Total des intérêts'}
                       </div>
-                      <div style={{ fontSize: '1.08rem', fontWeight: 700, marginTop: '3px' }}>
+                      <div className="serif-title" style={{ fontSize: '1.35rem', fontWeight: 600, marginTop: '3px' }}>
                         {fmtCAD(mcResult.totalInterest)}
                       </div>
                     </div>
-                    <div style={{ padding: '12px', borderRadius: '8px', background: 'var(--bg-card)', border: '1px solid var(--border-subtle)' }}>
-                      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                    <div style={{ borderLeft: '2px solid var(--gold)', paddingLeft: '14px' }}>
+                      <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                         {isEn ? 'Total Paid (Principal + Int.)' : 'Total versé (Capital + Int.)'}
                       </div>
-                      <div style={{ fontSize: '1.08rem', fontWeight: 700, marginTop: '3px' }}>
+                      <div className="serif-title" style={{ fontSize: '1.35rem', fontWeight: 600, marginTop: '3px' }}>
                         {fmtCAD(mcResult.totalPaid)}
                       </div>
                     </div>
@@ -1214,13 +1187,10 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
 
                   <div
                     style={{
-                      padding: '12px 14px',
-                      borderRadius: '8px',
-                      background: 'rgba(200, 164, 93, 0.1)',
-                      border: '1px solid var(--border-gold)',
-                      fontSize: '0.83rem',
-                      color: 'var(--text-secondary)',
-                      textAlign: 'left'
+                      paddingTop: '14px',
+                      borderTop: '1px solid rgba(200, 164, 93, 0.25)',
+                      fontSize: '0.85rem',
+                      color: 'var(--text-secondary)'
                     }}
                   >
                     <strong style={{ color: 'var(--gold-light)' }}>
@@ -1238,7 +1208,7 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                     setLeadModalOpen(true);
                   }}
                   className="btn-gold"
-                  style={{ width: '100%', marginTop: '20px' }}
+                  style={{ width: '100%', marginTop: '24px' }}
                 >
                   {isEn ? 'Receive My Amortization Schedule' : 'Recevoir mon tableau d’amortissement complet'}
                 </button>
@@ -1248,20 +1218,13 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
         )}
 
         {/* =================================================================
-            OUTIL 4 : TAXE DE BIENVENUE (DROITS DE MUTATION QC & MTL 2026)
+            OUTIL 4 : TAXE DE BIENVENUE (DROITS DE MUTATION QC & MTL 2026) — Épuré
            ================================================================= */}
         {activeTool === 'welcome' && (
-          <div
-            style={{
-              background: 'var(--bg-card)',
-              border: '1px solid var(--border-gold)',
-              borderRadius: '14px',
-              padding: '30px'
-            }}
-          >
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(310px, 1fr))', gap: '26px' }}>
+          <div style={{ paddingTop: '8px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '40px' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--gold-light)' }}>
+                <h3 className="serif-title" style={{ fontSize: '1.35rem', fontWeight: 600, color: 'var(--gold-light)', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
                   {isEn ? 'Property Transfer Duties (2026 Brackets)' : 'Calcul des droits de mutation (Barèmes 2026)'}
                 </h3>
                 <div>
@@ -1295,24 +1258,17 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                 </div>
               </div>
 
-              <div
-                style={{
-                  background: 'var(--bg-dark)',
-                  border: '1px solid var(--border-subtle)',
-                  borderRadius: '12px',
-                  padding: '26px'
-                }}
-              >
-                <div style={{ textAlign: 'center', marginBottom: '18px' }}>
-                  <div style={{ fontSize: '0.84rem', color: 'var(--text-secondary)' }}>
+              <div style={{ padding: '4px 0' }}>
+                <div style={{ marginBottom: '20px', paddingBottom: '16px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                  <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                     {isEn ? 'Total Transfer Duties Payable' : 'Total de la taxe de bienvenue estimée'}
                   </div>
-                  <div className="gold-gradient-text" style={{ fontSize: '2.4rem', fontWeight: 800, marginTop: '4px' }}>
+                  <div className="serif-title gold-gradient-text" style={{ fontSize: '2.8rem', fontWeight: 700, marginTop: '4px' }}>
                     {fmtCAD(wtResult.total)}
                   </div>
                 </div>
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
                   {wtResult.brackets.map((b, idx) => (
                     <div
                       key={idx}
@@ -1320,16 +1276,14 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                         display: 'flex',
                         justifyContent: 'space-between',
                         alignItems: 'center',
-                        padding: '9px 12px',
-                        borderRadius: '8px',
-                        background: 'var(--bg-card)',
-                        border: '1px solid var(--border-subtle)',
-                        fontSize: '0.86rem'
+                        padding: '10px 0',
+                        borderBottom: '1px solid rgba(255,255,255,0.06)',
+                        fontSize: '0.88rem'
                       }}
                     >
                       <span>
-                        <strong style={{ color: 'var(--gold)', marginRight: '8px' }}>{b.rate}</strong>
-                        {b.label}
+                        <strong style={{ color: 'var(--gold)', marginRight: '10px' }}>{b.rate}</strong>
+                        <span style={{ color: 'var(--text-secondary)' }}>{b.label}</span>
                       </span>
                       <strong>{fmtCAD(b.amount)}</strong>
                     </div>
@@ -1341,20 +1295,13 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
         )}
 
         {/* =================================================================
-            OUTIL 5 : FRAIS DE CLÔTURE & LIQUIDITÉS CHEZ LE NOTAIRE
+            OUTIL 5 : FRAIS DE CLÔTURE & LIQUIDITÉS CHEZ LE NOTAIRE — Épuré
            ================================================================= */}
         {activeTool === 'closing' && (
-          <div
-            style={{
-              background: 'var(--bg-card)',
-              border: '1px solid var(--border-gold)',
-              borderRadius: '14px',
-              padding: '30px'
-            }}
-          >
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(310px, 1fr))', gap: '26px' }}>
+          <div style={{ paddingTop: '8px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '40px' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--gold-light)' }}>
+                <h3 className="serif-title" style={{ fontSize: '1.35rem', fontWeight: 600, color: 'var(--gold-light)', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
                   {isEn ? 'Acquisition & Notary Closing Costs' : 'Paramètres des frais de clôture'}
                 </h3>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
@@ -1425,41 +1372,34 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                 </div>
               </div>
 
-              <div
-                style={{
-                  background: 'var(--bg-dark)',
-                  border: '1px solid var(--border-subtle)',
-                  borderRadius: '12px',
-                  padding: '26px'
-                }}
-              >
-                <div style={{ textAlign: 'center', marginBottom: '18px' }}>
-                  <div style={{ fontSize: '0.84rem', color: 'var(--text-secondary)' }}>
+              <div style={{ padding: '4px 0' }}>
+                <div style={{ marginBottom: '20px', paddingBottom: '16px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                  <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                     {isEn ? 'Total Liquid Cash Required at Closing' : 'Total des liquidités requises à la signature'}
                   </div>
-                  <div className="gold-gradient-text" style={{ fontSize: '2.4rem', fontWeight: 800, marginTop: '4px' }}>
+                  <div className="serif-title gold-gradient-text" style={{ fontSize: '2.8rem', fontWeight: 700, marginTop: '4px' }}>
                     {fmtCAD(ccResult.totalCash)}
                   </div>
                 </div>
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '9px', fontSize: '0.88rem' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '8px', borderBottom: '1px solid var(--border-subtle)' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '0.9rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
                     <span style={{ color: 'var(--text-secondary)' }}>{isEn ? 'Down Payment' : 'Mise de fonds'}</span>
                     <strong>{fmtCAD(ccResult.down)}</strong>
                   </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '8px', borderBottom: '1px solid var(--border-subtle)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
                     <span style={{ color: 'var(--text-secondary)' }}>
                       {isEn ? 'Welcome Tax (Montreal est.)' : 'Taxe de bienvenue (est. Montréal)'}
                     </span>
                     <strong>{fmtCAD(ccResult.welcome)}</strong>
                   </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '8px', borderBottom: '1px solid var(--border-subtle)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
                     <span style={{ color: 'var(--text-secondary)' }}>
                       {isEn ? '9% Provincial Tax on CMHC Premium' : 'Taxe de 9 % sur prime SCHL'}
                     </span>
                     <strong>{fmtCAD(ccResult.schlTax)}</strong>
                   </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
                     <span style={{ color: 'var(--text-secondary)' }}>
                       {isEn ? 'Notary, Inspection & Moving' : 'Notaire, inspection et divers'}
                     </span>
@@ -1472,20 +1412,13 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
         )}
 
         {/* =================================================================
-            OUTIL 6 : COMPARATEUR LOUER VS ACHETER
+            OUTIL 6 : COMPARATEUR LOUER VS ACHETER — Épuré sans boîte
            ================================================================= */}
         {activeTool === 'rvb' && (
-          <div
-            style={{
-              background: 'var(--bg-card)',
-              border: '1px solid var(--border-gold)',
-              borderRadius: '14px',
-              padding: '30px'
-            }}
-          >
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(310px, 1fr))', gap: '26px' }}>
+          <div style={{ paddingTop: '8px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '40px' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--gold-light)' }}>
+                <h3 className="serif-title" style={{ fontSize: '1.35rem', fontWeight: 600, color: 'var(--gold-light)', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
                   {isEn ? 'Rent vs. Ownership Parameters' : 'Paramètres Louer vs Acheter'}
                 </h3>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
@@ -1558,47 +1491,36 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
 
               <div
                 style={{
-                  background: 'var(--bg-dark)',
-                  border: '1px solid var(--border-subtle)',
-                  borderRadius: '12px',
-                  padding: '24px',
+                  padding: '4px 0',
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: '16px'
+                  gap: '22px'
                 }}
               >
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-                  <div style={{ padding: '16px', borderRadius: '10px', background: 'var(--bg-card)', border: '1px solid var(--border-subtle)', textAlign: 'center' }}>
-                    <div style={{ fontSize: '0.76rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', paddingBottom: '20px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                  <div style={{ borderLeft: '2px solid #f87171', paddingLeft: '14px' }}>
+                    <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                       {isEn ? `Rent Lost (${rvbYears} yrs)` : `Loyers perdus (${rvbYears} ans)`}
                     </div>
-                    <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#f87171', marginTop: '6px' }}>
+                    <div className="serif-title" style={{ fontSize: '1.75rem', fontWeight: 700, color: '#f87171', marginTop: '4px' }}>
                       - {fmtCAD(rvbResult.totalRent)}
                     </div>
                   </div>
-                  <div style={{ padding: '16px', borderRadius: '10px', background: 'var(--bg-card)', border: '1px solid var(--border-gold)', textAlign: 'center' }}>
-                    <div style={{ fontSize: '0.76rem', color: 'var(--gold)', textTransform: 'uppercase' }}>
+                  <div style={{ borderLeft: '2px solid var(--gold)', paddingLeft: '14px' }}>
+                    <div style={{ fontSize: '0.75rem', color: 'var(--gold)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                       {isEn ? `Total Equity (${rvbYears} yrs)` : `Équité totale (${rvbYears} ans)`}
                     </div>
-                    <div className="gold-gradient-text" style={{ fontSize: '1.5rem', fontWeight: 800, marginTop: '6px' }}>
+                    <div className="serif-title gold-gradient-text" style={{ fontSize: '1.75rem', fontWeight: 700, marginTop: '4px' }}>
                       + {fmtCAD(rvbResult.totalEquity)}
                     </div>
                   </div>
                 </div>
 
-                <div
-                  style={{
-                    padding: '16px',
-                    borderRadius: '10px',
-                    background: 'rgba(200, 164, 93, 0.1)',
-                    border: '1px solid var(--border-gold)',
-                    textAlign: 'center'
-                  }}
-                >
+                <div>
                   <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)' }}>
                     {isEn ? 'New Net Wealth Created (Principal Repaid + 3%/yr Appreciation)' : 'Nouvel enrichissement net créé (Capital remboursé + Plus-value 3 %/an)'}
                   </div>
-                  <div style={{ fontSize: '1.85rem', fontWeight: 800, color: 'var(--gold-light)', marginTop: '4px' }}>
+                  <div className="serif-title gold-gradient-text" style={{ fontSize: '2.4rem', fontWeight: 700, marginTop: '4px' }}>
                     + {fmtCAD(rvbResult.netWealthCreated)}
                   </div>
                 </div>
@@ -1608,20 +1530,13 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
         )}
 
         {/* =================================================================
-            OUTIL 7 : ATTENDRE VS ACHETER (COÛT DE L'ATTENTE)
+            OUTIL 7 : ATTENDRE VS ACHETER (COÛT DE L'ATTENTE) — Épuré sans boîte
            ================================================================= */}
         {activeTool === 'wait' && (
-          <div
-            style={{
-              background: 'var(--bg-card)',
-              border: '1px solid var(--border-gold)',
-              borderRadius: '14px',
-              padding: '30px'
-            }}
-          >
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(310px, 1fr))', gap: '26px' }}>
+          <div style={{ paddingTop: '8px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '40px' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--gold-light)' }}>
+                <h3 className="serif-title" style={{ fontSize: '1.35rem', fontWeight: 600, color: 'var(--gold-light)', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
                   {isEn ? 'Cost of Waiting Parameters' : 'Impact d’attendre une baisse de taux'}
                 </h3>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
@@ -1695,32 +1610,29 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
 
               <div
                 style={{
-                  background: 'var(--bg-dark)',
-                  border: '1px solid var(--border-subtle)',
-                  borderRadius: '12px',
-                  padding: '24px',
+                  padding: '4px 0',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between'
                 }}
               >
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '16px' }}>
-                  <div style={{ padding: '14px', borderRadius: '10px', background: 'var(--bg-card)', border: '1px solid var(--border-subtle)' }}>
-                    <div style={{ fontSize: '0.76rem', color: 'var(--text-muted)' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', paddingBottom: '20px', borderBottom: '1px solid rgba(255,255,255,0.08)', marginBottom: '18px' }}>
+                  <div style={{ borderLeft: '2px solid #f87171', paddingLeft: '14px' }}>
+                    <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                       {isEn ? `Future Property Price (+${waitMonths}m)` : `Prix futur estimé (+${waitMonths} mois)`}
                     </div>
-                    <div style={{ fontSize: '1.25rem', fontWeight: 700, marginTop: '4px' }}>
+                    <div className="serif-title" style={{ fontSize: '1.6rem', fontWeight: 700, marginTop: '4px' }}>
                       {fmtCAD(waitResult.priceFuture)}
                     </div>
-                    <div style={{ fontSize: '0.78rem', color: '#f87171', marginTop: '2px' }}>
+                    <div style={{ fontSize: '0.8rem', color: '#f87171', marginTop: '2px' }}>
                       + {fmtCAD(waitResult.appreciationAmt)}
                     </div>
                   </div>
-                  <div style={{ padding: '14px', borderRadius: '10px', background: 'var(--bg-card)', border: '1px solid var(--border-subtle)' }}>
-                    <div style={{ fontSize: '0.76rem', color: 'var(--text-muted)' }}>
+                  <div style={{ borderLeft: '2px solid var(--gold)', paddingLeft: '14px' }}>
+                    <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                       {isEn ? 'Equity Missed While Waiting' : 'Plus-value manquée en attendant'}
                     </div>
-                    <div className="gold-gradient-text" style={{ fontSize: '1.25rem', fontWeight: 700, marginTop: '4px' }}>
+                    <div className="serif-title gold-gradient-text" style={{ fontSize: '1.6rem', fontWeight: 700, marginTop: '4px' }}>
                       {fmtCAD(waitResult.appreciationAmt)}
                     </div>
                   </div>
@@ -1728,12 +1640,9 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
 
                 <div
                   style={{
-                    padding: '16px',
-                    borderRadius: '10px',
-                    background: 'rgba(200, 164, 93, 0.1)',
-                    border: '1px solid var(--border-gold)',
-                    fontSize: '0.9rem',
-                    lineHeight: 1.6
+                    fontSize: '0.92rem',
+                    lineHeight: 1.65,
+                    color: 'var(--text-secondary)'
                   }}
                 >
                   {waitResult.totalImpact > 0

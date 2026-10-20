@@ -794,55 +794,74 @@ export default function App() {
 
         {mobileMenuOpen && (
           <div style={{
-            background: '#0d0d10',
+            background: '#09090b',
             borderBottom: '1px solid var(--border-gold)',
-            padding: '64px 24px 16px'
+            padding: '68px 24px 24px'
           }}>
             <div className="container">
-              <div style={{ display: 'flex', gap: '6px', marginBottom: '12px' }}>
-                {['FR', 'EN'].map(code => (
-                  <button
-                    key={code}
-                    type="button"
-                    onClick={() => handleLanguageChange(code)}
-                    className={lang === code ? 'btn-gold' : 'btn-outline'}
-                    style={{ padding: '5px 12px', fontSize: '0.76rem' }}
-                  >
-                    {code}
-                  </button>
-                ))}
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', paddingBottom: '12px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                <span style={{ fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.16em', color: 'var(--gold)' }}>
+                  {isEn ? 'Navigation — 6 Poles' : 'Navigation — 6 pôles'}
+                </span>
+                <div style={{ display: 'flex', gap: '6px' }}>
+                  {['FR', 'EN'].map(code => (
+                    <button
+                      key={code}
+                      type="button"
+                      onClick={() => handleLanguageChange(code)}
+                      className={lang === code ? 'btn-gold' : 'btn-outline'}
+                      style={{ padding: '4px 10px', fontSize: '0.74rem' }}
+                    >
+                      {code}
+                    </button>
+                  ))}
+                </div>
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))', gap: '8px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
                 {[
-                  { id: 'home', label: t.nav.home },
-                  { id: 'a-propos', label: t.nav.about },
-                  { id: 'agences', label: t.nav.agencies },
+                  { id: 'a-propos', label: isEn ? 'The Agency (Montreal & Paris)' : "L’Agence (Montréal & Paris)", subId: 'agences', subLabel: isEn ? 'Offices' : 'Bureaux' },
                   { id: 'courtiers', label: t.nav.brokers },
+                  { id: 'franchises', label: 'Franchises (Pacini, Arabian Oud, Taurino)' },
                   { id: 'proprietes', label: `${t.nav.properties} (${liveDealsData.length})` },
-                  { id: 'franchises', label: 'Franchises' },
-                  { id: 'outils', label: t.nav.tools },
-                  { id: 'evenements', label: t.nav.news },
-                  { id: 'balados', label: t.nav.podcasts },
-                  { id: 'nous-joindre', label: t.nav.contact },
-                  { id: 'zone-equipe', label: t.nav.team }
+                  { id: 'outils', label: isEn ? 'Tools & Media' : 'Outils & Médias', subId: 'evenements', subLabel: isEn ? 'News' : 'Actualités' },
+                  { id: 'nous-joindre', label: t.nav.contact }
                 ].map(item => (
-                  <button
+                  <div
                     key={item.id}
-                    onClick={() => navigateTo(item.id)}
                     style={{
-                      textAlign: 'left',
-                      padding: '10px 14px',
-                      background: activePage === item.id ? 'rgba(200,164,93,0.16)' : 'rgba(255,255,255,0.03)',
-                      border: '1px solid var(--border-subtle)',
-                      borderRadius: '8px',
-                      color: activePage === item.id ? 'var(--gold-light)' : 'var(--text-main)',
-                      fontWeight: 600,
-                      fontSize: '0.85rem',
-                      cursor: 'pointer'
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      padding: '12px 0',
+                      borderBottom: '1px solid rgba(255,255,255,0.06)'
                     }}
                   >
-                    {item.label}
-                  </button>
+                    <button
+                      onClick={() => navigateTo(item.id)}
+                      className="serif-title"
+                      style={{
+                        background: 'none',
+                        border: 'none',
+                        padding: 0,
+                        textAlign: 'left',
+                        color: activePage === item.id ? 'var(--gold-light)' : '#fff',
+                        fontWeight: 600,
+                        fontSize: '1.2rem',
+                        cursor: 'pointer'
+                      }}
+                    >
+                      {item.label}
+                    </button>
+                    {item.subId && (
+                      <button
+                        onClick={() => navigateTo(item.subId)}
+                        className="editorial-link"
+                        style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.74rem' }}
+                      >
+                        {item.subLabel} <ArrowRight size={12} />
+                      </button>
+                    )}
+                  </div>
                 ))}
               </div>
             </div>
@@ -1283,18 +1302,16 @@ export default function App() {
               </div>
             </div>
 
-            {/* Barre de filtres épurée */}
+            {/* Barre de filtres épurée sans boîte lourde (Audit #3) */}
             <div style={{
-              background: 'var(--bg-card)',
-              border: '1px solid var(--border-gold)',
-              borderRadius: '12px',
-              padding: '16px',
-              marginBottom: '28px'
+              paddingBottom: '22px',
+              marginBottom: '32px',
+              borderBottom: '1px solid rgba(255,255,255,0.08)'
             }}>
               <div style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(175px, 1fr))',
-                gap: '10px'
+                gap: '12px'
               }}>
                 <input 
                   type="text"
@@ -1688,27 +1705,25 @@ export default function App() {
       )}
 
       {/* =====================================================================
-          PAGE 7 : BALADOS (Lecteur intégré propre — Point 5)
+          PAGE 7 : BALADOS (Présentation éditoriale épurée — Audit #6)
          ===================================================================== */}
       {activePage === 'balados' && (
         <main style={{ flex: 1, padding: '44px 0 80px' }}>
           <div className="container">
-            <div style={{ marginBottom: '28px' }}>
-              <h1 style={{ fontSize: '2.1rem', fontWeight: 700, marginBottom: '6px' }}>{t.podcasts.title}</h1>
+            <div style={{ marginBottom: '32px', paddingBottom: '20px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+              <h1 className="serif-title" style={{ fontSize: '2.4rem', fontWeight: 600, marginBottom: '6px' }}>{t.podcasts.title}</h1>
               <p style={{ color: 'var(--text-secondary)', fontSize: '0.94rem' }}>
                 {t.podcasts.subtitle}
               </p>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
               {HIMALAYA_PODCASTS.map(pod => {
                 const isPlaying = playingPodcastId === pod.id;
                 return (
                   <div key={pod.id} style={{
-                    background: 'var(--bg-card)',
-                    border: isPlaying ? '1px solid var(--gold)' : '1px solid var(--border-subtle)',
-                    borderRadius: '12px',
-                    padding: '22px'
+                    padding: '24px 0',
+                    borderBottom: '1px solid rgba(255,255,255,0.08)'
                   }}>
                     <div style={{
                       display: 'flex',
@@ -1721,20 +1736,23 @@ export default function App() {
                         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
                           <span className="badge-gold">{isEn ? (pod.episode_en || pod.episode) : pod.episode}</span>
                           <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>{pod.duration}</span>
+                          <span style={{ fontSize: '0.78rem', color: 'var(--gold-light)' }}>• {isEn ? (pod.hosts_en || pod.hosts) : pod.hosts}</span>
                         </div>
-                        <h3 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: '4px' }}>
+                        <h3 className="serif-title" style={{ fontSize: '1.45rem', fontWeight: 600, marginBottom: '6px' }}>
                           {isEn ? (pod.title_en || pod.title) : pod.title}
                         </h3>
-                        <p style={{ fontSize: '0.86rem', color: 'var(--text-secondary)' }}>
+                        <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
                           {isEn ? (pod.description_en || pod.description) : pod.description}
                         </p>
                       </div>
                       <button
                         onClick={() => setPlayingPodcastId(isPlaying ? null : pod.id)}
-                        className={isPlaying ? 'btn-outline' : 'btn-gold'}
+                        className="editorial-link"
+                        style={{ background: 'none', border: 'none', cursor: 'pointer' }}
                       >
-                        {isPlaying ? <Pause size={15} /> : <Play size={15} />}
-                        {isPlaying ? t.podcasts.pauseBtn : t.podcasts.listenBtn}
+                        {isPlaying
+                          ? (isEn ? 'Hide Summary' : 'Fermer la fiche')
+                          : (isEn ? 'Episode Summary' : 'Voir le sommaire')} <ArrowRight size={13} />
                       </button>
                     </div>
 
@@ -1742,19 +1760,21 @@ export default function App() {
                       <div style={{
                         marginTop: '14px',
                         paddingTop: '12px',
-                        borderTop: '1px solid var(--border-subtle)',
+                        borderTop: '1px solid rgba(200, 164, 93, 0.25)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'space-between',
                         gap: '16px',
                         flexWrap: 'wrap'
                       }}>
-                        <span style={{ fontSize: '0.8rem', color: 'var(--gold-light)', fontWeight: 600 }}>
-                          {t.podcasts.playingLabel} • {isEn ? (pod.hosts_en || pod.hosts) : pod.hosts}
+                        <span style={{ fontSize: '0.84rem', color: 'var(--text-secondary)' }}>
+                          {isEn
+                            ? `Hosted by ${pod.hosts_en || pod.hosts}. Contact our team to discuss the market strategies covered in this capsule.`
+                            : `Animé par ${pod.hosts}. Contactez nos courtiers pour approfondir les stratégies abordées dans cette capsule.`}
                         </span>
-                        <audio controls autoPlay style={{ height: '34px', maxWidth: '320px' }}>
-                          <source src="https://www.himalayacorp.com/gx/video/Himalaya.mp4" type="audio/mp4" />
-                        </audio>
+                        <button onClick={() => navigateTo('nous-joindre')} className="btn-outline" style={{ padding: '7px 14px', fontSize: '0.76rem' }}>
+                          {isEn ? 'Discuss with our brokers' : 'Échanger avec nos courtiers'}
+                        </button>
                       </div>
                     )}
                   </div>
@@ -1766,65 +1786,58 @@ export default function App() {
       )}
 
       {/* =====================================================================
-          PAGE 8 : NOUS JOINDRE + ÉVALUER MA PROPRIÉTÉ (Connecté à Himalaya Prospection - Points 9, 17, 20)
+          PAGE 8 : NOUS JOINDRE + ÉVALUER MA PROPRIÉTÉ (Architecture épurée — Audit #8)
          ===================================================================== */}
       {activePage === 'nous-joindre' && (
         <main style={{ flex: 1, padding: '44px 0 80px' }}>
           <div className="container">
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '32px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '56px', alignItems: 'start' }}>
               <div>
-                <h1 style={{ fontSize: '2.1rem', fontWeight: 700, marginBottom: '10px' }}>{t.contact.title}</h1>
-                <p style={{ color: 'var(--text-secondary)', marginBottom: '24px', fontSize: '0.94rem' }}>
+                <h1 className="serif-title" style={{ fontSize: '2.5rem', fontWeight: 600, marginBottom: '10px' }}>{t.contact.title}</h1>
+                <p style={{ color: 'var(--text-secondary)', marginBottom: '32px', fontSize: '0.95rem', lineHeight: 1.65 }}>
                   {t.contact.subtitle}
                 </p>
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                  <div style={{ background: 'var(--bg-card)', padding: '18px', borderRadius: '12px', border: '1px solid var(--border-subtle)' }}>
-                    <div style={{ fontSize: '0.74rem', textTransform: 'uppercase', color: 'var(--gold)', fontWeight: 600 }}>{t.contact.hqLabel}</div>
-                    <div style={{ fontWeight: 600, fontSize: '1rem', marginTop: '4px' }}>Immobilier Himalaya Real Estate Corp.</div>
-                    <div style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', marginTop: '4px' }}>{t.contact.hqAddress}</div>
-                    <div style={{ display: 'flex', gap: '16px', marginTop: '10px', fontSize: '0.88rem', flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
+                  <div style={{ paddingBottom: '24px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                    <div style={{ fontSize: '0.74rem', textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--gold)', fontWeight: 600 }}>{t.contact.hqLabel}</div>
+                    <div className="serif-title" style={{ fontWeight: 600, fontSize: '1.35rem', marginTop: '6px' }}>Immobilier Himalaya Real Estate Corp.</div>
+                    <div style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginTop: '4px' }}>{t.contact.hqAddress}</div>
+                    <div style={{ display: 'flex', gap: '18px', marginTop: '12px', fontSize: '0.88rem', flexWrap: 'wrap' }}>
                       <a href="tel:18008204828" style={{ color: 'var(--gold-light)', fontWeight: 600 }}>1 800 820-4828</a>
                       <a href="tel:5148984898" style={{ color: 'var(--gold-light)', fontWeight: 600 }}>(514) 898-4898</a>
                       <a href="mailto:info@himalayacorp.com" style={{ color: 'var(--gold-light)', fontWeight: 600 }}>info@himalayacorp.com</a>
                     </div>
                   </div>
 
-                  <div style={{ background: 'var(--bg-card)', padding: '18px', borderRadius: '12px', border: '1px solid var(--border-subtle)' }}>
-                    <div style={{ fontSize: '0.74rem', textTransform: 'uppercase', color: 'var(--gold)', fontWeight: 600 }}>{t.contact.leadershipLabel}</div>
-                    <div style={{ color: 'var(--text-secondary)', fontSize: '0.86rem', marginTop: '6px', lineHeight: 1.7 }}>
-                      <strong>Roger Rhéaume</strong> ({t.contact.rolePresident}) : (514) 585-2605<br />
-                      <strong>Geniev Mondoux</strong> ({t.contact.roleVP}) : (514) 884-1052<br />
-                      <strong>Mike Ainajian</strong> ({t.contact.roleDirector}) : (514) 898-4898
+                  <div>
+                    <div style={{ fontSize: '0.74rem', textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--gold)', fontWeight: 600 }}>{t.contact.leadershipLabel}</div>
+                    <div style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginTop: '10px', lineHeight: 1.85 }}>
+                      <strong style={{ color: '#fff' }}>Roger Rhéaume</strong> ({t.contact.rolePresident}) : <a href="tel:5145852605" style={{ color: 'var(--gold-light)' }}>(514) 585-2605</a><br />
+                      <strong style={{ color: '#fff' }}>Geniev Mondoux</strong> ({t.contact.roleVP}) : <a href="tel:5148841052" style={{ color: 'var(--gold-light)' }}>(514) 884-1052</a><br />
+                      <strong style={{ color: '#fff' }}>Mike Ainajian</strong> ({t.contact.roleDirector}) : <a href="tel:5148984898" style={{ color: 'var(--gold-light)' }}>(514) 898-4898</a>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div style={{
-                background: 'var(--bg-card)',
-                border: '1px solid var(--border-gold)',
-                borderRadius: '14px',
-                padding: '26px'
-              }}>
-                {/* Bascule sobre : Message général | Vendre / Évaluer ma propriété (Point 17) */}
+              <div>
+                {/* Bascule sobre par onglets soulignés : Message général | Vendre / Évaluer ma propriété */}
                 <div style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr 1fr',
-                  gap: '6px',
-                  background: 'rgba(255,255,255,0.03)',
-                  padding: '4px',
-                  borderRadius: '9px',
-                  marginBottom: '20px'
+                  display: 'flex',
+                  gap: '24px',
+                  borderBottom: '1px solid rgba(255,255,255,0.1)',
+                  marginBottom: '24px'
                 }}>
                   <button
                     type="button"
                     onClick={() => { setContactTab('general'); setContactSubmitted(false); }}
                     style={{
-                      padding: '8px 10px', borderRadius: '7px', border: 'none', cursor: 'pointer',
-                      fontSize: '0.8rem', fontWeight: 600,
-                      background: contactTab === 'general' ? 'var(--gold)' : 'transparent',
-                      color: contactTab === 'general' ? '#09090b' : 'var(--text-secondary)'
+                      padding: '0 0 12px', border: 'none', cursor: 'pointer',
+                      fontSize: '0.82rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em',
+                      background: 'transparent',
+                      color: contactTab === 'general' ? 'var(--gold-light)' : 'var(--text-secondary)',
+                      borderBottom: contactTab === 'general' ? '2px solid var(--gold)' : '2px solid transparent'
                     }}
                   >
                     {t.contact.tabGeneral}
@@ -1833,10 +1846,11 @@ export default function App() {
                     type="button"
                     onClick={() => { setContactTab('valuation'); setContactSubmitted(false); }}
                     style={{
-                      padding: '8px 10px', borderRadius: '7px', border: 'none', cursor: 'pointer',
-                      fontSize: '0.8rem', fontWeight: 600,
-                      background: contactTab === 'valuation' ? 'var(--gold)' : 'transparent',
-                      color: contactTab === 'valuation' ? '#09090b' : 'var(--text-secondary)'
+                      padding: '0 0 12px', border: 'none', cursor: 'pointer',
+                      fontSize: '0.82rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em',
+                      background: 'transparent',
+                      color: contactTab === 'valuation' ? 'var(--gold-light)' : 'var(--text-secondary)',
+                      borderBottom: contactTab === 'valuation' ? '2px solid var(--gold)' : '2px solid transparent'
                     }}
                   >
                     {t.contact.tabValuation}
@@ -2240,6 +2254,19 @@ export default function App() {
             </div>
           </div>
         </div>
+      )}
+
+      {/* Bouton minimaliste Retour en haut ↑ (Audit #9) */}
+      {isScrolled && (
+        <button
+          type="button"
+          className="scroll-top-btn"
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          aria-label={isEn ? 'Back to top' : 'Retour en haut'}
+          title={isEn ? 'Back to top' : 'Retour en haut'}
+        >
+          ↑
+        </button>
       )}
     </div>
   );

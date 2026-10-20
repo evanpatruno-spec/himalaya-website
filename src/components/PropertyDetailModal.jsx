@@ -43,6 +43,7 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
   const [photoIdx, setPhotoIdx] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [emailCopied, setEmailCopied] = useState(false);
 
   // Calculateur de financement rapide intégré
   const [downPaymentPct, setDownPaymentPct] = useState(25);
@@ -291,32 +292,36 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
             </div>
           )}
 
-          {/* Grille 2 colonnes */}
+          {/* Grille 2 colonnes éditoriale épurée (zéro boîte dans des boîtes #1) */}
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))',
-            gap: '24px',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            gap: '36px',
             alignItems: 'start'
           }}>
             <div>
-              <h2 style={{ fontSize: '1.6rem', fontWeight: 700, lineHeight: 1.25, marginBottom: '6px' }}>
+              <h2 className="serif-title" style={{ fontSize: '2rem', fontWeight: 600, lineHeight: 1.2, marginBottom: '8px' }}>
                 {displayTitle}
               </h2>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--text-secondary)', fontSize: '0.88rem', marginBottom: '14px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--text-secondary)', fontSize: '0.88rem', marginBottom: '18px' }}>
                 <MapPin size={15} color="var(--gold)" />
                 <span>{deal.address ? `${deal.address}, ` : ''}{deal.city} ({deal.region})</span>
               </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap', marginBottom: '20px' }}>
-                <div style={{
-                  fontSize: '1.45rem',
-                  fontWeight: 700,
-                  color: 'var(--gold-light)',
-                  padding: '10px 16px',
-                  background: 'rgba(200, 164, 93, 0.08)',
-                  border: '1px solid var(--border-gold)',
-                  borderRadius: '8px',
-                  display: 'inline-block'
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: '14px',
+                flexWrap: 'wrap',
+                paddingBottom: '18px',
+                marginBottom: '22px',
+                borderBottom: '1px solid var(--border-subtle)'
+              }}>
+                <div className="serif-title gold-gradient-text" style={{
+                  fontSize: '2.1rem',
+                  fontWeight: 600,
+                  lineHeight: 1.1
                 }}>
                   {displayPrice}
                 </div>
@@ -325,16 +330,8 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
                 {showCalculator && onSimulateInTools && (
                   <button
                     onClick={() => onSimulateInTools(deal)}
-                    className="btn-outline"
-                    style={{
-                      borderColor: 'var(--border-gold)',
-                      color: 'var(--gold-light)',
-                      padding: '10px 14px',
-                      fontSize: '0.8rem',
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '7px'
-                    }}
+                    className="editorial-link"
+                    style={{ fontSize: '0.76rem' }}
                   >
                     <Calculator size={14} color="var(--gold)" />
                     {isEn ? 'Analyze in Financial Tools' : 'Analyser dans nos Outils financiers'}
@@ -343,10 +340,10 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
                 )}
               </div>
 
-              <h3 style={{ fontSize: '0.86rem', fontWeight: 600, color: 'var(--gold-light)', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              <div className="badge-gold" style={{ marginBottom: '8px' }}>
                 {t?.modal?.description || 'Description détaillée'}
-              </h3>
-              <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', lineHeight: 1.72, marginBottom: '22px', whiteSpace: 'pre-line' }}>
+              </div>
+              <p style={{ color: 'var(--text-secondary)', fontSize: '0.92rem', lineHeight: 1.75, marginBottom: '26px', whiteSpace: 'pre-line' }}>
                 {displayDesc || t?.modal?.defaultDesc || 'Description détaillée disponible auprès du courtier inscripteur.'}
               </p>
 
@@ -354,123 +351,141 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
                 <div style={{
                   display: 'grid',
                   gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-                  gap: '10px',
-                  marginBottom: '22px'
+                  gap: '20px',
+                  paddingTop: '16px',
+                  paddingBottom: '20px',
+                  marginBottom: '22px',
+                  borderTop: '1px solid var(--border-subtle)',
+                  borderBottom: '1px solid var(--border-subtle)'
                 }}>
                   {deal.inclusions && (
-                    <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border-subtle)', borderRadius: '8px', padding: '10px 12px' }}>
-                      <div style={{ fontSize: '0.72rem', color: 'var(--gold)', textTransform: 'uppercase', fontWeight: 700, marginBottom: '4px' }}>
+                    <div>
+                      <div className="badge-gold" style={{ marginBottom: '4px' }}>
                         {isEn ? 'Inclusions' : 'Inclusions'}
                       </div>
-                      <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)' }}>{deal.inclusions}</div>
+                      <div style={{ fontSize: '0.84rem', color: 'var(--text-secondary)', lineHeight: 1.55 }}>{deal.inclusions}</div>
                     </div>
                   )}
                   {deal.exclusions && (
-                    <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border-subtle)', borderRadius: '8px', padding: '10px 12px' }}>
-                      <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700, marginBottom: '4px' }}>
+                    <div>
+                      <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700, letterSpacing: '0.08em', marginBottom: '4px' }}>
                         {isEn ? 'Exclusions' : 'Exclusions'}
                       </div>
-                      <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)' }}>{deal.exclusions}</div>
+                      <div style={{ fontSize: '0.84rem', color: 'var(--text-secondary)', lineHeight: 1.55 }}>{deal.exclusions}</div>
                     </div>
                   )}
                 </div>
               )}
 
               {cleanSpecs.length > 0 && (
-                <>
-                  <h3 style={{ fontSize: '0.86rem', fontWeight: 600, color: 'var(--gold-light)', marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                <div>
+                  <div className="badge-gold" style={{ marginBottom: '12px' }}>
                     {isEn ? 'Technical Specifications & Taxes' : (t?.modal?.specs || 'Caractéristiques techniques & Taxes')}
-                  </h3>
+                  </div>
+                  {/* Tableau architectural à filets fins (#1) */}
                   <div style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fill, minmax(195px, 1fr))',
-                    gap: '8px'
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+                    columnGap: '28px',
+                    borderTop: '1px solid var(--border-subtle)'
                   }}>
                     {cleanSpecs.map(([label, val], i) => {
                       const displayLabel = isEn ? (SPEC_TRANSLATIONS_EN[label] || label) : label;
                       return (
                         <div key={i} style={{
-                          background: 'rgba(255,255,255,0.025)',
-                          border: '1px solid var(--border-subtle)',
-                          padding: '9px 12px',
-                          borderRadius: '7px'
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          alignItems: 'baseline',
+                          gap: '12px',
+                          padding: '10px 0',
+                          borderBottom: '1px solid rgba(255,255,255,0.06)'
                         }}>
-                          <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>{displayLabel}</div>
-                          <div style={{ fontSize: '0.84rem', fontWeight: 600, color: 'var(--text-main)', marginTop: '2px' }}>{val}</div>
+                          <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>{displayLabel}</span>
+                          <span style={{ fontSize: '0.84rem', fontWeight: 600, color: 'var(--text-main)', textAlign: 'right' }}>{val}</span>
                         </div>
                       );
                     })}
                   </div>
-                </>
+                </div>
               )}
             </div>
 
-            {/* Colonne droite : Courtier + Salle NDA + Simulateur */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              <div style={{
-                background: 'var(--bg-surface)',
-                border: '1px solid var(--border-gold)',
-                borderRadius: '12px',
-                padding: '18px'
-              }}>
-                <div style={{ fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--gold)', marginBottom: '10px', fontWeight: 600 }}>
+            {/* Colonne droite épurée : Courtier + Salle NDA + Simulateur (sans boîtes imbriquées #1, #4) */}
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '26px',
+              paddingLeft: '24px',
+              borderLeft: '1px solid var(--border-subtle)'
+            }}>
+              <div style={{ paddingBottom: '22px', borderBottom: '1px solid var(--border-subtle)' }}>
+                <div className="badge-gold" style={{ marginBottom: '12px' }}>
                   {t?.modal?.listingBroker || 'Courtier inscripteur'}
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '14px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '16px' }}>
                   <img 
                     src={broker.photo} 
                     alt={broker.name}
-                    style={{ width: '54px', aspectRatio: '314 / 543', borderRadius: '8px', objectFit: 'cover', objectPosition: 'top center', border: '1px solid var(--border-gold)', flexShrink: 0, display: 'block' }}
+                    style={{ width: '58px', aspectRatio: '314 / 460', borderRadius: '6px', objectFit: 'cover', objectPosition: 'top center', border: '1px solid var(--border-gold)', flexShrink: 0, display: 'block' }}
                     onError={e => { e.target.src = 'https://www.himalayacorp.com/gx/00/defaut_courtier.jpg'; }}
                   />
                   <div>
-                    <h4 style={{ fontSize: '1.05rem', fontWeight: 700 }}>{broker.name}</h4>
+                    <h4 className="serif-title" style={{ fontSize: '1.35rem', fontWeight: 600 }}>{broker.name}</h4>
                     <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>Immobilier Himalaya</p>
                   </div>
                 </div>
 
-                <div style={{ display: 'flex', gap: '8px', marginBottom: '12px' }}>
+                <div style={{ display: 'flex', gap: '8px', marginBottom: '10px', flexWrap: 'wrap' }}>
                   <a href={`tel:${broker.phone}`} className="btn-gold" style={{ flex: 1, padding: '9px 12px', fontSize: '0.82rem' }}>
                     <Phone size={14} /> {broker.phone}
                   </a>
-                  <a href={`mailto:${broker.email}?subject=MLS ${deal.mls_number} - ${deal.title}`} className="btn-outline" style={{ padding: '9px 12px', fontSize: '0.82rem' }}>
+                  <a
+                    href={`mailto:${broker.email}?subject=MLS ${deal.mls_number} - ${deal.title}`}
+                    className="btn-outline"
+                    style={{ padding: '9px 12px', fontSize: '0.82rem' }}
+                    title={broker.email}
+                  >
                     <Mail size={14} />
                   </a>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (navigator.clipboard && broker.email) {
+                        navigator.clipboard.writeText(broker.email);
+                        setEmailCopied(true);
+                        setTimeout(() => setEmailCopied(false), 2200);
+                      }
+                    }}
+                    className="btn-outline"
+                    style={{ padding: '9px 12px', fontSize: '0.76rem' }}
+                  >
+                    {emailCopied ? (isEn ? 'Email copied!' : 'Courriel copié !') : (isEn ? 'Copy Email' : 'Copier courriel')}
+                  </button>
                 </div>
 
                 {onFilterByBroker && (
                   <button 
                     onClick={() => { onFilterByBroker(broker.name); onClose(); }}
-                    style={{
-                      width: '100%', background: 'transparent', border: 'none',
-                      color: 'var(--gold-light)', fontSize: '0.78rem', cursor: 'pointer',
-                      textDecoration: 'underline'
-                    }}
+                    className="editorial-link"
+                    style={{ fontSize: '0.73rem', marginTop: '4px' }}
                   >
-                    {t?.modal?.seeBrokerMandates || 'Voir tous les mandats de'} {broker.name} →
+                    {t?.modal?.seeBrokerMandates || 'Voir tous les mandats de'} {broker.name} <ArrowRight size={13} />
                   </button>
                 )}
               </div>
 
-              {/* Salle de données NDA */}
-              <div style={{
-                background: 'rgba(200, 164, 93, 0.07)',
-                border: '1px solid var(--border-gold)',
-                borderRadius: '12px',
-                padding: '18px'
-              }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '7px', color: 'var(--gold-light)', fontWeight: 700, fontSize: '0.8rem', marginBottom: '6px' }}>
+              {/* Salle de données NDA épurée */}
+              <div style={{ paddingBottom: '22px', borderBottom: '1px solid var(--border-subtle)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '7px', color: 'var(--gold-light)', fontWeight: 700, fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '6px' }}>
                   <Sparkles size={14} /> {t?.modal?.dataRoomTitle || 'SALLE DE DONNÉES CONFIDENTIELLE'}
                 </div>
-                <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '12px' }}>
+                <p style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', marginBottom: '14px', lineHeight: 1.55 }}>
                   {t?.modal?.dataRoomDesc || 'Accès aux états financiers après signature de l’entente de confidentialité (NDA).'}
                 </p>
                 {ndaUnlocked ? (
                   <div style={{
                     display: 'flex', alignItems: 'center', gap: '8px',
-                    padding: '9px 12px', borderRadius: '8px',
-                    background: 'rgba(200, 164, 93, 0.14)', border: '1px solid var(--success)',
-                    color: '#e3c485', fontSize: '0.8rem', fontWeight: 600
+                    color: '#e3c485', fontSize: '0.82rem', fontWeight: 600
                   }}>
                     <CheckCircle2 size={15} /> {t?.modal?.ndaUnlocked || 'NDA signé — Dossier demandé'}
                   </div>
@@ -487,17 +502,12 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
 
               {/* Simulateur de financement + Lien vers Outils (#6) & Multi-Prêts (#2) */}
               {showCalculator && (
-                <div style={{
-                  background: 'rgba(255,255,255,0.02)',
-                  border: '1px solid var(--border-subtle)',
-                  borderRadius: '12px',
-                  padding: '16px'
-                }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '7px', fontSize: '0.8rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '12px' }}>
-                    <Calculator size={14} color="var(--gold)" /> {t?.modal?.calcTitle || 'Simulateur de financement'}
+                <div>
+                  <div className="badge-gold" style={{ marginBottom: '12px' }}>
+                    <Calculator size={13} color="var(--gold)" /> {t?.modal?.calcTitle || 'Simulateur de financement'}
                   </div>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '12px' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '14px' }}>
                     <div>
                       <label style={{ display: 'block', fontSize: '0.72rem', color: 'var(--text-muted)', marginBottom: '4px' }}>
                         {t?.modal?.downPayment || 'Mise de fonds'} ({downPaymentPct}%)
@@ -533,12 +543,11 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
                   </div>
 
                   <div style={{
-                    display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                    paddingTop: '10px', borderTop: '1px solid var(--border-subtle)', fontSize: '0.8rem',
-                    marginBottom: '12px'
+                    display: 'flex', justifyContent: 'space-between', alignItems: 'baseline',
+                    paddingTop: '10px', paddingBottom: '14px', borderTop: '1px solid rgba(255,255,255,0.06)', fontSize: '0.82rem'
                   }}>
                     <span style={{ color: 'var(--text-secondary)' }}>{t?.modal?.monthlyEst || 'Versement mensuel (25 ans)'}</span>
-                    <strong style={{ color: 'var(--gold-light)', fontSize: '0.96rem' }}>
+                    <strong className="serif-title" style={{ color: 'var(--gold-light)', fontSize: '1.35rem' }}>
                       {monthlyPayment.toLocaleString('fr-CA')} $ / {isEn ? 'mo' : 'mois'}
                     </strong>
                   </div>
@@ -550,9 +559,9 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
                       style={{
                         width: '100%',
                         justifyContent: 'center',
-                        marginBottom: '10px',
+                        marginBottom: '12px',
                         fontSize: '0.78rem',
-                        padding: '8px 12px',
+                        padding: '9px 12px',
                         borderColor: 'var(--border-gold)',
                         color: 'var(--gold-light)'
                       }}
@@ -570,12 +579,9 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'space-between',
-                      marginTop: '6px',
-                      padding: '8px 10px',
-                      borderRadius: '8px',
-                      background: 'rgba(255,255,255,0.03)',
-                      border: '1px solid var(--border-subtle)',
-                      fontSize: '0.75rem',
+                      paddingTop: '10px',
+                      borderTop: '1px solid rgba(255,255,255,0.06)',
+                      fontSize: '0.76rem',
                       color: 'var(--gold-light)',
                       textDecoration: 'none'
                     }}

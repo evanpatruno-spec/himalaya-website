@@ -961,3 +961,64 @@ button, select, input, textarea {
     display: none !important;
   }
 }
+
+/* Bouton minimaliste Retour en haut ↑ (Audit #9) */
+.scroll-top-btn {
+  position: fixed;
+  bottom: 26px;
+  right: 26px;
+  z-index: 115;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(9, 9, 11, 0.88);
+  border: 1px solid var(--border-gold);
+  color: var(--gold-light);
+  font-size: 1.05rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
+  transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+}
+
+.scroll-top-btn:hover {
+  transform: translateY(-3px);
+  background: var(--gold);
+  color: #09090b;
+  border-color: var(--gold);
+}
+
+/* Optimisation PDF / Impression pour fiches propriétés & simulations (Audit #10) */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #111111 !important;
+  }
+  .sticky-header,
+  .internal-mountain-banner,
+  footer,
+  .scroll-top-btn,
+  .btn-gold,
+  .btn-outline {
+    display: none !important;
+  }
+  .modal-backdrop {
+    position: static !important;
+    background: #ffffff !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+  .modal-panel {
+    background: #ffffff !important;
+    color: #111111 !important;
+    border: none !important;
+    box-shadow: none !important;
+    max-width: 100% !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+}
