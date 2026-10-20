@@ -532,11 +532,11 @@ export const HIMALAYA_FRANCHISES = [
     description_zh: '由总裁 Roger Rhéaume 为国际奢华香水品牌 Arabian Oud 提供商业选址与地产代理服务。'
   },
   {
-    id: 'grillade_taurino',
-    name: 'Grillade Taurino',
-    name_en: 'Grillade Taurino',
-    name_es: 'Grillade Taurino',
-    name_zh: 'Grillade Taurino 炭火烧烤连锁',
+    id: 'grillade_torino',
+    name: 'Grillade Torino',
+    name_en: 'Grillade Torino',
+    name_es: 'Grillade Torino',
+    name_zh: 'Grillade Torino 炭火烧烤连锁',
     logo: '/gx/franchises/torino-logo.svg',
     logoHeight: '66px',
     invertLogo: false,
@@ -546,10 +546,10 @@ export const HIMALAYA_FRANCHISES = [
     category_zh: '特许经营 — 餐饮与特色烧烤',
     brokerIds: ['roger_rheaume'],
     brokerNames: 'Roger Rhéaume',
-    description: 'Accompagnement immobilier commercial et recherche d’emplacements pour la franchise Grillade Taurino assurés par Roger Rhéaume.',
-    description_en: 'Commercial real estate representation and site selection for the Grillade Taurino franchise led by Roger Rhéaume.',
-    description_es: 'Acompañamiento inmobiliario comercial y búsqueda de ubicaciones para la franquicia Grillade Taurino a cargo de Roger Rhéaume.',
-    description_zh: '由总裁 Roger Rhéaume 为 Grillade Taurino 连锁品牌提供商业地产选址与拓展服务。'
+    description: 'Accompagnement immobilier commercial et recherche d’emplacements pour la franchise Grillade Torino assurés par Roger Rhéaume.',
+    description_en: 'Commercial real estate representation and site selection for the Grillade Torino franchise led by Roger Rhéaume.',
+    description_es: 'Acompañamiento inmobiliario comercial y búsqueda de ubicaciones para la franquicia Grillade Torino a cargo de Roger Rhéaume.',
+    description_zh: '由总裁 Roger Rhéaume 为 Grillade Torino 连锁品牌提供商业地产选址与拓展服务。'
   }
 ];
 

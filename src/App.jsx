@@ -831,7 +831,7 @@ export default function App() {
                     subLabel: tr(lang, 'Bureaux', 'Offices', 'Oficinas', '分支机构')
                   },
                   { id: 'courtiers', label: t.nav.brokers },
-                  { id: 'franchises', label: tr(lang, 'Franchises (Pacini, Arabian Oud, Taurino)', 'Franchises (Pacini, Arabian Oud, Taurino)', 'Franquicias (Pacini, Arabian Oud, Taurino)', '连锁特许经营 (Pacini, Arabian Oud, Taurino)') },
+                  { id: 'franchises', label: tr(lang, 'Franchises (Pacini, Arabian Oud, Torino)', 'Franchises (Pacini, Arabian Oud, Torino)', 'Franquicias (Pacini, Arabian Oud, Torino)', '连锁特许经营 (Pacini, Arabian Oud, Torino)') },
                   { id: 'proprietes', label: `${t.nav.properties} (${liveDealsData.length})` },
                   {
                     id: 'outils',

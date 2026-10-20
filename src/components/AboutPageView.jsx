@@ -1048,8 +1048,8 @@ export default function AboutPageView({
                 </h3>
                 <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', marginTop: '4px' }}>
                   {isEn
-                    ? 'Are you a franchisee looking for a commercial space (Pacini, Arabian Oud, Grillade Taurino, or another banner)? Send us your criteria.'
-                    : 'Vous êtes client franchisé ou franchiseur (Pacini, Arabian Oud, Grillade Taurino ou autre bannière) et cherchez un emplacement ? Transmettez-nous vos critères.'}
+                    ? 'Are you a franchisee looking for a commercial space (Pacini, Arabian Oud, Grillade Torino, or another banner)? Send us your criteria.'
+                    : 'Vous êtes client franchisé ou franchiseur (Pacini, Arabian Oud, Grillade Torino ou autre bannière) et cherchez un emplacement ? Transmettez-nous vos critères.'}
                 </p>
               </div>
 
@@ -1102,7 +1102,7 @@ export default function AboutPageView({
                         className="form-control"
                         value={franchiseBrand}
                         onChange={(e) => setFranchiseBrand(e.target.value)}
-                        placeholder={isEn ? 'Ex: Pacini, Arabian Oud, Grillade Taurino...' : 'Ex. : Pacini, Arabian Oud, Grillade Taurino...'}
+                        placeholder={isEn ? 'Ex: Pacini, Arabian Oud, Grillade Torino...' : 'Ex. : Pacini, Arabian Oud, Grillade Torino...'}
                       />
                     </div>
                     <div>
