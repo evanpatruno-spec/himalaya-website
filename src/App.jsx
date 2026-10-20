@@ -11,7 +11,7 @@ import {
   HIMALAYA_PODCASTS, SPECIALTIES_DATA, OFFICIAL_SOCIAL_LINKS, LEGAL_DOCUMENTS,
   HIMALAYA_FRANCHISES
 } from './data/siteContent';
-import { TRANSLATIONS } from './data/translations';
+import { TRANSLATIONS, LANGUAGE_OPTIONS, tr, pickLang } from './data/translations';
 import { 
   normalizeText, dealBelongsToBroker, 
   submitLeadToProspection, getStoredWebLeads 
@@ -32,13 +32,13 @@ export default function App() {
   const [lang, setLang] = useState(() => {
     try {
       const saved = localStorage.getItem('himalaya_site_lang');
-      if (saved === 'FR' || saved === 'EN') return saved;
+      if (saved === 'FR' || saved === 'EN' || saved === 'ES' || saved === 'ZH') return saved;
     } catch {}
     return 'FR';
   });
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const isEn = lang === 'EN';
+  const isEn = lang !== 'FR';
   const t = TRANSLATIONS[lang] || TRANSLATIONS.FR;
 
   const handleLanguageChange = (code) => {
@@ -289,17 +289,17 @@ export default function App() {
     switch (activePage) {
       case 'a-propos': return t.nav.about;
       case 'proprietes': return t.nav.properties;
-      case 'franchises': return 'Franchises';
+      case 'franchises': return tr(lang, 'Franchises', 'Franchises', 'Franquicias', '特许经营');
       case 'courtiers': return t.nav.brokers;
       case 'agences': return t.nav.agencies;
-      case 'outils': return isEn ? 'Financial Tools & Simulators' : 'Outils & Calculateurs';
+      case 'outils': return tr(lang, 'Outils & Calculateurs', 'Financial Tools & Simulators', 'Herramientas y Simuladores', '房地产金融工具');
       case 'evenements': return t.nav.news;
       case 'balados': return t.nav.podcasts;
       case 'nous-joindre': return t.nav.contact;
       case 'zone-equipe': return t.nav.team;
       default: return '';
     }
-  }, [activePage, t, isEn]);
+  }, [activePage, t, lang]);
 
   const handleContactSubmit = async (e) => {
     e.preventDefault();
@@ -346,7 +346,7 @@ export default function App() {
                   className={`nav-btn ${(activePage === 'a-propos' || activePage === 'agences') ? 'active' : ''}`}
                   onClick={() => navigateTo('a-propos', { aboutTab: 'qui-nous-sommes' })}
                 >
-                  {isEn ? 'The Agency' : 'L’Agence'} <span className="nav-btn-chevron">▾</span>
+                  {tr(lang, 'L’Agence', 'The Agency', 'La Agencia', '关于本行')} <span className="nav-btn-chevron">▾</span>
                 </button>
                 <div className="nav-dropdown-panel">
                   <button
@@ -355,7 +355,7 @@ export default function App() {
                     onClick={() => navigateTo('a-propos', { aboutTab: 'qui-nous-sommes' })}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'Who We Are' : 'Qui nous sommes'}
+                      {tr(lang, 'Qui nous sommes', 'Who We Are', 'Quiénes somos', '公司简介')}
                     </span>
                   </button>
                   <button
@@ -364,7 +364,7 @@ export default function App() {
                     onClick={() => navigateTo('a-propos', { aboutTab: 'co-fondateurs' })}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'Co-Founders' : 'Co-fondateurs'}
+                      {tr(lang, 'Co-fondateurs', 'Co-Founders', 'Cofundadores', '联合创始人')}
                     </span>
                   </button>
                   <button
@@ -373,7 +373,7 @@ export default function App() {
                     onClick={() => navigateTo('agences')}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'Our Offices' : 'Nos agences'}
+                      {tr(lang, 'Nos agences', 'Our Offices', 'Nuestras oficinas', '分支机构')}
                     </span>
                   </button>
                   <button
@@ -382,7 +382,7 @@ export default function App() {
                     onClick={() => navigateTo('a-propos', { aboutTab: 'services' })}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'Services & Associations' : 'Services & Associations'}
+                      {tr(lang, 'Services & Associations', 'Services & Associations', 'Servicios y Asociaciones', '专业服务与协会')}
                     </span>
                   </button>
                   <div className="nav-dropdown-divider" />
@@ -392,7 +392,7 @@ export default function App() {
                     onClick={() => navigateTo('a-propos', { aboutTab: 'carrieres' })}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'Careers & Affiliates' : 'Carrières & Affiliés'}
+                      {tr(lang, 'Carrières & Affiliés', 'Careers & Affiliates', 'Carreras y Afiliados', '招贤纳士与合作')}
                     </span>
                   </button>
                   <button
@@ -401,7 +401,7 @@ export default function App() {
                     onClick={() => navigateTo('a-propos', { aboutTab: 'liens' })}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'Partners & Links' : 'Partenaires & Liens'}
+                      {tr(lang, 'Partenaires & Liens', 'Partners & Links', 'Socios y Enlaces', '合作伙伴')}
                     </span>
                   </button>
                   <button
@@ -410,7 +410,7 @@ export default function App() {
                     onClick={() => navigateTo('a-propos', { aboutTab: 'faq' })}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'FAQ' : 'FAQ'}
+                      {tr(lang, 'FAQ', 'FAQ', 'Preguntas frecuentes', '常见问题')}
                     </span>
                   </button>
                 </div>
@@ -431,7 +431,7 @@ export default function App() {
                     onClick={() => navigateTo('courtiers', { brokerCategoryFilter: 'all' })}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'All Brokers' : 'Tous nos courtiers'}
+                      {tr(lang, 'Tous nos courtiers', 'All Brokers', 'Todos los corredores', '全部经纪人')}
                     </span>
                   </button>
                   <div className="nav-dropdown-divider" />
@@ -441,7 +441,7 @@ export default function App() {
                     onClick={() => navigateTo('courtiers', { brokerCategoryFilter: 'direction' })}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'Management' : 'Direction'}
+                      {tr(lang, 'Direction', 'Management', 'Dirección', '管理层')}
                     </span>
                   </button>
                   <button
@@ -450,7 +450,7 @@ export default function App() {
                     onClick={() => navigateTo('courtiers', { brokerCategoryFilter: 'commercial' })}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'Commercial' : 'Commercial'}
+                      {tr(lang, 'Commercial', 'Commercial', 'Comercial', '商业地产')}
                     </span>
                   </button>
                   <button
@@ -459,7 +459,7 @@ export default function App() {
                     onClick={() => navigateTo('courtiers', { brokerCategoryFilter: 'residentiel' })}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'Residential' : 'Résidentiel'}
+                      {tr(lang, 'Résidentiel', 'Residential', 'Residencial', '住宅地产')}
                     </span>
                   </button>
                   <button
@@ -468,7 +468,7 @@ export default function App() {
                     onClick={() => navigateTo('courtiers', { brokerCategoryFilter: 'international' })}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'International' : 'International'}
+                      {tr(lang, 'International', 'International', 'Internacional', '国际业务')}
                     </span>
                   </button>
                 </div>
@@ -480,7 +480,7 @@ export default function App() {
                   className={`nav-btn ${activePage === 'franchises' ? 'active' : ''}`}
                   onClick={() => navigateTo('franchises')}
                 >
-                  Franchises <span className="nav-btn-chevron">▾</span>
+                  {tr(lang, 'Franchises', 'Franchises', 'Franquicias', '特许经营')} <span className="nav-btn-chevron">▾</span>
                 </button>
                 <div className="nav-dropdown-panel">
                   <button
@@ -489,7 +489,7 @@ export default function App() {
                     onClick={() => navigateTo('franchises')}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'Our Franchise Clients' : 'Nos enseignes clientes'}
+                      {tr(lang, 'Nos enseignes clientes', 'Our Franchise Clients', 'Nuestras marcas clientes', '合作连锁品牌')}
                     </span>
                   </button>
                   <button
@@ -498,15 +498,19 @@ export default function App() {
                     onClick={() => {
                       setContactForm(prev => ({
                         ...prev,
-                        subject: isEn
-                          ? 'Franchise Expansion — Find a Commercial Location'
-                          : 'Expansion de franchise — Trouver un emplacement commercial'
+                        subject: tr(
+                          lang,
+                          'Expansion de franchise — Trouver un emplacement commercial',
+                          'Franchise Expansion — Find a Commercial Location',
+                          'Expansión de franquicia — Buscar local comercial',
+                          '连锁特许经营拓展 — 寻找商业门店'
+                        )
                       }));
                       navigateTo('nous-joindre', { contactTab: 'general' });
                     }}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'Find a Location' : 'Trouver un emplacement'}
+                      {tr(lang, 'Trouver un emplacement', 'Find a Location', 'Buscar una ubicación', '寻找商业选址')}
                     </span>
                   </button>
                   <button
@@ -515,7 +519,7 @@ export default function App() {
                     onClick={() => navigateTo('evenements')}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'CQF & Paris Network' : 'Réseau CQF & Paris'}
+                      {tr(lang, 'Réseau CQF & Paris', 'CQF & Paris Network', 'Red CQF y París', 'CQF 理事会与巴黎展会')}
                     </span>
                   </button>
                 </div>
@@ -552,7 +556,7 @@ export default function App() {
             </div>
           </div>
 
-          {/* Navigation Droite (3 onglets aérés : Propriétés ▾, Outils & Médias ▾, Nous joindre ▾ + FR | EN) */}
+          {/* Navigation Droite (3 onglets aérés : Propriétés ▾, Outils & Médias ▾, Nous joindre ▾ + FR | EN | ES | 中文) */}
           <div className="desktop-nav header-nav-side header-nav-right">
             <ul className="nav-links">
               {/* 4. PROPRIÉTÉS ▾ */}
@@ -570,7 +574,7 @@ export default function App() {
                     onClick={() => navigateTo('proprietes', { filtrePropriete: 'all', propertiesViewMode: 'grid' })}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'All Properties' : 'Toutes les propriétés'}
+                      {tr(lang, 'Toutes les propriétés', 'All Properties', 'Todas las propiedades', '全部物业')}
                     </span>
                   </button>
                   <button
@@ -579,7 +583,7 @@ export default function App() {
                     onClick={() => navigateTo('proprietes', { filtrePropriete: 'commercial', propertiesViewMode: 'grid' })}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'Commercial & Investment' : 'Commercial & Investissement'}
+                      {tr(lang, 'Commercial & Investissement', 'Commercial & Investment', 'Comercial e Inversión', '商业与投资物业')}
                     </span>
                   </button>
                   <button
@@ -588,7 +592,7 @@ export default function App() {
                     onClick={() => navigateTo('proprietes', { filtrePropriete: 'pourvoirie', propertiesViewMode: 'grid' })}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'Outfitters & Hospitality' : 'Pourvoiries & Hôtellerie'}
+                      {tr(lang, 'Pourvoiries & Hôtellerie', 'Outfitters & Hospitality', 'Cotos Turísticos y Hotelería', '狩猎度假村与酒店')}
                     </span>
                   </button>
                   <button
@@ -597,7 +601,7 @@ export default function App() {
                     onClick={() => navigateTo('proprietes', { filtrePropriete: 'terrain', propertiesViewMode: 'grid' })}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'Land' : 'Terrains'}
+                      {tr(lang, 'Terrains', 'Land', 'Terrenos', '开发土地')}
                     </span>
                   </button>
                   <button
@@ -606,7 +610,7 @@ export default function App() {
                     onClick={() => navigateTo('proprietes', { filtrePropriete: 'residentiel', propertiesViewMode: 'grid' })}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'Residential' : 'Résidentiel'}
+                      {tr(lang, 'Résidentiel', 'Residential', 'Residencial', '住宅物业')}
                     </span>
                   </button>
                   <div className="nav-dropdown-divider" />
@@ -616,7 +620,7 @@ export default function App() {
                     onClick={() => navigateTo('proprietes', { filtrePropriete: 'all', propertiesViewMode: 'map' })}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'Interactive Map' : 'Carte interactive'}
+                      {tr(lang, 'Carte interactive', 'Interactive Map', 'Mapa interactivo', '互动地图浏览')}
                     </span>
                   </button>
                   <button
@@ -625,7 +629,7 @@ export default function App() {
                     onClick={() => setNdaModalDeal(null)}
                   >
                     <span className="nav-dropdown-link-title" style={{ color: 'var(--gold-light)' }}>
-                      {isEn ? 'Off-Market (NDA)' : 'Hors-marché (NDA)'}
+                      {tr(lang, 'Hors-marché (NDA)', 'Off-Market (NDA)', 'Fuera de mercado (NDA)', '保密房源 (NDA)')}
                     </span>
                   </button>
                 </div>
@@ -637,7 +641,7 @@ export default function App() {
                   className={`nav-btn ${(activePage === 'outils' || activePage === 'evenements' || activePage === 'balados') ? 'active' : ''}`}
                   onClick={() => navigateTo('outils', { toolTab: 'plex' })}
                 >
-                  {isEn ? 'Tools & Media' : 'Outils & Médias'} <span className="nav-btn-chevron">▾</span>
+                  {tr(lang, 'Outils & Médias', 'Tools & Media', 'Herramientas', '金融工具与媒体')} <span className="nav-btn-chevron">▾</span>
                 </button>
                 <div className="nav-dropdown-panel align-right">
                   <button
@@ -646,7 +650,7 @@ export default function App() {
                     onClick={() => navigateTo('outils', { toolTab: 'plex' })}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'Commercial & Plex ROI' : 'Rentabilité Commercial & Plex'}
+                      {tr(lang, 'Rentabilité Commercial & Plex', 'Commercial & Plex ROI', 'Rentabilidad Comercial y Plex', '商业与多户投资回报')}
                     </span>
                   </button>
                   <button
@@ -655,7 +659,7 @@ export default function App() {
                     onClick={() => navigateTo('outils', { toolTab: 'welcome' })}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'Welcome Tax' : 'Taxe de bienvenue'}
+                      {tr(lang, 'Taxe de bienvenue', 'Welcome Tax', 'Impuesto de transferencia', '欢迎税计算器')}
                     </span>
                   </button>
                   <button
@@ -664,7 +668,7 @@ export default function App() {
                     onClick={() => navigateTo('outils', { toolTab: 'mortgage' })}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'Mortgage Calculator' : 'Calculatrice hypothécaire'}
+                      {tr(lang, 'Calculatrice hypothécaire', 'Mortgage Calculator', 'Calculadora hipotecaria', '按揭贷款计算器')}
                     </span>
                   </button>
                   <a
@@ -674,7 +678,7 @@ export default function App() {
                     className="nav-dropdown-link"
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'Multi-Prêts Pre-Qualification' : 'Préqualification Multi-Prêts'}
+                      {tr(lang, 'Préqualification Multi-Prêts', 'Multi-Prêts Pre-Qualification', 'Precalificación Multi-Prêts', 'Multi-Prêts 按揭预审')}
                       <ExternalLink size={12} style={{ color: 'var(--gold)' }} />
                     </span>
                   </a>
@@ -685,7 +689,7 @@ export default function App() {
                     onClick={() => navigateTo('evenements')}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'News & Events' : 'Actualités & Événements'}
+                      {tr(lang, 'Actualités & Événements', 'News & Events', 'Noticias y Eventos', '新闻与展会活动')}
                     </span>
                   </button>
                   <button
@@ -694,7 +698,7 @@ export default function App() {
                     onClick={() => navigateTo('balados')}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'Podcasts' : 'Balados'}
+                      {tr(lang, 'Balados', 'Podcasts', 'Pódcasts', '播客专栏')}
                     </span>
                   </button>
                 </div>
@@ -715,7 +719,7 @@ export default function App() {
                     onClick={() => navigateTo('nous-joindre', { contactTab: 'general' })}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'Contact Us' : 'Nous contacter'}
+                      {tr(lang, 'Nous contacter', 'Contact Us', 'Contáctenos', '联系我们')}
                     </span>
                   </button>
                   <button
@@ -724,7 +728,7 @@ export default function App() {
                     onClick={() => navigateTo('nous-joindre', { contactTab: 'valuation' })}
                   >
                     <span className="nav-dropdown-link-title" style={{ color: 'var(--gold-light)' }}>
-                      {isEn ? 'Evaluate My Property' : 'Évaluer ma propriété'}
+                      {tr(lang, 'Évaluer ma propriété', 'Evaluate My Property', 'Evaluar mi propiedad', '评估我的物业')}
                     </span>
                   </button>
                   <button
@@ -733,7 +737,7 @@ export default function App() {
                     onClick={() => navigateTo('a-propos', { aboutTab: 'carrieres' })}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'Become a Broker / Affiliate' : 'Devenir courtier / affilié'}
+                      {tr(lang, 'Devenir courtier / affilié', 'Become a Broker / Affiliate', 'Ser corredor / afiliado', '成为经纪人 / 合作伙伴')}
                     </span>
                   </button>
                 </div>
@@ -744,29 +748,30 @@ export default function App() {
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '4px',
+                gap: '3px',
                 marginLeft: '4px',
-                paddingLeft: '10px',
+                paddingLeft: '8px',
                 borderLeft: '1px solid rgba(255,255,255,0.16)'
               }}
             >
-              {['FR', 'EN'].map((code, idx) => (
-                <React.Fragment key={code}>
-                  {idx > 0 && <span style={{ color: 'rgba(255,255,255,0.35)', fontSize: '0.78rem' }}>|</span>}
+              {LANGUAGE_OPTIONS.map((opt, idx) => (
+                <React.Fragment key={opt.code}>
+                  {idx > 0 && <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.72rem' }}>|</span>}
                   <button
                     type="button"
-                    onClick={() => handleLanguageChange(code)}
+                    onClick={() => handleLanguageChange(opt.code)}
+                    title={opt.fullLabel}
                     style={{
                       background: 'transparent',
-                      color: lang === code ? 'var(--gold)' : '#ffffff',
+                      color: lang === opt.code ? 'var(--gold)' : '#ffffff',
                       border: 'none',
-                      padding: '4px 5px',
-                      fontSize: '0.8rem',
-                      fontWeight: lang === code ? 700 : 500,
+                      padding: '4px 4px',
+                      fontSize: '0.76rem',
+                      fontWeight: lang === opt.code ? 700 : 500,
                       cursor: 'pointer'
                     }}
                   >
-                    {code}
+                    {opt.label}
                   </button>
                 </React.Fragment>
               ))}
@@ -801,29 +806,39 @@ export default function App() {
             <div className="container">
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', paddingBottom: '12px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
                 <span style={{ fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.16em', color: 'var(--gold)' }}>
-                  {isEn ? 'Navigation — 6 Poles' : 'Navigation — 6 pôles'}
+                  {tr(lang, 'Navigation — 6 pôles', 'Navigation — 6 Poles', 'Navegación — 6 Polos', '网站导航 — 6 大板块')}
                 </span>
-                <div style={{ display: 'flex', gap: '6px' }}>
-                  {['FR', 'EN'].map(code => (
+                <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                  {LANGUAGE_OPTIONS.map(opt => (
                     <button
-                      key={code}
+                      key={opt.code}
                       type="button"
-                      onClick={() => handleLanguageChange(code)}
-                      className={lang === code ? 'btn-gold' : 'btn-outline'}
+                      onClick={() => handleLanguageChange(opt.code)}
+                      className={lang === opt.code ? 'btn-gold' : 'btn-outline'}
                       style={{ padding: '4px 10px', fontSize: '0.74rem' }}
                     >
-                      {code}
+                      {opt.label}
                     </button>
                   ))}
                 </div>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 {[
-                  { id: 'a-propos', label: isEn ? 'The Agency (Montreal & Paris)' : "L’Agence (Montréal & Paris)", subId: 'agences', subLabel: isEn ? 'Offices' : 'Bureaux' },
+                  {
+                    id: 'a-propos',
+                    label: tr(lang, 'L’Agence (Montréal & Paris)', 'The Agency (Montreal & Paris)', 'La Agencia (Montreal y París)', '关于本行（蒙特利尔与巴黎）'),
+                    subId: 'agences',
+                    subLabel: tr(lang, 'Bureaux', 'Offices', 'Oficinas', '分支机构')
+                  },
                   { id: 'courtiers', label: t.nav.brokers },
-                  { id: 'franchises', label: 'Franchises (Pacini, Arabian Oud, Taurino)' },
+                  { id: 'franchises', label: tr(lang, 'Franchises (Pacini, Arabian Oud, Taurino)', 'Franchises (Pacini, Arabian Oud, Taurino)', 'Franquicias (Pacini, Arabian Oud, Taurino)', '连锁特许经营 (Pacini, Arabian Oud, Taurino)') },
                   { id: 'proprietes', label: `${t.nav.properties} (${liveDealsData.length})` },
-                  { id: 'outils', label: isEn ? 'Tools & Media' : 'Outils & Médias', subId: 'evenements', subLabel: isEn ? 'News' : 'Actualités' },
+                  {
+                    id: 'outils',
+                    label: tr(lang, 'Outils & Médias', 'Tools & Media', 'Herramientas y Medios', '金融工具与媒体'),
+                    subId: 'evenements',
+                    subLabel: tr(lang, 'Actualités', 'News', 'Noticias', '最新动态')
+                  },
                   { id: 'nous-joindre', label: t.nav.contact }
                 ].map(item => (
                   <div
@@ -1109,19 +1124,23 @@ export default function App() {
                 }}>
                   <div>
                     <span className="badge-gold" style={{ marginBottom: '6px' }}>
-                      {isEn ? 'CQF Member • Franchise Clients' : 'Membre CQF • Clients Franchisés'}
+                      {tr(lang, 'Membre CQF • Clients Franchisés', 'CQF Member • Franchise Clients', 'Miembro CQF • Clientes Franquiciados', 'CQF 成员 • 特许经营客户')}
                     </span>
                     <h3 className="serif-title" style={{ fontSize: '2.2rem', fontWeight: 600 }}>
-                      {isEn
-                        ? 'Franchises Supported by Immobilier Himalaya'
-                        : 'Franchises accompagnées par Immobilier Himalaya'}
+                      {tr(
+                        lang,
+                        'Franchises accompagnées par Immobilier Himalaya',
+                        'Franchises Supported by Immobilier Himalaya',
+                        'Franquicias acompañadas por Immobilier Himalaya',
+                        '喜马拉雅地产服务的连锁特许经营品牌'
+                      )}
                     </h3>
                   </div>
                   <button
                     onClick={() => navigateTo('franchises')}
                     className="editorial-link"
                   >
-                    {isEn ? 'Open Franchises Section' : 'Accéder à l’onglet Franchises'} <ArrowRight size={15} />
+                    {tr(lang, 'Accéder à l’onglet Franchises', 'Open Franchises Section', 'Ver sección Franquicias', '进入特许经营专区')} <ArrowRight size={15} />
                   </button>
                 </div>
 
@@ -1165,13 +1184,13 @@ export default function App() {
                           )}
                         </div>
                         <div style={{ fontSize: '0.72rem', color: 'var(--gold)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.09em', marginBottom: '6px' }}>
-                          {isEn ? fr.category_en : fr.category}
+                          {pickLang(fr, 'category', lang)}
                         </div>
                         <h4 className="serif-title" style={{ fontSize: '1.6rem', fontWeight: 600, color: '#fff', marginBottom: '10px' }}>
-                          {isEn ? fr.name_en : fr.name}
+                          {pickLang(fr, 'name', lang)}
                         </h4>
                         <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', lineHeight: 1.65 }}>
-                          {isEn ? fr.description_en : fr.description}
+                          {pickLang(fr, 'description', lang)}
                         </p>
                       </div>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '14px', borderTop: '1px solid rgba(255,255,255,0.06)', fontSize: '0.82rem' }}>
@@ -1179,7 +1198,7 @@ export default function App() {
                           {fr.brokerNames}
                         </span>
                         <span className="editorial-link" style={{ fontSize: '0.72rem' }}>
-                          {isEn ? 'Details' : 'Dossier'} <ArrowRight size={13} />
+                          {tr(lang, 'Dossier', 'Details', 'Detalles', '查看详情')} <ArrowRight size={13} />
                         </span>
                       </div>
                     </div>
@@ -1481,25 +1500,25 @@ export default function App() {
                   <div className="property-img-wrap" style={{ height: '195px', background: '#09090b' }}>
                     <img 
                       src={ag.image} 
-                      alt={isEn ? (ag.name_en || ag.name) : ag.name}
+                      alt={pickLang(ag, 'name', lang)}
                       style={{ objectFit: ag.id === 'montreal_hq' ? 'contain' : 'cover', padding: ag.id === 'montreal_hq' ? '28px' : '0' }}
                       onError={e => { if (ag.fallbackImage) e.target.src = ag.fallbackImage; }}
                     />
                     <span className="badge-gold" style={{ position: 'absolute', top: '12px', left: '12px', background: 'rgba(9,9,11,0.88)' }}>
-                      {isEn ? (ag.badge_en || ag.badge) : ag.badge}
+                      {pickLang(ag, 'badge', lang)}
                     </span>
                   </div>
                   <div style={{ padding: '20px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                     <div>
                       <div style={{ fontSize: '0.75rem', color: 'var(--gold)', textTransform: 'uppercase', fontWeight: 600 }}>
-                        {isEn ? (ag.city_en || ag.city) : ag.city} • {isEn ? (ag.country_en || ag.country) : ag.country}
+                        {pickLang(ag, 'city', lang)} • {pickLang(ag, 'country', lang)}
                       </div>
                       <h3 style={{ fontSize: '1.2rem', fontWeight: 700, margin: '4px 0 8px' }}>
-                        {isEn ? (ag.name_en || ag.name) : ag.name}
+                        {pickLang(ag, 'name', lang)}
                       </h3>
                       <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '16px' }}>
                         <MapPin size={13} style={{ display: 'inline', marginRight: '5px', color: 'var(--gold)' }} />
-                        {isEn ? (ag.address_en || ag.address) : ag.address}
+                        {pickLang(ag, 'address', lang)}
                       </p>
                     </div>
 
@@ -1633,16 +1652,16 @@ export default function App() {
               {HIMALAYA_EVENTS.map(ev => (
                 <div key={ev.id} className="property-card" style={{ padding: '22px' }}>
                   <span className="badge-gold" style={{ alignSelf: 'flex-start', marginBottom: '10px' }}>
-                    {isEn ? (ev.dateRange_en || ev.dateRange) : ev.dateRange}
+                    {pickLang(ev, 'dateRange', lang)}
                   </span>
                   <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '6px' }}>
-                    {isEn ? (ev.title_en || ev.title) : ev.title}
+                    {pickLang(ev, 'title', lang)}
                   </h3>
                   <div style={{ fontSize: '0.84rem', color: 'var(--gold)', marginBottom: '10px' }}>
-                    <MapPin size={13} style={{ display: 'inline', marginRight: '5px' }} /> {isEn ? (ev.location_en || ev.location) : ev.location}
+                    <MapPin size={13} style={{ display: 'inline', marginRight: '5px' }} /> {pickLang(ev, 'location', lang)}
                   </div>
                   <p style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', marginBottom: '16px' }}>
-                    {isEn ? (ev.description_en || ev.description) : ev.description}
+                    {pickLang(ev, 'description', lang)}
                   </p>
                   <a href={ev.url} target="_blank" rel="noreferrer" className="btn-outline" style={{ alignSelf: 'flex-start', padding: '8px 14px', fontSize: '0.82rem' }}>
                     {t.news.detailsBtn} <ExternalLink size={13} />
@@ -1665,7 +1684,7 @@ export default function App() {
                     className={newsYearFilter === yr ? 'btn-gold' : 'btn-outline'}
                     style={{ padding: '6px 12px', fontSize: '0.78rem' }}
                   >
-                    {yr === 'all' ? (isEn ? 'All Years' : 'Toutes les années') : yr}
+                    {yr === 'all' ? tr(lang, 'Toutes les années', 'All Years', 'Todos los años', '所有年份') : yr}
                   </button>
                 ))}
               </div>
@@ -1734,15 +1753,15 @@ export default function App() {
                     }}>
                       <div style={{ flex: 1, minWidth: '260px' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
-                          <span className="badge-gold">{isEn ? (pod.episode_en || pod.episode) : pod.episode}</span>
+                          <span className="badge-gold">{pickLang(pod, 'episode', lang)}</span>
                           <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>{pod.duration}</span>
-                          <span style={{ fontSize: '0.78rem', color: 'var(--gold-light)' }}>• {isEn ? (pod.hosts_en || pod.hosts) : pod.hosts}</span>
+                          <span style={{ fontSize: '0.78rem', color: 'var(--gold-light)' }}>• {pickLang(pod, 'hosts', lang)}</span>
                         </div>
                         <h3 className="serif-title" style={{ fontSize: '1.45rem', fontWeight: 600, marginBottom: '6px' }}>
-                          {isEn ? (pod.title_en || pod.title) : pod.title}
+                          {pickLang(pod, 'title', lang)}
                         </h3>
                         <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-                          {isEn ? (pod.description_en || pod.description) : pod.description}
+                          {pickLang(pod, 'description', lang)}
                         </p>
                       </div>
                       <button
@@ -1751,8 +1770,8 @@ export default function App() {
                         style={{ background: 'none', border: 'none', cursor: 'pointer' }}
                       >
                         {isPlaying
-                          ? (isEn ? 'Hide Summary' : 'Fermer la fiche')
-                          : (isEn ? 'Episode Summary' : 'Voir le sommaire')} <ArrowRight size={13} />
+                          ? tr(lang, 'Fermer la fiche', 'Hide Summary', 'Cerrar resumen', '收起简介')
+                          : tr(lang, 'Voir le sommaire', 'Episode Summary', 'Ver resumen', '查看摘要')} <ArrowRight size={13} />
                       </button>
                     </div>
 
@@ -2078,16 +2097,20 @@ export default function App() {
                 </a>
               </div>
               <p style={{ fontSize: '0.84rem', color: 'var(--text-secondary)', lineHeight: 1.65 }}>
-                {isEn
-                  ? 'Real Estate Agency (OACIQ) specializing in commercial, residential, outfitter, franchise & international properties since 2014.'
-                  : 'Agence immobilière (OACIQ) spécialisée en immobilier commercial, résidentiel, pourvoiries, franchises et international depuis 2014.'}
+                {tr(
+                  lang,
+                  'Agence immobilière (OACIQ) spécialisée en immobilier commercial, résidentiel, pourvoiries, franchises et international depuis 2008.',
+                  'Real Estate Agency (OACIQ) specializing in commercial, residential, outfitter, franchise & international properties since 2008.',
+                  'Agencia inmobiliaria (OACIQ) especializada en propiedades comerciales, residenciales, turísticas, franquicias e internacional desde 2008.',
+                  '自 2008 年创立的魁北克持牌房地产经纪机构（OACIQ），专注于商业地产、住宅、度假庄园、连锁特许经营及国际地产。'
+                )}
               </p>
             </div>
 
             {/* Colonne 2 : Siège social Montréal */}
             <div>
               <div className="badge-gold" style={{ marginBottom: '12px' }}>
-                {isEn ? 'Headquarters — Montreal' : 'Siège social — Montréal'}
+                {tr(lang, 'Siège social — Montréal', 'Headquarters — Montreal', 'Sede Central — Montreal', '蒙特利尔总部')}
               </div>
               <div style={{ fontSize: '0.86rem', color: 'var(--text-secondary)', lineHeight: 1.7 }}>
                 <div style={{ color: '#fff', fontWeight: 600 }}>Immobilier Himalaya Real Estate Corp.</div>
@@ -2103,16 +2126,16 @@ export default function App() {
             {/* Colonne 3 : Bureau International Paris & Franchises */}
             <div>
               <div className="badge-gold" style={{ marginBottom: '12px' }}>
-                {isEn ? 'International — Paris & CQF' : 'International — Paris & CQF'}
+                {tr(lang, 'International — Paris & CQF', 'International — Paris & CQF', 'Internacional — París y CQF', '国际业务 — 巴黎与 CQF')}
               </div>
               <div style={{ fontSize: '0.86rem', color: 'var(--text-secondary)', lineHeight: 1.7 }}>
                 <div style={{ color: '#fff', fontWeight: 600 }}>
-                  {isEn ? 'Paris Representative Office' : 'Bureau de représentation — Paris'}
+                  {tr(lang, 'Bureau de représentation — Paris', 'Paris Representative Office', 'Oficina de representación — París', '法国巴黎代表处')}
                 </div>
                 <div>14 Avenue de l’Opéra, 75001 Paris, France</div>
                 <div style={{ marginTop: '8px' }}>
                   <span style={{ color: 'var(--gold-light)', fontSize: '0.8rem' }}>
-                    {isEn ? 'Member of the Quebec Franchise Council (CQF)' : 'Membre du Conseil québécois de la franchise (CQF)'}
+                    {tr(lang, 'Membre du Conseil québécois de la franchise (CQF)', 'Member of the Quebec Franchise Council (CQF)', 'Miembro del Consejo Quebequense de la Franquicia (CQF)', '魁北克特许经营理事会 (CQF) 成员')}
                   </span>
                 </div>
               </div>
@@ -2121,20 +2144,27 @@ export default function App() {
             {/* Colonne 4 : Navigation Rapide */}
             <div>
               <div className="badge-gold" style={{ marginBottom: '12px' }}>
-                {isEn ? 'Navigation' : 'Navigation'}
+                {tr(lang, 'Navigation', 'Navigation', 'Navegación', '快速导航')}
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px 14px', fontSize: '0.83rem', color: 'var(--text-secondary)' }}>
                 <button onClick={() => navigateTo('home')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', textAlign: 'left' }}>{t.nav.home}</button>
                 <button onClick={() => navigateTo('proprietes')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', textAlign: 'left' }}>{t.nav.properties}</button>
-                <button onClick={() => navigateTo('a-propos')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', textAlign: 'left' }}>{isEn ? 'The Agency' : 'L’Agence'}</button>
-                <button onClick={() => navigateTo('franchises')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', textAlign: 'left' }}>Franchises</button>
+                <button onClick={() => navigateTo('a-propos')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', textAlign: 'left' }}>{tr(lang, 'L’Agence', 'The Agency', 'La Agencia', '关于本行')}</button>
+                <button onClick={() => navigateTo('franchises')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', textAlign: 'left' }}>{tr(lang, 'Franchises', 'Franchises', 'Franquicias', '特许经营')}</button>
                 <button onClick={() => navigateTo('courtiers')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', textAlign: 'left' }}>{t.nav.brokers}</button>
                 <button onClick={() => navigateTo('outils')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', textAlign: 'left' }}>{t.nav.tools}</button>
                 <button onClick={() => navigateTo('agences')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', textAlign: 'left' }}>{t.nav.agencies}</button>
                 <button onClick={() => navigateTo('evenements')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', textAlign: 'left' }}>{t.nav.news}</button>
                 <button onClick={() => navigateTo('balados')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', textAlign: 'left' }}>{t.nav.podcasts}</button>
                 <button onClick={() => navigateTo('nous-joindre')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', textAlign: 'left' }}>{t.nav.contact}</button>
-                <button onClick={() => navigateTo('zone-equipe')} style={{ background: 'none', border: 'none', color: 'var(--gold-light)', cursor: 'pointer', fontWeight: 600, textAlign: 'left', gridColumn: '1 / -1' }}>{t.nav.team}</button>
+                <a
+                  href={typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? 'http://localhost:5176' : 'https://himalaya-prospection.vercel.app'}
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{ color: 'var(--text-muted)', fontSize: '0.76rem', gridColumn: '1 / -1', marginTop: '4px', display: 'inline-flex', alignItems: 'center', gap: '5px' }}
+                >
+                  <Lock size={11} color="var(--gold)" /> {tr(lang, 'Accès Intranet Courtiers', 'Broker Intranet (CRM)', 'Intranet Corredores (CRM)', '经纪人内部系统 (CRM)')}
+                </a>
               </div>
             </div>
           </div>
@@ -2150,20 +2180,20 @@ export default function App() {
             color: 'var(--text-muted)'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
-              <span>© 2026 Immobilier Himalaya Real Estate Corp. {isEn ? 'All rights reserved.' : 'Tous droits réservés.'}</span>
+              <span>© 2026 Immobilier Himalaya Real Estate Corp. {tr(lang, 'Tous droits réservés.', 'All rights reserved.', 'Todos los derechos reservados.', '保留所有权利。')}</span>
               <span>|</span>
               <button
                 onClick={() => setLegalModalType('terms')}
                 style={{ background: 'none', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer', fontSize: '0.76rem', textDecoration: 'underline' }}
               >
-                {isEn ? 'Terms of Use' : "Conditions d'utilisation"}
+                {tr(lang, "Conditions d'utilisation", 'Terms of Use', 'Condiciones de uso', '使用条款')}
               </button>
               <span>|</span>
               <button
                 onClick={() => setLegalModalType('privacy')}
                 style={{ background: 'none', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer', fontSize: '0.76rem', textDecoration: 'underline' }}
               >
-                {isEn ? 'Privacy Policy (Law 25)' : 'Politique de confidentialité'}
+                {tr(lang, 'Politique de confidentialité', 'Privacy Policy (Law 25)', 'Política de privacidad (Ley 25)', '隐私政策 (第25号法案)')}
               </button>
             </div>
 
@@ -2274,7 +2304,8 @@ export default function App() {
 
 /* Carte Propriété Style Galerie « Sans Cadre » (#5, #6, #7, #8, #9) */
 function PropertyCard({ deal, t, onSelect }) {
-  const isEn = t?.code === 'EN';
+  const code = t?.code || 'FR';
+  const isEn = code !== 'FR';
   const isSold = deal.status === 'Vendu';
   const broker = (deal.brokers_details && deal.brokers_details[0]) || {
     name: deal.assigned_broker || 'Équipe Himalaya',
@@ -2317,7 +2348,7 @@ function PropertyCard({ deal, t, onSelect }) {
               letterSpacing: '0.08em',
               textTransform: 'uppercase'
             }}>
-              {isEn ? 'SOLD' : 'VENDU'}
+              {tr(code, 'VENDU', 'SOLD', 'VENDIDO', '已售')}
             </span>
           )}
         </div>
@@ -2376,7 +2407,7 @@ function PropertyCard({ deal, t, onSelect }) {
           </div>
 
           <span className="editorial-link" style={{ fontSize: '0.73rem' }}>
-            {isEn ? 'View Dossier' : 'Voir le dossier'} <ArrowRight size={13} />
+            {t.properties.viewListing} <ArrowRight size={13} />
           </span>
         </div>
       </div>

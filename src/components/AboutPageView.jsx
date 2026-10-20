@@ -21,6 +21,7 @@ import {
   HIMALAYA_FRANCHISES,
   HIMALAYA_FRANCHISE_HIGHLIGHTS
 } from '../data/siteContent';
+import { tr, pickLang } from '../data/translations';
 import { submitLeadToProspection } from '../utils/prospectionBridge';
 
 export default function AboutPageView({
@@ -31,8 +32,8 @@ export default function AboutPageView({
   initialTab = 'qui-nous-sommes',
   standaloneFranchisePage = false
 }) {
-  const isEn = lang === 'EN';
-  const c = ABOUT_CONTENT[isEn ? 'EN' : 'FR'];
+  const isEn = lang !== 'FR';
+  const c = ABOUT_CONTENT[lang] || ABOUT_CONTENT.FR;
   const [activeTab, setActiveTab] = useState(standaloneFranchisePage ? 'franchises' : (initialTab || 'qui-nous-sommes'));
   const [openFaqIndex, setOpenFaqIndex] = useState(0);
 
@@ -831,17 +832,19 @@ export default function AboutPageView({
             >
               <div style={{ maxWidth: '800px' }}>
                 <div className="badge-gold" style={{ marginBottom: '8px' }}>
-                  {isEn ? 'Member of the Quebec Franchise Council (CQF)' : 'Membre du Conseil québécois de la franchise (CQF)'}
+                  {tr(lang, 'Membre du Conseil québécois de la franchise (CQF)', 'Member of the Quebec Franchise Council (CQF)', 'Miembro del Consejo Quebequense de la Franquicia (CQF)', '魁北克特许经营理事会 (CQF) 官方成员')}
                 </div>
                 <h2 style={{ fontSize: '1.85rem', fontWeight: 700, color: '#fff', marginBottom: '10px' }}>
-                  {isEn
-                    ? 'Franchises Supported by Immobilier Himalaya'
-                    : 'Franchises accompagnées par Immobilier Himalaya'}
+                  {tr(lang, 'Franchises accompagnées par Immobilier Himalaya', 'Franchises Supported by Immobilier Himalaya', 'Franquicias acompañadas por Immobilier Himalaya', '喜马拉雅地产服务的连锁特许经营品牌')}
                 </h2>
                 <p style={{ fontSize: '0.96rem', color: 'var(--text-secondary)', lineHeight: 1.7 }}>
-                  {isEn
-                    ? 'Immobilier Himalaya Real Estate Corp. accompanies franchise banners and franchisees in selecting commercial locations and negotiating leases.'
-                    : 'Immobilier Himalaya Real Estate Corp. accompagne les bannières et les clients franchisés dans la recherche d’emplacements commerciaux et la négociation de baux.'}
+                  {tr(
+                    lang,
+                    'Immobilier Himalaya Real Estate Corp. accompagne les bannières et les clients franchisés dans la recherche d’emplacements commerciaux et la négociation de baux.',
+                    'Immobilier Himalaya Real Estate Corp. accompanies franchise banners and franchisees in selecting commercial locations and negotiating leases.',
+                    'Immobilier Himalaya Real Estate Corp. acompaña a las marcas y franquiciados en la búsqueda de ubicaciones comerciales y la negociación de contratos de arrendamiento.',
+                    'Immobilier Himalaya Real Estate Corp. 协助各大连锁品牌及特许经营加盟商进行商业门店选址与租约谈判。'
+                  )}
                 </p>
               </div>
               <button
@@ -852,7 +855,7 @@ export default function AboutPageView({
                 }}
                 className="btn-gold"
               >
-                <Store size={15} /> {isEn ? 'Contact Our Franchise Team' : 'Contacter notre équipe Franchise'}
+                <Store size={15} /> {tr(lang, 'Contacter notre équipe Franchise', 'Contact Our Franchise Team', 'Contactar al equipo de Franquicias', '联系特许经营顾问团队')}
               </button>
             </div>
 
@@ -904,13 +907,13 @@ export default function AboutPageView({
                       {/* Texte descriptif épuré */}
                       <div style={{ paddingBottom: '20px' }}>
                         <div className="badge-gold" style={{ marginBottom: '6px' }}>
-                          {isEn ? fr.category_en : fr.category}
+                          {pickLang(fr, 'category', lang)}
                         </div>
                         <h3 className="serif-title" style={{ fontSize: '1.75rem', fontWeight: 600, color: '#fff', marginBottom: '8px' }}>
-                          {isEn ? fr.name_en : fr.name}
+                          {pickLang(fr, 'name', lang)}
                         </h3>
                         <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.65 }}>
-                          {isEn ? fr.description_en : fr.description}
+                          {pickLang(fr, 'description', lang)}
                         </p>
                       </div>
                     </div>
@@ -926,8 +929,8 @@ export default function AboutPageView({
                       >
                         <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '12px' }}>
                           {assignedBrokers.length > 1
-                            ? (isEn ? 'Assigned Himalaya Brokers' : 'Courtiers Himalaya attitrés')
-                            : (isEn ? 'Assigned Himalaya Broker' : 'Courtier Himalaya attitré')}
+                            ? tr(lang, 'Courtiers Himalaya attitrés', 'Assigned Himalaya Brokers', 'Corredores Himalaya asignados', '负责该品牌的喜马拉雅经纪人')
+                            : tr(lang, 'Courtier Himalaya attitré', 'Assigned Himalaya Broker', 'Corredor Himalaya asignado', '负责该品牌的喜马拉雅经纪人')}
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                           {assignedBrokers.map((brk) => (
@@ -990,7 +993,7 @@ export default function AboutPageView({
                         }}
                         className="editorial-link"
                       >
-                        {isEn ? `Inquire about ${fr.name}` : `Demande d’information — ${fr.name}`} <ArrowRight size={14} />
+                        {tr(lang, `Demande d’information — ${fr.name}`, `Inquire about ${fr.name}`, `Solicitar información — ${fr.name}`, `咨询 ${fr.name} 商业选址`)} <ArrowRight size={14} />
                       </span>
                     </div>
                   </div>
@@ -1013,14 +1016,14 @@ export default function AboutPageView({
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
                     <span className="editorial-num" style={{ fontSize: '1.25rem' }}>0{idx + 1}</span>
                     <span className="badge-gold">
-                      {isEn ? hl.badge_en : hl.badge}
+                      {pickLang(hl, 'badge', lang)}
                     </span>
                   </div>
                   <h3 className="serif-title" style={{ fontSize: '1.35rem', fontWeight: 600, marginBottom: '8px', color: '#fff' }}>
-                    {isEn ? hl.title_en : hl.title}
+                    {pickLang(hl, 'title', lang)}
                   </h3>
                   <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', lineHeight: 1.65 }}>
-                    {isEn ? hl.desc_en : hl.desc}
+                    {pickLang(hl, 'desc', lang)}
                   </p>
                 </div>
               ))}

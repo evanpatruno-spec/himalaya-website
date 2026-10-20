@@ -1,3 +1,25 @@
+export const LANGUAGE_OPTIONS = [
+  { code: 'FR', label: 'FR', fullLabel: 'Français' },
+  { code: 'EN', label: 'EN', fullLabel: 'English' },
+  { code: 'ES', label: 'ES', fullLabel: 'Español' },
+  { code: 'ZH', label: '中文', fullLabel: '中文 (普通话)' }
+];
+
+export function tr(lang, fr, en, es, zh) {
+  if (lang === 'ES') return es ?? en ?? fr;
+  if (lang === 'ZH') return zh ?? en ?? fr;
+  if (lang === 'EN') return en ?? fr;
+  return fr;
+}
+
+export function pickLang(obj, field, lang) {
+  if (!obj) return '';
+  if (lang === 'ES') return obj[`${field}_es`] || obj[`${field}_en`] || obj[field] || '';
+  if (lang === 'ZH') return obj[`${field}_zh`] || obj[`${field}_en`] || obj[field] || '';
+  if (lang === 'EN') return obj[`${field}_en`] || obj[field] || '';
+  return obj[field] || '';
+}
+
 export const TRANSLATIONS = {
   FR: {
     code: 'FR',
@@ -192,6 +214,7 @@ export const TRANSLATIONS = {
       submit: 'Signer le NDA'
     }
   },
+
   EN: {
     code: 'EN',
     nav: {
@@ -383,6 +406,394 @@ export const TRANSLATIONS = {
       legalText: 'I formally agree to maintain strict confidentiality regarding financial statements and information disclosed by Immobilier Himalaya Real Estate Corp., and not to contact employees or owners directly without broker authorization.',
       cancel: 'Cancel',
       submit: 'Sign NDA'
+    }
+  },
+
+  ES: {
+    code: 'ES',
+    nav: {
+      home: 'Inicio',
+      properties: 'Propiedades',
+      brokers: 'Corredores',
+      agencies: 'Agencias',
+      about: 'Nosotros',
+      news: 'Noticias',
+      podcasts: 'Pódcasts',
+      tools: 'Herramientas',
+      team: 'Equipo',
+      contact: 'Contacto',
+      menu: 'Menú'
+    },
+    hero: {
+      titleStart: 'Movemos montañas',
+      titleHighlight: 'por usted',
+      subtitle: 'Agencia inmobiliaria internacional especializada en corretaje comercial, industrial, turístico (posadas, campings, cotos de caza y pesca) e inversión residencial.',
+      searchPlaceholder: 'Ciudad, palabra clave o Nº Centris/MLS...',
+      allCategories: 'Todas las categorías',
+      catCommercial: 'Comercial e Industrial',
+      catOutfitter: 'Posada, Camping y Coto (Pourvoirie)',
+      catLand: 'Terreno y Desarrollo',
+      catResidential: 'Residencial',
+      allRegions: 'Todas las regiones',
+      searchBtn: 'Buscar'
+    },
+    home: {
+      specialtiesTitle: 'Nuestras especialidades',
+      allPropertiesBtn: 'Todas las propiedades',
+      explore: 'Explorar',
+      featuredTitle: 'Propiedades destacadas',
+      tabAll: 'Todas',
+      tabOutfitter: 'Posada, Camping y Coto',
+      tabCommercial: 'Comercial',
+      tabLand: 'Terrenos',
+      viewAllProperties: 'Ver todas las propiedades',
+      offMarketBtn: 'Expedientes confidenciales (NDA)',
+      statMandates: 'Propiedades y mandatos activos',
+      statBrokers: 'Corredores inmobiliarios',
+      statFoundedNum: '2008',
+      statFounded: 'Fundada en Montreal en 2008',
+      statPolesNum: '4 especialidades',
+      statPoles: 'Comercial, Turístico, Residencial e Internacional',
+      ctaTitle: 'Un equipo con experiencia enfocado en sus resultados',
+      ctaDesc: 'Bajo la dirección de Roger Rhéaume, Geniev Mondoux y Mike Ainajian, nuestros corredores le acompañan en la compra, venta o alquiler de propiedades comerciales, turísticas y residenciales.',
+      ourBrokersBtn: 'Nuestros corredores',
+      evaluateBtn: 'Contáctenos'
+    },
+    properties: {
+      title: 'Nuestras propiedades',
+      shownCount: 'propiedades mostradas de',
+      activeMandates: 'inscripciones',
+      viewGrid: 'Cuadrícula',
+      viewMap: 'Mapa',
+      saleAndRent: 'Venta y Alquiler',
+      forSale: 'En venta',
+      forRent: 'En alquiler',
+      allBrokers: 'Todos los corredores',
+      sortDesc: 'Precio: Mayor → Menor',
+      sortAsc: 'Precio: Menor → Mayor',
+      sortAlpha: 'Orden A → Z',
+      resetFilters: 'Restablecer filtros',
+      noResultsTitle: 'Ninguna propiedad pública coincide con estos criterios',
+      noResultsDesc: 'Contacte a nuestro equipo para conocer las propiedades disponibles que correspondan a sus criterios.',
+      viewListing: 'Ver ficha',
+      mapTitle: 'Quebec e Internacional — Haga clic en una región'
+    },
+    brokers: {
+      title: 'Corredores inmobiliarios',
+      subtitle: 'corredores y directores a su servicio',
+      searchPlaceholder: 'Buscar un corredor...',
+      catAll: 'Todos',
+      catDirection: 'Dirección',
+      catCommercial: 'Comercial',
+      catResidential: 'Residencial',
+      catInternational: 'Internacional',
+      viewProfile: 'Perfil',
+      activeMandates: 'propiedad(es)',
+      languages: 'Idiomas hablados',
+      specialties: 'Mercados y Países'
+    },
+    agencies: {
+      title: 'Nuestra agencia',
+      subtitle: 'Sede central ubicada en 2000 McGill College Ave, Suite 600 en Montreal (Quebec) y red internacional.',
+      emailBtn: 'Correo'
+    },
+    about: {
+      title: 'Acerca de Himalaya',
+      p1: 'Desde su fundación en 2008 por Roger Rhéaume y Geniev Mondoux, la agencia inmobiliaria Himalaya se ha consolidado como líder inmobiliario en Quebec, Canadá y a nivel internacional.',
+      p2: 'Immobilier Himalaya Real Estate Corp. reúne un equipo multicultural de corredores inmobiliarios profesionales especializados en corretaje comercial, industrial, turístico y residencial.',
+      missionTitle: 'Nuestra misión y valores',
+      missionText: 'Fomentar transacciones justas y honestas, cultivar relaciones profesionales a largo plazo y ofrecer una red local e internacional basada en la colaboración, la comunicación, la escucha, el respeto y la ética.',
+      leadershipTitle: 'Dirección de la agencia',
+      contactBtn: 'Contactar'
+    },
+    news: {
+      title: 'Eventos y noticias',
+      recentNews: 'Noticias recientes',
+      detailsBtn: 'Detalles',
+      readArticle: 'Leer artículo'
+    },
+    podcasts: {
+      title: 'Pódcasts',
+      subtitle: 'Cápsulas y conferencias de Immobilier Himalaya Real Estate Corp.',
+      listenBtn: 'Escuchar',
+      pauseBtn: 'Pausa',
+      playingLabel: 'Reproduciendo'
+    },
+    contact: {
+      title: 'Contáctenos',
+      subtitle: 'Para más información, contacte nuestra sede central o complete el formulario en línea.',
+      hqLabel: 'Sede Central',
+      hqAddress: '2000 McGill College Ave, Suite 600, Montreal (QC) H3A 3H3',
+      leadershipLabel: 'Dirección',
+      rolePresident: 'Presidente',
+      roleVP: 'Vicepresidente',
+      roleDirector: 'Director de Agencia',
+      tabGeneral: 'Consulta general',
+      tabValuation: 'Vender / Evaluar mi propiedad',
+      sentTitle: 'Mensaje enviado con éxito',
+      sentDesc: 'Su solicitud ha sido registrada con el equipo de Immobilier Himalaya.',
+      newMsgBtn: 'Nuevo mensaje',
+      namePlaceholder: 'Nombre completo *',
+      phonePlaceholder: 'Número de teléfono *',
+      emailPlaceholder: 'Correo electrónico *',
+      msgPlaceholder: 'Su mensaje *',
+      assetTypeLabel: 'Tipo de propiedad',
+      assetOpt1: 'Posada / Camping / Coto (Pourvoirie)',
+      assetOpt2: 'Edificio comercial / Industrial / Oficina',
+      assetOpt3: 'Hotel / Restaurante / Fondo de comercio',
+      assetOpt4: 'Terreno de desarrollo',
+      assetOpt5: 'Propiedad residencial',
+      subjectOpt1: 'Información sobre una propiedad',
+      subjectOpt2: 'Vender o alquilar una propiedad',
+      subjectOpt3: 'Convertirse en corredor o afiliado Himalaya',
+      cityPlaceholder: 'Ciudad o dirección de la propiedad *',
+      revenuePlaceholder: 'Precio deseado o detalles ($)',
+      submitBtn: 'Enviar',
+      submitValuationBtn: 'Enviar solicitud'
+    },
+    team: {
+      badge: 'Portal Interno',
+      titleStart: 'Zona Equipo y',
+      subtitle: 'Acceso directo a la herramienta interna de prospección y gestión de clientes.',
+      openCrmBtn: 'Abrir Himalaya Prospection',
+      leadsTitle: 'Últimas solicitudes y acuerdos NDA firmados',
+      badgeNda: 'NDA Firmado',
+      badgeValuation: 'Vendedor',
+      badgeContact: 'Contacto'
+    },
+    modal: {
+      share: 'Compartir',
+      copied: '¡Enlace copiado!',
+      originalListing: 'Ficha oficial',
+      description: 'Descripción',
+      specs: 'Características',
+      listingBroker: 'Corredor(es) a cargo',
+      seeBrokerMandates: 'Ver todas las propiedades de',
+      dataRoomTitle: 'EXPEDIENTE CONFIDENCIAL (NDA)',
+      dataRoomDesc: 'Acceso a los documentos financieros tras firmar el acuerdo de confidencialidad (NDA).',
+      signNdaBtn: 'Firmar NDA',
+      ndaUnlocked: 'NDA firmado — Expediente solicitado',
+      calcTitle: 'Simulador hipotecario',
+      downPayment: 'Pago inicial',
+      interestRate: 'Tasa anual',
+      monthlyEst: 'Pago mensual estimado (25 años)',
+      perMonth: '$ / mes',
+      multiPretsLink: 'Precalificación Multi-Prêts →',
+      defaultDesc: 'Descripción detallada disponible con el corredor a cargo.'
+    },
+    nda: {
+      header: 'Acuerdo de Confidencialidad (NDA)',
+      successTitle: 'NDA registrado',
+      successDesc: 'Su solicitud de acceso confidencial ha sido enviada al corredor a cargo.',
+      backBtn: 'Volver al sitio',
+      selectedFile: 'Propiedad seleccionada',
+      offMarketAccess: 'Solicitud de expediente confidencial',
+      fullName: 'Nombre completo *',
+      company: 'Empresa / Sociedad',
+      email: 'Correo electrónico *',
+      phone: 'Teléfono *',
+      liquidity: 'Capital disponible *',
+      experience: 'Perfil del comprador',
+      expActive: 'Inversor u operador activo',
+      expFirst: 'Primera adquisición',
+      expPartner: 'Con socio inversor',
+      legalText: 'Me comprometo a mantener estricta confidencialidad sobre los estados financieros y la información divulgada por Immobilier Himalaya Real Estate Corp., y a no contactar directamente a los empleados o propietarios sin autorización del corredor.',
+      cancel: 'Cancelar',
+      submit: 'Firmar NDA'
+    }
+  },
+
+  ZH: {
+    code: 'ZH',
+    nav: {
+      home: '首页',
+      properties: '精选物业',
+      brokers: '地产经纪',
+      agencies: '分支机构',
+      about: '关于我们',
+      news: '新闻动态',
+      podcasts: '播客专栏',
+      tools: '金融工具',
+      team: '团队专区',
+      contact: '联系我们',
+      menu: '菜单'
+    },
+    hero: {
+      titleStart: '为您移山开路',
+      titleHighlight: '成就非凡置业',
+      subtitle: '国际知名房地产经纪机构，专注于商业地产、工业物业、度假庄园（旅馆、露营地、狩猎钓鱼领地）及住宅投资。',
+      searchPlaceholder: '城市、关键词或 Centris/MLS 编号...',
+      allCategories: '所有物业类别',
+      catCommercial: '商业与工业地产',
+      catOutfitter: '旅馆、露营地与狩猎度假村',
+      catLand: '开发土地',
+      catResidential: '住宅物业',
+      allRegions: '所有地区',
+      searchBtn: '搜索'
+    },
+    home: {
+      specialtiesTitle: '核心业务领域',
+      allPropertiesBtn: '查看全部物业',
+      explore: '探索详情',
+      featuredTitle: '精选推荐物业',
+      tabAll: '全部',
+      tabOutfitter: '旅馆、露营地与度假村',
+      tabCommercial: '商业地产',
+      tabLand: '土地',
+      viewAllProperties: '浏览全部物业',
+      offMarketBtn: '保密项目档案 (NDA)',
+      statMandates: '在售与代理物业',
+      statBrokers: '专业地产经纪人',
+      statFoundedNum: '2008',
+      statFounded: '于蒙特利尔创立',
+      statPolesNum: '4 大领域',
+      statPoles: '商业、度假旅游、住宅与国际地产',
+      ctaTitle: '经验丰富的资深团队，助您实现投资目标',
+      ctaDesc: '在 Roger Rhéaume、Geniev Mondoux 与 Mike Ainajian 的带领下，我们的经纪团队为您提供商业、旅游度假及住宅物业的买卖与租赁全方位服务。',
+      ourBrokersBtn: '认识经纪团队',
+      evaluateBtn: '联系我们'
+    },
+    properties: {
+      title: '代理物业列表',
+      shownCount: '项物业，共',
+      activeMandates: '项挂牌物业',
+      viewGrid: '网格视图',
+      viewMap: '地图视图',
+      saleAndRent: '出售与出租',
+      forSale: '出售',
+      forRent: '出租',
+      allBrokers: '所有经纪人',
+      sortDesc: '价格：从高到低',
+      sortAsc: '价格：从低到高',
+      sortAlpha: '名称：A → Z',
+      resetFilters: '重置筛选条件',
+      noResultsTitle: '暂无符合该筛选条件的公开物业',
+      noResultsDesc: '欢迎联系我们的团队，获取符合您投资标准的最新房源或保密项目。',
+      viewListing: '查看详情',
+      mapTitle: '魁北克及国际区域 — 点击地区查看'
+    },
+    brokers: {
+      title: '房地产经纪团队',
+      subtitle: '位资深经纪人与管理合伙人为您服务',
+      searchPlaceholder: '搜索经纪人姓名...',
+      catAll: '全部',
+      catDirection: '管理层',
+      catCommercial: '商业地产',
+      catResidential: '住宅地产',
+      catInternational: '国际业务',
+      viewProfile: '个人简介',
+      activeMandates: '项代理物业',
+      languages: '工作语言',
+      specialties: '服务市场与国家'
+    },
+    agencies: {
+      title: '办公机构与国际网络',
+      subtitle: '总部位于蒙特利尔（魁北克省）2000 McGill College Ave, Suite 600，并拥有国际合作网络。',
+      emailBtn: '发送邮件'
+    },
+    about: {
+      title: '关于喜马拉雅地产',
+      p1: '自 2008 年由 Roger Rhéaume 和 Geniev Mondoux 创立以来，喜马拉雅地产（Immobilier Himalaya）已发展成为魁北克、加拿大及国际房地产领域的领先机构。',
+      p2: 'Immobilier Himalaya Real Estate Corp. 汇聚了多元文化的资深房地产经纪团队，专注于商业、工业、旅游度假及住宅投资服务。',
+      missionTitle: '使命与价值观',
+      missionText: '促成公平诚信的房地产交易，建立长期稳固的专业合作关系，依托协作、沟通、倾听、尊重与职业道德打造本地与国际网络。',
+      leadershipTitle: '机构管理层',
+      contactBtn: '联系'
+    },
+    news: {
+      title: '展会活动与最新动态',
+      recentNews: '最新动态',
+      detailsBtn: '活动详情',
+      readArticle: '阅读全文'
+    },
+    podcasts: {
+      title: '播客与专访',
+      subtitle: 'Immobilier Himalaya Real Estate Corp. 市场解析与行业论坛。',
+      listenBtn: '收听',
+      pauseBtn: '暂停',
+      playingLabel: '正在播放'
+    },
+    contact: {
+      title: '联系我们',
+      subtitle: '如需了解更多信息，欢迎联系蒙特利尔总部或填写在线咨询表格。',
+      hqLabel: '蒙特利尔总部',
+      hqAddress: '2000 McGill College Ave, Suite 600, Montreal (QC) H3A 3H3',
+      leadershipLabel: '核心管理层',
+      rolePresident: '总裁',
+      roleVP: '副总裁',
+      roleDirector: '机构总监',
+      tabGeneral: '一般咨询',
+      tabValuation: '出售 / 评估我的物业',
+      sentTitle: '信息已成功发送',
+      sentDesc: '您的咨询已提交至喜马拉雅地产团队，我们将尽快与您联系。',
+      newMsgBtn: '发送新信息',
+      namePlaceholder: '您的姓名 *',
+      phonePlaceholder: '联系电话 *',
+      emailPlaceholder: '电子邮箱 *',
+      msgPlaceholder: '请填写您的留言内容 *',
+      assetTypeLabel: '物业类型',
+      assetOpt1: '旅馆 / 露营地 / 狩猎度假村',
+      assetOpt2: '商业楼宇 / 工业厂房 / 办公楼',
+      assetOpt3: '酒店 / 餐饮 / 商业生意',
+      assetOpt4: '开发用地',
+      assetOpt5: '住宅物业',
+      subjectOpt1: '咨询在售物业详情',
+      subjectOpt2: '委托出售或出租物业',
+      subjectOpt3: '加入喜马拉雅地产经纪或合作网络',
+      cityPlaceholder: '物业所在城市或地址 *',
+      revenuePlaceholder: '期望售价或营收概况 ($)',
+      submitBtn: '提交信息',
+      submitValuationBtn: '提交评估申请'
+    },
+    team: {
+      badge: '内部门户',
+      titleStart: '团队专区 &',
+      subtitle: '直达内部客户拓展与潜在买家管理系统。',
+      openCrmBtn: '打开 Himalaya Prospection',
+      leadsTitle: '最新客户咨询与已签署 NDA 保密协议',
+      badgeNda: '已签 NDA',
+      badgeValuation: '卖家委托',
+      badgeContact: '客户咨询'
+    },
+    modal: {
+      share: '分享',
+      copied: '链接已复制！',
+      originalListing: '官方挂牌页',
+      description: '物业简介',
+      specs: '技术参数与特征',
+      listingBroker: '负责经纪人',
+      seeBrokerMandates: '查看该经纪人的全部物业：',
+      dataRoomTitle: '保密财务档案 (NDA)',
+      dataRoomDesc: '签署保密协议 (NDA) 后可查阅财务报表与经营文件。',
+      signNdaBtn: '签署 NDA 协议',
+      ndaUnlocked: 'NDA 已签署 — 已申请档案',
+      calcTitle: '按揭贷款计算器',
+      downPayment: '首付比例',
+      interestRate: '年利率',
+      monthlyEst: '预计月供 (25年期)',
+      perMonth: '$ / 月',
+      multiPretsLink: 'Multi-Prêts 按揭预审 →',
+      defaultDesc: '详细资料可向负责经纪人索取。'
+    },
+    nda: {
+      header: '保密协议 (NDA)',
+      successTitle: 'NDA 已登记',
+      successDesc: '您的保密档案查阅申请已发送至负责经纪人。',
+      backBtn: '返回网站',
+      selectedFile: '所选物业',
+      offMarketAccess: '申请保密项目档案',
+      fullName: '您的全名 *',
+      company: '公司 / 机构名称',
+      email: '电子邮箱 *',
+      phone: '联系电话 *',
+      liquidity: '可用首付资金 *',
+      experience: '买家背景',
+      expActive: '活跃投资者或运营商',
+      expFirst: '首次收购',
+      expPartner: '与合伙人共同投资',
+      legalText: '本人郑重承诺对 Immobilier Himalaya Real Estate Corp. 披露的财务报表及商业信息严格保密，未经负责经纪人书面许可，绝不直接联系物业员工或业主。',
+      cancel: '取消',
+      submit: '签署 NDA'
     }
   }
 };

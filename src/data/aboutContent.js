@@ -813,3 +813,73 @@ export const ABOUT_CONTENT = {
     }
   }
 };
+
+ABOUT_CONTENT.ES = {
+  ...ABOUT_CONTENT.EN,
+  pageTitle: 'Nosotros',
+  pageSubtitle: 'Desde 2008, Immobilier Himalaya Real Estate Corp. acompaña a sus clientes en Quebec, Canadá y a nivel internacional.',
+  tabs: [
+    { id: 'qui-nous-sommes', label: 'Quiénes somos' },
+    { id: 'co-fondateurs', label: 'Cofundadores' },
+    { id: 'services', label: 'Servicios y Asociaciones' },
+    { id: 'franchises', label: 'Franquicias' },
+    { id: 'carrieres', label: 'Carreras y Afiliados' },
+    { id: 'faq', label: 'Preguntas frecuentes' },
+    { id: 'liens', label: 'Socios y Enlaces' }
+  ],
+  whoWeAre: {
+    heading: 'Quiénes somos',
+    intro:
+      'Desde su fundación en 2008, la agencia inmobiliaria Himalaya se ha consolidado como líder en bienes raíces en Quebec, en Canadá y en todo el mundo. Nuestros clientes nos eligen por nuestra red internacional de contactos, nuestro profundo conocimiento de las transacciones inmobiliarias, nuestra integridad y nuestro servicio personalizado en los sectores comercial, residencial, turístico e industrial.',
+    profileTitle: 'NUESTRO PERFIL',
+    profileParagraphs: [
+      'Immobilier Himalaya Real Estate Corp. es una agencia inmobiliaria internacional especializada en el corretaje inmobiliario comercial, industrial, turístico y de inversión residencial. Su sede central está ubicada en Montreal, Quebec (Canadá).',
+      'Reunimos a un equipo multicultural de corredores inmobiliarios profesionales e íntegros que trabajan incansablemente para satisfacer las necesidades de nuestros clientes de manera óptima.',
+      'Elegimos a nuestros corredores no solo por su competencia y experiencia, sino también por su sentido ético, integridad y compromiso con nuestros clientes.',
+      'Mantenemos sólidas relaciones de trabajo con usuarios y gestores de espacios comerciales, promotores inmobiliarios, franquiciadores e instituciones financieras.'
+    ],
+    missionTitle: 'NUESTRA MISIÓN',
+    missionText:
+      'Favorecer la conclusión de transacciones justas y honestas, cultivar relaciones profesionales a largo plazo y ofrecer una red inmobiliaria local e internacional.',
+    valuesTitle: 'NUESTROS VALORES',
+    valuesList: ['Colaboración', 'Comunicación', 'Escucha', 'Respeto', 'Ética'],
+    valuesText:
+      'La colaboración, la comunicación, la escucha activa, el respeto y la ética son los valores fundamentales de Immobilier Himalaya en todas nuestras transacciones.',
+    contactCta: 'Contáctenos: ¡será un placer conversar con usted sobre su proyecto inmobiliario!'
+  }
+};
+
+ABOUT_CONTENT.ZH = {
+  ...ABOUT_CONTENT.EN,
+  pageTitle: '关于我们',
+  pageSubtitle: '自 2008 年以来，喜马拉雅地产集团（Immobilier Himalaya）持续为魁北克、加拿大及全球客户提供卓越的房地产顾问服务。',
+  tabs: [
+    { id: 'qui-nous-sommes', label: '公司简介' },
+    { id: 'co-fondateurs', label: '联合创始人' },
+    { id: 'services', label: '专业服务与行业协会' },
+    { id: 'franchises', label: '连锁特许经营' },
+    { id: 'carrieres', label: '招贤纳士与合作网络' },
+    { id: 'faq', label: '常见问题 (FAQ)' },
+    { id: 'liens', label: '官方合作伙伴' }
+  ],
+  whoWeAre: {
+    heading: '关于喜马拉雅地产',
+    intro:
+      '自 2008 年创立以来，喜马拉雅地产（Immobilier Himalaya）已成为魁北克、加拿大及国际房地产市场的领先品牌。来自全球各地的客户之所以信赖我们，是因为我们拥有广泛的国际人脉网络、深厚的房地产交易经验、高度的诚信原则以及卓越的客户服务精神，全面覆盖商业、住宅、度假庄园及工业地产。',
+    profileTitle: '企业概况',
+    profileParagraphs: [
+      'Immobilier Himalaya Real Estate Corp. 是一家总部位于加拿大魁北克省蒙特利尔的国际房地产经纪机构，专注于商业地产、工业地产、旅游度假物业及住宅投资市场。',
+      '我们汇聚了一支多元文化、专业诚信的持牌房地产经纪团队，竭诚为每一位客户提供量身定制的置业与投资方案。',
+      '我们在遴选经纪人时不仅看重专业能力与市场经验，更重视职业道德、诚信品质以及为客户创造价值的决心。',
+      '我们与商业空间运营商、房地产开发商、连锁特许经营品牌、物业管理公司及各大金融机构保持着长期稳固的合作关系。'
+    ],
+    missionTitle: '企业使命',
+    missionText:
+      '促成公平诚信的交易，建立长期稳固的专业伙伴关系，成为客户全方位信赖的本地与国际房地产智库。',
+    valuesTitle: '核心价值观',
+    valuesList: ['协作', '沟通', '倾听', '尊重', '诚信道德'],
+    valuesText:
+      '协作、沟通、倾听、尊重与职业道德贯穿喜马拉雅地产的每一项房地产交易。',
+    contactCta: '欢迎联系我们：我们期待与您共同探讨您的房地产投资或置业计划！'
+  }
+};

@@ -20,7 +20,7 @@ export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSe
 
   if (!broker) return null;
 
-  const isEn = t?.code === 'EN';
+  const isEn = Boolean(t?.code && t.code !== 'FR');
   const displayShortTitle = isEn ? (broker.shortTitle_en || broker.shortTitle) : broker.shortTitle;
   const displayTitle = isEn ? (broker.title_en || broker.title) : broker.title;
   const displayAddress = isEn ? (broker.address_en || broker.city_en || broker.city) : (broker.address || broker.city);

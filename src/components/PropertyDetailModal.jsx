@@ -120,7 +120,7 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
     : Math.round(loanAmount / totalMonths);
 
   const ndaUnlocked = isNdaSignedForDeal(deal.mls_number);
-  const isEn = t?.code === 'EN';
+  const isEn = Boolean(t?.code && t.code !== 'FR');
   const displayCategory = isEn ? (deal.category_en || deal.category || 'Real Estate') : (deal.category || deal.transaction_type || 'Immobilier');
   const displayTitle = isEn ? (deal.title_en || deal.title) : deal.title;
   const displayPrice = isEn ? (deal.price_raw_en || deal.price_raw) : deal.price_raw;

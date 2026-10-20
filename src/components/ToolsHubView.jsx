@@ -13,6 +13,7 @@ import {
   X
 } from 'lucide-react';
 import { submitLeadToProspection } from '../utils/prospectionBridge';
+import { tr } from '../data/translations';
 
 // Capitalisation semi-annuelle canadienne (Loi sur l'intérêt au Canada)
 function getEffectiveMonthlyRate(annualPct) {
@@ -67,7 +68,7 @@ function computeWelcomeTax(price, isMontreal) {
 }
 
 export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal, onClearPreselectedDeal, initialTool }) {
-  const isEn = lang === 'EN';
+  const isEn = lang !== 'FR';
   const [activeTool, setActiveTool] = useState(initialTool || 'plex');
 
   useEffect(() => {
@@ -173,44 +174,44 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
     {
       id: 'plex',
       icon: Building2,
-      title: isEn ? 'Commercial & Multi-Family ROI' : 'Rentabilité Plex & Commercial',
-      sub: isEn ? 'Cap Rate, GIM, NOI & Cashflow' : 'TGA (Cap Rate), MRB, RNO & Cashflow'
+      title: tr(lang, 'Rentabilité Plex & Commercial', 'Commercial & Multi-Family ROI', 'Rentabilidad Comercial y Plex', '商业与多户公寓收益分析'),
+      sub: tr(lang, 'TGA (Cap Rate), MRB, RNO & Cashflow', 'Cap Rate, GIM, NOI & Cashflow', 'Cap Rate, MRB, NOI y Flujo de Caja', '资本化率、净营业收入与现金流')
     },
     {
       id: 'affordability',
       icon: Calculator,
-      title: isEn ? 'Borrowing Capacity' : 'Capacité d’emprunt',
-      sub: isEn ? 'B-20 Stress Test & GDS/TDS' : 'Test B-20 & Ratios ABD/ATD'
+      title: tr(lang, 'Capacité d’emprunt', 'Borrowing Capacity', 'Capacidad de Endeudamiento', '贷款能力评估 (B-20)'),
+      sub: tr(lang, 'Test B-20 & Ratios ABD/ATD', 'B-20 Stress Test & GDS/TDS', 'Prueba B-20 y Ratios', 'B-20 压力测试与负债率')
     },
     {
       id: 'mortgage',
       icon: Home,
-      title: isEn ? 'Mortgage Calculator' : 'Calculatrice hypothécaire',
-      sub: isEn ? 'Payments & Amortization' : 'Versements & Amortissement'
+      title: tr(lang, 'Calculatrice hypothécaire', 'Mortgage Calculator', 'Calculadora Hipotecaria', '按揭贷款计算器'),
+      sub: tr(lang, 'Versements & Amortissement', 'Payments & Amortization', 'Pagos y Amortización', '月供与摊销计算')
     },
     {
       id: 'welcome',
       icon: Landmark,
-      title: isEn ? 'Welcome Tax (Transfer Duties)' : 'Taxe de bienvenue',
-      sub: isEn ? 'Quebec & Montreal 2026 Brackets' : 'Barèmes Québec & Montréal 2026'
+      title: tr(lang, 'Taxe de bienvenue', 'Welcome Tax (Transfer Duties)', 'Impuesto de Transferencia', '魁北克欢迎税 (土地转让税)'),
+      sub: tr(lang, 'Barèmes Québec & Montréal 2026', 'Quebec & Montreal 2026 Brackets', 'Tarifas Quebec y Montreal 2026', '魁北克与蒙特利尔 2026 税率')
     },
     {
       id: 'closing',
       icon: FileText,
-      title: isEn ? 'Closing Costs' : 'Frais de clôture',
-      sub: isEn ? 'Required Cash & Notary' : 'Liquidités requises & Notaire'
+      title: tr(lang, 'Frais de clôture', 'Closing Costs', 'Costos de Cierre', '交割费用与公证预算'),
+      sub: tr(lang, 'Liquidités requises & Notaire', 'Required Cash & Notary', 'Liquidez requerida y Notario', '过户所需流动资金与公证费')
     },
     {
       id: 'rvb',
       icon: Scale,
-      title: isEn ? 'Rent vs. Buy' : 'Louer vs Acheter',
-      sub: isEn ? 'Net Equity vs. Lost Rent' : 'Équité bâtie vs Loyers perdus'
+      title: tr(lang, 'Louer vs Acheter', 'Rent vs. Buy', 'Alquilar vs. Comprar', '租房 vs 买房对比'),
+      sub: tr(lang, 'Équité bâtie vs Loyers perdus', 'Net Equity vs. Lost Rent', 'Capital acumulado vs. Alquiler', '净资产积累与租金成本对比')
     },
     {
       id: 'wait',
       icon: Clock,
-      title: isEn ? 'Wait vs. Buy Now' : 'Attendre vs Acheter',
-      sub: isEn ? 'Rate Drop vs. Price Growth' : 'Impact baisse de taux vs prix'
+      title: tr(lang, 'Attendre vs Acheter', 'Wait vs. Buy Now', 'Esperar vs. Comprar Ahora', '等待降息 vs 立即购买'),
+      sub: tr(lang, 'Impact baisse de taux vs prix', 'Rate Drop vs. Price Growth', 'Baja de tasas vs. Aumento de precio', '利率下降与房价上涨成本对比')
     }
   ];
 
@@ -497,16 +498,20 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
         >
           <div>
             <span className="badge-gold" style={{ marginBottom: '8px' }}>
-              {isEn ? 'Financial & Real Estate Simulators 2026' : 'Centre de calcul & Simulateurs 2026'}
+              {tr(lang, 'Centre de calcul & Simulateurs 2026', 'Financial & Real Estate Simulators 2026', 'Centro de Cálculo y Simuladores 2026', '2026 房地产与金融模拟计算中心')}
             </span>
             <h2 className="serif-title" style={{ fontSize: '2.4rem', fontWeight: 600, lineHeight: 1.15, marginBottom: '6px' }}>
-              {isEn ? 'Real Estate & Financial ' : 'Outils Immobiliers '}
-              <span className="gold-gradient-text">{isEn ? 'Tools' : '& Financiers'}</span>
+              {tr(lang, 'Outils Immobiliers ', 'Real Estate & Financial ', 'Herramientas Inmobiliarias ', '房地产与金融 ')}
+              <span className="gold-gradient-text">{tr(lang, '& Financiers', 'Tools', 'y Financieras', '分析工具')}</span>
             </h2>
             <p style={{ color: 'var(--text-secondary)', fontSize: '0.94rem', maxWidth: '720px' }}>
-              {isEn
-                ? 'Strategic analysis calculators based on Canadian banking rules (B-20), CMHC, and Quebec/Montreal transfer duty brackets.'
-                : 'Outils d’analyse stratégique et financière basés sur les barèmes canadiens (test B-20, SCHL) et les droits de mutation du Québec et de Montréal.'}
+              {tr(
+                lang,
+                'Outils d’analyse stratégique et financière basés sur les barèmes canadiens (test B-20, SCHL) et les droits de mutation du Québec et de Montréal.',
+                'Strategic analysis calculators based on Canadian banking rules (B-20), CMHC, and Quebec/Montreal transfer duty brackets.',
+                'Herramientas de análisis estratégico y financiero basadas en las normas bancarias canadienses (B-20, SCHL) y los impuestos de transferencia de Quebec y Montreal.',
+                '基于加拿大银行规范（B-20 压力测试、CMHC）及魁北克与蒙特利尔土地转让税率的房地产财务分析工具。'
+              )}
             </p>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
@@ -523,7 +528,7 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                 gap: '10px',
                 fontSize: '0.8rem'
               }}
-              title={isEn ? 'Book a mortgage consultation with Multi-Prêts' : 'Prendre rendez-vous hypothécaire avec Multi-Prêts'}
+              title={tr(lang, 'Prendre rendez-vous hypothécaire avec Multi-Prêts', 'Book a mortgage consultation with Multi-Prêts', 'Reservar consulta hipotecaria con Multi-Prêts', '预约 Multi-Prêts 按揭顾问')}
             >
               <img
                 src="https://www.himalayacorp.com/gx/m/Multi_Prets.png"
@@ -531,11 +536,11 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                 style={{ height: '22px', objectFit: 'contain' }}
               />
               <span style={{ color: 'var(--gold-light)', fontWeight: 600 }}>
-                {isEn ? 'Multi-Prêts Pre-Approval →' : 'Préqualification Multi-Prêts →'}
+                {tr(lang, 'Préqualification Multi-Prêts →', 'Multi-Prêts Pre-Approval →', 'Precalificación Multi-Prêts →', 'Multi-Prêts 按揭预审 →')}
               </span>
             </a>
             <button onClick={() => window.print()} className="btn-outline" style={{ fontSize: '0.82rem' }}>
-              <Printer size={15} /> {isEn ? 'Print / Save PDF' : 'Imprimer / Exporter PDF'}
+              <Printer size={15} /> {tr(lang, 'Imprimer / Exporter PDF', 'Print / Save PDF', 'Imprimir / Exportar PDF', '打印 / 导出 PDF')}
             </button>
           </div>
         </div>
