@@ -140,6 +140,13 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
   const [waitApprec, setWaitApprec] = useState(5.0);
   const [waitRateFuture, setWaitRateFuture] = useState(4.0);
 
+  // --- 8. Loyer Commercial Net vs Brut ($/pi²/an) ---
+  const [clArea, setClArea] = useState(2500);
+  const [clBaseRent, setClBaseRent] = useState(28);
+  const [clAddRent, setClAddRent] = useState(14);
+  const [clEscalation, setClEscalation] = useState(3);
+  const [clTermYears, setClTermYears] = useState(5);
+
   // --- Lead Modal ---
   const [leadModalOpen, setLeadModalOpen] = useState(false);
   const [leadName, setLeadName] = useState('');
@@ -220,6 +227,12 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
       icon: Clock,
       title: tr(lang, 'Attendre vs Acheter', 'Wait vs. Buy Now', 'Esperar vs. Comprar Ahora', '等待降息 vs 立即购买'),
       sub: tr(lang, 'Impact baisse de taux vs prix', 'Rate Drop vs. Price Growth', 'Baja de tasas vs. Aumento de precio', '利率下降与房价上涨成本对比')
+    },
+    {
+      id: 'commercialLease',
+      icon: Building2,
+      title: tr(lang, 'Loyer Commercial (Net / Brut)', 'Commercial Lease (Net / Gross)', 'Alquiler Comercial (Neto / Bruto)', '商业租约计算器 (净租/毛租)'),
+      sub: tr(lang, 'Commercial & Franchises', 'Commercial & Franchises', 'Comercial y Franquicias', '商业地产与连锁选址')
     }
   ];
 
@@ -438,6 +451,39 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
       totalImpact
     };
   }, [waitPrice, waitRateNow, waitMonths, waitApprec, waitRateFuture]);
+
+  // Calcul 8 : Loyer Commercial Net vs Brut ($/pi²/an)
+  const clResult = useMemo(() => {
+    const area = Math.max(0, Number(clArea) || 0);
+    const baseRate = Math.max(0, Number(clBaseRent) || 0);
+    const addRate = Math.max(0, Number(clAddRent) || 0);
+    const escalationPct = Math.max(0, Number(clEscalation) || 0);
+    const years = Math.max(1, Math.round(Number(clTermYears) || 1));
+
+    const grossRateSqFt = baseRate + addRate;
+    const grossRateSqM = grossRateSqFt * 10.7639;
+    const monthlyBase = (baseRate * area) / 12;
+    const monthlyAdd = (addRate * area) / 12;
+    const monthlyGrossYear1 = ((baseRate + addRate) * area) / 12;
+    const annualGrossYear1 = (baseRate + addRate) * area;
+
+    let totalLeaseCommitment = 0;
+    for (let y = 0; y < years; y++) {
+      const indexedBaseRate = baseRate * Math.pow(1 + escalationPct / 100, y);
+      totalLeaseCommitment += (indexedBaseRate + addRate) * area;
+    }
+
+    return {
+      grossRateSqFt: grossRateSqFt.toFixed(2),
+      grossRateSqM: grossRateSqM.toFixed(2),
+      monthlyBase,
+      monthlyAdd,
+      monthlyGrossYear1,
+      annualGrossYear1,
+      totalLeaseCommitment,
+      years
+    };
+  }, [clArea, clBaseRent, clAddRent, clEscalation, clTermYears]);
 
   const handleLeadSubmit = async (e) => {
     e.preventDefault();
@@ -940,6 +986,12 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
                     {tr(lang, 'Recevoir le bilan détaillé par courriel', 'Receive Full Analysis Report', 'Recibir informe detallado por correo', '通过电子邮件接收完整分析报告')}
                   </button>
                   <button
+                    onClick={() => window.print()}
+                    className="btn-outline"
+                  >
+                    <Printer size={15} /> {tr(lang, 'Imprimer / Exporter ce bilan (PDF)', 'Print / Export Summary (PDF)', 'Imprimir / Exportar resumen (PDF)', '打印 / 导出计算报告 (PDF)')}
+                  </button>
+                  <button
                     onClick={() => onNavigate && onNavigate('courtiers')}
                     className="btn-outline"
                   >
@@ -1098,16 +1150,24 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
                   </div>
                 </div>
 
-                <button
-                  onClick={() => {
-                    setLeadSent(false);
-                    setLeadModalOpen(true);
-                  }}
-                  className="btn-gold"
-                  style={{ width: '100%', marginTop: '28px' }}
-                >
-                  {tr(lang, 'Recevoir mon bilan de capacité d’emprunt', 'Receive My Pre-Qualification Report', 'Recibir mi informe de capacidad de endeudamiento', '获取我的贷款能力评估报告')}
-                </button>
+                <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginTop: '28px' }}>
+                  <button
+                    onClick={() => {
+                      setLeadSent(false);
+                      setLeadModalOpen(true);
+                    }}
+                    className="btn-gold"
+                    style={{ flex: 1 }}
+                  >
+                    {tr(lang, 'Recevoir mon bilan de capacité d’emprunt', 'Receive My Pre-Qualification Report', 'Recibir mi informe de capacidad de endeudamiento', '获取我的贷款能力评估报告')}
+                  </button>
+                  <button
+                    onClick={() => window.print()}
+                    className="btn-outline"
+                  >
+                    <Printer size={15} /> {tr(lang, 'Imprimer / Exporter ce bilan (PDF)', 'Print / Export Summary (PDF)', 'Imprimir / Exportar resumen (PDF)', '打印 / 导出计算报告 (PDF)')}
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -1237,16 +1297,24 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
                   </div>
                 </div>
 
-                <button
-                  onClick={() => {
-                    setLeadSent(false);
-                    setLeadModalOpen(true);
-                  }}
-                  className="btn-gold"
-                  style={{ width: '100%', marginTop: '24px' }}
-                >
-                  {tr(lang, 'Recevoir mon tableau d’amortissement complet', 'Receive My Amortization Schedule', 'Recibir mi tabla de amortización completa', '获取我的完整摊销还款表')}
-                </button>
+                <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginTop: '24px' }}>
+                  <button
+                    onClick={() => {
+                      setLeadSent(false);
+                      setLeadModalOpen(true);
+                    }}
+                    className="btn-gold"
+                    style={{ flex: 1 }}
+                  >
+                    {tr(lang, 'Recevoir mon tableau d’amortissement complet', 'Receive My Amortization Schedule', 'Recibir mi tabla de amortización completa', '获取我的完整摊销还款表')}
+                  </button>
+                  <button
+                    onClick={() => window.print()}
+                    className="btn-outline"
+                  >
+                    <Printer size={15} /> {tr(lang, 'Imprimer / Exporter ce bilan (PDF)', 'Print / Export Summary (PDF)', 'Imprimir / Exportar resumen (PDF)', '打印 / 导出计算报告 (PDF)')}
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -1323,6 +1391,25 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
                       <strong>{fmtCAD(b.amount)}</strong>
                     </div>
                   ))}
+                </div>
+
+                <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginTop: '24px' }}>
+                  <button
+                    onClick={() => {
+                      setLeadSent(false);
+                      setLeadModalOpen(true);
+                    }}
+                    className="btn-gold"
+                    style={{ flex: 1 }}
+                  >
+                    {tr(lang, 'Recevoir ce bilan par courriel', 'Receive Summary by Email', 'Recibir resumen por correo', '通过电子邮件接收计算报告')}
+                  </button>
+                  <button
+                    onClick={() => window.print()}
+                    className="btn-outline"
+                  >
+                    <Printer size={15} /> {tr(lang, 'Imprimer / Exporter ce bilan (PDF)', 'Print / Export Summary (PDF)', 'Imprimir / Exportar resumen (PDF)', '打印 / 导出计算报告 (PDF)')}
+                  </button>
                 </div>
               </div>
             </div>
@@ -1441,6 +1528,25 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
                     <strong>{fmtCAD(ccResult.others)}</strong>
                   </div>
                 </div>
+
+                <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginTop: '24px' }}>
+                  <button
+                    onClick={() => {
+                      setLeadSent(false);
+                      setLeadModalOpen(true);
+                    }}
+                    className="btn-gold"
+                    style={{ flex: 1 }}
+                  >
+                    {tr(lang, 'Recevoir ce bilan par courriel', 'Receive Summary by Email', 'Recibir resumen por correo', '通过电子邮件接收计算报告')}
+                  </button>
+                  <button
+                    onClick={() => window.print()}
+                    className="btn-outline"
+                  >
+                    <Printer size={15} /> {tr(lang, 'Imprimer / Exporter ce bilan (PDF)', 'Print / Export Summary (PDF)', 'Imprimir / Exportar resumen (PDF)', '打印 / 导出计算报告 (PDF)')}
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -1529,41 +1635,63 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
                   padding: '4px 0',
                   display: 'flex',
                   flexDirection: 'column',
+                  justifyContent: 'space-between',
                   gap: '22px'
                 }}
               >
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', paddingBottom: '20px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-                  <div style={{ borderLeft: '2px solid #f87171', paddingLeft: '14px' }}>
-                    <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                      {tr(lang, `Loyers perdus (${rvbYears} ans)`, `Rent Lost (${rvbYears} yrs)`, `Alquileres perdidos (${rvbYears} años)`, `累计纯租金支出 (${rvbYears} 年)`)}
+                <div>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', paddingBottom: '20px', marginBottom: '20px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                    <div style={{ borderLeft: '2px solid #f87171', paddingLeft: '14px' }}>
+                      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                        {tr(lang, `Loyers perdus (${rvbYears} ans)`, `Rent Lost (${rvbYears} yrs)`, `Alquileres perdidos (${rvbYears} años)`, `累计纯租金支出 (${rvbYears} 年)`)}
+                      </div>
+                      <div className="serif-title" style={{ fontSize: '1.75rem', fontWeight: 700, color: '#f87171', marginTop: '4px' }}>
+                        - {fmtCAD(rvbResult.totalRent)}
+                      </div>
                     </div>
-                    <div className="serif-title" style={{ fontSize: '1.75rem', fontWeight: 700, color: '#f87171', marginTop: '4px' }}>
-                      - {fmtCAD(rvbResult.totalRent)}
+                    <div style={{ borderLeft: '2px solid var(--gold)', paddingLeft: '14px' }}>
+                      <div style={{ fontSize: '0.75rem', color: 'var(--gold)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                        {tr(lang, `Équité totale (${rvbYears} ans)`, `Total Equity (${rvbYears} yrs)`, `Patrimonio total (${rvbYears} años)`, `累计房产净值 (${rvbYears} 年)`)}
+                      </div>
+                      <div className="serif-title gold-gradient-text" style={{ fontSize: '1.75rem', fontWeight: 700, marginTop: '4px' }}>
+                        + {fmtCAD(rvbResult.totalEquity)}
+                      </div>
                     </div>
                   </div>
-                  <div style={{ borderLeft: '2px solid var(--gold)', paddingLeft: '14px' }}>
-                    <div style={{ fontSize: '0.75rem', color: 'var(--gold)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                      {tr(lang, `Équité totale (${rvbYears} ans)`, `Total Equity (${rvbYears} yrs)`, `Patrimonio total (${rvbYears} años)`, `累计房产净值 (${rvbYears} 年)`)}
+
+                  <div>
+                    <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)' }}>
+                      {tr(
+                        lang,
+                        'Nouvel enrichissement net créé (Capital remboursé + Plus-value 3 %/an)',
+                        'New Net Wealth Created (Principal Repaid + 3%/yr Appreciation)',
+                        'Nueva riqueza neta creada (Capital amortizado + Plusvalía 3 %/año)',
+                        '新增净财富积累 (已还本金 + 每年 3% 房产增值)'
+                      )}
                     </div>
-                    <div className="serif-title gold-gradient-text" style={{ fontSize: '1.75rem', fontWeight: 700, marginTop: '4px' }}>
-                      + {fmtCAD(rvbResult.totalEquity)}
+                    <div className="serif-title gold-gradient-text" style={{ fontSize: '2.4rem', fontWeight: 700, marginTop: '4px' }}>
+                      + {fmtCAD(rvbResult.netWealthCreated)}
                     </div>
                   </div>
                 </div>
 
-                <div>
-                  <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)' }}>
-                    {tr(
-                      lang,
-                      'Nouvel enrichissement net créé (Capital remboursé + Plus-value 3 %/an)',
-                      'New Net Wealth Created (Principal Repaid + 3%/yr Appreciation)',
-                      'Nueva riqueza neta creada (Capital amortizado + Plusvalía 3 %/año)',
-                      '新增净财富积累 (已还本金 + 每年 3% 房产增值)'
-                    )}
-                  </div>
-                  <div className="serif-title gold-gradient-text" style={{ fontSize: '2.4rem', fontWeight: 700, marginTop: '4px' }}>
-                    + {fmtCAD(rvbResult.netWealthCreated)}
-                  </div>
+                <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                  <button
+                    onClick={() => {
+                      setLeadSent(false);
+                      setLeadModalOpen(true);
+                    }}
+                    className="btn-gold"
+                    style={{ flex: 1 }}
+                  >
+                    {tr(lang, 'Recevoir ce bilan par courriel', 'Receive Summary by Email', 'Recibir resumen por correo', '通过电子邮件接收计算报告')}
+                  </button>
+                  <button
+                    onClick={() => window.print()}
+                    className="btn-outline"
+                  >
+                    <Printer size={15} /> {tr(lang, 'Imprimer / Exporter ce bilan (PDF)', 'Print / Export Summary (PDF)', 'Imprimir / Exportar resumen (PDF)', '打印 / 导出计算报告 (PDF)')}
+                  </button>
                 </div>
               </div>
             </div>
@@ -1657,50 +1785,276 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
                   justifyContent: 'space-between'
                 }}
               >
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', paddingBottom: '20px', borderBottom: '1px solid rgba(255,255,255,0.08)', marginBottom: '18px' }}>
-                  <div style={{ borderLeft: '2px solid #f87171', paddingLeft: '14px' }}>
-                    <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                      {tr(lang, `Prix futur estimé (+${waitMonths} mois)`, `Future Property Price (+${waitMonths}m)`, `Precio futuro estimado (+${waitMonths} meses)`, `预估未来房价 (+${waitMonths} 个月)`)}
+                <div>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', paddingBottom: '20px', borderBottom: '1px solid rgba(255,255,255,0.08)', marginBottom: '18px' }}>
+                    <div style={{ borderLeft: '2px solid #f87171', paddingLeft: '14px' }}>
+                      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                        {tr(lang, `Prix futur estimé (+${waitMonths} mois)`, `Future Property Price (+${waitMonths}m)`, `Precio futuro estimado (+${waitMonths} meses)`, `预估未来房价 (+${waitMonths} 个月)`)}
+                      </div>
+                      <div className="serif-title" style={{ fontSize: '1.6rem', fontWeight: 700, marginTop: '4px' }}>
+                        {fmtCAD(waitResult.priceFuture)}
+                      </div>
+                      <div style={{ fontSize: '0.8rem', color: '#f87171', marginTop: '2px' }}>
+                        + {fmtCAD(waitResult.appreciationAmt)}
+                      </div>
                     </div>
-                    <div className="serif-title" style={{ fontSize: '1.6rem', fontWeight: 700, marginTop: '4px' }}>
-                      {fmtCAD(waitResult.priceFuture)}
-                    </div>
-                    <div style={{ fontSize: '0.8rem', color: '#f87171', marginTop: '2px' }}>
-                      + {fmtCAD(waitResult.appreciationAmt)}
+                    <div style={{ borderLeft: '2px solid var(--gold)', paddingLeft: '14px' }}>
+                      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                        {tr(lang, 'Plus-value manquée en attendant', 'Equity Missed While Waiting', 'Plusvalía perdida por esperar', '等待期间错失的房产增值')}
+                      </div>
+                      <div className="serif-title gold-gradient-text" style={{ fontSize: '1.6rem', fontWeight: 700, marginTop: '4px' }}>
+                        {fmtCAD(waitResult.appreciationAmt)}
+                      </div>
                     </div>
                   </div>
-                  <div style={{ borderLeft: '2px solid var(--gold)', paddingLeft: '14px' }}>
-                    <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                      {tr(lang, 'Plus-value manquée en attendant', 'Equity Missed While Waiting', 'Plusvalía perdida por esperar', '等待期间错失的房产增值')}
+
+                  <div
+                    style={{
+                      fontSize: '0.92rem',
+                      lineHeight: 1.65,
+                      color: 'var(--text-secondary)'
+                    }}
+                  >
+                    {waitResult.totalImpact > 0
+                      ? tr(
+                          lang,
+                          `Attendre ${waitMonths} mois vous coûterait environ ${fmtCAD(waitResult.totalImpact)} de plus sur 5 ans en raison de la hausse des prix, même si les taux baissent.`,
+                          `Waiting ${waitMonths} months would cost you approximately ${fmtCAD(waitResult.totalImpact)} more over 5 years due to property appreciation, even with a lower rate.`,
+                          `Esperar ${waitMonths} meses le costaría aproximadamente ${fmtCAD(waitResult.totalImpact)} más en 5 años debido al aumento de precios, incluso si bajan las tasas.`,
+                          `由于房价上涨，即使未来利率下调，等待 ${waitMonths} 个月仍将在 5 年内使您的总成本增加约 ${fmtCAD(waitResult.totalImpact)}。`
+                        )
+                      : tr(
+                          lang,
+                          'La baisse de taux projetée compense la hausse de prix estimée sur cette période.',
+                          'The projected interest rate drop offsets the estimated price increase over this period.',
+                          'La baja de tasa proyectada compensa el aumento de precio estimado durante este período.',
+                          '在此期间，预期的利率下降足以抵消预估的房价上涨成本。'
+                        )}
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginTop: '24px' }}>
+                  <button
+                    onClick={() => {
+                      setLeadSent(false);
+                      setLeadModalOpen(true);
+                    }}
+                    className="btn-gold"
+                    style={{ flex: 1 }}
+                  >
+                    {tr(lang, 'Recevoir ce bilan par courriel', 'Receive Summary by Email', 'Recibir resumen por correo', '通过电子邮件接收计算报告')}
+                  </button>
+                  <button
+                    onClick={() => window.print()}
+                    className="btn-outline"
+                  >
+                    <Printer size={15} /> {tr(lang, 'Imprimer / Exporter ce bilan (PDF)', 'Print / Export Summary (PDF)', 'Imprimir / Exportar resumen (PDF)', '打印 / 导出计算报告 (PDF)')}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* =================================================================
+            OUTIL 8 : LOYER COMMERCIAL NET VS BRUT ($/PI²/AN) — Épuré sans boîte (#8)
+           ================================================================= */}
+        {activeTool === 'commercialLease' && (
+          <div style={{ paddingTop: '8px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '40px' }}>
+              {/* Colonne gauche : Champs d'entrée */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px', flexWrap: 'wrap', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                  <h3 className="serif-title" style={{ fontSize: '1.35rem', fontWeight: 600, color: 'var(--gold-light)', margin: 0 }}>
+                    {tr(lang, 'Paramètres du bail commercial', 'Commercial Lease Parameters', 'Parámetros del contrato comercial', '商业租约参数设置')}
+                  </h3>
+                  <span className="badge-gold">
+                    {tr(lang, 'Commercial & Franchises', 'Commercial & Franchises', 'Comercial y Franquicias', '商业地产与连锁选址')}
+                  </span>
+                </div>
+
+                <div>
+                  <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
+                    {tr(lang, 'Superficie du local (pi²)', 'Premises Area (sq. ft.)', 'Superficie del local (pies²)', '商铺/办公面积 (平方英尺 pi²)')}
+                  </label>
+                  <input
+                    type="number"
+                    className="form-control"
+                    value={clArea}
+                    min="200"
+                    max="50000"
+                    step="100"
+                    onChange={(e) => setClArea(Number(e.target.value))}
+                  />
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                  <div>
+                    <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
+                      {tr(lang, 'Loyer de base Net ($ / pi² / an)', 'Base Net Rent ($ / sq. ft. / yr)', 'Alquiler base Neto ($ / pie² / año)', '基本净租金 ($ / 平方英尺 / 年)')}
+                    </label>
+                    <input
+                      type="number"
+                      className="form-control"
+                      value={clBaseRent}
+                      min="5"
+                      max="150"
+                      step="0.5"
+                      onChange={(e) => setClBaseRent(Number(e.target.value))}
+                    />
+                  </div>
+                  <div>
+                    <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
+                      {tr(lang, 'Loyer additionnel — Taxes, assurances, entretien CAM ($ / pi² / an)', 'Additional Rent — Taxes, Insurance, CAM ($ / sq. ft. / yr)', 'Alquiler adicional — Impuestos, seguros, CAM ($ / pie² / año)', '附加租金 — 税费、保险及物业维护 CAM ($ / pi² / 年)')}
+                    </label>
+                    <input
+                      type="number"
+                      className="form-control"
+                      value={clAddRent}
+                      min="0"
+                      max="80"
+                      step="0.5"
+                      onChange={(e) => setClAddRent(Number(e.target.value))}
+                    />
+                  </div>
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                  <div>
+                    <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
+                      {tr(lang, 'Indexation annuelle du loyer de base (% / an)', 'Annual Base Rent Escalation (% / yr)', 'Indexación anual del alquiler base (% / año)', '基本租金年度递增率 (% / 年)')}
+                    </label>
+                    <input
+                      type="number"
+                      className="form-control"
+                      value={clEscalation}
+                      min="0"
+                      max="10"
+                      step="0.5"
+                      onChange={(e) => setClEscalation(Number(e.target.value))}
+                    />
+                  </div>
+                  <div>
+                    <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
+                      {tr(lang, 'Durée du bail commercial (années)', 'Commercial Lease Term (years)', 'Duración del contrato comercial (años)', '商业租约期限 (年)')}
+                    </label>
+                    <input
+                      type="number"
+                      className="form-control"
+                      value={clTermYears}
+                      min="1"
+                      max="20"
+                      step="1"
+                      onChange={(e) => setClTermYears(Number(e.target.value))}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Colonne droite : Résultats calculés */}
+              <div
+                style={{
+                  padding: '4px 0',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between'
+                }}
+              >
+                <div>
+                  <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '4px' }}>
+                    {tr(
+                      lang,
+                      'Loyer mensuel Brut total (Année 1, avant TPS/TVQ)',
+                      'Total Gross Monthly Rent (Year 1, before GST/QST)',
+                      'Alquiler mensual Bruto total (Año 1, antes de impuestos)',
+                      '第一年每月总毛租金 (税前 GST/QST)'
+                    )}
+                  </div>
+                  <div className="serif-title gold-gradient-text" style={{ fontSize: '2.9rem', fontWeight: 700, marginBottom: '20px', paddingBottom: '16px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                    {fmtCAD(clResult.monthlyGrossYear1)} <span style={{ fontSize: '1.05rem', fontWeight: 500, color: 'var(--text-secondary)' }}>{tr(lang, '/ mois', '/ month', '/ mes', '/ 月')}</span>
+                  </div>
+
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '0.9rem' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+                      <span style={{ color: 'var(--text-secondary)' }}>
+                        {tr(lang, 'Taux Brut global au pi² (et équivalent m²)', 'Total Gross Rate per sq. ft. (& sq. m. eq.)', 'Tasa Bruta global por pie² (y equiv. m²)', '每平方英尺综合毛租金率 (及每平方米折算)')}
+                      </span>
+                      <strong style={{ color: 'var(--gold-light)' }}>
+                        {clResult.grossRateSqFt} $ / pi² / {tr(lang, 'an', 'yr', 'año', '年')} ({clResult.grossRateSqM} $ / m² / {tr(lang, 'an', 'yr', 'año', '年')})
+                      </strong>
                     </div>
-                    <div className="serif-title gold-gradient-text" style={{ fontSize: '1.6rem', fontWeight: 700, marginTop: '4px' }}>
-                      {fmtCAD(waitResult.appreciationAmt)}
+
+                    <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+                      <span style={{ color: 'var(--text-secondary)' }}>
+                        {tr(lang, 'Loyer mensuel de base (Net)', 'Monthly Base Rent (Net)', 'Alquiler mensual base (Neto)', '每月基本净租金 (Net)')}
+                      </span>
+                      <strong>
+                        {fmtCAD(clResult.monthlyBase)} {tr(lang, '/ mois', '/ month', '/ mes', '/ 月')}
+                      </strong>
+                    </div>
+
+                    <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+                      <span style={{ color: 'var(--text-secondary)' }}>
+                        {tr(lang, 'Loyer mensuel additionnel (Frais CAM)', 'Monthly Additional Rent (Operating / CAM)', 'Alquiler mensual adicional (Gastos CAM)', '每月附加租金 (税保及运营维护 CAM)')}
+                      </span>
+                      <strong>
+                        {fmtCAD(clResult.monthlyAdd)} {tr(lang, '/ mois', '/ month', '/ mes', '/ 月')}
+                      </strong>
+                    </div>
+
+                    <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+                      <span style={{ color: 'var(--text-secondary)' }}>
+                        {tr(lang, 'Budget annuel total (Année 1)', 'Total Annual Budget (Year 1)', 'Presupuesto anual total (Año 1)', '第一年年度总租金预算')}
+                      </span>
+                      <strong>
+                        {fmtCAD(clResult.annualGrossYear1)} {tr(lang, '/ an', '/ yr', '/ año', '/ 年')}
+                      </strong>
+                    </div>
+
+                    <div
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        padding: '12px 0 4px',
+                        borderTop: '1px solid var(--border-gold)',
+                        fontSize: '1.02rem',
+                        fontWeight: 700
+                      }}
+                    >
+                      <span>
+                        {tr(
+                          lang,
+                          `Engagement total sur le bail (${clResult.years} ans, indexé à ${clEscalation} %/an)`,
+                          `Total Lease Commitment (${clResult.years} yrs, ${clEscalation}%/yr escalation)`,
+                          `Compromiso total del contrato (${clResult.years} años, indexado al ${clEscalation} %/año)`,
+                          `租约期总承诺金额 (${clResult.years} 年，基本租金年递增 ${clEscalation}%)`
+                        )}
+                      </span>
+                      <span className="serif-title" style={{ fontSize: '1.35rem', color: 'var(--gold-light)' }}>
+                        {fmtCAD(clResult.totalLeaseCommitment)}
+                      </span>
                     </div>
                   </div>
                 </div>
 
-                <div
-                  style={{
-                    fontSize: '0.92rem',
-                    lineHeight: 1.65,
-                    color: 'var(--text-secondary)'
-                  }}
-                >
-                  {waitResult.totalImpact > 0
-                    ? tr(
-                        lang,
-                        `Attendre ${waitMonths} mois vous coûterait environ ${fmtCAD(waitResult.totalImpact)} de plus sur 5 ans en raison de la hausse des prix, même si les taux baissent.`,
-                        `Waiting ${waitMonths} months would cost you approximately ${fmtCAD(waitResult.totalImpact)} more over 5 years due to property appreciation, even with a lower rate.`,
-                        `Esperar ${waitMonths} meses le costaría aproximadamente ${fmtCAD(waitResult.totalImpact)} más en 5 años debido al aumento de precios, incluso si bajan las tasas.`,
-                        `由于房价上涨，即使未来利率下调，等待 ${waitMonths} 个月仍将在 5 年内使您的总成本增加约 ${fmtCAD(waitResult.totalImpact)}。`
-                      )
-                    : tr(
-                        lang,
-                        'La baisse de taux projetée compense la hausse de prix estimée sur cette période.',
-                        'The projected interest rate drop offsets the estimated price increase over this period.',
-                        'La baja de tasa proyectada compensa el aumento de precio estimado durante este período.',
-                        '在此期间，预期的利率下降足以抵消预估的房价上涨成本。'
-                      )}
+                <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginTop: '24px' }}>
+                  <button
+                    onClick={() => {
+                      setLeadSent(false);
+                      setLeadModalOpen(true);
+                    }}
+                    className="btn-gold"
+                    style={{ flex: 1 }}
+                  >
+                    {tr(lang, 'Recevoir ce bilan par courriel', 'Receive Summary by Email', 'Recibir resumen por correo', '通过电子邮件接收计算报告')}
+                  </button>
+                  <button
+                    onClick={() => window.print()}
+                    className="btn-outline"
+                  >
+                    <Printer size={15} /> {tr(lang, 'Imprimer / Exporter ce bilan (PDF)', 'Print / Export Summary (PDF)', 'Imprimir / Exportar resumen (PDF)', '打印 / 导出计算报告 (PDF)')}
+                  </button>
                 </div>
               </div>
             </div>

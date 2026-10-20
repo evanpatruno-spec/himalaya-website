@@ -386,22 +386,27 @@ export default function AboutPageView({
               </div>
             </div>
 
-            {/* Cartes d'accès rapide aux autres rubriques officielles d'À propos */}
+            {/* Blocs éditoriaux ouverts d'accès rapide aux autres rubriques officielles d'À propos */}
             <div>
-              <h2 style={{ fontSize: '1.35rem', fontWeight: 700, marginBottom: '16px' }}>
+              <h2 style={{ fontSize: '1.35rem', fontWeight: 700, marginBottom: '20px' }}>
                 {tr(lang, 'Toutes les rubriques À propos d’Himalaya', 'Explore All About Himalaya Sections', 'Todas las secciones sobre Himalaya', '探索喜马拉雅地产全部专栏')}
               </h2>
               <div
                 style={{
                   display: 'grid',
                   gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-                  gap: '16px'
+                  gap: '28px'
                 }}
               >
                 <div
                   onClick={() => switchTab('services')}
-                  className="property-card"
-                  style={{ padding: '22px', cursor: 'pointer' }}
+                  style={{
+                    background: 'transparent',
+                    borderTop: '1px solid rgba(200, 164, 93, 0.3)',
+                    borderBottom: '1px solid var(--border-subtle)',
+                    padding: '22px 0',
+                    cursor: 'pointer'
+                  }}
                 >
                   <Briefcase size={20} style={{ color: 'var(--gold)', marginBottom: '10px' }} />
                   <h3 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '6px' }}>
@@ -423,8 +428,13 @@ export default function AboutPageView({
 
                 <div
                   onClick={() => switchTab('franchises')}
-                  className="property-card"
-                  style={{ padding: '22px', cursor: 'pointer', borderColor: 'var(--border-gold)' }}
+                  style={{
+                    background: 'transparent',
+                    borderTop: '1px solid rgba(200, 164, 93, 0.3)',
+                    borderBottom: '1px solid var(--border-subtle)',
+                    padding: '22px 0',
+                    cursor: 'pointer'
+                  }}
                 >
                   <Store size={20} style={{ color: 'var(--gold)', marginBottom: '10px' }} />
                   <h3 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '6px' }}>
@@ -445,8 +455,13 @@ export default function AboutPageView({
 
                 <div
                   onClick={() => switchTab('carrieres')}
-                  className="property-card"
-                  style={{ padding: '22px', cursor: 'pointer' }}
+                  style={{
+                    background: 'transparent',
+                    borderTop: '1px solid rgba(200, 164, 93, 0.3)',
+                    borderBottom: '1px solid var(--border-subtle)',
+                    padding: '22px 0',
+                    cursor: 'pointer'
+                  }}
                 >
                   <Users size={20} style={{ color: 'var(--gold)', marginBottom: '10px' }} />
                   <h3 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '6px' }}>
@@ -468,8 +483,13 @@ export default function AboutPageView({
 
                 <div
                   onClick={() => switchTab('faq')}
-                  className="property-card"
-                  style={{ padding: '22px', cursor: 'pointer' }}
+                  style={{
+                    background: 'transparent',
+                    borderTop: '1px solid rgba(200, 164, 93, 0.3)',
+                    borderBottom: '1px solid var(--border-subtle)',
+                    padding: '22px 0',
+                    cursor: 'pointer'
+                  }}
                 >
                   <HelpCircle size={20} style={{ color: 'var(--gold)', marginBottom: '10px' }} />
                   <h3 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '6px' }}>
@@ -491,8 +511,13 @@ export default function AboutPageView({
 
                 <div
                   onClick={() => switchTab('liens')}
-                  className="property-card"
-                  style={{ padding: '22px', cursor: 'pointer' }}
+                  style={{
+                    background: 'transparent',
+                    borderTop: '1px solid rgba(200, 164, 93, 0.3)',
+                    borderBottom: '1px solid var(--border-subtle)',
+                    padding: '22px 0',
+                    cursor: 'pointer'
+                  }}
                 >
                   <Link2 size={20} style={{ color: 'var(--gold)', marginBottom: '10px' }} />
                   <h3 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '6px' }}>
@@ -1259,24 +1284,24 @@ export default function AboutPageView({
         )}
 
         {/* =================================================================
-            ONGLET 4 : CARRIÈRES & AFFILIÉS (devenir-courtier & devenir-affilie)
+            ONGLET 4 : CARRIÈRES & AFFILIÉS (devenir-courtier & devenir-affilie — Style architectural ouvert « Sans Boîte »)
            ================================================================= */}
         {activeTab === 'carrieres' && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '44px' }}>
             <div
               style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
-                gap: '24px'
+                gap: '44px'
               }}
             >
               {/* Volet 1 : Devenir courtier immobilier */}
               <div
                 style={{
-                  background: 'var(--bg-card)',
-                  border: '1px solid var(--border-gold)',
-                  borderRadius: '14px',
-                  padding: '28px',
+                  background: 'transparent',
+                  borderTop: '1px solid rgba(200, 164, 93, 0.35)',
+                  borderBottom: '1px solid var(--border-subtle)',
+                  padding: '28px 0',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between'
@@ -1322,10 +1347,10 @@ export default function AboutPageView({
               {/* Volet 2 : Devenir affilié */}
               <div
                 style={{
-                  background: 'var(--bg-card)',
-                  border: '1px solid var(--border-subtle)',
-                  borderRadius: '14px',
-                  padding: '28px',
+                  background: 'transparent',
+                  borderTop: '1px solid rgba(200, 164, 93, 0.35)',
+                  borderBottom: '1px solid var(--border-subtle)',
+                  padding: '28px 0',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between'
@@ -1369,27 +1394,27 @@ export default function AboutPageView({
               </div>
             </div>
 
-            {/* Formulaire officiel de candidature intégré (#14 — devenir-courtier-immobilier.html & devenir-affilie.html) */}
+            {/* Formulaire officiel de candidature intégré (#14 & #18 — Section ouverte sans boîte avec champs architecturaux soulignés) */}
             <div
               id="form-candidature-himalaya"
               style={{
-                background: 'var(--bg-card)',
-                border: '1px solid var(--border-gold)',
-                borderRadius: '14px',
-                padding: '32px'
+                background: 'transparent',
+                borderTop: '1px solid rgba(200, 164, 93, 0.35)',
+                borderBottom: '1px solid var(--border-subtle)',
+                padding: '36px 0'
               }}
             >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px', marginBottom: '22px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px', marginBottom: '28px' }}>
                 <div>
-                  <span className="badge-gold" style={{ marginBottom: '8px' }}>
-                    {tr(lang, 'Formulaire de candidature confidentiel', 'Confidential Application Form', 'Formulario de candidatura confidencial', '保密申请表')}
-                  </span>
-                  <h3 style={{ fontSize: '1.45rem', fontWeight: 700 }}>
+                  <div className="gold-eyebrow" style={{ marginBottom: '8px' }}>
+                    {tr(lang, 'FORMULAIRE DE CANDIDATURE CONFIDENTIEL', 'CONFIDENTIAL APPLICATION FORM', 'FORMULARIO DE CANDIDATURA CONFIDENCIAL', '保密申请表')}
+                  </div>
+                  <h3 className="serif-title" style={{ fontSize: '1.75rem', fontWeight: 600, color: '#fff' }}>
                     {careerType === 'affilie'
                       ? tr(lang, 'Postuler — Devenir Agence Affiliée Himalaya', 'Apply to Become an Affiliated Agency', 'Postular — Convertirse en Agencia Afiliada Himalaya', '申请成为喜马拉雅国际合作加盟机构')
                       : tr(lang, 'Postuler — Devenir Courtier Immobilier Himalaya', 'Apply to Become a Himalaya Real Estate Broker', 'Postular — Convertirse en Corredor Inmobiliario Himalaya', '申请成为喜马拉雅地产认证经纪人')}
                   </h3>
-                  <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', marginTop: '4px' }}>
+                  <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', marginTop: '6px' }}>
                     {tr(
                       lang,
                       'Votre candidature est transmise directement et en toute confidentialité à la direction (Roger Rhéaume & Geniev Mondoux).',
@@ -1422,10 +1447,9 @@ export default function AboutPageView({
 
               {careerSent ? (
                 <div style={{
-                  padding: '24px',
-                  borderRadius: '12px',
-                  background: 'rgba(200, 164, 93, 0.12)',
-                  border: '1px solid var(--gold)',
+                  padding: '24px 0',
+                  borderTop: '1px solid var(--gold)',
+                  borderBottom: '1px solid var(--border-subtle)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
@@ -1466,63 +1490,99 @@ export default function AboutPageView({
                   </button>
                 </div>
               ) : (
-                <form onSubmit={handleCareerSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '14px' }}>
+                <form onSubmit={handleCareerSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '22px' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '24px' }}>
                     <div>
-                      <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
+                      <label style={{ display: 'block', fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--gold-light)', marginBottom: '6px' }}>
                         {tr(lang, 'Nom complet *', 'Full Name *', 'Nombre completo *', '姓名 *')}
                       </label>
                       <input
                         type="text"
                         required
-                        className="form-control"
                         value={careerName}
                         onChange={(e) => setCareerName(e.target.value)}
                         placeholder={tr(lang, 'Votre nom et prénom', 'Your full name', 'Su nombre y apellido', '请输入您的全名')}
+                        style={{
+                          width: '100%',
+                          background: 'transparent',
+                          border: 'none',
+                          borderBottom: '1px solid rgba(255,255,255,0.2)',
+                          padding: '10px 0',
+                          color: '#fff',
+                          fontSize: '0.94rem',
+                          outline: 'none'
+                        }}
                       />
                     </div>
                     <div>
-                      <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
+                      <label style={{ display: 'block', fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--gold-light)', marginBottom: '6px' }}>
                         {tr(lang, 'Adresse courriel *', 'Email Address *', 'Correo electrónico *', '电子邮箱 *')}
                       </label>
                       <input
                         type="email"
                         required
-                        className="form-control"
                         value={careerEmail}
                         onChange={(e) => setCareerEmail(e.target.value)}
                         placeholder="courriel@exemple.com"
+                        style={{
+                          width: '100%',
+                          background: 'transparent',
+                          border: 'none',
+                          borderBottom: '1px solid rgba(255,255,255,0.2)',
+                          padding: '10px 0',
+                          color: '#fff',
+                          fontSize: '0.94rem',
+                          outline: 'none'
+                        }}
                       />
                     </div>
                     <div>
-                      <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
+                      <label style={{ display: 'block', fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--gold-light)', marginBottom: '6px' }}>
                         {tr(lang, 'Téléphone *', 'Phone Number *', 'Teléfono *', '联系电话 *')}
                       </label>
                       <input
                         type="tel"
                         required
-                        className="form-control"
                         value={careerPhone}
                         onChange={(e) => setCareerPhone(e.target.value)}
                         placeholder="(514) 000-0000"
+                        style={{
+                          width: '100%',
+                          background: 'transparent',
+                          border: 'none',
+                          borderBottom: '1px solid rgba(255,255,255,0.2)',
+                          padding: '10px 0',
+                          color: '#fff',
+                          fontSize: '0.94rem',
+                          outline: 'none'
+                        }}
                       />
                     </div>
                     <div>
-                      <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
+                      <label style={{ display: 'block', fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--gold-light)', marginBottom: '6px' }}>
                         {tr(lang, 'Ville / Adresse / Agence actuelle', 'City / Address / Current Agency', 'Ciudad / Dirección / Agencia actual', '所在城市 / 地址 / 当前所属机构')}
                       </label>
                       <input
                         type="text"
-                        className="form-control"
                         value={careerAddress}
                         onChange={(e) => setCareerAddress(e.target.value)}
                         placeholder={tr(lang, 'Montréal, QC (Permis OACIQ)', 'Montreal, QC (OACIQ License)', 'Montreal, QC (Licencia OACIQ)', '蒙特利尔, QC (OACIQ 牌照)')}
+                        style={{
+                          width: '100%',
+                          background: 'transparent',
+                          border: 'none',
+                          borderBottom: '1px solid rgba(255,255,255,0.2)',
+                          padding: '10px 0',
+                          color: '#fff',
+                          fontSize: '0.94rem',
+                          outline: 'none'
+                        }}
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
+                    <label style={{ display: 'block', fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--gold-light)', marginBottom: '6px' }}>
                       {tr(
                         lang,
                         'Pourquoi désirez-vous joindre notre équipe ? (Expérience, spécialités, territoires) *',
@@ -1533,8 +1593,7 @@ export default function AboutPageView({
                     </label>
                     <textarea
                       required
-                      rows={4}
-                      className="form-control"
+                      rows={3}
                       value={careerMotivation}
                       onChange={(e) => setCareerMotivation(e.target.value)}
                       placeholder={tr(
@@ -1544,10 +1603,21 @@ export default function AboutPageView({
                         'Cuéntenos sobre su trayectoria en corretaje inmobiliario y sus objetivos...',
                         '请简要介绍您的房地产从业背景与职业发展目标...'
                       )}
+                      style={{
+                        width: '100%',
+                        background: 'transparent',
+                        border: 'none',
+                        borderBottom: '1px solid rgba(255,255,255,0.2)',
+                        padding: '10px 0',
+                        color: '#fff',
+                        fontSize: '0.94rem',
+                        outline: 'none',
+                        resize: 'vertical'
+                      }}
                     />
                   </div>
 
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px', paddingTop: '8px' }}>
                     <span style={{ fontSize: '0.76rem', color: 'var(--text-muted)' }}>
                       * {tr(lang, 'Champs obligatoires. Traitement 100 % confidentiel.', 'Required fields. Treated with 100% confidentiality.', 'Campos obligatorios. Tratamiento 100 % confidencial.', '必填项。所有信息均严格保密处理。')}
                     </span>
@@ -1571,24 +1641,23 @@ export default function AboutPageView({
               <p style={{ fontSize: '0.92rem', color: 'var(--text-secondary)' }}>{c.faq.subtitle}</p>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
               {c.faq.items.map((item, idx) => {
                 const isOpen = openFaqIndex === idx;
                 return (
                   <div
                     key={idx}
                     style={{
-                      background: 'var(--bg-card)',
-                      border: `1px solid ${isOpen ? 'var(--gold)' : 'var(--border-subtle)'}`,
-                      borderRadius: '12px',
-                      overflow: 'hidden'
+                      background: 'transparent',
+                      borderTop: idx === 0 ? '1px solid rgba(200, 164, 93, 0.35)' : 'none',
+                      borderBottom: `1px solid ${isOpen ? 'var(--gold)' : 'var(--border-subtle)'}`
                     }}
                   >
                     <button
                       onClick={() => setOpenFaqIndex(isOpen ? -1 : idx)}
                       style={{
                         width: '100%',
-                        padding: '16px 20px',
+                        padding: '18px 0',
                         background: 'transparent',
                         border: 'none',
                         color: 'var(--text-primary)',
@@ -1616,12 +1685,10 @@ export default function AboutPageView({
                     {isOpen && (
                       <div
                         style={{
-                          padding: '0 20px 18px',
+                          padding: '0 0 18px',
                           fontSize: '0.92rem',
                           color: 'var(--text-secondary)',
-                          lineHeight: 1.7,
-                          borderTop: '1px solid var(--border-subtle)',
-                          paddingTop: '14px'
+                          lineHeight: 1.7
                         }}
                       >
                         {item.a}
@@ -1638,7 +1705,7 @@ export default function AboutPageView({
             ONGLET 6 : LIENS IMMOBILIERS & PARTENAIRES (liens-immobiliers.html)
            ================================================================= */}
         {activeTab === 'liens' && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '36px' }}>
             <div>
               <h2 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '6px' }}>{c.links.heading}</h2>
               <p style={{ fontSize: '0.92rem', color: 'var(--text-secondary)' }}>{c.links.subtitle}</p>
@@ -1646,14 +1713,14 @@ export default function AboutPageView({
 
             {/* Sites gouvernementaux officiels */}
             <div>
-              <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--gold-light)', marginBottom: '14px' }}>
+              <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--gold-light)', marginBottom: '18px' }}>
                 {c.links.govTitle}
               </h3>
               <div
                 style={{
                   display: 'grid',
                   gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-                  gap: '14px'
+                  gap: '24px'
                 }}
               >
                 {c.links.govLinks.map((gov, idx) => (
@@ -1662,9 +1729,11 @@ export default function AboutPageView({
                     href={gov.url}
                     target="_blank"
                     rel="noreferrer"
-                    className="property-card"
                     style={{
-                      padding: '18px',
+                      background: 'transparent',
+                      borderTop: '1px solid rgba(200, 164, 93, 0.35)',
+                      borderBottom: '1px solid var(--border-subtle)',
+                      padding: '18px 0',
                       textDecoration: 'none',
                       display: 'flex',
                       flexDirection: 'column',
@@ -1699,24 +1768,24 @@ export default function AboutPageView({
 
             {/* Répertoire des partenaires professionnels d'Himalaya */}
             <div>
-              <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--gold-light)', marginBottom: '14px' }}>
+              <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--gold-light)', marginBottom: '18px' }}>
                 {c.links.partnersTitle}
               </h3>
               <div
                 style={{
                   display: 'grid',
                   gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
-                  gap: '18px'
+                  gap: '32px'
                 }}
               >
                 {c.links.partnerGroups.map((group, idx) => (
                   <div
                     key={idx}
                     style={{
-                      background: 'var(--bg-card)',
-                      border: '1px solid var(--border-subtle)',
-                      borderRadius: '14px',
-                      padding: '22px'
+                      background: 'transparent',
+                      borderTop: '1px solid rgba(200, 164, 93, 0.35)',
+                      borderBottom: '1px solid var(--border-subtle)',
+                      padding: '22px 0'
                     }}
                   >
                     <h4

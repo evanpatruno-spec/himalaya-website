@@ -88,12 +88,16 @@ export default function App() {
   const [playingPodcastId, setPlayingPodcastId] = useState(null);
   const [podcastSeriesFilter, setPodcastSeriesFilter] = useState('all');
 
-  // Formulaire Nous joindre & Évaluation Vendeur (Points 9, 17, 20)
+  // Sélecteur de devises international (Idée #1 : CAD $ | EUR € | USD $)
+  const [currency, setCurrency] = useState('CAD');
+
+  // Formulaire Nous joindre & Évaluation Vendeur (Points 9, 17, 20 + Idée #15 Créneau de rappel)
   const [contactTab, setContactTab] = useState('general'); // 'general' | 'valuation'
   const [contactSubmitted, setContactSubmitted] = useState(false);
   const [contactForm, setContactForm] = useState({
     subject: 'Acquérir une propriété / Dossiers hors-marché',
     assetType: 'Pourvoirie / Camping / Villégiature',
+    preferredTime: 'Matin (8h–12h)',
     fullName: '',
     phone: '',
     email: '',
@@ -308,12 +312,13 @@ export default function App() {
       type: contactTab === 'valuation' ? 'valuation' : 'contact',
       subject: contactTab === 'valuation' ? `Évaluation : ${contactForm.assetType}` : contactForm.subject,
       assetType: contactForm.assetType,
+      preferredTime: contactForm.preferredTime,
       fullName: contactForm.fullName,
       phone: contactForm.phone,
       email: contactForm.email,
       city: contactForm.city,
       revenue: contactForm.revenue,
-      message: contactForm.message
+      message: contactForm.message ? `[Rappel souhaité : ${contactForm.preferredTime}] ${contactForm.message}` : `[Rappel souhaité : ${contactForm.preferredTime}]`
     });
     setWebLeads(getStoredWebLeads());
     setContactSubmitted(true);
@@ -1067,6 +1072,7 @@ export default function App() {
                     key={deal.id} 
                     deal={deal} 
                     t={t}
+                    currency={currency}
                     onSelect={() => openDealModal(deal)}
                   />
                 ))}
@@ -1270,6 +1276,36 @@ export default function App() {
               </div>
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+                {/* Sélecteur de devises international (Idée #1 : CAD $ | EUR € | USD $) */}
+                <div style={{
+                  display: 'inline-flex',
+                  background: 'transparent',
+                  border: '1px solid rgba(200, 164, 93, 0.35)',
+                  borderRadius: '8px',
+                  padding: '3px',
+                  gap: '2px'
+                }}>
+                  {[
+                    { id: 'CAD', label: 'CAD $' },
+                    { id: 'EUR', label: 'EUR €' },
+                    { id: 'USD', label: 'USD $' }
+                  ].map(curr => (
+                    <button
+                      key={curr.id}
+                      type="button"
+                      onClick={() => setCurrency(curr.id)}
+                      style={{
+                        padding: '6px 10px', borderRadius: '6px', border: 'none', cursor: 'pointer',
+                        fontSize: '0.76rem', fontWeight: 600,
+                        background: currency === curr.id ? 'var(--gold)' : 'transparent',
+                        color: currency === curr.id ? '#09090b' : 'var(--text-secondary)'
+                      }}
+                    >
+                      {curr.label}
+                    </button>
+                  ))}
+                </div>
+
                 {/* Filtres rapides de statut (#8 : Tous | À vendre | À louer | Vendu) */}
                 <div style={{
                   display: 'inline-flex',
@@ -1444,6 +1480,7 @@ export default function App() {
                     key={deal.id} 
                     deal={deal} 
                     t={t}
+                    currency={currency}
                     onSelect={() => openDealModal(deal)}
                   />
                 ))}
@@ -1659,81 +1696,118 @@ export default function App() {
       )}
 
       {/* =====================================================================
-          PAGE 6 : ÉVÉNEMENTS & ACTUALITÉS (Avec archives multi-années #15)
+          PAGE 6 : ÉVÉNEMENTS & ACTUALITÉS (Style architectural Sans Boîte — Idée #18)
          ===================================================================== */}
       {activePage === 'evenements' && (
         <main style={{ flex: 1, padding: '44px 0 80px' }}>
           <div className="container">
-            <h2 style={{ fontSize: '1.85rem', fontWeight: 700, marginBottom: '22px' }}>{t.news.title}</h2>
+            <div style={{ marginBottom: '28px', paddingBottom: '18px', borderBottom: '1px solid var(--border-subtle)' }}>
+              <span className="badge-gold" style={{ marginBottom: '6px' }}>
+                {tr(lang, 'Congrès & Présence Internationale', 'Conventions & International Presence', 'Congresos y Presencia Internacional', '行业峰会与国际展会')}
+              </span>
+              <h2 className="serif-title" style={{ fontSize: '2.2rem', fontWeight: 600 }}>{t.news.title}</h2>
+            </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '20px', marginBottom: '44px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '36px', marginBottom: '56px' }}>
               {HIMALAYA_EVENTS.map(ev => (
-                <div key={ev.id} className="property-card" style={{ padding: '22px' }}>
-                  <span className="badge-gold" style={{ alignSelf: 'flex-start', marginBottom: '10px' }}>
-                    {pickLang(ev, 'dateRange', lang)}
-                  </span>
-                  <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '6px' }}>
-                    {pickLang(ev, 'title', lang)}
-                  </h3>
-                  <div style={{ fontSize: '0.84rem', color: 'var(--gold)', marginBottom: '10px' }}>
-                    <MapPin size={13} style={{ display: 'inline', marginRight: '5px' }} /> {pickLang(ev, 'location', lang)}
+                <div
+                  key={ev.id}
+                  style={{
+                    background: 'transparent',
+                    borderTop: '1px solid rgba(200, 164, 93, 0.38)',
+                    borderBottom: '1px solid var(--border-subtle)',
+                    padding: '26px 0 22px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between'
+                  }}
+                >
+                  <div>
+                    <span className="badge-gold" style={{ alignSelf: 'flex-start', marginBottom: '10px' }}>
+                      {pickLang(ev, 'dateRange', lang)}
+                    </span>
+                    <h3 className="serif-title" style={{ fontSize: '1.5rem', fontWeight: 600, marginBottom: '8px', color: '#fff' }}>
+                      {pickLang(ev, 'title', lang)}
+                    </h3>
+                    <div style={{ fontSize: '0.84rem', color: 'var(--gold-light)', marginBottom: '12px' }}>
+                      <MapPin size={13} style={{ display: 'inline', marginRight: '5px' }} /> {pickLang(ev, 'location', lang)}
+                    </div>
+                    <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', lineHeight: 1.65, marginBottom: '18px' }}>
+                      {pickLang(ev, 'description', lang)}
+                    </p>
                   </div>
-                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', marginBottom: '16px' }}>
-                    {pickLang(ev, 'description', lang)}
-                  </p>
-                  <a href={ev.url} target="_blank" rel="noreferrer" className="btn-outline" style={{ alignSelf: 'flex-start', padding: '8px 14px', fontSize: '0.82rem' }}>
+                  <a href={ev.url} target="_blank" rel="noreferrer" className="editorial-link" style={{ alignSelf: 'flex-start' }}>
                     {t.news.detailsBtn} <ExternalLink size={13} />
                   </a>
                 </div>
               ))}
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px', marginBottom: '20px' }}>
-              <h2 style={{ fontSize: '1.5rem', fontWeight: 700 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '16px', marginBottom: '28px', paddingBottom: '16px', borderBottom: '1px solid var(--border-subtle)' }}>
+              <h2 className="serif-title" style={{ fontSize: '1.9rem', fontWeight: 600 }}>
                 {t.news.recentNews}
               </h2>
 
               {/* Filtres d'archives par année (#15) */}
-              <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-                {['all', '2026', '2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018'].map(yr => (
-                  <button
-                    key={yr}
-                    onClick={() => setNewsYearFilter(yr)}
-                    className={newsYearFilter === yr ? 'btn-gold' : 'btn-outline'}
-                    style={{ padding: '6px 12px', fontSize: '0.78rem' }}
-                  >
-                    {yr === 'all' ? tr(lang, 'Toutes les années', 'All Years', 'Todos los años', '所有年份') : yr}
-                  </button>
-                ))}
+              <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+                {['all', '2026', '2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018'].map(yr => {
+                  const active = newsYearFilter === yr;
+                  return (
+                    <button
+                      key={yr}
+                      onClick={() => setNewsYearFilter(yr)}
+                      style={{
+                        background: 'none',
+                        border: 'none',
+                        borderBottom: active ? '2px solid var(--gold)' : '2px solid transparent',
+                        padding: '4px 2px',
+                        cursor: 'pointer',
+                        fontSize: '0.82rem',
+                        fontWeight: active ? 700 : 400,
+                        color: active ? 'var(--gold-light)' : 'var(--text-secondary)'
+                      }}
+                    >
+                      {yr === 'all' ? tr(lang, 'Toutes', 'All', 'Todos', '全部') : yr}
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
             <div className="properties-grid">
               {HIMALAYA_NEWS.filter(n => newsYearFilter === 'all' || n.year === newsYearFilter).map(news => (
-                <div key={news.id} className="property-card">
-                  <div className="property-img-wrap" style={{ height: '190px' }}>
-                    <img 
-                      src={news.image} 
-                      alt={pickLang(news, 'title', lang)}
-                      onError={e => { e.target.src = 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=800&q=80'; }}
-                    />
-                  </div>
-                  <div style={{ padding: '18px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                    <div>
-                      <div style={{ fontSize: '0.75rem', color: 'var(--gold)', marginBottom: '6px' }}>
-                        {pickLang(news, 'date', lang)} • {pickLang(news, 'category', lang)}
-                      </div>
-                      <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '8px' }}>
-                        {pickLang(news, 'title', lang)}
-                      </h3>
-                      <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '14px' }}>
-                        {pickLang(news, 'excerpt', lang)}
-                      </p>
+                <div
+                  key={news.id}
+                  style={{
+                    background: 'transparent',
+                    borderBottom: '1px solid var(--border-subtle)',
+                    paddingBottom: '22px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between'
+                  }}
+                >
+                  <div>
+                    <div className="property-img-wrap" style={{ height: '200px', borderRadius: '6px', overflow: 'hidden', marginBottom: '16px' }}>
+                      <img 
+                        src={news.image} 
+                        alt={pickLang(news, 'title', lang)}
+                        onError={e => { e.target.src = 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=800&q=80'; }}
+                      />
                     </div>
-                    <a href={news.url} target="_blank" rel="noreferrer" style={{ color: 'var(--gold-light)', fontSize: '0.82rem', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
-                      {t.news.readArticle} <ExternalLink size={13} />
-                    </a>
+                    <div style={{ fontSize: '0.73rem', color: 'var(--gold)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '6px' }}>
+                      {pickLang(news, 'date', lang)} • {pickLang(news, 'category', lang)}
+                    </div>
+                    <h3 className="serif-title" style={{ fontSize: '1.35rem', fontWeight: 600, marginBottom: '8px', lineHeight: 1.3 }}>
+                      {pickLang(news, 'title', lang)}
+                    </h3>
+                    <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '14px' }}>
+                      {pickLang(news, 'excerpt', lang)}
+                    </p>
                   </div>
+                  <a href={news.url} target="_blank" rel="noreferrer" className="editorial-link" style={{ alignSelf: 'flex-start', fontSize: '0.74rem' }}>
+                    {t.news.readArticle} <ExternalLink size={12} />
+                  </a>
                 </div>
               ))}
             </div>
@@ -2220,6 +2294,44 @@ export default function App() {
                         value={contactForm.email}
                         onChange={e => setContactForm({ ...contactForm, email: e.target.value })}
                       />
+
+                      {/* Créneau de rappel préféré (Idée #15) */}
+                      <div style={{ paddingTop: '6px', paddingBottom: '4px' }}>
+                        <div style={{ fontSize: '0.73rem', color: 'var(--gold-light)', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 600, marginBottom: '8px' }}>
+                          {tr(lang, 'Moment de rappel préféré', 'Preferred Callback Time', 'Horario de contacto preferido', '首选回电时段')}
+                        </div>
+                        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                          {[
+                            { id: 'Matin (8h–12h)', label: tr(lang, 'Matin (8h–12h)', 'Morning (8am–12pm)', 'Mañana (8h–12h)', '上午 (8:00–12:00)') },
+                            { id: 'Après-midi (12h–17h)', label: tr(lang, 'Après-midi (12h–17h)', 'Afternoon (12pm–5pm)', 'Tarde (12h–17h)', '下午 (12:00–17:00)') },
+                            { id: 'Soir (17h–20h)', label: tr(lang, 'Soir (17h–20h)', 'Evening (5pm–8pm)', 'Noche (17h–20h)', '晚间 (17:00–20:00)') },
+                            { id: 'Par courriel', label: tr(lang, 'Par courriel', 'By Email Only', 'Solo por correo', '仅限邮件联系') }
+                          ].map(slot => {
+                            const active = contactForm.preferredTime === slot.id;
+                            return (
+                              <button
+                                key={slot.id}
+                                type="button"
+                                onClick={() => setContactForm({ ...contactForm, preferredTime: slot.id })}
+                                style={{
+                                  padding: '6px 12px',
+                                  borderRadius: '6px',
+                                  fontSize: '0.78rem',
+                                  fontWeight: active ? 600 : 400,
+                                  cursor: 'pointer',
+                                  background: active ? 'rgba(200, 164, 93, 0.16)' : 'transparent',
+                                  border: active ? '1px solid var(--gold)' : '1px solid rgba(255,255,255,0.14)',
+                                  color: active ? 'var(--gold-light)' : 'var(--text-secondary)',
+                                  transition: 'all 0.2s ease'
+                                }}
+                              >
+                                {slot.label}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+
                       <textarea 
                         required 
                         rows={3} 
@@ -2472,6 +2584,9 @@ export default function App() {
           <PropertyDetailModal 
             deal={selectedDeal}
             t={t}
+            currency={currency}
+            onCurrencyChange={setCurrency}
+            onSelectDeal={deal => openDealModal(deal)}
             onClose={closeDealModal}
             onOpenNDA={deal => setNdaModalDeal(deal)}
             onFilterByBroker={brokerName => navigateTo('proprietes', { filtreCourtier: brokerName })}
@@ -2561,7 +2676,7 @@ export default function App() {
 }
 
 /* Carte Propriété Style Galerie « Sans Cadre » (#5, #6, #7, #8, #9) */
-function PropertyCard({ deal, t, onSelect }) {
+function PropertyCard({ deal, t, currency = 'CAD', onSelect }) {
   const code = t?.code || 'FR';
   const isSold = deal.status === 'Vendu';
   const broker = (deal.brokers_details && deal.brokers_details[0]) || {
@@ -2574,7 +2689,21 @@ function PropertyCard({ deal, t, onSelect }) {
     : (deal.city || deal.region);
 
   const displayCategory = pickLang(deal, 'category', code) || deal.transaction_type;
-  const displayPrice = pickLang(deal, 'price_raw', code);
+  const rawPrice = pickLang(deal, 'price_raw', code);
+  const displayPrice = (() => {
+    if (currency === 'CAD' || !deal.price || deal.price <= 0) return rawPrice;
+    const isRent = deal.transaction_type === 'Location' || /\/(mois|mo|mes|月|an|yr|año|年|pi²|sq\.ft)/i.test(rawPrice || '');
+    if (isRent && deal.price < 50000) return rawPrice;
+    if (currency === 'EUR') {
+      const eur = Math.round(deal.price * 0.68);
+      return `≈ ${eur.toLocaleString('fr-CA')} €`;
+    }
+    if (currency === 'USD') {
+      const usd = Math.round(deal.price * 0.73);
+      return `≈ ${usd.toLocaleString('en-US')} $ US`;
+    }
+    return rawPrice;
+  })();
   const displayTitle = pickLang(deal, 'title', code);
 
   return (
