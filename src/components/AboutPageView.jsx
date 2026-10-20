@@ -541,7 +541,7 @@ export default function AboutPageView({
                       <div
                         style={{
                           width: '100%',
-                          aspectRatio: '314 / 543',
+                          aspectRatio: '314 / 460',
                           borderRadius: '12px',
                           overflow: 'hidden',
                           border: '1px solid var(--border-subtle)',

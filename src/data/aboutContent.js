@@ -57,7 +57,7 @@ export const ABOUT_CONTENT = {
           name: 'Geniev Mondoux',
           role: 'Vice-Président — Courtier immobilier agréé',
           credentials: 'CPA, MBA • Co-fondateur & Directeur d’agence',
-          portrait: 'https://www.himalayacorp.com/gx/00/314x543_Geniev_Mondoux.jpg',
+          portrait: 'https://www.himalayacorp.com/DATA/COURTIERINFOSUP/11_courtierGrand.JPG',
           photos: [
             'https://www.himalayacorp.com/data/CMSIMAGE//721.jpg',
             'https://www.himalayacorp.com/data/CMSIMAGE//722.jpg'
@@ -73,7 +73,7 @@ export const ABOUT_CONTENT = {
           name: 'Roger Rhéaume',
           role: 'Président — Courtier immobilier agréé, DA',
           credentials: 'Co-fondateur • Membre du CA de l’OACIQ',
-          portrait: 'https://www.himalayacorp.com/gx/00/314x543_Roger_Rheaume.jpg',
+          portrait: 'https://www.himalayacorp.com/DATA/COURTIERINFOSUP/99_courtierGrand.jpg',
           photos: [
             'https://www.himalayacorp.com/data/CMSIMAGE//200.jpg',
             'https://www.himalayacorp.com/data/CMSIMAGE//201.jpg',
@@ -458,7 +458,7 @@ export const ABOUT_CONTENT = {
           name: 'Geniev Mondoux',
           role: 'Vice-President — Chartered Real Estate Broker',
           credentials: 'CPA, MBA • Co-Founder & Agency Executive Officer',
-          portrait: 'https://www.himalayacorp.com/gx/00/314x543_Geniev_Mondoux.jpg',
+          portrait: 'https://www.himalayacorp.com/DATA/COURTIERINFOSUP/11_courtierGrand.JPG',
           photos: [
             'https://www.himalayacorp.com/data/CMSIMAGE//721.jpg',
             'https://www.himalayacorp.com/data/CMSIMAGE//722.jpg'
@@ -474,7 +474,7 @@ export const ABOUT_CONTENT = {
           name: 'Roger Rhéaume',
           role: 'President — Chartered Real Estate Broker, DA',
           credentials: 'Co-Founder • Member of the OACIQ Board of Directors',
-          portrait: 'https://www.himalayacorp.com/gx/00/314x543_Roger_Rheaume.jpg',
+          portrait: 'https://www.himalayacorp.com/DATA/COURTIERINFOSUP/99_courtierGrand.jpg',
           photos: [
             'https://www.himalayacorp.com/data/CMSIMAGE//200.jpg',
             'https://www.himalayacorp.com/data/CMSIMAGE//201.jpg',
