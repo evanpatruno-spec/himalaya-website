@@ -351,11 +351,11 @@ button, select, input, textarea {
   background: transparent;
   border: none;
   color: #ffffff;
-  font-size: 0.79rem;
+  font-size: 0.77rem;
   font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.03em;
-  padding: 8px 8px;
+  letter-spacing: 0.025em;
+  padding: 8px 7px;
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s ease;

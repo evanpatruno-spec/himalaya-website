@@ -432,46 +432,41 @@ export const LEGAL_DOCUMENTS = {
 };
 
 // ============================================================================
-// #36 — VITRINE « FRANCHISES & BANNIÈRES ACCOMPAGNÉES PAR HIMALAYA »
+// FRANCHISES ACCOMPAGNÉES PAR HIMALAYA (DONNÉES RÉELLES UNIQUEMENT)
 // ============================================================================
-export const HIMALAYA_FRANCHISE_SECTORS = [
+export const HIMALAYA_FRANCHISES = [
   {
-    id: 'restauration',
-    title: 'Restauration, Cafés & Bannières Alimentaires',
-    title_en: 'Restaurants, Cafés & Food Service Banners',
-    metrics: '1 200 à 4 500 pi² • Hotte commerciale / Terrasse / Service au volant',
-    metrics_en: '1,200 to 4,500 sq.ft. • Commercial hood / Patio / Drive-thru',
-    description: 'Sélection d’emplacements à fort achalandage piétonnier et routier pour bannières de restauration rapide (QSR), concepts gastronomiques, bars à tartares/poke et marchés spécialisés.',
-    description_en: 'High-traffic streetfront and shopping center site selection for quick-service restaurants (QSR), casual dining concepts, and specialty food markets.',
-    examples: 'Ex. : Franchise KROOD (Bar Tartare & Poke Bowl), Jour après Jour (Le Grand Marché en Vrac), cafés et restos-bars.',
-    examples_en: 'E.g.: KROOD Franchise (Tartare & Poke Bowl), Jour après Jour Bulk Market, cafés, and resto-bars.'
+    id: 'pacini',
+    name: 'Pacini',
+    name_en: 'Pacini',
+    category: 'Franchise — Restauration',
+    category_en: 'Franchise — Restaurant & Dining',
+    brokerIds: ['roger_rheaume', 'mike_ainajian'],
+    brokerNames: 'Roger Rhéaume & Mike Ainajian',
+    description: 'Accompagnement immobilier commercial et recherche d’emplacements pour la franchise Pacini assurés par Roger Rhéaume et Mike Ainajian.',
+    description_en: 'Commercial real estate representation and site selection for the Pacini franchise led by Roger Rhéaume and Mike Ainajian.'
   },
   {
-    id: 'detail',
-    title: 'Commerce de Détail & Boutiques Spécialisées',
-    title_en: 'Retail & Specialty Storefront Banners',
-    metrics: '1 000 à 12 000 pi² • Artères commerciales & Centres commerciaux',
-    metrics_en: '1,000 to 12,000 sq.ft. • High streets & Shopping centers',
-    description: 'Analyse géomarketing, négociation du loyer de base, du loyer additionnel (frais d’exploitation), de la période d’installation gratuite et des allocations d’améliorations locatives.',
-    description_en: 'Geomarketing analysis, negotiation of base rent, additional rent (CAM/taxes), rent-free installation periods, and tenant improvement allowances (TI).'
+    id: 'arabian_oud',
+    name: 'Arabian Oud',
+    name_en: 'Arabian Oud',
+    category: 'Franchise — Commerce de détail & Parfumerie',
+    category_en: 'Franchise — Retail & Luxury Perfumery',
+    brokerIds: ['roger_rheaume'],
+    brokerNames: 'Roger Rhéaume',
+    description: 'Accompagnement immobilier commercial et sélection d’emplacements pour la franchise Arabian Oud assurés par Roger Rhéaume.',
+    description_en: 'Commercial real estate representation and site selection for the Arabian Oud franchise led by Roger Rhéaume.'
   },
   {
-    id: 'services',
-    title: 'Cliniques, Services Professionnels & Centres de Santé',
-    title_en: 'Clinics, Professional Services & Wellness Centers',
-    metrics: '1 500 à 8 000 pi² • Immeubles de prestige & Pôles médicaux',
-    metrics_en: '1,500 to 8,000 sq.ft. • Class A offices & Medical hubs',
-    description: 'Implantation de bannières de services, cliniques médicales/dentaires, centres de remise en forme et bureaux corporatifs avec visibilité sur artères principales et stationnement.',
-    description_en: 'Turnkey site selection for service franchises, medical/dental clinics, fitness centers, and corporate offices with prime visibility and parking.'
-  },
-  {
-    id: 'hotellerie',
-    title: 'Hôtellerie, Villégiature & Bannières Récréotouristiques',
-    title_en: 'Hospitality, Campgrounds & Resort Franchises',
-    metrics: '5 à 300+ acres • Campings classés, Auberges & Complexes 4 saisons',
-    metrics_en: '5 to 300+ acres • Rated campgrounds, Inns & 4-season resorts',
-    description: 'Accompagnement exclusif (membre FPQ & CQF) pour l’acquisition, la conversion sous bannière (ex. KOA Resort) ou l’expansion de domaines récréotouristiques au Québec.',
-    description_en: 'Exclusive advisory (FPQ & CQF member) for acquiring, rebranding (e.g., KOA Resort), or expanding hospitality and outdoor resort properties in Quebec.'
+    id: 'grillade_taurino',
+    name: 'Grillade Taurino',
+    name_en: 'Grillade Taurino',
+    category: 'Franchise — Restauration & Grillades',
+    category_en: 'Franchise — Restaurant & Grill',
+    brokerIds: ['roger_rheaume'],
+    brokerNames: 'Roger Rhéaume',
+    description: 'Accompagnement immobilier commercial et recherche d’emplacements pour la franchise Grillade Taurino assurés par Roger Rhéaume.',
+    description_en: 'Commercial real estate representation and site selection for the Grillade Taurino franchise led by Roger Rhéaume.'
   }
 ];
 
@@ -482,143 +477,25 @@ export const HIMALAYA_FRANCHISE_HIGHLIGHTS = [
     badge_en: 'Official CQF Member',
     title: 'Conseil québécois de la franchise (CQF)',
     title_en: 'Quebec Franchise Council (CQF)',
-    desc: 'Présence active aux événements et cocktails du CQF pour connecter directement franchiseurs, franchisés et propriétaires bailleurs institutionnels.',
-    desc_en: 'Active participation in CQF events to directly connect franchisors, franchisees, and institutional commercial landlords.'
+    desc: 'Immobilier Himalaya est membre du Conseil québécois de la franchise (CQF) afin d’offrir un service optimal aux franchiseurs et aux clients franchisés dans leurs projets d’achat, de vente ou de location commerciale.',
+    desc_en: 'Himalaya Real Estate is a member of the Quebec Franchise Council (CQF), providing dedicated commercial brokerage services to franchisors and franchisees.'
   },
   {
     id: 'paris_icsc',
-    badge: 'Rayonnement International',
-    badge_en: 'International Reach',
-    title: 'Salon de la Franchise de Paris & ICSC (Las Vegas, Toronto, Whistler)',
-    title_en: 'Franchise Expo Paris & ICSC Conventions (Las Vegas, Toronto, Whistler)',
-    desc: 'Représentation des bannières européennes et nord-américaines souhaitant s’implanter à Montréal et partout au Québec.',
-    desc_en: 'Representing European and North American retail brands looking to establish flagship and network locations in Montreal and across Quebec.'
+    badge: 'Présence Internationale',
+    badge_en: 'International Presence',
+    title: 'Salon de la Franchise à Paris & Congrès ICSC',
+    title_en: 'Franchise Expo Paris & ICSC Conventions',
+    desc: 'Participation officielle d’Immobilier Himalaya au Salon de la Franchise à Paris (Porte de Versailles) ainsi qu’aux congrès de l’ICSC (Las Vegas, Toronto, Whistler).',
+    desc_en: 'Official participation by Himalaya Real Estate at Franchise Expo Paris (Porte de Versailles) and ICSC conventions (Las Vegas, Toronto, Whistler).'
   },
   {
     id: 'turnkey_ecosystem',
-    badge: 'Écosystème 360°',
-    badge_en: '360° Franchise Ecosystem',
-    title: 'Géomarketing, Droit de la Franchise & Design Commercial',
-    title_en: 'Geomarketing, Franchise Law & Commercial Design',
-    desc: 'Travail en synergie avec nos partenaires spécialisés : Fasken, Tutino Joseph Grégoire, Imagine Franchise, FlagFranchise, Indicia Géomarketing et DSD Groupe Design.',
-    desc_en: 'Seamless synergy with our vetted partners: Fasken, Tutino Joseph Grégoire, Imagine Franchise, FlagFranchise, Indicia Geomarketing, and DSD Design.'
-  }
-];
-
-// ============================================================================
-// #40 — GALERIE « TRANSACTIONS RÉALISÉES & SUCCÈS HIMALAYA » (TRACK RECORD)
-// ============================================================================
-export const HIMALAYA_TRACK_RECORD = [
-  {
-    id: 'tr_plateau_stdenis',
-    category: 'commercial',
-    categoryLabel: 'Commercial & Artère Principale',
-    categoryLabel_en: 'Commercial & Prime Streetfront',
-    statusBadge: 'TRANSACTION RÉALISÉE',
-    statusBadge_en: 'COMPLETED TRANSACTION',
-    title: 'Local Commercial de Prestige — 3875, rue Saint-Denis',
-    title_en: 'Prime Retail Space — 3875 Saint-Denis Street',
-    location: 'Montréal (Le Plateau-Mont-Royal), QC',
-    location_en: 'Montreal (Le Plateau-Mont-Royal), QC',
-    metric: '1 300 pi² • Bail Triple Net (NNN)',
-    metric_en: '1,300 sq.ft. • Triple Net Lease (NNN)',
-    broker: 'Geniev Mondoux, CPA, MBA',
-    mls: 'HIM100199',
-    image: 'https://www.himalayacorp.com/DATA/CMSIMAGE/2530.jpg',
-    summary: 'Transaction commerciale réalisée sur l’une des artères les plus achalandées du Plateau-Mont-Royal, à proximité immédiate du métro Sherbrooke.',
-    summary_en: 'Completed commercial retail transaction on one of Plateau-Mont-Royal’s busiest arteries, steps from Sherbrooke metro station.'
-  },
-  {
-    id: 'tr_sherbrooke_atlas',
-    category: 'residentiel',
-    categoryLabel: 'Résidentiel & Investissement',
-    categoryLabel_en: 'Residential & Investment',
-    statusBadge: 'VENDU — 460 000 $',
-    statusBadge_en: 'SOLD — $460,000',
-    title: 'Propriété Résidentielle — 2628, rue de l’Atlas',
-    title_en: 'Residential Property — 2628 de l’Atlas Street',
-    location: 'Sherbrooke (Fleurimont), Estrie, QC',
-    location_en: 'Sherbrooke (Fleurimont), Estrie, QC',
-    metric: 'Vendu 460 000 $ • 4 chambres • Face au Parc des Pyrénées',
-    metric_en: 'Sold $460,000 • 4 bedrooms • Facing Parc des Pyrénées',
-    broker: 'Pengbo Zhao',
-    mls: '21226793',
-    image: 'https://immo.vrtx.co/PicFull/21226793-2.jpg',
-    summary: 'Vente réalisée avec succès dans le secteur recherché de Fleurimont à Sherbrooke, illustrant le rayonnement d’Himalaya auprès de la clientèle résidentielle.',
-    summary_en: 'Successfully completed residential sale in the sought-after Fleurimont sector of Sherbrooke.'
-  },
-  {
-    id: 'tr_jour_apres_jour',
-    category: 'franchise',
-    categoryLabel: 'Franchise & Implantation Commerciale',
-    categoryLabel_en: 'Franchise & Retail Expansion',
-    statusBadge: 'IMPLANTATION RÉALISÉE',
-    statusBadge_en: 'COMPLETED EXPANSION',
-    title: 'Ouverture de Succursale — Jour après Jour (Le Grand Marché en Vrac)',
-    title_en: 'Branch Opening — Jour après Jour (Bulk Market Concept)',
-    location: 'Grand Montréal, QC',
-    location_en: 'Greater Montreal, QC',
-    metric: 'Sélection de site • Négociation de bail commercial',
-    metric_en: 'Site Selection • Commercial Lease Negotiation',
-    broker: 'Équipe Commerciale Himalaya',
-    image: 'https://www.himalayacorp.com/DATA/NOUVELLE/501_liste~v~facade-de-la-succursale.jpg',
-    summary: 'Accompagnement complet pour l’identification du local, l’analyse du secteur et la négociation des conditions d’implantation de cette nouvelle succursale.',
-    summary_en: 'End-to-end commercial advisory for site identification, sector analysis, and lease negotiation for this new retail branch.'
-  },
-  {
-    id: 'tr_krood_franchise',
-    category: 'franchise',
-    categoryLabel: 'Franchise & Restauration',
-    categoryLabel_en: 'Franchise & Restaurant Banner',
-    statusBadge: 'EXPANSION DE BANNIÈRE',
-    statusBadge_en: 'FRANCHISE ROLLOUT',
-    title: 'Développement de la Bannière KROOD — Bar Tartare & Poke Bowl',
-    title_en: 'KROOD Franchise Development — Tartare & Poke Bowl Concept',
-    location: 'Québec',
-    location_en: 'Quebec',
-    metric: 'Restauration spécialisée • Réseau CQF',
-    metric_en: 'Specialty Dining • CQF Network',
-    broker: 'Roger Rhéaume & Geniev Mondoux',
-    image: 'https://www.himalayacorp.com/DATA/NOUVELLE/416_liste~v~resto-krood.jpg',
-    summary: 'Positionnement stratégique et accompagnement immobilier pour le déploiement de concepts de restauration modernes à travers la province.',
-    summary_en: 'Strategic positioning and real estate representation for rolling out modern restaurant franchise concepts across Quebec.'
-  },
-  {
-    id: 'tr_camping_koa',
-    category: 'villégiature',
-    categoryLabel: 'Camping, Pourvoirie & Villégiature',
-    categoryLabel_en: 'Campground, Outfitter & Resort',
-    statusBadge: 'DOSSIER MAJEUR — 6 500 000 $',
-    statusBadge_en: 'FLAGSHIP MANDATE — $6,500,000',
-    title: 'Domaine Récréotouristique 5 Étoiles (Ex-KOA Resort) — 264 Sites & Marina',
-    title_en: '5-Star Resort Campground (Former KOA Resort) — 264 Sites & Marina',
-    location: 'Saint-Mathieu-de-Rioux (Bas-Saint-Laurent), QC',
-    location_en: 'Saint-Mathieu-de-Rioux (Bas-Saint-Laurent), QC',
-    metric: '118 021 m² • 264 emplacements • 12 chalets 4 saisons',
-    metric_en: '118,021 sq.m. • 264 sites • 12 four-season chalets',
-    broker: 'Sylvie Castonguay',
-    mls: '11416336',
-    image: 'https://immo.vrtx.co/PicFull/11416336-2.jpg',
-    summary: 'Mandat d’envergure illustrant le leadership d’Immobilier Himalaya (membre FPQ) dans la mise en marché confidentielle et structurée de campings et pourvoiries au Québec.',
-    summary_en: 'Landmark mandate showcasing Himalaya’s leadership (FPQ member) in structuring and marketing major campgrounds and outfitters in Quebec.'
-  },
-  {
-    id: 'tr_quai_gare_laval',
-    category: 'commercial',
-    categoryLabel: 'Développement Foncier & Multirésidentiel',
-    categoryLabel_en: 'Land & Multi-Residential Development',
-    statusBadge: 'DOSSIER MAJEUR — 19 000 000 $',
-    statusBadge_en: 'LANDMARK MANDATE — $19,000,000',
-    title: 'Développement Quai de la Gare Sainte-Rose (Phases 2-3-4 — 516 Unités)',
-    title_en: 'Quai de la Gare Sainte-Rose TOD Development (Phases 2-3-4 — 516 Units)',
-    location: 'Laval (Auteuil), QC',
-    location_en: 'Laval (Auteuil), QC',
-    metric: '1 000 000+ pi² (95 217 m²) • Potentiel de 516 logements',
-    metric_en: '1,000,000+ sq.ft. (95,217 sq.m.) • 516-unit potential',
-    broker: 'Sylvain Lessard & Nathan Thérien',
-    mls: '22685883',
-    image: 'https://immo.vrtx.co/PicFull/22685883-2.jpg',
-    summary: 'Structuration foncière d’un site stratégique de plus de 1 million de pieds carrés adjacent à la gare Sainte-Rose pour promoteurs et investisseurs institutionnels.',
-    summary_en: 'Strategic land assembly of over 1 million sq.ft. adjacent to the Sainte-Rose commuter train station for institutional developers.'
+    badge: 'Partenaires Officiels',
+    badge_en: 'Official Partners',
+    title: 'Réseau de Partenaires Spécialisés en Franchise',
+    title_en: 'Specialized Franchise Partner Network',
+    desc: 'Collaboration avec les partenaires officiels répertoriés d’Himalaya : Fasken (Me Frédéric P. Gilbert), Tutino Joseph Grégoire (Me Isabelle Grégoire), Imagine Franchise (Stéphane Breault), FlagFranchise (Sylvie Grégoire), Indicia Géomarketing et DSD Groupe Design.',
+    desc_en: 'Collaboration with Himalaya’s official partners: Fasken (Frédéric P. Gilbert), Tutino Joseph Grégoire (Isabelle Grégoire), Imagine Franchise (Stéphane Breault), FlagFranchise (Sylvie Grégoire), Indicia Geomarketing, and DSD Groupe Design.'
   }
 ];

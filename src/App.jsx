@@ -9,7 +9,7 @@ import { INITIAL_HIMALAYA_BROKERS } from './data/brokersData';
 import { 
   HIMALAYA_AGENCIES, HIMALAYA_EVENTS, HIMALAYA_NEWS, 
   HIMALAYA_PODCASTS, SPECIALTIES_DATA, OFFICIAL_SOCIAL_LINKS, LEGAL_DOCUMENTS,
-  HIMALAYA_FRANCHISE_SECTORS, HIMALAYA_FRANCHISE_HIGHLIGHTS, HIMALAYA_TRACK_RECORD
+  HIMALAYA_FRANCHISES
 } from './data/siteContent';
 import { TRANSLATIONS } from './data/translations';
 import { 
@@ -25,7 +25,7 @@ const PropertiesMapView = lazy(() => import('./components/PropertiesMapView'));
 const AboutPageView = lazy(() => import('./components/AboutPageView'));
 const ToolsHubView = lazy(() => import('./components/ToolsHubView'));
 
-const VALID_PAGES = ['home', 'proprietes', 'courtiers', 'agences', 'a-propos', 'outils', 'evenements', 'balados', 'nous-joindre', 'zone-equipe'];
+const VALID_PAGES = ['home', 'proprietes', 'franchises', 'courtiers', 'agences', 'a-propos', 'outils', 'evenements', 'balados', 'nous-joindre', 'zone-equipe'];
 
 export default function App() {
   const [activePage, setActivePage] = useState('home');
@@ -281,6 +281,7 @@ export default function App() {
     switch (activePage) {
       case 'a-propos': return t.nav.about;
       case 'proprietes': return t.nav.properties;
+      case 'franchises': return 'Franchises';
       case 'courtiers': return t.nav.brokers;
       case 'agences': return t.nav.agencies;
       case 'outils': return isEn ? 'Financial Tools & Simulators' : 'Outils & Calculateurs';
@@ -383,12 +384,17 @@ export default function App() {
             </div>
           </div>
 
-          {/* Navigation Droite (Propriétés, Outils, Balados, Nous joindre, FR | EN) */}
+          {/* Navigation Droite (Propriétés, Franchises, Outils, Balados, Nous joindre, FR | EN) */}
           <div className="desktop-nav header-nav-side header-nav-right">
             <ul className="nav-links">
               <li>
                 <button className={`nav-btn ${activePage === 'proprietes' ? 'active' : ''}`} onClick={() => navigateTo('proprietes')}>
                   {t.nav.properties}
+                </button>
+              </li>
+              <li>
+                <button className={`nav-btn ${activePage === 'franchises' ? 'active' : ''}`} onClick={() => navigateTo('franchises')}>
+                  Franchises
                 </button>
               </li>
               <li>
@@ -487,6 +493,7 @@ export default function App() {
                   { id: 'agences', label: t.nav.agencies },
                   { id: 'courtiers', label: t.nav.brokers },
                   { id: 'proprietes', label: `${t.nav.properties} (${liveDealsData.length})` },
+                  { id: 'franchises', label: 'Franchises' },
                   { id: 'outils', label: t.nav.tools },
                   { id: 'evenements', label: t.nav.news },
                   { id: 'balados', label: t.nav.podcasts },
@@ -726,140 +733,78 @@ export default function App() {
                 ))}
               </div>
 
-              {/* VITRINE #36 (Franchises & Bannières) ET #40 (Transactions Réalisées & Succès) SUR L'ACCUEIL */}
+              {/* VITRINE FRANCHISES SUR L'ACCUEIL (PACINI, ARABIAN OUD & GRILLADE TAURINO) */}
               <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
-                gap: '22px',
+                background: 'var(--bg-card)',
+                border: '1px solid var(--border-gold)',
+                borderRadius: '14px',
+                padding: '28px',
                 marginBottom: '36px'
               }}>
-                {/* Carte #36 : Franchises & Bannières accompagnées par Himalaya */}
                 <div style={{
-                  background: 'var(--bg-card)',
-                  border: '1px solid var(--border-gold)',
-                  borderRadius: '14px',
-                  padding: '28px',
                   display: 'flex',
-                  flexDirection: 'column',
                   justifyContent: 'space-between',
-                  gap: '18px'
+                  alignItems: 'center',
+                  flexWrap: 'wrap',
+                  gap: '16px',
+                  marginBottom: '20px'
                 }}>
                   <div>
-                    <span className="badge-gold" style={{ marginBottom: '10px' }}>
-                      {isEn ? 'CQF Member • Franchise & Retail Expansion' : 'Membre CQF • Franchises & Bannières'}
+                    <span className="badge-gold" style={{ marginBottom: '8px' }}>
+                      {isEn ? 'CQF Member • Franchise Clients' : 'Membre CQF • Clients Franchisés'}
                     </span>
-                    <h3 style={{ fontSize: '1.35rem', fontWeight: 700, marginBottom: '8px' }}>
+                    <h3 style={{ fontSize: '1.45rem', fontWeight: 700 }}>
                       {isEn
-                        ? 'Franchises & Commercial Banners Supported by Himalaya'
-                        : 'Franchises & Bannières accompagnées par Himalaya'}
+                        ? 'Franchises Supported by Immobilier Himalaya'
+                        : 'Franchises accompagnées par Immobilier Himalaya'}
                     </h3>
-                    <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', lineHeight: 1.65, marginBottom: '14px' }}>
-                      {isEn
-                        ? 'Strategic site selection across Quebec, geomarketing analysis, and commercial lease negotiation for restaurant, retail, clinic, and hospitality franchises (KROOD, Jour après Jour, Franchise Expo Paris, ICSC).'
-                        : 'Sélection d’emplacements stratégiques au Québec, analyse géomarketing et négociation de baux commerciaux pour les franchiseurs et enseignes (KROOD, Jour après Jour, Salon de la Franchise de Paris, ICSC).'}
-                    </p>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-                      {HIMALAYA_FRANCHISE_SECTORS.map(sec => (
-                        <span key={sec.id} style={{
-                          fontSize: '0.74rem',
-                          padding: '4px 10px',
-                          borderRadius: '999px',
-                          background: 'rgba(200, 164, 93, 0.1)',
-                          border: '1px solid var(--border-subtle)',
-                          color: 'var(--gold-light)'
-                        }}>
-                          {isEn ? sec.title_en.split('&')[0].trim() : sec.title.split('&')[0].trim()}
-                        </span>
-                      ))}
-                    </div>
                   </div>
-                  <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-                    <button
-                      onClick={() => navigateTo('a-propos', { aboutTab: 'franchises' })}
-                      className="btn-gold"
-                      style={{ fontSize: '0.82rem', padding: '9px 16px' }}
-                    >
-                      {isEn ? 'Find a Location for My Franchise' : 'Trouver un local pour ma franchise'} <ArrowRight size={14} />
-                    </button>
-                  </div>
+                  <button
+                    onClick={() => navigateTo('franchises')}
+                    className="btn-gold"
+                    style={{ fontSize: '0.84rem', padding: '10px 18px' }}
+                  >
+                    {isEn ? 'Open Franchises Section' : 'Accéder à l’onglet Franchises'} <ArrowRight size={14} />
+                  </button>
                 </div>
 
-                {/* Carte #40 : Transactions Réalisées & Succès Himalaya (Track Record) */}
                 <div style={{
-                  background: 'var(--bg-card)',
-                  border: '1px solid var(--border-subtle)',
-                  borderRadius: '14px',
-                  padding: '28px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
-                  gap: '18px'
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+                  gap: '16px'
                 }}>
-                  <div>
-                    <span className="badge-gold" style={{ marginBottom: '10px' }}>
-                      {isEn ? 'Track Record • Completed Transactions' : 'Track Record • Transactions Réalisées'}
-                    </span>
-                    <h3 style={{ fontSize: '1.35rem', fontWeight: 700, marginBottom: '8px' }}>
-                      {isEn
-                        ? 'Completed Sales, Rollouts & Flagship Achievements'
-                        : 'Transactions Réalisées & Succès Himalaya'}
-                    </h3>
-                    <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', lineHeight: 1.65, marginBottom: '14px' }}>
-                      {isEn
-                        ? 'Discover our proven track record across commercial buildings, franchise expansions, 5-star campgrounds, and residential properties sold across Quebec.'
-                        : 'Découvrez nos ventes conclues, implantations commerciales, domaines récréotouristiques et dossiers majeurs réalisés par notre équipe à travers le Québec.'}
-                    </p>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px' }}>
-                      {HIMALAYA_TRACK_RECORD.slice(0, 3).map(tr => (
-                        <div
-                          key={tr.id}
-                          onClick={() => navigateTo('a-propos', { aboutTab: 'transactions' })}
-                          style={{
-                            cursor: 'pointer',
-                            borderRadius: '8px',
-                            overflow: 'hidden',
-                            border: '1px solid var(--border-subtle)',
-                            background: '#09090b',
-                            position: 'relative',
-                            height: '74px'
-                          }}
-                        >
-                          <img
-                            src={tr.image}
-                            alt={isEn ? tr.title_en : tr.title}
-                            loading="lazy"
-                            style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.82 }}
-                          />
-                          <span style={{
-                            position: 'absolute',
-                            bottom: '4px',
-                            left: '4px',
-                            right: '4px',
-                            background: 'rgba(9,9,11,0.88)',
-                            color: 'var(--gold-light)',
-                            fontSize: '0.62rem',
-                            fontWeight: 700,
-                            padding: '2px 5px',
-                            borderRadius: '4px',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis'
-                          }}>
-                            {isEn ? tr.statusBadge_en : tr.statusBadge}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-                    <button
-                      onClick={() => navigateTo('a-propos', { aboutTab: 'transactions' })}
-                      className="btn-outline"
-                      style={{ fontSize: '0.82rem', padding: '9px 16px' }}
+                  {HIMALAYA_FRANCHISES.map(fr => (
+                    <div
+                      key={fr.id}
+                      onClick={() => navigateTo('franchises')}
+                      style={{
+                        background: 'rgba(255,255,255,0.02)',
+                        border: '1px solid var(--border-subtle)',
+                        borderRadius: '12px',
+                        padding: '18px 20px',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                        gap: '10px'
+                      }}
                     >
-                      {isEn ? 'View All Completed Transactions' : 'Voir la galerie des transactions réalisées'} <ArrowRight size={14} />
-                    </button>
-                  </div>
+                      <div>
+                        <div style={{ fontSize: '0.72rem', color: 'var(--gold)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>
+                          {isEn ? fr.category_en : fr.category}
+                        </div>
+                        <h4 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#fff', marginBottom: '6px' }}>
+                          {isEn ? fr.name_en : fr.name}
+                        </h4>
+                        <p style={{ fontSize: '0.84rem', color: 'var(--text-secondary)', lineHeight: 1.55 }}>
+                          {isEn ? fr.description_en : fr.description}
+                        </p>
+                      </div>
+                      <div style={{ paddingTop: '10px', borderTop: '1px solid var(--border-subtle)', fontSize: '0.8rem', color: 'var(--gold-light)', fontWeight: 600 }}>
+                        {isEn ? 'Assigned Broker(s): ' : 'Courtier(s) attitré(s) : '} {fr.brokerNames}
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
 
@@ -923,8 +868,7 @@ export default function App() {
                   {[
                     { id: 'all', label: isEn ? 'All' : 'Tous' },
                     { id: 'Vente', label: t.properties.forSale },
-                    { id: 'Location', label: t.properties.forRent },
-                    { id: 'Vendu', label: isEn ? 'Sold / Realized' : 'Vendu / Réalisé' }
+                    { id: 'Location', label: t.properties.forRent }
                   ].map(st => (
                     <button
                       key={st.id}
@@ -1014,7 +958,6 @@ export default function App() {
                   <option value="all">{t.properties.saleAndRent}</option>
                   <option value="Vente">{t.properties.forSale}</option>
                   <option value="Location">{t.properties.forRent}</option>
-                  <option value="Vendu">{isEn ? 'Sold / Realized' : 'Vendu / Réalisé'}</option>
                 </select>
 
                 <select className="form-control" value={filtreRegion} onChange={e => setFiltreRegion(e.target.value)}>
@@ -1109,6 +1052,22 @@ export default function App() {
             onSelectBroker={openBrokerModal}
             onNavigate={navigateTo}
             initialTab={aboutInitialTab}
+          />
+        </Suspense>
+      )}
+
+      {/* =====================================================================
+          PAGE FRANCHISES (Pacini, Arabian Oud & Grillade Taurino)
+         ===================================================================== */}
+      {activePage === 'franchises' && (
+        <Suspense fallback={<div style={{ padding: '60px', textAlign: 'center', color: 'var(--gold-light)' }}>Chargement...</div>}>
+          <AboutPageView
+            lang={lang}
+            directors={INITIAL_HIMALAYA_BROKERS.filter(b => b.category === 'direction')}
+            onSelectBroker={openBrokerModal}
+            onNavigate={navigateTo}
+            initialTab="franchises"
+            standaloneFranchisePage={true}
           />
         </Suspense>
       )}
@@ -1747,6 +1706,7 @@ export default function App() {
               <button onClick={() => navigateTo('home')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer' }}>{t.nav.home}</button>
               <button onClick={() => navigateTo('a-propos')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer' }}>{t.nav.about}</button>
               <button onClick={() => navigateTo('proprietes')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer' }}>{t.nav.properties}</button>
+              <button onClick={() => navigateTo('franchises')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer' }}>Franchises</button>
               <button onClick={() => navigateTo('outils')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer' }}>{t.nav.tools}</button>
               <button onClick={() => navigateTo('courtiers')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer' }}>{t.nav.brokers}</button>
               <button onClick={() => navigateTo('agences')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer' }}>{t.nav.agencies}</button>

@@ -12,16 +12,14 @@ import {
   Award,
   Globe,
   Phone,
+  Mail,
   ArrowRight,
-  Store,
-  TrendingUp,
-  MapPin
+  Store
 } from 'lucide-react';
 import { ABOUT_CONTENT } from '../data/aboutContent';
 import {
-  HIMALAYA_FRANCHISE_SECTORS,
-  HIMALAYA_FRANCHISE_HIGHLIGHTS,
-  HIMALAYA_TRACK_RECORD
+  HIMALAYA_FRANCHISES,
+  HIMALAYA_FRANCHISE_HIGHLIGHTS
 } from '../data/siteContent';
 import { submitLeadToProspection } from '../utils/prospectionBridge';
 
@@ -30,17 +28,21 @@ export default function AboutPageView({
   directors = [],
   onSelectBroker,
   onNavigate,
-  initialTab = 'qui-nous-sommes'
+  initialTab = 'qui-nous-sommes',
+  standaloneFranchisePage = false
 }) {
   const isEn = lang === 'EN';
   const c = ABOUT_CONTENT[isEn ? 'EN' : 'FR'];
-  const [activeTab, setActiveTab] = useState(initialTab || 'qui-nous-sommes');
+  const [activeTab, setActiveTab] = useState(standaloneFranchisePage ? 'franchises' : (initialTab || 'qui-nous-sommes'));
   const [openFaqIndex, setOpenFaqIndex] = useState(0);
-  const [trackRecordFilter, setTrackRecordFilter] = useState('all');
 
   useEffect(() => {
-    if (initialTab) setActiveTab(initialTab);
-  }, [initialTab]);
+    if (standaloneFranchisePage) {
+      setActiveTab('franchises');
+    } else if (initialTab) {
+      setActiveTab(initialTab);
+    }
+  }, [initialTab, standaloneFranchisePage]);
 
   // États du formulaire Franchiseur / Recherche d'emplacement (#36)
   const [franchiseBrand, setFranchiseBrand] = useState('');
@@ -106,48 +108,52 @@ export default function AboutPageView({
   return (
     <main style={{ flex: 1, padding: '44px 0 80px' }}>
       <div className="container">
-        {/* En-tête de la page À propos */}
-        <div style={{ marginBottom: '28px' }}>
-          <span className="badge-gold" style={{ marginBottom: '10px' }}>
-            {isEn ? 'Founded in 2008' : 'Fondée en 2008'}
-          </span>
-          <h1 style={{ fontSize: '2.25rem', fontWeight: 700, lineHeight: 1.2, marginBottom: '8px' }}>
-            {c.pageTitle} <span className="gold-gradient-text">Himalaya</span>
-          </h1>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '0.96rem', maxWidth: '760px' }}>
-            {c.pageSubtitle}
-          </p>
-        </div>
+        {!standaloneFranchisePage && (
+          <>
+            {/* En-tête de la page À propos */}
+            <div style={{ marginBottom: '28px' }}>
+              <span className="badge-gold" style={{ marginBottom: '10px' }}>
+                {isEn ? 'Founded in 2008' : 'Fondée en 2008'}
+              </span>
+              <h1 style={{ fontSize: '2.25rem', fontWeight: 700, lineHeight: 1.2, marginBottom: '8px' }}>
+                {c.pageTitle} <span className="gold-gradient-text">Himalaya</span>
+              </h1>
+              <p style={{ color: 'var(--text-secondary)', fontSize: '0.96rem', maxWidth: '760px' }}>
+                {c.pageSubtitle}
+              </p>
+            </div>
 
-        {/* Barre de sous-navigation officielle (comme le menu latéral de himalayacorp.com/fr/a-propos.html) */}
-        <div
-          style={{
-            display: 'flex',
-            gap: '8px',
-            flexWrap: 'wrap',
-            marginBottom: '32px',
-            paddingBottom: '16px',
-            borderBottom: '1px solid var(--border-subtle)'
-          }}
-        >
-          {c.tabs.map((tab) => {
-            const isActive = activeTab === tab.id;
-            return (
-              <button
-                key={tab.id}
-                onClick={() => switchTab(tab.id)}
-                className={isActive ? 'btn-gold' : 'btn-outline'}
-                style={{
-                  padding: '9px 16px',
-                  fontSize: '0.84rem',
-                  fontWeight: 600
-                }}
-              >
-                {tab.label}
-              </button>
-            );
-          })}
-        </div>
+            {/* Barre de sous-navigation officielle (comme le menu latéral de himalayacorp.com/fr/a-propos.html) */}
+            <div
+              style={{
+                display: 'flex',
+                gap: '8px',
+                flexWrap: 'wrap',
+                marginBottom: '32px',
+                paddingBottom: '16px',
+                borderBottom: '1px solid var(--border-subtle)'
+              }}
+            >
+              {c.tabs.map((tab) => {
+                const isActive = activeTab === tab.id;
+                return (
+                  <button
+                    key={tab.id}
+                    onClick={() => switchTab(tab.id)}
+                    className={isActive ? 'btn-gold' : 'btn-outline'}
+                    style={{
+                      padding: '9px 16px',
+                      fontSize: '0.84rem',
+                      fontWeight: 600
+                    }}
+                  >
+                    {tab.label}
+                  </button>
+                );
+              })}
+            </div>
+          </>
+        )}
 
         {/* =================================================================
             ONGLET 1 : QUI NOUS SOMMES (Profil complet, Mission, Valeurs + Aperçu)
@@ -465,34 +471,15 @@ export default function AboutPageView({
                 >
                   <Store size={20} style={{ color: 'var(--gold)', marginBottom: '10px' }} />
                   <h3 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '6px' }}>
-                    {isEn ? 'Franchises & Retail Banners' : 'Franchises & Bannières'}
+                    {isEn ? 'Franchises' : 'Franchises'}
                   </h3>
                   <p style={{ fontSize: '0.84rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '12px' }}>
                     {isEn
-                      ? 'Strategic site selection in Quebec for franchisors and commercial banners (CQF Member, Franchise Expo Paris).'
-                      : 'Sélection d’emplacements stratégiques au Québec pour franchiseurs et enseignes (Membre CQF, Salon de Paris).'}
+                      ? 'Franchises supported by Himalaya: Pacini, Arabian Oud, and Grillade Taurino.'
+                      : 'Franchises accompagnées par Himalaya : Pacini, Arabian Oud et Grillade Taurino.'}
                   </p>
                   <span style={{ fontSize: '0.8rem', color: 'var(--gold-light)', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                    {isEn ? 'Find a franchise location' : 'Trouver un emplacement'} <ChevronRight size={14} />
-                  </span>
-                </div>
-
-                <div
-                  onClick={() => switchTab('transactions')}
-                  className="property-card"
-                  style={{ padding: '22px', cursor: 'pointer', borderColor: 'var(--border-gold)' }}
-                >
-                  <TrendingUp size={20} style={{ color: 'var(--gold)', marginBottom: '10px' }} />
-                  <h3 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '6px' }}>
-                    {isEn ? 'Track Record & Completed Sales' : 'Transactions Réalisées & Succès'}
-                  </h3>
-                  <p style={{ fontSize: '0.84rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '12px' }}>
-                    {isEn
-                      ? 'Landmark transactions, franchise rollouts, resort estates, and properties sold by the Himalaya team.'
-                      : 'Ventes réalisées, implantations de bannières et mandats marquants signés par l’équipe Himalaya.'}
-                  </p>
-                  <span style={{ fontSize: '0.8rem', color: 'var(--gold-light)', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                    {isEn ? 'View track record' : 'Voir nos réalisations'} <ChevronRight size={14} />
+                    {isEn ? 'View franchises' : 'Voir les franchises'} <ChevronRight size={14} />
                   </span>
                 </div>
 
@@ -924,11 +911,11 @@ export default function AboutPageView({
         )}
 
         {/* =================================================================
-            ONGLET #36 : FRANCHISES & BANNIÈRES ACCOMPAGNÉES PAR HIMALAYA
+            ONGLET FRANCHISES : PACINI, ARABIAN OUD & GRILLADE TAURINO
            ================================================================= */}
         {activeTab === 'franchises' && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
-            {/* Bannière d'introduction CQF & Expansion commerciale */}
+            {/* Bannière d'introduction CQF & Clients Franchisés */}
             <div
               style={{
                 background: 'var(--bg-card)',
@@ -944,8 +931,8 @@ export default function AboutPageView({
                   </span>
                   <h2 style={{ fontSize: '1.65rem', fontWeight: 700, color: '#fff' }}>
                     {isEn
-                      ? 'Franchises, Commercial Banners & Strategic Site Selection'
-                      : 'Franchises, Bannières Commerciales & Implantation Stratégique'}
+                      ? 'Franchises Supported by Immobilier Himalaya'
+                      : 'Franchises accompagnées par Immobilier Himalaya'}
                   </h2>
                 </div>
                 <button
@@ -956,17 +943,134 @@ export default function AboutPageView({
                   }}
                   className="btn-gold"
                 >
-                  <Store size={15} /> {isEn ? 'Find a Location for My Franchise' : 'Trouver un local pour ma franchise'}
+                  <Store size={15} /> {isEn ? 'Contact Our Franchise Team' : 'Contacter notre équipe Franchise'}
                 </button>
               </div>
               <p style={{ fontSize: '0.96rem', color: 'var(--text-secondary)', lineHeight: 1.75, maxWidth: '920px' }}>
                 {isEn
-                  ? 'Whether you are a Quebec franchisor expanding your network or an international banner entering the Canadian market (Franchise Expo Paris, ICSC Las Vegas & Toronto), Himalaya Real Estate identifies high-traffic locations, analyzes demographic catchments, and negotiates your commercial leases (base rent, additional rent, installation period, and tenant improvement allowances).'
-                  : 'Que vous soyez un franchiseur québécois en pleine expansion ou une enseigne internationale souhaitant s’implanter au Québec et au Canada (Salon de la Franchise de Paris, ICSC Las Vegas & Toronto), Immobilier Himalaya identifie les emplacements à fort achalandage, analyse le potentiel géomarketing et négocie vos baux commerciaux (loyer de base, loyer additionnel, période d’installation gratuite et allocations d’améliorations locatives).'}
+                  ? 'Immobilier Himalaya Real Estate Corp., member of the Quebec Franchise Council (CQF), accompanies franchise banners and franchisees in selecting commercial locations and negotiating leases.'
+                  : 'Immobilier Himalaya Real Estate Corp., membre du Conseil québécois de la franchise (CQF), accompagne les bannières et les clients franchisés dans la recherche d’emplacements commerciaux et la négociation de baux.'}
               </p>
             </div>
 
-            {/* Les 3 piliers de l'écosystème Franchise Himalaya */}
+            {/* LES 3 FRANCHISES ACCOMPAGNÉES : PACINI, ARABIAN OUD & GRILLADE TAURINO */}
+            <div>
+              <h3 style={{ fontSize: '1.35rem', fontWeight: 700, marginBottom: '16px' }}>
+                {isEn ? 'Our Franchise Clients & Assigned Brokers' : 'Nos franchises clientes & courtiers attitrés'}
+              </h3>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(330px, 1fr))', gap: '22px' }}>
+                {HIMALAYA_FRANCHISES.map((fr) => {
+                  const assignedBrokers = directors.filter((d) => fr.brokerIds.includes(d.id));
+                  return (
+                    <div
+                      key={fr.id}
+                      className="property-card"
+                      style={{
+                        padding: '26px',
+                        border: '1px solid var(--border-gold)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                        gap: '18px'
+                      }}
+                    >
+                      <div>
+                        <span className="badge-gold" style={{ marginBottom: '10px' }}>
+                          {isEn ? fr.category_en : fr.category}
+                        </span>
+                        <h4 style={{ fontSize: '1.45rem', fontWeight: 700, color: '#fff', marginBottom: '8px' }}>
+                          {isEn ? fr.name_en : fr.name}
+                        </h4>
+                        <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.65 }}>
+                          {isEn ? fr.description_en : fr.description}
+                        </p>
+                      </div>
+
+                      {/* Courtiers responsables de cette franchise */}
+                      <div style={{ paddingTop: '14px', borderTop: '1px solid var(--border-subtle)' }}>
+                        <div style={{ fontSize: '0.75rem', color: 'var(--gold)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '10px' }}>
+                          {assignedBrokers.length > 1
+                            ? (isEn ? 'Assigned Himalaya Brokers' : 'Courtiers Himalaya attitrés')
+                            : (isEn ? 'Assigned Himalaya Broker' : 'Courtier Himalaya attitré')}
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                          {assignedBrokers.map((brk) => (
+                            <div
+                              key={brk.id}
+                              style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+                                gap: '10px',
+                                padding: '10px 12px',
+                                borderRadius: '10px',
+                                background: 'rgba(255,255,255,0.03)',
+                                border: '1px solid var(--border-subtle)'
+                              }}
+                            >
+                              <div
+                                onClick={() => onSelectBroker && onSelectBroker(brk)}
+                                style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}
+                              >
+                                <img
+                                  src={brk.photo}
+                                  alt={brk.name}
+                                  style={{
+                                    width: '44px',
+                                    height: '44px',
+                                    borderRadius: '50%',
+                                    objectFit: 'cover',
+                                    objectPosition: 'top center',
+                                    border: '1px solid var(--gold)'
+                                  }}
+                                />
+                                <div>
+                                  <div style={{ fontWeight: 700, fontSize: '0.9rem', color: '#fff' }}>{brk.name}</div>
+                                  <div style={{ fontSize: '0.76rem', color: 'var(--gold-light)' }}>{brk.phone}</div>
+                                </div>
+                              </div>
+                              <div style={{ display: 'flex', gap: '6px' }}>
+                                <a
+                                  href={`tel:${brk.phone}`}
+                                  className="btn-gold"
+                                  style={{ padding: '6px 10px', fontSize: '0.75rem' }}
+                                  title={brk.phone}
+                                >
+                                  <Phone size={12} />
+                                </a>
+                                <a
+                                  href={`mailto:${brk.email}?subject=${encodeURIComponent(`Franchise ${fr.name} — Immobilier Himalaya`)}`}
+                                  className="btn-outline"
+                                  style={{ padding: '6px 10px', fontSize: '0.75rem' }}
+                                  title={brk.email}
+                                >
+                                  <Mail size={12} />
+                                </a>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setFranchiseBrand(fr.name);
+                          const el = document.getElementById('form-franchise-himalaya');
+                          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }}
+                        className="btn-outline"
+                        style={{ width: '100%', fontSize: '0.82rem', padding: '9px 14px' }}
+                      >
+                        {isEn ? `Inquire About ${fr.name}` : `Demande d’information — ${fr.name}`} <ArrowRight size={14} />
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Les 3 engagements réels d'Himalaya dans le secteur de la franchise (CQF, Salon de Paris, Partenaires) */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))', gap: '18px' }}>
               {HIMALAYA_FRANCHISE_HIGHLIGHTS.map((hl) => (
                 <div
@@ -991,40 +1095,7 @@ export default function AboutPageView({
               ))}
             </div>
 
-            {/* Les 4 secteurs de franchises accompagnés */}
-            <div>
-              <h3 style={{ fontSize: '1.35rem', fontWeight: 700, marginBottom: '16px' }}>
-                {isEn ? 'Key Sectors & Banner Formats We Represent' : 'Secteurs d’activité & formats de bannières accompagnés'}
-              </h3>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '20px' }}>
-                {HIMALAYA_FRANCHISE_SECTORS.map((sec) => (
-                  <div
-                    key={sec.id}
-                    className="property-card"
-                    style={{ padding: '24px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '12px' }}
-                  >
-                    <div>
-                      <div style={{ fontSize: '0.76rem', color: 'var(--gold)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '6px' }}>
-                        {isEn ? sec.metrics_en : sec.metrics}
-                      </div>
-                      <h4 style={{ fontSize: '1.18rem', fontWeight: 700, marginBottom: '8px' }}>
-                        {isEn ? sec.title_en : sec.title}
-                      </h4>
-                      <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', lineHeight: 1.65 }}>
-                        {isEn ? sec.description_en : sec.description}
-                      </p>
-                    </div>
-                    {sec.examples && (
-                      <div style={{ paddingTop: '12px', borderTop: '1px solid var(--border-subtle)', fontSize: '0.8rem', color: 'var(--gold-light)', fontWeight: 500 }}>
-                        {isEn ? sec.examples_en : sec.examples}
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Formulaire dédié « Trouver un local pour ma franchise » (#36) */}
+            {/* Formulaire dédié aux clients franchisés et franchiseurs */}
             <div
               id="form-franchise-himalaya"
               style={{
@@ -1036,15 +1107,15 @@ export default function AboutPageView({
             >
               <div style={{ marginBottom: '20px' }}>
                 <span className="badge-gold" style={{ marginBottom: '8px' }}>
-                  {isEn ? 'Confidential Site Selection Mandate' : 'Mandat de recherche d’emplacement commercial'}
+                  {isEn ? 'Franchise & Commercial Real Estate' : 'Espace Clients Franchisés & Franchiseurs'}
                 </span>
                 <h3 style={{ fontSize: '1.45rem', fontWeight: 700 }}>
-                  {isEn ? 'Find a Strategic Location for My Franchise or Banner' : 'Trouver un local stratégique pour ma franchise ou bannière'}
+                  {isEn ? 'Contact Roger Rhéaume & Mike Ainajian — Franchise Division' : 'Contacter Roger Rhéaume & Mike Ainajian — Division Franchise'}
                 </h3>
                 <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', marginTop: '4px' }}>
                   {isEn
-                    ? 'Share your technical and geographic criteria with our commercial & franchise brokerage team.'
-                    : 'Confiez vos critères techniques et géographiques à notre équipe de courtage commercial et franchise.'}
+                    ? 'Are you a franchisee looking for a commercial space (Pacini, Arabian Oud, Grillade Taurino, or another banner)? Send us your criteria.'
+                    : 'Vous êtes client franchisé ou franchiseur (Pacini, Arabian Oud, Grillade Taurino ou autre bannière) et cherchez un emplacement ? Transmettez-nous vos critères.'}
                 </p>
               </div>
 
@@ -1066,12 +1137,12 @@ export default function AboutPageView({
                     <CheckCircle2 size={24} color="var(--gold)" />
                     <div>
                       <div style={{ fontWeight: 700, fontSize: '1rem', color: '#fff' }}>
-                        {isEn ? 'Franchise Site Request Received!' : 'Demande d’implantation transmise avec succès !'}
+                        {isEn ? 'Franchise Request Sent!' : 'Demande transmise avec succès !'}
                       </div>
                       <div style={{ fontSize: '0.86rem', color: 'var(--text-secondary)' }}>
                         {isEn
-                          ? 'A specialized Himalaya commercial broker will contact you with matching on-market and off-market locations.'
-                          : 'Un courtier commercial Himalaya vous contactera rapidement avec des emplacements ciblés (sur le marché et hors marché).'}
+                          ? 'Roger Rhéaume or Mike Ainajian will contact you shortly.'
+                          : 'Roger Rhéaume ou Mike Ainajian communiquera avec vous rapidement.'}
                       </div>
                     </div>
                   </div>
@@ -1089,7 +1160,7 @@ export default function AboutPageView({
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '14px' }}>
                     <div>
                       <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
-                        {isEn ? 'Banner / Franchise Name *' : 'Nom de la bannière / franchise *'}
+                        {isEn ? 'Franchise / Banner Name *' : 'Nom de la franchise / bannière *'}
                       </label>
                       <input
                         type="text"
@@ -1097,7 +1168,7 @@ export default function AboutPageView({
                         className="form-control"
                         value={franchiseBrand}
                         onChange={(e) => setFranchiseBrand(e.target.value)}
-                        placeholder={isEn ? 'Ex: KROOD, Café, Retail Banner...' : 'Ex. : Bannière de restauration, boutique...'}
+                        placeholder={isEn ? 'Ex: Pacini, Arabian Oud, Grillade Taurino...' : 'Ex. : Pacini, Arabian Oud, Grillade Taurino...'}
                       />
                     </div>
                     <div>
@@ -1147,7 +1218,7 @@ export default function AboutPageView({
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '14px' }}>
                     <div>
                       <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
-                        {isEn ? 'Contact Name & Title *' : 'Nom et fonction du contact *'}
+                        {isEn ? 'Full Name *' : 'Nom complet *'}
                       </label>
                       <input
                         type="text"
@@ -1155,12 +1226,12 @@ export default function AboutPageView({
                         className="form-control"
                         value={franchiseContactName}
                         onChange={(e) => setFranchiseContactName(e.target.value)}
-                        placeholder={isEn ? 'Your full name' : 'Nom complet (Franchiseur / Développement)'}
+                        placeholder={isEn ? 'Your full name' : 'Votre nom complet'}
                       />
                     </div>
                     <div>
                       <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
-                        {isEn ? 'Email *' : 'Courriel professionnel *'}
+                        {isEn ? 'Email *' : 'Courriel *'}
                       </label>
                       <input
                         type="email"
@@ -1168,7 +1239,7 @@ export default function AboutPageView({
                         className="form-control"
                         value={franchiseEmail}
                         onChange={(e) => setFranchiseEmail(e.target.value)}
-                        placeholder="developpement@banniere.com"
+                        placeholder="courriel@exemple.com"
                       />
                     </div>
                     <div>
@@ -1189,8 +1260,8 @@ export default function AboutPageView({
                   <div>
                     <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
                       {isEn
-                        ? 'Technical Criteria (Commercial hood, patio, drive-thru, ceiling height, parking, target budget)'
-                        : 'Critères techniques (Ventilation/hotte, terrasse, service au volant, hauteur libre, stationnement, budget)'}
+                        ? 'Project Details & Location Requirements'
+                        : 'Détails de votre projet et critères d’emplacement'}
                     </label>
                     <textarea
                       rows={3}
@@ -1199,173 +1270,22 @@ export default function AboutPageView({
                       onChange={(e) => setFranchiseNotes(e.target.value)}
                       placeholder={
                         isEn
-                          ? 'Describe your expansion timeline and location requirements...'
-                          : 'Précisez votre échéancier d’ouverture et vos besoins techniques...'
+                          ? 'Describe your project...'
+                          : 'Précisez votre projet de franchise et vos besoins...'
                       }
                     />
                   </div>
 
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
                     <span style={{ fontSize: '0.76rem', color: 'var(--text-muted)' }}>
-                      * {isEn ? 'Strictly confidential handling by our commercial brokerage team.' : 'Traitement strictement confidentiel par notre équipe commerciale.'}
+                      * {isEn ? 'Strictly confidential handling by Roger Rhéaume & Mike Ainajian.' : 'Traitement strictement confidentiel par Roger Rhéaume et Mike Ainajian.'}
                     </span>
                     <button type="submit" className="btn-gold" style={{ padding: '11px 24px' }}>
-                      {isEn ? 'Submit Franchise Site Mandate' : 'Transmettre ma recherche d’emplacement'} <ArrowRight size={15} />
+                      {isEn ? 'Submit Franchise Inquiry' : 'Envoyer ma demande Franchise'} <ArrowRight size={15} />
                     </button>
                   </div>
                 </form>
               )}
-            </div>
-          </div>
-        )}
-
-        {/* =================================================================
-            ONGLET #40 : GALERIE « TRANSACTIONS RÉALISÉES & SUCCÈS HIMALAYA »
-           ================================================================= */}
-        {activeTab === 'transactions' && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '26px' }}>
-            <div
-              style={{
-                background: 'var(--bg-card)',
-                border: '1px solid var(--border-gold)',
-                borderRadius: '14px',
-                padding: '30px',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                flexWrap: 'wrap',
-                gap: '18px'
-              }}
-            >
-              <div style={{ maxWidth: '720px' }}>
-                <span className="badge-gold" style={{ marginBottom: '8px' }}>
-                  {isEn ? 'Proven Track Record Since 2008' : 'Réalisations & Succès depuis 2008'}
-                </span>
-                <h2 style={{ fontSize: '1.6rem', fontWeight: 700, marginBottom: '8px' }}>
-                  {isEn
-                    ? 'Completed Transactions, Franchise Rollouts & Flagship Mandates'
-                    : 'Transactions Réalisées, Implantations & Dossiers Marquants'}
-                </h2>
-                <p style={{ fontSize: '0.94rem', color: 'var(--text-secondary)', lineHeight: 1.7 }}>
-                  {isEn
-                    ? 'Explore a selection of completed sales, commercial lease signings, franchise expansions, and major resort/land mandates handled by our brokers across Quebec.'
-                    : 'Découvrez une sélection de ventes réalisées, locations commerciales conclues, ouvertures de bannières et dossiers majeurs pilotés par nos courtiers à travers le Québec.'}
-                </p>
-              </div>
-
-              <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-                {[
-                  { id: 'all', label: isEn ? 'All' : 'Tous' },
-                  { id: 'commercial', label: isEn ? 'Commercial & Land' : 'Commercial & Foncier' },
-                  { id: 'franchise', label: isEn ? 'Franchises' : 'Franchises & Bannières' },
-                  { id: 'villégiature', label: isEn ? 'Campgrounds & Outfitters' : 'Campings & Pourvoiries' },
-                  { id: 'residentiel', label: isEn ? 'Residential' : 'Résidentiel' }
-                ].map((flt) => (
-                  <button
-                    key={flt.id}
-                    type="button"
-                    onClick={() => setTrackRecordFilter(flt.id)}
-                    className={trackRecordFilter === flt.id ? 'btn-gold' : 'btn-outline'}
-                    style={{ padding: '7px 13px', fontSize: '0.8rem' }}
-                  >
-                    {flt.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div className="properties-grid">
-              {HIMALAYA_TRACK_RECORD.filter(
-                (tr) => trackRecordFilter === 'all' || tr.category === trackRecordFilter
-              ).map((item) => (
-                <div key={item.id} className="property-card" style={{ display: 'flex', flexDirection: 'column' }}>
-                  <div className="property-img-wrap" style={{ height: '215px' }}>
-                    <img
-                      src={item.image}
-                      alt={isEn ? item.title_en : item.title}
-                      loading="lazy"
-                      onError={(e) => {
-                        e.target.src = 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=900&q=80';
-                      }}
-                    />
-                    <div
-                      style={{
-                        position: 'absolute',
-                        top: '12px',
-                        left: '12px',
-                        display: 'flex',
-                        gap: '6px',
-                        flexWrap: 'wrap'
-                      }}
-                    >
-                      <span
-                        style={{
-                          background: 'var(--gold)',
-                          color: '#09090b',
-                          fontWeight: 800,
-                          fontSize: '0.7rem',
-                          padding: '4px 10px',
-                          borderRadius: '999px',
-                          letterSpacing: '0.06em',
-                          textTransform: 'uppercase'
-                        }}
-                      >
-                        {isEn ? item.statusBadge_en : item.statusBadge}
-                      </span>
-                    </div>
-                    <div
-                      style={{
-                        position: 'absolute',
-                        bottom: '12px',
-                        left: '12px',
-                        background: 'rgba(9,9,11,0.92)',
-                        border: '1px solid var(--border-gold)',
-                        padding: '5px 11px',
-                        borderRadius: '7px',
-                        fontWeight: 600,
-                        color: 'var(--gold-light)',
-                        fontSize: '0.82rem'
-                      }}
-                    >
-                      {isEn ? item.metric_en : item.metric}
-                    </div>
-                  </div>
-
-                  <div style={{ padding: '20px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '14px' }}>
-                    <div>
-                      <div style={{ fontSize: '0.74rem', color: 'var(--gold)', fontWeight: 600, textTransform: 'uppercase', marginBottom: '4px' }}>
-                        {isEn ? item.categoryLabel_en : item.categoryLabel}
-                      </div>
-                      <h3 style={{ fontSize: '1.12rem', fontWeight: 700, marginBottom: '6px', lineHeight: 1.35 }}>
-                        {isEn ? item.title_en : item.title}
-                      </h3>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '0.82rem', color: 'var(--text-muted)', marginBottom: '10px' }}>
-                        <MapPin size={13} color="var(--gold)" />
-                        <span>{isEn ? item.location_en : item.location}</span>
-                      </div>
-                      <p style={{ fontSize: '0.86rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-                        {isEn ? item.summary_en : item.summary}
-                      </p>
-                    </div>
-
-                    <div
-                      style={{
-                        paddingTop: '12px',
-                        borderTop: '1px solid var(--border-subtle)',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        fontSize: '0.8rem',
-                        color: 'var(--gold-light)',
-                        fontWeight: 600
-                      }}
-                    >
-                      <span>{item.broker}</span>
-                      {item.mls && <span style={{ color: 'var(--text-muted)', fontSize: '0.75rem' }}>MLS #{item.mls}</span>}
-                    </div>
-                  </div>
-                </div>
-              ))}
             </div>
           </div>
         )}
