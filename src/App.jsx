@@ -363,7 +363,7 @@ export default function App() {
             >
               <img
                 className="diamond-logo-full"
-                src="/gx/himalaya-immobilier-logo.png"
+                src="/gx/himalaya-immobilier-logo.svg"
                 alt="Immobilier Himalaya Real Estate Corp."
                 fetchPriority="high"
                 decoding="sync"
@@ -1723,7 +1723,7 @@ export default function App() {
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '20px', flexWrap: 'wrap' }}>
               <img 
-                src="/gx/himalaya-immobilier-logo.png" 
+                src="/gx/himalaya-immobilier-logo.svg" 
                 alt="Himalaya" 
                 style={{ height: '42px', display: 'block', cursor: 'pointer' }}
                 onClick={() => navigateTo('home')}

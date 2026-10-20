@@ -167,7 +167,7 @@ button, select, input, textarea {
 /* Hauteur constante de 88px : aucun décalage de mise en page (zéro clignotement au scroll) */
 .header-inner {
   display: grid;
-  grid-template-columns: 1fr 290px 1fr;
+  grid-template-columns: minmax(0, 1fr) 290px minmax(0, 1fr);
   align-items: center;
   height: 88px;
   gap: 8px;
@@ -178,11 +178,12 @@ button, select, input, textarea {
   display: flex;
   align-items: center;
   gap: 6px;
+  min-width: 0;
 }
 
 .header-nav-left {
   justify-content: space-between;
-  padding-right: 10px;
+  padding-right: 12px;
 }
 
 .header-multiprets-link {
@@ -207,12 +208,13 @@ button, select, input, textarea {
 }
 
 .header-nav-right {
-  justify-content: flex-start;
-  padding-left: 10px;
+  justify-content: space-between;
+  padding-left: 12px;
 }
 
+/* Le losange est positionné par rapport à .header-inner (50% exact du container) */
 .header-diamond-wrap {
-  position: relative;
+  position: static;
   width: 290px;
   height: 88px;
   display: flex;
@@ -220,7 +222,7 @@ button, select, input, textarea {
   justify-content: center;
 }
 
-/* Grand losange blanc déployé en haut de page */
+/* Grand losange blanc déployé en haut de page — centré à 50% exact de la page */
 .header-diamond-box {
   position: absolute;
   top: 0;
@@ -247,7 +249,7 @@ button, select, input, textarea {
 }
 
 .header-diamond-box .diamond-logo-full {
-  width: 134px;
+  width: 138px;
   height: auto;
   display: block;
 }
@@ -255,7 +257,10 @@ button, select, input, textarea {
 /* Logo compact intégré dans la barre noire lors du défilement */
 .header-compact-brand {
   position: absolute;
-  inset: 0;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 290px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -263,7 +268,7 @@ button, select, input, textarea {
   cursor: pointer;
   z-index: 131;
   opacity: 0;
-  transform: translateY(8px);
+  transform: translateX(-50%) translateY(8px);
   pointer-events: none;
   line-height: 1.15;
   transition: opacity 0.28s cubic-bezier(0.22, 1, 0.36, 1), transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
@@ -279,7 +284,7 @@ button, select, input, textarea {
 
 .main-header.is-scrolled .header-compact-brand {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateX(-50%) translateY(0);
   pointer-events: auto;
 }
 
@@ -323,6 +328,7 @@ button, select, input, textarea {
   font-size: clamp(1.55rem, 2.6vw, 2.2rem);
   font-weight: 400;
   letter-spacing: 0.14em;
+  padding-left: 0.14em;
   text-transform: uppercase;
   color: #ffffff;
   text-shadow: 0 3px 18px rgba(0, 0, 0, 0.85);
@@ -590,12 +596,9 @@ button, select, input, textarea {
     height: 74px;
   }
   .header-diamond-wrap {
-    position: absolute;
-    left: 50%;
-    top: 0;
-    transform: translateX(-50%);
-    width: 210px;
-    height: 74px;
+    position: static;
+    width: auto;
+    height: auto;
   }
   .header-diamond-box {
     width: 210px;
