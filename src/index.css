@@ -197,13 +197,13 @@ button, select, input, textarea {
 
 .header-nav-left {
   justify-content: space-between;
-  padding-right: 18px;
+  padding-right: 28px;
 }
 
 .header-multiprets-link {
   display: inline-flex;
   align-items: center;
-  padding: 4px 6px 4px 0;
+  padding: 4px 10px 4px 0;
   opacity: 0.96;
   transition: opacity 0.2s ease, transform 0.2s ease;
   flex-shrink: 0;
@@ -215,15 +215,16 @@ button, select, input, textarea {
 }
 
 .header-multiprets-link img {
-  height: 40px;
+  height: 38px;
   width: auto;
   display: block;
   object-fit: contain;
 }
 
 .header-nav-right {
-  justify-content: space-between;
-  padding-left: 18px;
+  justify-content: flex-end;
+  gap: 18px;
+  padding-left: 28px;
 }
 
 /* Le losange est positionné par rapport à .header-inner (50% exact du container) */
@@ -352,19 +353,26 @@ button, select, input, textarea {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 2px;
+  gap: 14px;
   list-style: none;
+}
+
+.nav-item-dropdown {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 88px;
 }
 
 .nav-btn {
   background: transparent;
   border: none;
   color: #ffffff;
-  font-size: 0.77rem;
+  font-size: 0.79rem;
   font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.025em;
-  padding: 8px 7px;
+  letter-spacing: 0.045em;
+  padding: 8px 10px;
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -374,8 +382,135 @@ button, select, input, textarea {
   white-space: nowrap;
 }
 
-.nav-btn:hover, .nav-btn.active {
+.nav-btn:hover,
+.nav-btn.active,
+.nav-item-dropdown:hover .nav-btn {
   color: var(--gold);
+}
+
+.nav-btn-chevron {
+  font-size: 0.68rem;
+  opacity: 0.7;
+  transition: transform 0.22s ease, opacity 0.22s ease;
+}
+
+.nav-item-dropdown:hover .nav-btn-chevron {
+  transform: rotate(180deg);
+  opacity: 1;
+  color: var(--gold);
+}
+
+/* Bouton d'action doré épuré à l'extrême droite (Idée #3) */
+.nav-btn-cta {
+  background: rgba(200, 164, 93, 0.12);
+  border: 1px solid rgba(200, 164, 93, 0.55);
+  color: var(--gold-light);
+  padding: 8px 14px;
+  border-radius: 7px;
+  font-weight: 600;
+}
+
+.nav-btn-cta:hover,
+.nav-btn-cta.active,
+.nav-item-dropdown:hover .nav-btn-cta {
+  background: linear-gradient(135deg, #d8b56c 0%, #b38c40 100%);
+  border-color: transparent;
+  color: #09090b;
+}
+
+.nav-item-dropdown:hover .nav-btn-cta .nav-btn-chevron {
+  color: #09090b;
+}
+
+/* Panneau déroulant minimaliste noir mat avec filet doré supérieur (Idée #2) */
+.nav-dropdown-panel {
+  position: absolute;
+  top: calc(100% - 8px);
+  left: 0;
+  min-width: 280px;
+  background: rgba(11, 11, 14, 0.98);
+  backdrop-filter: blur(18px);
+  border-top: 2px solid var(--gold);
+  border-left: 1px solid rgba(255, 255, 255, 0.07);
+  border-right: 1px solid rgba(255, 255, 255, 0.07);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 0 0 10px 10px;
+  padding: 12px 10px;
+  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.85);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+  z-index: 160;
+}
+
+.nav-dropdown-panel.align-right {
+  left: auto;
+  right: 0;
+}
+
+.nav-item-dropdown:hover .nav-dropdown-panel,
+.nav-item-dropdown:focus-within .nav-dropdown-panel {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.nav-dropdown-kicker {
+  font-size: 0.66rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+  padding: 6px 12px 4px;
+}
+
+.nav-dropdown-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.07);
+  margin: 6px 10px;
+}
+
+.nav-dropdown-link {
+  width: 100%;
+  background: transparent;
+  border: none;
+  text-align: left;
+  padding: 9px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  transition: background 0.16s ease, padding-left 0.16s ease;
+  text-decoration: none;
+}
+
+.nav-dropdown-link:hover {
+  background: rgba(200, 164, 93, 0.1);
+  padding-left: 15px;
+}
+
+.nav-dropdown-link-title {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.nav-dropdown-link:hover .nav-dropdown-link-title {
+  color: var(--gold-light);
+}
+
+.nav-dropdown-link-sub {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  line-height: 1.35;
 }
 
 .mobile-menu-btn {

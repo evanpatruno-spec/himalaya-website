@@ -66,9 +66,15 @@ function computeWelcomeTax(price, isMontreal) {
   return { total, brackets };
 }
 
-export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal, onClearPreselectedDeal }) {
+export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal, onClearPreselectedDeal, initialTool }) {
   const isEn = lang === 'EN';
-  const [activeTool, setActiveTool] = useState('plex');
+  const [activeTool, setActiveTool] = useState(initialTool || 'plex');
+
+  useEffect(() => {
+    if (initialTool) {
+      setActiveTool(initialTool);
+    }
+  }, [initialTool]);
 
   // --- 1. Rentabilité Commerciale & Plex (calculateur_rentabilite_plex_2026) ---
   const [plexPrice, setPlexPrice] = useState(850000);

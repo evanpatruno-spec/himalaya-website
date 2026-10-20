@@ -67,6 +67,7 @@ export default function App() {
   const [selectedBroker, setSelectedBroker] = useState(null);
   const [ndaModalDeal, setNdaModalDeal] = useState(undefined);
   const [toolPreselectedDeal, setToolPreselectedDeal] = useState(null);
+  const [toolInitialTab, setToolInitialTab] = useState('plex');
   const [aboutInitialTab, setAboutInitialTab] = useState('qui-nous-sommes');
   const [newsYearFilter, setNewsYearFilter] = useState('all');
   const [legalModalType, setLegalModalType] = useState(null); // 'terms' | 'privacy' | null
@@ -232,8 +233,15 @@ export default function App() {
   const navigateTo = (page, options = {}) => {
     if (options.filtrePropriete !== undefined) setFiltrePropriete(options.filtrePropriete);
     if (options.filtreCourtier !== undefined) setFiltreCourtier(options.filtreCourtier);
+    if (options.rechercheBut !== undefined) setRechercheBut(options.rechercheBut);
+    if (options.propertiesViewMode !== undefined) setPropertiesViewMode(options.propertiesViewMode);
+    if (options.brokerCategoryFilter !== undefined) setBrokerCategoryFilter(options.brokerCategoryFilter);
     if (options.contactTab !== undefined) setContactTab(options.contactTab);
     if (options.aboutTab !== undefined) setAboutInitialTab(options.aboutTab);
+    if (options.toolTab !== undefined) setToolInitialTab(options.toolTab);
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
     setActivePage(page);
     setMobileMenuOpen(false);
     const newHash = page === 'home' ? '' : `#${page}`;
@@ -312,10 +320,10 @@ export default function App() {
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      {/* HEADER PRINCIPAL — Losange central officiel Himalaya + Mode compact au scroll (#2, #3) */}
+      {/* HEADER PRINCIPAL — Architecture 3 Gauche / Losange Central / 3 Droite + Sous-menus épurés (1 à 20) */}
       <header className={`main-header ${isScrolled ? 'is-scrolled' : ''}`}>
         <div className="container header-inner">
-          {/* Navigation Gauche : Multi-Prêts Hypothèques + À propos, Agences, Courtiers, Actualités (#2) */}
+          {/* Navigation Gauche (3 onglets aérés : L'Agence ▾, Courtiers ▾, Franchises ▾) */}
           <nav className="desktop-nav header-nav-side header-nav-left">
             <a
               href="https://equipeimpact-multi-prets.zohobookings.ca/#/Himalaya"
@@ -332,25 +340,227 @@ export default function App() {
               />
             </a>
             <ul className="nav-links">
-              <li>
-                <button className={`nav-btn ${activePage === 'a-propos' ? 'active' : ''}`} onClick={() => navigateTo('a-propos')}>
-                  {t.nav.about}
+              {/* 1. L'AGENCE ▾ (Fusion À propos + Agences + Carrières + Partenaires + FAQ — Idées 13 à 16) */}
+              <li className="nav-item-dropdown">
+                <button
+                  className={`nav-btn ${(activePage === 'a-propos' || activePage === 'agences') ? 'active' : ''}`}
+                  onClick={() => navigateTo('a-propos', { aboutTab: 'qui-nous-sommes' })}
+                >
+                  {isEn ? 'The Agency' : 'L’Agence'} <span className="nav-btn-chevron">▾</span>
                 </button>
+                <div className="nav-dropdown-panel">
+                  <div className="nav-dropdown-kicker">
+                    {isEn ? 'Immobilier Himalaya Corp.' : 'Immobilier Himalaya Corp.'}
+                  </div>
+                  <button
+                    type="button"
+                    className="nav-dropdown-link"
+                    onClick={() => navigateTo('a-propos', { aboutTab: 'qui-nous-sommes' })}
+                  >
+                    <span className="nav-dropdown-link-title">
+                      {isEn ? 'Who We Are & Co-Founders' : 'Qui nous sommes & Co-fondateurs'}
+                    </span>
+                    <span className="nav-dropdown-link-sub">
+                      {isEn ? 'Roger Rhéaume & Geniev Mondoux' : 'Roger Rhéaume & Geniev Mondoux'}
+                    </span>
+                  </button>
+                  <button
+                    type="button"
+                    className="nav-dropdown-link"
+                    onClick={() => navigateTo('agences')}
+                  >
+                    <span className="nav-dropdown-link-title">
+                      {isEn ? 'Our Offices (Montreal, Paris & International)' : 'Nos Bureaux (Montréal, Paris & International)'}
+                    </span>
+                    <span className="nav-dropdown-link-sub">
+                      {isEn ? 'Headquarters & affiliated agencies worldwide' : 'Siège social et réseau d’agences affiliées'}
+                    </span>
+                  </button>
+                  <button
+                    type="button"
+                    className="nav-dropdown-link"
+                    onClick={() => navigateTo('a-propos', { aboutTab: 'services' })}
+                  >
+                    <span className="nav-dropdown-link-title">
+                      {isEn ? 'Services & Associations' : 'Services & Associations'}
+                    </span>
+                    <span className="nav-dropdown-link-sub">
+                      {isEn ? 'Commercial, Residential, CQF & CCIFP' : 'Commercial, Résidentiel, CQF & CCIFP'}
+                    </span>
+                  </button>
+                  <div className="nav-dropdown-divider" />
+                  <button
+                    type="button"
+                    className="nav-dropdown-link"
+                    onClick={() => navigateTo('a-propos', { aboutTab: 'carrieres' })}
+                  >
+                    <span className="nav-dropdown-link-title">
+                      {isEn ? 'Careers — Become a Broker or Affiliate' : 'Carrières — Devenir courtier ou affilié'}
+                    </span>
+                    <span className="nav-dropdown-link-sub">
+                      {isEn ? 'Confidential recruitment & international network' : 'Candidature confidentielle & affiliation'}
+                    </span>
+                  </button>
+                  <button
+                    type="button"
+                    className="nav-dropdown-link"
+                    onClick={() => navigateTo('a-propos', { aboutTab: 'liens' })}
+                  >
+                    <span className="nav-dropdown-link-title">
+                      {isEn ? 'Professional Partners & Official Links' : 'Partenaires professionnels & Liens utiles'}
+                    </span>
+                    <span className="nav-dropdown-link-sub">
+                      {isEn ? 'Notaries, lawyers, tax experts & surveyors' : 'Notaires, avocats, fiscalistes & arpenteurs'}
+                    </span>
+                  </button>
+                  <button
+                    type="button"
+                    className="nav-dropdown-link"
+                    onClick={() => navigateTo('a-propos', { aboutTab: 'faq' })}
+                  >
+                    <span className="nav-dropdown-link-title">
+                      {isEn ? 'Frequently Asked Questions (FAQ)' : 'Foire aux questions (FAQ)'}
+                    </span>
+                    <span className="nav-dropdown-link-sub">
+                      {isEn ? '12 key answers on brokerage in Quebec' : '12 réponses clés sur le courtage au Québec'}
+                    </span>
+                  </button>
+                </div>
               </li>
-              <li>
-                <button className={`nav-btn ${activePage === 'agences' ? 'active' : ''}`} onClick={() => navigateTo('agences')}>
-                  {t.nav.agencies}
+
+              {/* 2. COURTIERS ▾ (Accès direct + filtres par spécialité) */}
+              <li className="nav-item-dropdown">
+                <button
+                  className={`nav-btn ${activePage === 'courtiers' ? 'active' : ''}`}
+                  onClick={() => navigateTo('courtiers', { brokerCategoryFilter: 'all' })}
+                >
+                  {t.nav.brokers} <span className="nav-btn-chevron">▾</span>
                 </button>
+                <div className="nav-dropdown-panel">
+                  <div className="nav-dropdown-kicker">
+                    {isEn ? 'Our Brokerage Team' : 'Notre équipe de courtiers'}
+                  </div>
+                  <button
+                    type="button"
+                    className="nav-dropdown-link"
+                    onClick={() => navigateTo('courtiers', { brokerCategoryFilter: 'all' })}
+                  >
+                    <span className="nav-dropdown-link-title">
+                      {isEn ? `All Our Brokers (${INITIAL_HIMALAYA_BROKERS.length})` : `Toute l’équipe (${INITIAL_HIMALAYA_BROKERS.length} courtiers)`}
+                    </span>
+                    <span className="nav-dropdown-link-sub">
+                      {isEn ? 'Complete directory & active mandates' : 'Répertoire complet et mandats actifs'}
+                    </span>
+                  </button>
+                  <div className="nav-dropdown-divider" />
+                  <button
+                    type="button"
+                    className="nav-dropdown-link"
+                    onClick={() => navigateTo('courtiers', { brokerCategoryFilter: 'direction' })}
+                  >
+                    <span className="nav-dropdown-link-title">
+                      {isEn ? 'Executive Management & Co-Founders' : 'Direction & Co-fondateurs'}
+                    </span>
+                    <span className="nav-dropdown-link-sub">
+                      {isEn ? 'Roger Rhéaume & Geniev Mondoux' : 'Roger Rhéaume & Geniev Mondoux'}
+                    </span>
+                  </button>
+                  <button
+                    type="button"
+                    className="nav-dropdown-link"
+                    onClick={() => navigateTo('courtiers', { brokerCategoryFilter: 'commercial' })}
+                  >
+                    <span className="nav-dropdown-link-title">
+                      {isEn ? 'Commercial & Investment Brokerage' : 'Courtage Commercial & Investissement'}
+                    </span>
+                    <span className="nav-dropdown-link-sub">
+                      {isEn ? 'Businesses, industrial, multi-family & franchises' : 'Entreprises, industriel, multilogements & franchises'}
+                    </span>
+                  </button>
+                  <button
+                    type="button"
+                    className="nav-dropdown-link"
+                    onClick={() => navigateTo('courtiers', { brokerCategoryFilter: 'residentiel' })}
+                  >
+                    <span className="nav-dropdown-link-title">
+                      {isEn ? 'Residential Brokerage' : 'Courtage Résidentiel'}
+                    </span>
+                    <span className="nav-dropdown-link-sub">
+                      {isEn ? 'Homes, condos, estates & prestige properties' : 'Maisons, condos, domaines & propriétés de prestige'}
+                    </span>
+                  </button>
+                  <button
+                    type="button"
+                    className="nav-dropdown-link"
+                    onClick={() => navigateTo('courtiers', { brokerCategoryFilter: 'international' })}
+                  >
+                    <span className="nav-dropdown-link-title">
+                      {isEn ? 'International Network (Paris & Europe)' : 'Réseau International (Paris & Europe)'}
+                    </span>
+                    <span className="nav-dropdown-link-sub">
+                      {isEn ? 'Cross-border support & affiliated brokers' : 'Accompagnement transatlantique & courtiers affiliés'}
+                    </span>
+                  </button>
+                </div>
               </li>
-              <li>
-                <button className={`nav-btn ${activePage === 'courtiers' ? 'active' : ''}`} onClick={() => navigateTo('courtiers')}>
-                  {t.nav.brokers}
+
+              {/* 3. FRANCHISES ▾ (Idées 10 à 12 : Pacini, Arabian Oud, Grillade Taurino, Emplacements, CQF/Paris) */}
+              <li className="nav-item-dropdown">
+                <button
+                  className={`nav-btn ${activePage === 'franchises' ? 'active' : ''}`}
+                  onClick={() => navigateTo('franchises')}
+                >
+                  Franchises <span className="nav-btn-chevron">▾</span>
                 </button>
-              </li>
-              <li>
-                <button className={`nav-btn ${activePage === 'evenements' ? 'active' : ''}`} onClick={() => navigateTo('evenements')}>
-                  {t.nav.news}
-                </button>
+                <div className="nav-dropdown-panel">
+                  <div className="nav-dropdown-kicker">
+                    {isEn ? 'Franchise Division • CQF Member' : 'Pôle Franchises • Membre CQF'}
+                  </div>
+                  <button
+                    type="button"
+                    className="nav-dropdown-link"
+                    onClick={() => navigateTo('franchises')}
+                  >
+                    <span className="nav-dropdown-link-title">
+                      {isEn ? 'Our Franchise Clients' : 'Nos Enseignes Clientes'}
+                    </span>
+                    <span className="nav-dropdown-link-sub">
+                      Pacini • Arabian Oud • Grillade Taurino
+                    </span>
+                  </button>
+                  <button
+                    type="button"
+                    className="nav-dropdown-link"
+                    onClick={() => {
+                      setContactForm(prev => ({
+                        ...prev,
+                        subject: isEn
+                          ? 'Franchise Expansion — Find a Commercial Location'
+                          : 'Expansion de franchise — Trouver un emplacement commercial'
+                      }));
+                      navigateTo('nous-joindre', { contactTab: 'general' });
+                    }}
+                  >
+                    <span className="nav-dropdown-link-title">
+                      {isEn ? 'Find a Location for My Franchise' : 'Trouver un emplacement pour ma franchise'}
+                    </span>
+                    <span className="nav-dropdown-link-sub">
+                      {isEn ? 'Site selection & commercial lease negotiation' : 'Sélection de sites & négociation de baux commerciaux'}
+                    </span>
+                  </button>
+                  <button
+                    type="button"
+                    className="nav-dropdown-link"
+                    onClick={() => navigateTo('evenements')}
+                  >
+                    <span className="nav-dropdown-link-title">
+                      {isEn ? 'CQF Network & Franchise Expo Paris' : 'Réseau CQF & Franchise Expo Paris'}
+                    </span>
+                    <span className="nav-dropdown-link-sub">
+                      {isEn ? 'Quebec–Europe trade missions & conventions' : 'Missions Québec–Europe & salons de la franchise'}
+                    </span>
+                  </button>
+                </div>
               </li>
             </ul>
           </nav>
@@ -384,33 +594,239 @@ export default function App() {
             </div>
           </div>
 
-          {/* Navigation Droite (Propriétés, Franchises, Outils, Balados, Nous joindre, FR | EN) */}
+          {/* Navigation Droite (3 onglets aérés : Propriétés ▾, Outils & Médias ▾, Nous joindre ▾ + FR | EN) */}
           <div className="desktop-nav header-nav-side header-nav-right">
             <ul className="nav-links">
-              <li>
-                <button className={`nav-btn ${activePage === 'proprietes' ? 'active' : ''}`} onClick={() => navigateTo('proprietes')}>
-                  {t.nav.properties}
+              {/* 4. PROPRIÉTÉS ▾ (Idées 5 à 9 : Commercial, Pourvoiries, Terrains, Résidentiel, Carte, NDA) */}
+              <li className="nav-item-dropdown">
+                <button
+                  className={`nav-btn ${activePage === 'proprietes' ? 'active' : ''}`}
+                  onClick={() => navigateTo('proprietes', { filtrePropriete: 'all', propertiesViewMode: 'grid' })}
+                >
+                  {t.nav.properties} <span className="nav-btn-chevron">▾</span>
                 </button>
+                <div className="nav-dropdown-panel align-right">
+                  <div className="nav-dropdown-kicker">
+                    {isEn ? `Active Portfolio (${liveDealsData.length} Mandates)` : `Portefeuille actif (${liveDealsData.length} mandats)`}
+                  </div>
+                  <button
+                    type="button"
+                    className="nav-dropdown-link"
+                    onClick={() => navigateTo('proprietes', { filtrePropriete: 'commercial', propertiesViewMode: 'grid' })}
+                  >
+                    <span className="nav-dropdown-link-title">
+                      {isEn ? 'Commercial & Investment Real Estate' : 'Immobilier Commercial & Investissement'}
+                    </span>
+                    <span className="nav-dropdown-link-sub">
+                      {isEn ? 'Commercial buildings, industrial, multi-family & businesses' : 'Immeubles commerciaux, industriel, multilogements & fonds de commerce'}
+                    </span>
+                  </button>
+                  <button
+                    type="button"
+                    className="nav-dropdown-link"
+                    onClick={() => navigateTo('proprietes', { filtrePropriete: 'pourvoirie', propertiesViewMode: 'grid' })}
+                  >
+                    <span className="nav-dropdown-link-title">
+                      {isEn ? 'Outfitters, Estates & Hospitality' : 'Pourvoiries, Domaines & Hôtellerie'}
+                    </span>
+                    <span className="nav-dropdown-link-sub">
+                      {isEn ? 'Exclusive hunting/fishing lodges, campgrounds & resorts' : 'Pourvoiries, campings, auberges & centres de villégiature'}
+                    </span>
+                  </button>
+                  <button
+                    type="button"
+                    className="nav-dropdown-link"
+                    onClick={() => navigateTo('proprietes', { filtrePropriete: 'terrain', propertiesViewMode: 'grid' })}
+                  >
+                    <span className="nav-dropdown-link-title">
+                      {isEn ? 'Land & Development Sites' : 'Terrains & Développement'}
+                    </span>
+                    <span className="nav-dropdown-link-sub">
+                      {isEn ? 'Development land, forestry & waterfront lots' : 'Terrains à développer, terres boisées & lots riverains'}
+                    </span>
+                  </button>
+                  <button
+                    type="button"
+                    className="nav-dropdown-link"
+                    onClick={() => navigateTo('proprietes', { filtrePropriete: 'residentiel', propertiesViewMode: 'grid' })}
+                  >
+                    <span className="nav-dropdown-link-title">
+                      {isEn ? 'Residential & Prestige' : 'Résidentiel & Prestige'}
+                    </span>
+                    <span className="nav-dropdown-link-sub">
+                      {isEn ? 'Houses, condos, chalets & luxury residences' : 'Maisons, condos, chalets & résidences de prestige'}
+                    </span>
+                  </button>
+                  <div className="nav-dropdown-divider" />
+                  <button
+                    type="button"
+                    className="nav-dropdown-link"
+                    onClick={() => navigateTo('proprietes', { filtrePropriete: 'all', propertiesViewMode: 'map' })}
+                  >
+                    <span className="nav-dropdown-link-title">
+                      {isEn ? 'Interactive Map of Properties' : 'Carte interactive des mandats'}
+                    </span>
+                    <span className="nav-dropdown-link-sub">
+                      {isEn ? 'Geolocated view across Quebec' : 'Exploration géographique à travers le Québec'}
+                    </span>
+                  </button>
+                  <button
+                    type="button"
+                    className="nav-dropdown-link"
+                    onClick={() => setNdaModalDeal(null)}
+                  >
+                    <span className="nav-dropdown-link-title" style={{ color: 'var(--gold-light)' }}>
+                      {isEn ? 'Off-Market Mandates Access (NDA)' : 'Accès Mandats Hors-Marché (NDA)'}
+                    </span>
+                    <span className="nav-dropdown-link-sub">
+                      {isEn ? 'Confidential files for qualified buyers' : 'Dossiers confidentiels pour acquéreurs qualifiés'}
+                    </span>
+                  </button>
+                </div>
               </li>
-              <li>
-                <button className={`nav-btn ${activePage === 'franchises' ? 'active' : ''}`} onClick={() => navigateTo('franchises')}>
-                  Franchises
+
+              {/* 5. OUTILS & MÉDIAS ▾ (Idées 17 à 20 : Fusion Outils + Multi-Prêts + Actualités + Balados) */}
+              <li className="nav-item-dropdown">
+                <button
+                  className={`nav-btn ${(activePage === 'outils' || activePage === 'evenements' || activePage === 'balados') ? 'active' : ''}`}
+                  onClick={() => navigateTo('outils', { toolTab: 'plex' })}
+                >
+                  {isEn ? 'Tools & Media' : 'Outils & Médias'} <span className="nav-btn-chevron">▾</span>
                 </button>
+                <div className="nav-dropdown-panel align-right">
+                  <div className="nav-dropdown-kicker">
+                    {isEn ? 'Financial Simulators 2026' : 'Simulateurs & Calculateurs 2026'}
+                  </div>
+                  <button
+                    type="button"
+                    className="nav-dropdown-link"
+                    onClick={() => navigateTo('outils', { toolTab: 'plex' })}
+                  >
+                    <span className="nav-dropdown-link-title">
+                      {isEn ? 'Commercial & Multi-Family ROI (Cap Rate)' : 'Analyseur Commercial & Plex (TGA / Cap Rate)'}
+                    </span>
+                    <span className="nav-dropdown-link-sub">
+                      {isEn ? 'NOI, Cap Rate, GIM & Cash-on-Cash' : 'RNO, TGA, MRB et flux de trésorerie net'}
+                    </span>
+                  </button>
+                  <button
+                    type="button"
+                    className="nav-dropdown-link"
+                    onClick={() => navigateTo('outils', { toolTab: 'welcome' })}
+                  >
+                    <span className="nav-dropdown-link-title">
+                      {isEn ? 'Welcome Tax Calculator (Transfer Duties)' : 'Calculateur de Taxe de bienvenue'}
+                    </span>
+                    <span className="nav-dropdown-link-sub">
+                      {isEn ? 'Official 2026 Montreal & Quebec brackets' : 'Barèmes officiels 2026 Montréal & Québec'}
+                    </span>
+                  </button>
+                  <button
+                    type="button"
+                    className="nav-dropdown-link"
+                    onClick={() => navigateTo('outils', { toolTab: 'mortgage' })}
+                  >
+                    <span className="nav-dropdown-link-title">
+                      {isEn ? 'Mortgage & B-20 Borrowing Capacity' : 'Simulateur Hypothécaire & Capacité B-20'}
+                    </span>
+                    <span className="nav-dropdown-link-sub">
+                      {isEn ? 'Payments, CMHC & closing costs' : 'Versements, SCHL et frais de clôture'}
+                    </span>
+                  </button>
+                  <a
+                    href="https://equipeimpact-multi-prets.zohobookings.ca/#/Himalaya"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="nav-dropdown-link"
+                  >
+                    <span className="nav-dropdown-link-title">
+                      {isEn ? 'Mortgage Pre-Qualification (Multi-Prêts)' : 'Préqualification Hypothécaire (Multi-Prêts)'}
+                      <ExternalLink size={12} style={{ color: 'var(--gold)' }} />
+                    </span>
+                    <span className="nav-dropdown-link-sub">
+                      {isEn ? 'Book directly with our Multi-Prêts partner' : 'Rendez-vous direct avec notre partenaire Multi-Prêts'}
+                    </span>
+                  </a>
+                  <div className="nav-dropdown-divider" />
+                  <div className="nav-dropdown-kicker">
+                    {isEn ? 'News, Conventions & Podcasts' : 'Médias, Salons & Balados'}
+                  </div>
+                  <button
+                    type="button"
+                    className="nav-dropdown-link"
+                    onClick={() => navigateTo('evenements')}
+                  >
+                    <span className="nav-dropdown-link-title">
+                      {isEn ? 'News & Events (CQF / Paris)' : 'Actualités & Salons (CQF / Paris)'}
+                    </span>
+                    <span className="nav-dropdown-link-sub">
+                      {isEn ? 'Trade shows, conferences & multi-year archives' : 'Salons internationaux, conférences et archives'}
+                    </span>
+                  </button>
+                  <button
+                    type="button"
+                    className="nav-dropdown-link"
+                    onClick={() => navigateTo('balados')}
+                  >
+                    <span className="nav-dropdown-link-title">
+                      {isEn ? 'Himalaya Real Estate Podcasts' : 'Balados Immobiliers Himalaya'}
+                    </span>
+                    <span className="nav-dropdown-link-sub">
+                      {isEn ? 'Listen to our episodes on investment & franchises' : 'Écoutez nos épisodes sur l’investissement et les franchises'}
+                    </span>
+                  </button>
+                </div>
               </li>
-              <li>
-                <button className={`nav-btn ${activePage === 'outils' ? 'active' : ''}`} onClick={() => navigateTo('outils')}>
-                  {t.nav.tools}
+
+              {/* 6. NOUS JOINDRE ▾ (Bouton d'action doré épuré à l'extrême droite — Idée #3) */}
+              <li className="nav-item-dropdown">
+                <button
+                  className={`nav-btn nav-btn-cta ${activePage === 'nous-joindre' ? 'active' : ''}`}
+                  onClick={() => navigateTo('nous-joindre', { contactTab: 'general' })}
+                >
+                  {t.nav.contact} <span className="nav-btn-chevron">▾</span>
                 </button>
-              </li>
-              <li>
-                <button className={`nav-btn ${activePage === 'balados' ? 'active' : ''}`} onClick={() => navigateTo('balados')}>
-                  {t.nav.podcasts}
-                </button>
-              </li>
-              <li>
-                <button className={`nav-btn ${activePage === 'nous-joindre' ? 'active' : ''}`} onClick={() => navigateTo('nous-joindre')}>
-                  {t.nav.contact}
-                </button>
+                <div className="nav-dropdown-panel align-right">
+                  <div className="nav-dropdown-kicker">
+                    {isEn ? 'Direct Contact & Advisory' : 'Contact direct & Accompagnement'}
+                  </div>
+                  <button
+                    type="button"
+                    className="nav-dropdown-link"
+                    onClick={() => navigateTo('nous-joindre', { contactTab: 'general' })}
+                  >
+                    <span className="nav-dropdown-link-title">
+                      {isEn ? 'Contact Our Offices (Montreal & Paris)' : 'Contacter nos bureaux (Montréal & Paris)'}
+                    </span>
+                    <span className="nav-dropdown-link-sub">
+                      (514) 379-1788 • info@himalayacorp.com
+                    </span>
+                  </button>
+                  <button
+                    type="button"
+                    className="nav-dropdown-link"
+                    onClick={() => navigateTo('nous-joindre', { contactTab: 'valuation' })}
+                  >
+                    <span className="nav-dropdown-link-title" style={{ color: 'var(--gold-light)' }}>
+                      {isEn ? 'Request a Free Property Valuation' : 'Évaluer ma propriété gratuitement'}
+                    </span>
+                    <span className="nav-dropdown-link-sub">
+                      {isEn ? 'Confidential market opinion for sellers' : 'Opinion de la valeur marchande confidentielle'}
+                    </span>
+                  </button>
+                  <button
+                    type="button"
+                    className="nav-dropdown-link"
+                    onClick={() => navigateTo('a-propos', { aboutTab: 'carrieres' })}
+                  >
+                    <span className="nav-dropdown-link-title">
+                      {isEn ? 'Join Himalaya (Brokers & Affiliates)' : 'Joindre Himalaya (Courtiers & Affiliés)'}
+                    </span>
+                    <span className="nav-dropdown-link-sub">
+                      {isEn ? 'Submit your confidential application' : 'Soumettre une candidature confidentielle'}
+                    </span>
+                  </button>
+                </div>
               </li>
             </ul>
 
@@ -419,8 +835,8 @@ export default function App() {
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '4px',
-                marginLeft: '6px',
-                paddingLeft: '8px',
+                marginLeft: '4px',
+                paddingLeft: '10px',
                 borderLeft: '1px solid rgba(255,255,255,0.16)'
               }}
             >
@@ -1095,6 +1511,7 @@ export default function App() {
             onNavigate={navigateTo}
             preselectedDeal={toolPreselectedDeal}
             onClearPreselectedDeal={() => setToolPreselectedDeal(null)}
+            initialTool={toolInitialTab}
           />
         </Suspense>
       )}
