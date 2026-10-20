@@ -488,7 +488,7 @@ export default function App() {
                 >
                   {tr(lang, 'Franchises', 'Franchises', 'Franquicias', '特许经营')} <span className="nav-btn-chevron">▾</span>
                 </button>
-                <div className="nav-dropdown-panel">
+                <div className="nav-dropdown-panel align-right">
                   <button
                     type="button"
                     className="nav-dropdown-link"
@@ -573,7 +573,7 @@ export default function App() {
                 >
                   {t.nav.properties} <span className="nav-btn-chevron">▾</span>
                 </button>
-                <div className="nav-dropdown-panel align-right">
+                <div className="nav-dropdown-panel">
                   <button
                     type="button"
                     className="nav-dropdown-link"
@@ -649,7 +649,7 @@ export default function App() {
                 >
                   {tr(lang, 'Outils & Médias', 'Tools & Media', 'Herramientas', '金融工具与媒体')} <span className="nav-btn-chevron">▾</span>
                 </button>
-                <div className="nav-dropdown-panel align-right">
+                <div className="nav-dropdown-panel">
                   <button
                     type="button"
                     className="nav-dropdown-link"
