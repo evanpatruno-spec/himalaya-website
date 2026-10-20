@@ -321,8 +321,10 @@ export default function App() {
               title={isEn ? 'Multi-Prêts Mortgages — Pre-Qualification' : 'Multi-Prêts Hypothèques — Préqualification'}
             >
               <img
-                src="https://www.himalayacorp.com/gx/m/Multi_Prets.png"
+                src="/gx/m/Multi_Prets.png"
                 alt="Multi-Prêts Hypothèques"
+                fetchPriority="high"
+                decoding="sync"
               />
             </a>
             <ul className="nav-links">
@@ -358,9 +360,10 @@ export default function App() {
             >
               <img
                 className="diamond-logo-full"
-                src="https://www.himalayacorp.com/gx/himalaya-immobilier-logo.svg"
+                src="/gx/himalaya-immobilier-logo.png"
                 alt="Immobilier Himalaya Real Estate Corp."
-                onError={e => { e.target.src = 'https://www.himalayacorp.com/gx/himalaya-immobilier-logo.png'; }}
+                fetchPriority="high"
+                decoding="sync"
               />
             </div>
             <div
@@ -532,7 +535,8 @@ export default function App() {
               loop 
               muted 
               playsInline
-              poster="https://www.himalayacorp.com/gx/partage.jpg"
+              preload="metadata"
+              poster="/gx/partage.jpg"
             >
               <source src="https://www.himalayacorp.com/gx/video/Himalaya.mp4" type="video/mp4" />
               <source src="https://www.himalayacorp.com/gx/video/Himalaya.webm" type="video/webm" />
@@ -1095,6 +1099,8 @@ export default function App() {
                       <img 
                         src={broker.photo} 
                         alt={broker.name}
+                        loading="lazy"
+                        decoding="async"
                         style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center', display: 'block' }}
                         onError={e => { e.target.src = 'https://www.himalayacorp.com/gx/00/defaut_courtier.jpg'; }}
                       />
@@ -1577,11 +1583,10 @@ export default function App() {
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '20px', flexWrap: 'wrap' }}>
               <img 
-                src="https://www.himalayacorp.com/gx/himalaya-immobilier-logo.svg" 
+                src="/gx/himalaya-immobilier-logo.png" 
                 alt="Himalaya" 
                 style={{ height: '42px', display: 'block', cursor: 'pointer' }}
                 onClick={() => navigateTo('home')}
-                onError={e => { e.target.src = 'https://www.himalayacorp.com/gx/himalaya-immobilier-logo.png'; }}
               />
               <a
                 href="https://equipeimpact-multi-prets.zohobookings.ca/#/Himalaya"
@@ -1591,9 +1596,9 @@ export default function App() {
                 title="Multi-Prêts Hypothèques"
               >
                 <img
-                  src="https://www.himalayacorp.com/gx/m/Multi_Prets.png"
+                  src="/gx/m/Multi_Prets.png"
                   alt="Multi-Prêts Hypothèques"
-                  style={{ height: '24px', objectFit: 'contain' }}
+                  style={{ height: '28px', objectFit: 'contain' }}
                 />
               </a>
             </div>
@@ -1755,6 +1760,8 @@ function PropertyCard({ deal, t, onSelect }) {
         <img 
           src={deal.main_photo} 
           alt={displayTitle}
+          loading="lazy"
+          decoding="async"
           onError={e => { e.target.src = 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=900&q=80'; }}
         />
         <div style={{

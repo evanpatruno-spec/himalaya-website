@@ -229,7 +229,7 @@ button, select, input, textarea {
   transform-origin: top center;
   width: 310px;
   height: 220px;
-  background: url('https://www.himalayacorp.com/gx/m/bg-logo.png') top center / 100% auto no-repeat;
+  background: url('/gx/m/bg-logo.png') top center / 100% auto no-repeat;
   padding-top: 22px;
   display: flex;
   flex-direction: column;
@@ -302,7 +302,7 @@ button, select, input, textarea {
   content: '';
   position: absolute;
   inset: 0;
-  background: url('https://www.himalayacorp.com/gx/m/bg-gen.jpg') 50% 0 no-repeat;
+  background: url('/gx/m/bg-gen.jpg') 50% 0 no-repeat;
   background-size: cover;
   filter: grayscale(100%) contrast(1.08) brightness(0.88);
   z-index: 0;

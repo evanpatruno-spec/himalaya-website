@@ -338,7 +338,7 @@ export const SPECIALTIES_DATA = [
     subtitle: 'Bâtisses commerciales, industrielles, terrains & bureaux',
     subtitle_en: 'Commercial & industrial buildings, land & offices',
     filterCategory: 'Commercial',
-    image: 'https://www.himalayacorp.com/gx/01/specialite1.jpg',
+    image: '/gx/01/specialite1.jpg',
     fallbackImage: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=900&q=80'
   },
   {
@@ -348,7 +348,7 @@ export const SPECIALTIES_DATA = [
     subtitle: 'Villégiature, pourvoiries, campings & centres de plein air',
     subtitle_en: 'Resorts, outfitters, campgrounds & outdoor estates',
     filterCategory: 'Pourvoirie',
-    image: 'https://www.himalayacorp.com/gx/01/specialite2.jpg',
+    image: '/gx/01/specialite2.jpg',
     fallbackImage: 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=900&q=80'
   },
   {
@@ -358,7 +358,7 @@ export const SPECIALTIES_DATA = [
     subtitle: 'Clients privilégiés, propriétés résidentielles & investissement',
     subtitle_en: 'Privileged clients, residential properties & investment',
     filterCategory: 'Résidentiel',
-    image: 'https://www.himalayacorp.com/gx/01/specialite3.jpg?v=2',
+    image: '/gx/01/specialite3.jpg',
     fallbackImage: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=900&q=80'
   },
   {
@@ -368,7 +368,7 @@ export const SPECIALTIES_DATA = [
     subtitle: 'Réseau international de courtiers et d’investisseurs',
     subtitle_en: 'International network of brokers and investors',
     filterCategory: 'International',
-    image: 'https://www.himalayacorp.com/gx/01/specialite4.jpg',
+    image: '/gx/01/specialite4.jpg',
     fallbackImage: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=900&q=80'
   }
 ];
