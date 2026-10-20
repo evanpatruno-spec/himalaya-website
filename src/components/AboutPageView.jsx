@@ -69,7 +69,7 @@ export default function AboutPageView({
         {/* En-tête de la page À propos */}
         <div style={{ marginBottom: '28px' }}>
           <span className="badge-gold" style={{ marginBottom: '10px' }}>
-            Immobilier Himalaya Real Estate Corp. • {isEn ? 'Founded in 2008' : 'Fondée en 2008'}
+            {isEn ? 'Founded in 2008' : 'Fondée en 2008'}
           </span>
           <h1 style={{ fontSize: '2.25rem', fontWeight: 700, lineHeight: 1.2, marginBottom: '8px' }}>
             {c.pageTitle} <span className="gold-gradient-text">Himalaya</span>

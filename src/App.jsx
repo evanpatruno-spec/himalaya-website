@@ -518,7 +518,6 @@ export default function App() {
       {activePage !== 'home' && (
         <section className="internal-mountain-banner">
           <h1 className="internal-banner-title">{internalBannerTitle}</h1>
-          <div className="internal-banner-subtitle">Immobilier Himalaya Real Estate Corp.</div>
         </section>
       )}
 
