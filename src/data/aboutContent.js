@@ -18,6 +18,8 @@ export const ABOUT_CONTENT = {
       { id: 'qui-nous-sommes', label: 'Qui nous sommes' },
       { id: 'co-fondateurs', label: 'Co-fondateurs' },
       { id: 'services', label: 'Services & Associations' },
+      { id: 'franchises', label: 'Franchises & Bannières' },
+      { id: 'transactions', label: 'Transactions Réalisées' },
       { id: 'carrieres', label: 'Carrières & Affiliés' },
       { id: 'faq', label: 'Foire aux questions' },
       { id: 'liens', label: 'Liens immobiliers' }
@@ -418,6 +420,8 @@ export const ABOUT_CONTENT = {
       { id: 'qui-nous-sommes', label: 'Who We Are' },
       { id: 'co-fondateurs', label: 'Co-Founders' },
       { id: 'services', label: 'Services & Associations' },
+      { id: 'franchises', label: 'Franchises & Retail Banners' },
+      { id: 'transactions', label: 'Track Record & Sold' },
       { id: 'carrieres', label: 'Careers & Affiliates' },
       { id: 'faq', label: 'FAQ' },
       { id: 'liens', label: 'Real Estate Links' }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   ChevronRight,
   ChevronDown,
@@ -12,21 +12,61 @@ import {
   Award,
   Globe,
   Phone,
-  ArrowRight
+  ArrowRight,
+  Store,
+  TrendingUp,
+  MapPin
 } from 'lucide-react';
 import { ABOUT_CONTENT } from '../data/aboutContent';
+import {
+  HIMALAYA_FRANCHISE_SECTORS,
+  HIMALAYA_FRANCHISE_HIGHLIGHTS,
+  HIMALAYA_TRACK_RECORD
+} from '../data/siteContent';
 import { submitLeadToProspection } from '../utils/prospectionBridge';
 
 export default function AboutPageView({
   lang = 'FR',
   directors = [],
   onSelectBroker,
-  onNavigate
+  onNavigate,
+  initialTab = 'qui-nous-sommes'
 }) {
   const isEn = lang === 'EN';
   const c = ABOUT_CONTENT[isEn ? 'EN' : 'FR'];
-  const [activeTab, setActiveTab] = useState('qui-nous-sommes');
+  const [activeTab, setActiveTab] = useState(initialTab || 'qui-nous-sommes');
   const [openFaqIndex, setOpenFaqIndex] = useState(0);
+  const [trackRecordFilter, setTrackRecordFilter] = useState('all');
+
+  useEffect(() => {
+    if (initialTab) setActiveTab(initialTab);
+  }, [initialTab]);
+
+  // États du formulaire Franchiseur / Recherche d'emplacement (#36)
+  const [franchiseBrand, setFranchiseBrand] = useState('');
+  const [franchiseSector, setFranchiseSector] = useState('Restauration & Alimentation');
+  const [franchiseSqft, setFranchiseSqft] = useState('');
+  const [franchiseRegions, setFranchiseRegions] = useState('');
+  const [franchiseContactName, setFranchiseContactName] = useState('');
+  const [franchiseEmail, setFranchiseEmail] = useState('');
+  const [franchisePhone, setFranchisePhone] = useState('');
+  const [franchiseNotes, setFranchiseNotes] = useState('');
+  const [franchiseSent, setFranchiseSent] = useState(false);
+
+  const handleFranchiseSubmit = async (e) => {
+    e.preventDefault();
+    await submitLeadToProspection({
+      type: 'franchise_implantation',
+      source: 'Formulaire Franchises & Bannières (#36)',
+      subject: `Implantation Franchise : ${franchiseBrand} (${franchiseSector})`,
+      fullName: franchiseContactName,
+      email: franchiseEmail,
+      phone: franchisePhone,
+      city: franchiseRegions,
+      message: `Bannière: ${franchiseBrand} | Secteur: ${franchiseSector} | Superficie recherchée: ${franchiseSqft} | Régions cibles: ${franchiseRegions} | Détails: ${franchiseNotes}`
+    });
+    setFranchiseSent(true);
+  };
 
   // États du formulaire de candidature intégré (#14 — Devenir courtier / Devenir affilié)
   const [careerType, setCareerType] = useState('courtier');
@@ -415,6 +455,44 @@ export default function AboutPageView({
                   </p>
                   <span style={{ fontSize: '0.8rem', color: 'var(--gold-light)', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
                     {isEn ? 'View services' : 'Voir les services'} <ChevronRight size={14} />
+                  </span>
+                </div>
+
+                <div
+                  onClick={() => switchTab('franchises')}
+                  className="property-card"
+                  style={{ padding: '22px', cursor: 'pointer', borderColor: 'var(--border-gold)' }}
+                >
+                  <Store size={20} style={{ color: 'var(--gold)', marginBottom: '10px' }} />
+                  <h3 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '6px' }}>
+                    {isEn ? 'Franchises & Retail Banners' : 'Franchises & Bannières'}
+                  </h3>
+                  <p style={{ fontSize: '0.84rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '12px' }}>
+                    {isEn
+                      ? 'Strategic site selection in Quebec for franchisors and commercial banners (CQF Member, Franchise Expo Paris).'
+                      : 'Sélection d’emplacements stratégiques au Québec pour franchiseurs et enseignes (Membre CQF, Salon de Paris).'}
+                  </p>
+                  <span style={{ fontSize: '0.8rem', color: 'var(--gold-light)', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                    {isEn ? 'Find a franchise location' : 'Trouver un emplacement'} <ChevronRight size={14} />
+                  </span>
+                </div>
+
+                <div
+                  onClick={() => switchTab('transactions')}
+                  className="property-card"
+                  style={{ padding: '22px', cursor: 'pointer', borderColor: 'var(--border-gold)' }}
+                >
+                  <TrendingUp size={20} style={{ color: 'var(--gold)', marginBottom: '10px' }} />
+                  <h3 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '6px' }}>
+                    {isEn ? 'Track Record & Completed Sales' : 'Transactions Réalisées & Succès'}
+                  </h3>
+                  <p style={{ fontSize: '0.84rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '12px' }}>
+                    {isEn
+                      ? 'Landmark transactions, franchise rollouts, resort estates, and properties sold by the Himalaya team.'
+                      : 'Ventes réalisées, implantations de bannières et mandats marquants signés par l’équipe Himalaya.'}
+                  </p>
+                  <span style={{ fontSize: '0.8rem', color: 'var(--gold-light)', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                    {isEn ? 'View track record' : 'Voir nos réalisations'} <ChevronRight size={14} />
                   </span>
                 </div>
 
@@ -841,6 +919,453 @@ export default function AboutPageView({
                   ))}
                 </div>
               </div>
+            </div>
+          </div>
+        )}
+
+        {/* =================================================================
+            ONGLET #36 : FRANCHISES & BANNIÈRES ACCOMPAGNÉES PAR HIMALAYA
+           ================================================================= */}
+        {activeTab === 'franchises' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
+            {/* Bannière d'introduction CQF & Expansion commerciale */}
+            <div
+              style={{
+                background: 'var(--bg-card)',
+                border: '1px solid var(--border-gold)',
+                borderRadius: '14px',
+                padding: '32px'
+              }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px', marginBottom: '16px' }}>
+                <div>
+                  <span className="badge-gold" style={{ marginBottom: '10px' }}>
+                    {isEn ? 'Member of the Quebec Franchise Council (CQF)' : 'Membre du Conseil québécois de la franchise (CQF)'}
+                  </span>
+                  <h2 style={{ fontSize: '1.65rem', fontWeight: 700, color: '#fff' }}>
+                    {isEn
+                      ? 'Franchises, Commercial Banners & Strategic Site Selection'
+                      : 'Franchises, Bannières Commerciales & Implantation Stratégique'}
+                  </h2>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const el = document.getElementById('form-franchise-himalaya');
+                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }}
+                  className="btn-gold"
+                >
+                  <Store size={15} /> {isEn ? 'Find a Location for My Franchise' : 'Trouver un local pour ma franchise'}
+                </button>
+              </div>
+              <p style={{ fontSize: '0.96rem', color: 'var(--text-secondary)', lineHeight: 1.75, maxWidth: '920px' }}>
+                {isEn
+                  ? 'Whether you are a Quebec franchisor expanding your network or an international banner entering the Canadian market (Franchise Expo Paris, ICSC Las Vegas & Toronto), Himalaya Real Estate identifies high-traffic locations, analyzes demographic catchments, and negotiates your commercial leases (base rent, additional rent, installation period, and tenant improvement allowances).'
+                  : 'Que vous soyez un franchiseur québécois en pleine expansion ou une enseigne internationale souhaitant s’implanter au Québec et au Canada (Salon de la Franchise de Paris, ICSC Las Vegas & Toronto), Immobilier Himalaya identifie les emplacements à fort achalandage, analyse le potentiel géomarketing et négocie vos baux commerciaux (loyer de base, loyer additionnel, période d’installation gratuite et allocations d’améliorations locatives).'}
+              </p>
+            </div>
+
+            {/* Les 3 piliers de l'écosystème Franchise Himalaya */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))', gap: '18px' }}>
+              {HIMALAYA_FRANCHISE_HIGHLIGHTS.map((hl) => (
+                <div
+                  key={hl.id}
+                  style={{
+                    background: 'var(--bg-card)',
+                    border: '1px solid var(--border-subtle)',
+                    borderRadius: '14px',
+                    padding: '24px'
+                  }}
+                >
+                  <span className="badge-gold" style={{ marginBottom: '10px' }}>
+                    {isEn ? hl.badge_en : hl.badge}
+                  </span>
+                  <h3 style={{ fontSize: '1.12rem', fontWeight: 700, marginBottom: '8px', color: 'var(--gold-light)' }}>
+                    {isEn ? hl.title_en : hl.title}
+                  </h3>
+                  <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', lineHeight: 1.65 }}>
+                    {isEn ? hl.desc_en : hl.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            {/* Les 4 secteurs de franchises accompagnés */}
+            <div>
+              <h3 style={{ fontSize: '1.35rem', fontWeight: 700, marginBottom: '16px' }}>
+                {isEn ? 'Key Sectors & Banner Formats We Represent' : 'Secteurs d’activité & formats de bannières accompagnés'}
+              </h3>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '20px' }}>
+                {HIMALAYA_FRANCHISE_SECTORS.map((sec) => (
+                  <div
+                    key={sec.id}
+                    className="property-card"
+                    style={{ padding: '24px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '12px' }}
+                  >
+                    <div>
+                      <div style={{ fontSize: '0.76rem', color: 'var(--gold)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '6px' }}>
+                        {isEn ? sec.metrics_en : sec.metrics}
+                      </div>
+                      <h4 style={{ fontSize: '1.18rem', fontWeight: 700, marginBottom: '8px' }}>
+                        {isEn ? sec.title_en : sec.title}
+                      </h4>
+                      <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', lineHeight: 1.65 }}>
+                        {isEn ? sec.description_en : sec.description}
+                      </p>
+                    </div>
+                    {sec.examples && (
+                      <div style={{ paddingTop: '12px', borderTop: '1px solid var(--border-subtle)', fontSize: '0.8rem', color: 'var(--gold-light)', fontWeight: 500 }}>
+                        {isEn ? sec.examples_en : sec.examples}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Formulaire dédié « Trouver un local pour ma franchise » (#36) */}
+            <div
+              id="form-franchise-himalaya"
+              style={{
+                background: 'var(--bg-card)',
+                border: '1px solid var(--border-gold)',
+                borderRadius: '14px',
+                padding: '32px'
+              }}
+            >
+              <div style={{ marginBottom: '20px' }}>
+                <span className="badge-gold" style={{ marginBottom: '8px' }}>
+                  {isEn ? 'Confidential Site Selection Mandate' : 'Mandat de recherche d’emplacement commercial'}
+                </span>
+                <h3 style={{ fontSize: '1.45rem', fontWeight: 700 }}>
+                  {isEn ? 'Find a Strategic Location for My Franchise or Banner' : 'Trouver un local stratégique pour ma franchise ou bannière'}
+                </h3>
+                <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', marginTop: '4px' }}>
+                  {isEn
+                    ? 'Share your technical and geographic criteria with our commercial & franchise brokerage team.'
+                    : 'Confiez vos critères techniques et géographiques à notre équipe de courtage commercial et franchise.'}
+                </p>
+              </div>
+
+              {franchiseSent ? (
+                <div
+                  style={{
+                    padding: '24px',
+                    borderRadius: '12px',
+                    background: 'rgba(200, 164, 93, 0.12)',
+                    border: '1px solid var(--gold)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    flexWrap: 'wrap',
+                    gap: '16px'
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <CheckCircle2 size={24} color="var(--gold)" />
+                    <div>
+                      <div style={{ fontWeight: 700, fontSize: '1rem', color: '#fff' }}>
+                        {isEn ? 'Franchise Site Request Received!' : 'Demande d’implantation transmise avec succès !'}
+                      </div>
+                      <div style={{ fontSize: '0.86rem', color: 'var(--text-secondary)' }}>
+                        {isEn
+                          ? 'A specialized Himalaya commercial broker will contact you with matching on-market and off-market locations.'
+                          : 'Un courtier commercial Himalaya vous contactera rapidement avec des emplacements ciblés (sur le marché et hors marché).'}
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setFranchiseSent(false)}
+                    className="btn-outline"
+                    style={{ fontSize: '0.8rem', padding: '7px 14px' }}
+                  >
+                    {isEn ? 'New Request' : 'Nouvelle demande'}
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleFranchiseSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '14px' }}>
+                    <div>
+                      <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
+                        {isEn ? 'Banner / Franchise Name *' : 'Nom de la bannière / franchise *'}
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        className="form-control"
+                        value={franchiseBrand}
+                        onChange={(e) => setFranchiseBrand(e.target.value)}
+                        placeholder={isEn ? 'Ex: KROOD, Café, Retail Banner...' : 'Ex. : Bannière de restauration, boutique...'}
+                      />
+                    </div>
+                    <div>
+                      <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
+                        {isEn ? 'Business Sector *' : 'Secteur d’activité *'}
+                      </label>
+                      <select
+                        className="form-control"
+                        value={franchiseSector}
+                        onChange={(e) => setFranchiseSector(e.target.value)}
+                      >
+                        <option value="Restauration & Alimentation">{isEn ? 'Food Service & Restaurants' : 'Restauration & Alimentation'}</option>
+                        <option value="Commerce de détail">{isEn ? 'Retail & Storefront' : 'Commerce de détail & Boutique'}</option>
+                        <option value="Services & Cliniques">{isEn ? 'Services, Clinics & Fitness' : 'Services professionnels, Clinique & Santé'}</option>
+                        <option value="Hôtellerie & Villégiature">{isEn ? 'Hospitality & Resort' : 'Hôtellerie, Camping & Villégiature'}</option>
+                        <option value="Industriel & Entrepôt">{isEn ? 'Industrial & Distribution' : 'Industriel léger & Distribution'}</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
+                        {isEn ? 'Required Area (sq.ft.) *' : 'Superficie recherchée (pi²) *'}
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        className="form-control"
+                        value={franchiseSqft}
+                        onChange={(e) => setFranchiseSqft(e.target.value)}
+                        placeholder={isEn ? 'Ex: 1,500 - 3,000 sq.ft.' : 'Ex. : 1 500 à 3 000 pi²'}
+                      />
+                    </div>
+                    <div>
+                      <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
+                        {isEn ? 'Target Cities / Regions *' : 'Villes ou régions ciblées *'}
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        className="form-control"
+                        value={franchiseRegions}
+                        onChange={(e) => setFranchiseRegions(e.target.value)}
+                        placeholder={isEn ? 'Ex: Montreal, Laval, South Shore...' : 'Ex. : Montréal, Laval, Rive-Sud, Laurentides...'}
+                      />
+                    </div>
+                  </div>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '14px' }}>
+                    <div>
+                      <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
+                        {isEn ? 'Contact Name & Title *' : 'Nom et fonction du contact *'}
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        className="form-control"
+                        value={franchiseContactName}
+                        onChange={(e) => setFranchiseContactName(e.target.value)}
+                        placeholder={isEn ? 'Your full name' : 'Nom complet (Franchiseur / Développement)'}
+                      />
+                    </div>
+                    <div>
+                      <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
+                        {isEn ? 'Email *' : 'Courriel professionnel *'}
+                      </label>
+                      <input
+                        type="email"
+                        required
+                        className="form-control"
+                        value={franchiseEmail}
+                        onChange={(e) => setFranchiseEmail(e.target.value)}
+                        placeholder="developpement@banniere.com"
+                      />
+                    </div>
+                    <div>
+                      <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
+                        {isEn ? 'Phone *' : 'Téléphone *'}
+                      </label>
+                      <input
+                        type="tel"
+                        required
+                        className="form-control"
+                        value={franchisePhone}
+                        onChange={(e) => setFranchisePhone(e.target.value)}
+                        placeholder="(514) 000-0000"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
+                      {isEn
+                        ? 'Technical Criteria (Commercial hood, patio, drive-thru, ceiling height, parking, target budget)'
+                        : 'Critères techniques (Ventilation/hotte, terrasse, service au volant, hauteur libre, stationnement, budget)'}
+                    </label>
+                    <textarea
+                      rows={3}
+                      className="form-control"
+                      value={franchiseNotes}
+                      onChange={(e) => setFranchiseNotes(e.target.value)}
+                      placeholder={
+                        isEn
+                          ? 'Describe your expansion timeline and location requirements...'
+                          : 'Précisez votre échéancier d’ouverture et vos besoins techniques...'
+                      }
+                    />
+                  </div>
+
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
+                    <span style={{ fontSize: '0.76rem', color: 'var(--text-muted)' }}>
+                      * {isEn ? 'Strictly confidential handling by our commercial brokerage team.' : 'Traitement strictement confidentiel par notre équipe commerciale.'}
+                    </span>
+                    <button type="submit" className="btn-gold" style={{ padding: '11px 24px' }}>
+                      {isEn ? 'Submit Franchise Site Mandate' : 'Transmettre ma recherche d’emplacement'} <ArrowRight size={15} />
+                    </button>
+                  </div>
+                </form>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* =================================================================
+            ONGLET #40 : GALERIE « TRANSACTIONS RÉALISÉES & SUCCÈS HIMALAYA »
+           ================================================================= */}
+        {activeTab === 'transactions' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '26px' }}>
+            <div
+              style={{
+                background: 'var(--bg-card)',
+                border: '1px solid var(--border-gold)',
+                borderRadius: '14px',
+                padding: '30px',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                flexWrap: 'wrap',
+                gap: '18px'
+              }}
+            >
+              <div style={{ maxWidth: '720px' }}>
+                <span className="badge-gold" style={{ marginBottom: '8px' }}>
+                  {isEn ? 'Proven Track Record Since 2008' : 'Réalisations & Succès depuis 2008'}
+                </span>
+                <h2 style={{ fontSize: '1.6rem', fontWeight: 700, marginBottom: '8px' }}>
+                  {isEn
+                    ? 'Completed Transactions, Franchise Rollouts & Flagship Mandates'
+                    : 'Transactions Réalisées, Implantations & Dossiers Marquants'}
+                </h2>
+                <p style={{ fontSize: '0.94rem', color: 'var(--text-secondary)', lineHeight: 1.7 }}>
+                  {isEn
+                    ? 'Explore a selection of completed sales, commercial lease signings, franchise expansions, and major resort/land mandates handled by our brokers across Quebec.'
+                    : 'Découvrez une sélection de ventes réalisées, locations commerciales conclues, ouvertures de bannières et dossiers majeurs pilotés par nos courtiers à travers le Québec.'}
+                </p>
+              </div>
+
+              <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                {[
+                  { id: 'all', label: isEn ? 'All' : 'Tous' },
+                  { id: 'commercial', label: isEn ? 'Commercial & Land' : 'Commercial & Foncier' },
+                  { id: 'franchise', label: isEn ? 'Franchises' : 'Franchises & Bannières' },
+                  { id: 'villégiature', label: isEn ? 'Campgrounds & Outfitters' : 'Campings & Pourvoiries' },
+                  { id: 'residentiel', label: isEn ? 'Residential' : 'Résidentiel' }
+                ].map((flt) => (
+                  <button
+                    key={flt.id}
+                    type="button"
+                    onClick={() => setTrackRecordFilter(flt.id)}
+                    className={trackRecordFilter === flt.id ? 'btn-gold' : 'btn-outline'}
+                    style={{ padding: '7px 13px', fontSize: '0.8rem' }}
+                  >
+                    {flt.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="properties-grid">
+              {HIMALAYA_TRACK_RECORD.filter(
+                (tr) => trackRecordFilter === 'all' || tr.category === trackRecordFilter
+              ).map((item) => (
+                <div key={item.id} className="property-card" style={{ display: 'flex', flexDirection: 'column' }}>
+                  <div className="property-img-wrap" style={{ height: '215px' }}>
+                    <img
+                      src={item.image}
+                      alt={isEn ? item.title_en : item.title}
+                      loading="lazy"
+                      onError={(e) => {
+                        e.target.src = 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=900&q=80';
+                      }}
+                    />
+                    <div
+                      style={{
+                        position: 'absolute',
+                        top: '12px',
+                        left: '12px',
+                        display: 'flex',
+                        gap: '6px',
+                        flexWrap: 'wrap'
+                      }}
+                    >
+                      <span
+                        style={{
+                          background: 'var(--gold)',
+                          color: '#09090b',
+                          fontWeight: 800,
+                          fontSize: '0.7rem',
+                          padding: '4px 10px',
+                          borderRadius: '999px',
+                          letterSpacing: '0.06em',
+                          textTransform: 'uppercase'
+                        }}
+                      >
+                        {isEn ? item.statusBadge_en : item.statusBadge}
+                      </span>
+                    </div>
+                    <div
+                      style={{
+                        position: 'absolute',
+                        bottom: '12px',
+                        left: '12px',
+                        background: 'rgba(9,9,11,0.92)',
+                        border: '1px solid var(--border-gold)',
+                        padding: '5px 11px',
+                        borderRadius: '7px',
+                        fontWeight: 600,
+                        color: 'var(--gold-light)',
+                        fontSize: '0.82rem'
+                      }}
+                    >
+                      {isEn ? item.metric_en : item.metric}
+                    </div>
+                  </div>
+
+                  <div style={{ padding: '20px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '14px' }}>
+                    <div>
+                      <div style={{ fontSize: '0.74rem', color: 'var(--gold)', fontWeight: 600, textTransform: 'uppercase', marginBottom: '4px' }}>
+                        {isEn ? item.categoryLabel_en : item.categoryLabel}
+                      </div>
+                      <h3 style={{ fontSize: '1.12rem', fontWeight: 700, marginBottom: '6px', lineHeight: 1.35 }}>
+                        {isEn ? item.title_en : item.title}
+                      </h3>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '0.82rem', color: 'var(--text-muted)', marginBottom: '10px' }}>
+                        <MapPin size={13} color="var(--gold)" />
+                        <span>{isEn ? item.location_en : item.location}</span>
+                      </div>
+                      <p style={{ fontSize: '0.86rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+                        {isEn ? item.summary_en : item.summary}
+                      </p>
+                    </div>
+
+                    <div
+                      style={{
+                        paddingTop: '12px',
+                        borderTop: '1px solid var(--border-subtle)',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        fontSize: '0.8rem',
+                        color: 'var(--gold-light)',
+                        fontWeight: 600
+                      }}
+                    >
+                      <span>{item.broker}</span>
+                      {item.mls && <span style={{ color: 'var(--text-muted)', fontSize: '0.75rem' }}>MLS #{item.mls}</span>}
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         )}

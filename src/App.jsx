@@ -8,7 +8,8 @@ import liveDealsData from './data/himalayaLiveDeals.json';
 import { INITIAL_HIMALAYA_BROKERS } from './data/brokersData';
 import { 
   HIMALAYA_AGENCIES, HIMALAYA_EVENTS, HIMALAYA_NEWS, 
-  HIMALAYA_PODCASTS, SPECIALTIES_DATA, OFFICIAL_SOCIAL_LINKS, LEGAL_DOCUMENTS 
+  HIMALAYA_PODCASTS, SPECIALTIES_DATA, OFFICIAL_SOCIAL_LINKS, LEGAL_DOCUMENTS,
+  HIMALAYA_FRANCHISE_SECTORS, HIMALAYA_FRANCHISE_HIGHLIGHTS, HIMALAYA_TRACK_RECORD
 } from './data/siteContent';
 import { TRANSLATIONS } from './data/translations';
 import { 
@@ -66,6 +67,7 @@ export default function App() {
   const [selectedBroker, setSelectedBroker] = useState(null);
   const [ndaModalDeal, setNdaModalDeal] = useState(undefined);
   const [toolPreselectedDeal, setToolPreselectedDeal] = useState(null);
+  const [aboutInitialTab, setAboutInitialTab] = useState('qui-nous-sommes');
   const [newsYearFilter, setNewsYearFilter] = useState('all');
   const [legalModalType, setLegalModalType] = useState(null); // 'terms' | 'privacy' | null
   const [isScrolled, setIsScrolled] = useState(false);
@@ -231,6 +233,7 @@ export default function App() {
     if (options.filtrePropriete !== undefined) setFiltrePropriete(options.filtrePropriete);
     if (options.filtreCourtier !== undefined) setFiltreCourtier(options.filtreCourtier);
     if (options.contactTab !== undefined) setContactTab(options.contactTab);
+    if (options.aboutTab !== undefined) setAboutInitialTab(options.aboutTab);
     setActivePage(page);
     setMobileMenuOpen(false);
     const newHash = page === 'home' ? '' : `#${page}`;
@@ -723,6 +726,143 @@ export default function App() {
                 ))}
               </div>
 
+              {/* VITRINE #36 (Franchises & Bannières) ET #40 (Transactions Réalisées & Succès) SUR L'ACCUEIL */}
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
+                gap: '22px',
+                marginBottom: '36px'
+              }}>
+                {/* Carte #36 : Franchises & Bannières accompagnées par Himalaya */}
+                <div style={{
+                  background: 'var(--bg-card)',
+                  border: '1px solid var(--border-gold)',
+                  borderRadius: '14px',
+                  padding: '28px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  gap: '18px'
+                }}>
+                  <div>
+                    <span className="badge-gold" style={{ marginBottom: '10px' }}>
+                      {isEn ? 'CQF Member • Franchise & Retail Expansion' : 'Membre CQF • Franchises & Bannières'}
+                    </span>
+                    <h3 style={{ fontSize: '1.35rem', fontWeight: 700, marginBottom: '8px' }}>
+                      {isEn
+                        ? 'Franchises & Commercial Banners Supported by Himalaya'
+                        : 'Franchises & Bannières accompagnées par Himalaya'}
+                    </h3>
+                    <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', lineHeight: 1.65, marginBottom: '14px' }}>
+                      {isEn
+                        ? 'Strategic site selection across Quebec, geomarketing analysis, and commercial lease negotiation for restaurant, retail, clinic, and hospitality franchises (KROOD, Jour après Jour, Franchise Expo Paris, ICSC).'
+                        : 'Sélection d’emplacements stratégiques au Québec, analyse géomarketing et négociation de baux commerciaux pour les franchiseurs et enseignes (KROOD, Jour après Jour, Salon de la Franchise de Paris, ICSC).'}
+                    </p>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                      {HIMALAYA_FRANCHISE_SECTORS.map(sec => (
+                        <span key={sec.id} style={{
+                          fontSize: '0.74rem',
+                          padding: '4px 10px',
+                          borderRadius: '999px',
+                          background: 'rgba(200, 164, 93, 0.1)',
+                          border: '1px solid var(--border-subtle)',
+                          color: 'var(--gold-light)'
+                        }}>
+                          {isEn ? sec.title_en.split('&')[0].trim() : sec.title.split('&')[0].trim()}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                    <button
+                      onClick={() => navigateTo('a-propos', { aboutTab: 'franchises' })}
+                      className="btn-gold"
+                      style={{ fontSize: '0.82rem', padding: '9px 16px' }}
+                    >
+                      {isEn ? 'Find a Location for My Franchise' : 'Trouver un local pour ma franchise'} <ArrowRight size={14} />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Carte #40 : Transactions Réalisées & Succès Himalaya (Track Record) */}
+                <div style={{
+                  background: 'var(--bg-card)',
+                  border: '1px solid var(--border-subtle)',
+                  borderRadius: '14px',
+                  padding: '28px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  gap: '18px'
+                }}>
+                  <div>
+                    <span className="badge-gold" style={{ marginBottom: '10px' }}>
+                      {isEn ? 'Track Record • Completed Transactions' : 'Track Record • Transactions Réalisées'}
+                    </span>
+                    <h3 style={{ fontSize: '1.35rem', fontWeight: 700, marginBottom: '8px' }}>
+                      {isEn
+                        ? 'Completed Sales, Rollouts & Flagship Achievements'
+                        : 'Transactions Réalisées & Succès Himalaya'}
+                    </h3>
+                    <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', lineHeight: 1.65, marginBottom: '14px' }}>
+                      {isEn
+                        ? 'Discover our proven track record across commercial buildings, franchise expansions, 5-star campgrounds, and residential properties sold across Quebec.'
+                        : 'Découvrez nos ventes conclues, implantations commerciales, domaines récréotouristiques et dossiers majeurs réalisés par notre équipe à travers le Québec.'}
+                    </p>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px' }}>
+                      {HIMALAYA_TRACK_RECORD.slice(0, 3).map(tr => (
+                        <div
+                          key={tr.id}
+                          onClick={() => navigateTo('a-propos', { aboutTab: 'transactions' })}
+                          style={{
+                            cursor: 'pointer',
+                            borderRadius: '8px',
+                            overflow: 'hidden',
+                            border: '1px solid var(--border-subtle)',
+                            background: '#09090b',
+                            position: 'relative',
+                            height: '74px'
+                          }}
+                        >
+                          <img
+                            src={tr.image}
+                            alt={isEn ? tr.title_en : tr.title}
+                            loading="lazy"
+                            style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.82 }}
+                          />
+                          <span style={{
+                            position: 'absolute',
+                            bottom: '4px',
+                            left: '4px',
+                            right: '4px',
+                            background: 'rgba(9,9,11,0.88)',
+                            color: 'var(--gold-light)',
+                            fontSize: '0.62rem',
+                            fontWeight: 700,
+                            padding: '2px 5px',
+                            borderRadius: '4px',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis'
+                          }}>
+                            {isEn ? tr.statusBadge_en : tr.statusBadge}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                    <button
+                      onClick={() => navigateTo('a-propos', { aboutTab: 'transactions' })}
+                      className="btn-outline"
+                      style={{ fontSize: '0.82rem', padding: '9px 16px' }}
+                    >
+                      {isEn ? 'View All Completed Transactions' : 'Voir la galerie des transactions réalisées'} <ArrowRight size={14} />
+                    </button>
+                  </div>
+                </div>
+              </div>
+
               <div style={{
                 background: 'var(--bg-card)',
                 border: '1px solid var(--border-gold)',
@@ -968,6 +1108,7 @@ export default function App() {
             directors={INITIAL_HIMALAYA_BROKERS.filter(b => b.category === 'direction')}
             onSelectBroker={openBrokerModal}
             onNavigate={navigateTo}
+            initialTab={aboutInitialTab}
           />
         </Suspense>
       )}
