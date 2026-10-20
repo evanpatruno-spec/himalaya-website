@@ -857,41 +857,42 @@ export default function AboutPageView({
             </div>
 
             {/* LES 3 FRANCHISES AVEC LEURS LOGOS OFFICIELS : PACINI, ARABIAN OUD & GRILLADE TAURINO */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '28px' }}>
-              {HIMALAYA_FRANCHISES.map((fr) => {
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '36px' }}>
+              {HIMALAYA_FRANCHISES.map((fr, idx) => {
                 const assignedBrokers = directors.filter((d) => fr.brokerIds.includes(d.id));
                 return (
                   <div
                     key={fr.id}
                     style={{
-                      background: 'var(--bg-card)',
-                      border: '1px solid var(--border-subtle)',
-                      borderRadius: '14px',
-                      overflow: 'hidden',
+                      background: 'transparent',
+                      borderTop: '1px solid rgba(200, 164, 93, 0.38)',
+                      borderBottom: '1px solid var(--border-subtle)',
+                      padding: '28px 0 24px',
                       display: 'flex',
                       flexDirection: 'column',
                       justifyContent: 'space-between'
                     }}
                   >
                     <div>
-                      {/* Zone Logo Officiel de la Franchise */}
+                      {/* Numérotation éditoriale + Zone Logo Officiel de la Franchise (#3, #14) */}
                       <div
                         style={{
-                          height: '130px',
+                          height: '96px',
                           display: 'flex',
                           alignItems: 'center',
-                          justifyContent: 'center',
-                          padding: '22px 28px',
-                          background: 'linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.005) 100%)',
-                          borderBottom: '1px solid var(--border-subtle)'
+                          justifyContent: 'space-between',
+                          paddingBottom: '20px',
+                          marginBottom: '20px',
+                          borderBottom: '1px solid rgba(255,255,255,0.07)'
                         }}
                       >
+                        <span className="editorial-num">0{idx + 1}</span>
                         <img
                           src={fr.logo}
                           alt={fr.name}
                           style={{
-                            height: fr.logoHeight || '56px',
-                            maxWidth: '210px',
+                            height: fr.logoHeight || '52px',
+                            maxWidth: '195px',
                             width: 'auto',
                             objectFit: 'contain',
                             display: 'block',
@@ -901,11 +902,11 @@ export default function AboutPageView({
                       </div>
 
                       {/* Texte descriptif épuré */}
-                      <div style={{ padding: '24px 26px 16px' }}>
+                      <div style={{ paddingBottom: '20px' }}>
                         <div className="badge-gold" style={{ marginBottom: '6px' }}>
                           {isEn ? fr.category_en : fr.category}
                         </div>
-                        <h3 style={{ fontSize: '1.4rem', fontWeight: 700, color: '#fff', marginBottom: '8px' }}>
+                        <h3 className="serif-title" style={{ fontSize: '1.75rem', fontWeight: 600, color: '#fff', marginBottom: '8px' }}>
                           {isEn ? fr.name_en : fr.name}
                         </h3>
                         <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.65 }}>
@@ -915,12 +916,12 @@ export default function AboutPageView({
                     </div>
 
                     {/* Courtiers attitrés — Présentation directe et épurée (zéro sous-boîte) */}
-                    <div style={{ padding: '0 26px 24px' }}>
+                    <div>
                       <div
                         style={{
                           paddingTop: '16px',
                           borderTop: '1px solid var(--border-subtle)',
-                          marginBottom: '16px'
+                          marginBottom: '18px'
                         }}
                       >
                         <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '12px' }}>
@@ -987,15 +988,7 @@ export default function AboutPageView({
                           const el = document.getElementById('form-franchise-himalaya');
                           if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                         }}
-                        style={{
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: '6px',
-                          fontSize: '0.84rem',
-                          fontWeight: 600,
-                          color: 'var(--gold-light)',
-                          cursor: 'pointer'
-                        }}
+                        className="editorial-link"
                       >
                         {isEn ? `Inquire about ${fr.name}` : `Demande d’information — ${fr.name}`} <ArrowRight size={14} />
                       </span>
@@ -1005,22 +998,25 @@ export default function AboutPageView({
               })}
             </div>
 
-            {/* Les 3 engagements réels d'Himalaya (CQF, Salon de Paris, Partenaires) — Sans cadres */}
+            {/* Les 3 engagements réels d'Himalaya (CQF, Salon de Paris, Partenaires) — Numérotés 01, 02, 03 (#3) */}
             <div
               style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
                 gap: '32px',
-                paddingTop: '32px',
+                paddingTop: '36px',
                 borderTop: '1px solid var(--border-subtle)'
               }}
             >
-              {HIMALAYA_FRANCHISE_HIGHLIGHTS.map((hl) => (
+              {HIMALAYA_FRANCHISE_HIGHLIGHTS.map((hl, idx) => (
                 <div key={hl.id}>
-                  <div className="badge-gold" style={{ marginBottom: '6px' }}>
-                    {isEn ? hl.badge_en : hl.badge}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
+                    <span className="editorial-num" style={{ fontSize: '1.25rem' }}>0{idx + 1}</span>
+                    <span className="badge-gold">
+                      {isEn ? hl.badge_en : hl.badge}
+                    </span>
                   </div>
-                  <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '8px', color: '#fff' }}>
+                  <h3 className="serif-title" style={{ fontSize: '1.35rem', fontWeight: 600, marginBottom: '8px', color: '#fff' }}>
                     {isEn ? hl.title_en : hl.title}
                   </h3>
                   <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', lineHeight: 1.65 }}>

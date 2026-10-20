@@ -879,15 +879,15 @@ export default function App() {
             <div className="hero-overlay" />
 
             <div className="container hero-content">
-              <h1 style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)', fontWeight: 700, lineHeight: 1.15, maxWidth: '820px', margin: '0 auto 14px', letterSpacing: '-0.02em' }}>
+              <h1 className="serif-title" style={{ fontSize: 'clamp(2.4rem, 4.8vw, 3.85rem)', fontWeight: 600, lineHeight: 1.12, maxWidth: '880px', margin: '0 auto 16px' }}>
                 {t.hero.titleStart} <span className="gold-gradient-text">{t.hero.titleHighlight}</span>
               </h1>
 
-              <p style={{ color: '#f4f4f6', fontSize: '1.02rem', maxWidth: '640px', margin: '0 auto' }}>
+              <p style={{ color: '#e4e4ea', fontSize: '1.04rem', maxWidth: '640px', margin: '0 auto', letterSpacing: '0.01em' }}>
                 {t.hero.subtitle}
               </p>
 
-              {/* Moteur de recherche épuré sur 1 ligne */}
+              {/* Moteur de recherche Hero façon « Conciergerie Privée » (#13) */}
               <form 
                 className="search-bar-box"
                 onSubmit={e => { e.preventDefault(); navigateTo('proprietes'); }}
@@ -915,6 +915,7 @@ export default function App() {
 
                   <select 
                     className="form-control"
+                    style={{ borderRight: 'none' }}
                     value={filtreRegion}
                     onChange={e => setFiltreRegion(e.target.value)}
                   >
@@ -924,26 +925,36 @@ export default function App() {
                     ))}
                   </select>
 
-                  <button type="submit" className="btn-gold" style={{ height: '42px', padding: '0 24px' }}>
-                    <Search size={16} /> {t.hero.searchBtn}
+                  <button type="submit" className="btn-gold" style={{ height: '44px', padding: '0 26px', marginLeft: '6px' }}>
+                    <Search size={15} /> {t.hero.searchBtn}
                   </button>
                 </div>
               </form>
             </div>
+
+            {/* Indicateur de défilement minimaliste en fil d'or vertical (#16) */}
+            <div className="hero-scroll-indicator">
+              <div className="hero-scroll-line" />
+            </div>
           </section>
 
-          {/* SPÉCIALITÉS (4 cartes visuelles épurées) */}
-          <section style={{ padding: '64px 0', background: 'var(--bg-dark)' }}>
+          {/* SPÉCIALITÉS (4 cartes visuelles épurées + Respiration Luxe #4) */}
+          <section style={{ padding: '84px 0', background: 'var(--bg-dark)' }}>
             <div className="container">
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '28px', flexWrap: 'wrap', gap: '12px' }}>
-                <h2 style={{ fontSize: '1.85rem', fontWeight: 700, letterSpacing: '-0.02em' }}>{t.home.specialtiesTitle}</h2>
-                <button onClick={() => navigateTo('proprietes', { filtrePropriete: 'all' })} className="btn-outline">
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '36px', flexWrap: 'wrap', gap: '12px' }}>
+                <div>
+                  <span className="badge-gold" style={{ marginBottom: '6px' }}>
+                    {isEn ? 'Areas of Expertise' : 'Pôles de courtage'}
+                  </span>
+                  <h2 className="serif-title" style={{ fontSize: '2.35rem', fontWeight: 600 }}>{t.home.specialtiesTitle}</h2>
+                </div>
+                <button onClick={() => navigateTo('proprietes', { filtrePropriete: 'all' })} className="editorial-link">
                   {t.home.allPropertiesBtn} ({liveDealsData.length}) <ArrowRight size={15} />
                 </button>
               </div>
 
               <div className="specialty-grid">
-                {SPECIALTIES_DATA.map(spec => (
+                {SPECIALTIES_DATA.map((spec, idx) => (
                   <div 
                     key={spec.id} 
                     className="specialty-card"
@@ -965,14 +976,17 @@ export default function App() {
                       onError={e => { e.target.src = spec.fallbackImage; }}
                     />
                     <div className="specialty-overlay">
+                      <span className="editorial-num" style={{ marginBottom: '8px', fontSize: '1.25rem' }}>
+                        0{idx + 1}
+                      </span>
                       <span style={{ fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--gold-light)', fontWeight: 600, marginBottom: '4px' }}>
                         {isEn ? (spec.subtitle_en || spec.subtitle) : spec.subtitle}
                       </span>
-                      <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '10px', color: '#fff', lineHeight: 1.25 }}>
+                      <h3 className="serif-title" style={{ fontSize: '1.45rem', fontWeight: 600, marginBottom: '12px', color: '#fff', lineHeight: 1.2 }}>
                         {isEn ? (spec.title_en || spec.title) : spec.title}
                       </h3>
-                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '0.82rem', fontWeight: 600, color: 'var(--gold-light)' }}>
-                        {t.home.explore} <ChevronRight size={15} />
+                      <span className="editorial-link">
+                        {t.home.explore} <ArrowRight size={14} />
                       </span>
                     </div>
                   </div>
@@ -981,11 +995,18 @@ export default function App() {
             </div>
           </section>
 
+          <hr className="gold-hairline" />
+
           {/* PROPRIÉTÉS À LA UNE */}
-          <section style={{ padding: '64px 0', background: 'var(--bg-darker)', borderTop: '1px solid var(--border-subtle)', borderBottom: '1px solid var(--border-subtle)' }}>
+          <section style={{ padding: '84px 0', background: 'var(--bg-darker)' }}>
             <div className="container">
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '28px', flexWrap: 'wrap', gap: '14px' }}>
-                <h2 style={{ fontSize: '1.85rem', fontWeight: 700, letterSpacing: '-0.02em' }}>{t.home.featuredTitle}</h2>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '38px', flexWrap: 'wrap', gap: '16px' }}>
+                <div>
+                  <span className="badge-gold" style={{ marginBottom: '6px' }}>
+                    {isEn ? 'Curated Selection' : 'Sélection de mandats'}
+                  </span>
+                  <h2 className="serif-title" style={{ fontSize: '2.35rem', fontWeight: 600 }}>{t.home.featuredTitle}</h2>
+                </div>
                 <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
                   {[
                     { id: 'all', label: t.home.tabAll },
@@ -1016,7 +1037,7 @@ export default function App() {
                 ))}
               </div>
 
-              <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', marginTop: '36px', flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', justifyContent: 'center', gap: '14px', marginTop: '48px', flexWrap: 'wrap' }}>
                 <button onClick={() => navigateTo('proprietes')} className="btn-gold">
                   {t.home.viewAllProperties} ({liveDealsData.length}) <ArrowRight size={16} />
                 </button>
@@ -1027,17 +1048,18 @@ export default function App() {
             </div>
           </section>
 
-          {/* BANNIÈRE CHIFFRES CLÉS AUTHENTIQUES & PRÉSENTATION ÉPURÉE */}
-          <section style={{ padding: '64px 0', background: 'var(--bg-dark)' }}>
+          <hr className="gold-hairline" />
+
+          {/* BANNIÈRE CHIFFRES CLÉS AUTHENTIQUES & GALERIE FRANCHISES (#2, #3, #4, #14) */}
+          <section style={{ padding: '84px 0', background: 'var(--bg-dark)' }}>
             <div className="container">
               <div style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                gap: '24px',
-                padding: '28px 0',
-                borderTop: '1px solid var(--border-subtle)',
-                borderBottom: '1px solid var(--border-subtle)',
-                marginBottom: '56px'
+                gap: '28px',
+                paddingBottom: '64px',
+                marginBottom: '64px',
+                borderBottom: '1px solid var(--border-subtle)'
               }}>
                 {[
                   { num: `${liveDealsData.length}`, label: t.home.statMandates },
@@ -1046,31 +1068,31 @@ export default function App() {
                   { num: t.home.statPolesNum, label: t.home.statPoles }
                 ].map((stat, i) => (
                   <div key={i} style={{ textAlign: 'center', padding: '6px 12px' }}>
-                    <div className="gold-gradient-text" style={{ fontSize: '2.2rem', fontWeight: 700, lineHeight: 1.1 }}>
+                    <div className="serif-title gold-gradient-text" style={{ fontSize: '2.85rem', fontWeight: 600, lineHeight: 1.05 }}>
                       {stat.num}
                     </div>
-                    <div style={{ fontSize: '0.84rem', color: 'var(--text-secondary)', marginTop: '6px' }}>
+                    <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', marginTop: '8px', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                       {stat.label}
                     </div>
                   </div>
                 ))}
               </div>
 
-              {/* VITRINE FRANCHISES SUR L'ACCUEIL (PACINI, ARABIAN OUD & GRILLADE TAURINO) — SANS CADRES IMBRIQUÉS */}
-              <div style={{ marginBottom: '56px' }}>
+              {/* GALERIE D'ENSEIGNES FRANCHISES (PACINI, ARABIAN OUD & GRILLADE TAURINO) — STYLE ÉDITORIAL (#3, #14) */}
+              <div style={{ marginBottom: '72px' }}>
                 <div style={{
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'flex-end',
                   flexWrap: 'wrap',
                   gap: '16px',
-                  marginBottom: '28px'
+                  marginBottom: '38px'
                 }}>
                   <div>
                     <span className="badge-gold" style={{ marginBottom: '6px' }}>
                       {isEn ? 'CQF Member • Franchise Clients' : 'Membre CQF • Clients Franchisés'}
                     </span>
-                    <h3 style={{ fontSize: '1.65rem', fontWeight: 700 }}>
+                    <h3 className="serif-title" style={{ fontSize: '2.2rem', fontWeight: 600 }}>
                       {isEn
                         ? 'Franchises Supported by Immobilier Himalaya'
                         : 'Franchises accompagnées par Immobilier Himalaya'}
@@ -1078,71 +1100,68 @@ export default function App() {
                   </div>
                   <button
                     onClick={() => navigateTo('franchises')}
-                    className="btn-outline"
-                    style={{ fontSize: '0.84rem', padding: '10px 18px' }}
+                    className="editorial-link"
                   >
-                    {isEn ? 'Open Franchises Section' : 'Accéder à l’onglet Franchises'} <ArrowRight size={14} />
+                    {isEn ? 'Open Franchises Section' : 'Accéder à l’onglet Franchises'} <ArrowRight size={15} />
                   </button>
                 </div>
 
                 <div style={{
                   display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-                  gap: '24px'
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))',
+                  gap: '36px'
                 }}>
-                  {HIMALAYA_FRANCHISES.map(fr => (
+                  {HIMALAYA_FRANCHISES.map((fr, idx) => (
                     <div
                       key={fr.id}
                       onClick={() => navigateTo('franchises')}
                       style={{
-                        background: 'var(--bg-card)',
-                        border: '1px solid var(--border-subtle)',
-                        borderRadius: '14px',
-                        padding: '26px',
+                        background: 'transparent',
+                        borderTop: '1px solid rgba(200, 164, 93, 0.35)',
+                        borderBottom: '1px solid var(--border-subtle)',
+                        padding: '28px 0 24px',
                         cursor: 'pointer',
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'space-between',
-                        gap: '18px',
-                        transition: 'border-color 0.25s ease, transform 0.25s ease'
+                        gap: '20px',
+                        transition: 'border-color 0.3s ease, transform 0.3s ease'
                       }}
                     >
                       <div>
-                        {fr.logo && (
-                          <div style={{
-                            height: '64px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'flex-start',
-                            marginBottom: '18px',
-                            paddingBottom: '14px',
-                            borderBottom: '1px solid var(--border-subtle)'
-                          }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+                          <span className="editorial-num">0{idx + 1}</span>
+                          {fr.logo && (
                             <img
                               src={fr.logo}
                               alt={fr.name}
                               style={{
-                                maxHeight: fr.logoHeight || '44px',
-                                maxWidth: '180px',
+                                maxHeight: fr.logoHeight || '42px',
+                                maxWidth: '165px',
                                 width: 'auto',
                                 objectFit: 'contain',
                                 filter: fr.invertLogo ? 'brightness(0) invert(1)' : 'none'
                               }}
                             />
-                          </div>
-                        )}
-                        <div style={{ fontSize: '0.72rem', color: 'var(--gold)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '6px' }}>
+                          )}
+                        </div>
+                        <div style={{ fontSize: '0.72rem', color: 'var(--gold)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.09em', marginBottom: '6px' }}>
                           {isEn ? fr.category_en : fr.category}
                         </div>
-                        <h4 style={{ fontSize: '1.3rem', fontWeight: 700, color: '#fff', marginBottom: '8px' }}>
+                        <h4 className="serif-title" style={{ fontSize: '1.6rem', fontWeight: 600, color: '#fff', marginBottom: '10px' }}>
                           {isEn ? fr.name_en : fr.name}
                         </h4>
-                        <p style={{ fontSize: '0.86rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+                        <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', lineHeight: 1.65 }}>
                           {isEn ? fr.description_en : fr.description}
                         </p>
                       </div>
-                      <div style={{ paddingTop: '12px', borderTop: '1px solid var(--border-subtle)', fontSize: '0.82rem', color: 'var(--gold-light)', fontWeight: 600 }}>
-                        {isEn ? 'Assigned Broker(s): ' : 'Courtier(s) attitré(s) : '} <span style={{ color: '#fff' }}>{fr.brokerNames}</span>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '14px', borderTop: '1px solid rgba(255,255,255,0.06)', fontSize: '0.82rem' }}>
+                        <span style={{ color: 'var(--gold-light)', fontWeight: 600 }}>
+                          {fr.brokerNames}
+                        </span>
+                        <span className="editorial-link" style={{ fontSize: '0.72rem' }}>
+                          {isEn ? 'Details' : 'Dossier'} <ArrowRight size={13} />
+                        </span>
                       </div>
                     </div>
                   ))}
@@ -1150,7 +1169,7 @@ export default function App() {
               </div>
 
               <div style={{
-                paddingTop: '36px',
+                paddingTop: '44px',
                 borderTop: '1px solid var(--border-subtle)',
                 display: 'flex',
                 alignItems: 'center',
@@ -1159,7 +1178,7 @@ export default function App() {
                 flexWrap: 'wrap'
               }}>
                 <div style={{ maxWidth: '660px' }}>
-                  <h3 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '8px' }}>
+                  <h3 className="serif-title" style={{ fontSize: '1.95rem', fontWeight: 600, marginBottom: '8px' }}>
                     {t.home.ctaTitle}
                   </h3>
                   <p style={{ color: 'var(--text-secondary)', fontSize: '0.94rem', lineHeight: 1.6 }}>
@@ -1532,26 +1551,26 @@ export default function App() {
                 return (
                   <div key={broker.id} className="broker-card">
                     <div 
+                      className="broker-photo-wrap"
                       onClick={() => openBrokerModal(broker)}
-                      style={{ position: 'relative', width: '100%', aspectRatio: '314 / 543', background: '#09090b', overflow: 'hidden', cursor: 'pointer' }}
                     >
                       <img 
                         src={broker.photo} 
                         alt={broker.name}
                         loading="lazy"
                         decoding="async"
-                        style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center', display: 'block' }}
                         onError={e => { e.target.src = 'https://www.himalayacorp.com/gx/00/defaut_courtier.jpg'; }}
                       />
                     </div>
 
-                    <div style={{ padding: '16px 18px 18px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                    <div style={{ padding: '16px 2px 0', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                       <div onClick={() => openBrokerModal(broker)} style={{ marginBottom: '14px', cursor: 'pointer' }}>
-                        <div style={{ fontSize: '0.74rem', color: 'var(--gold)', fontWeight: 600, marginBottom: '5px', lineHeight: 1.4 }}>
+                        <div style={{ fontSize: '0.73rem', color: 'var(--gold)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: '4px', lineHeight: 1.4 }}>
                           {isEn ? (broker.title_en || broker.shortTitle_en) : (broker.title || broker.shortTitle)}
                         </div>
-                        <h3 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: '4px' }}>{broker.name}</h3>
-                        <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px' }}>
+                        <h3 className="serif-title" style={{ fontSize: '1.45rem', fontWeight: 600 }}>{broker.name}</h3>
+                        <div className="broker-name-line" />
+                        <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px' }}>
                           <span>{isEn ? (broker.city_en || broker.city) : broker.city}</span>
                           {brokerDeals.length > 0 && (
                             <span style={{ color: 'var(--gold-light)', fontWeight: 600, fontSize: '0.76rem' }}>
@@ -1561,16 +1580,19 @@ export default function App() {
                         </div>
                       </div>
 
-                      <div style={{ display: 'flex', gap: '8px' }}>
-                        <a href={`tel:${broker.phone}`} className="btn-gold" style={{ flex: 1, padding: '8px 10px', fontSize: '0.8rem' }}>
-                          <Phone size={13} /> {broker.phone}
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px', paddingTop: '12px', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+                        <a
+                          href={`tel:${broker.phone}`}
+                          style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '0.82rem', fontWeight: 600, color: '#fff' }}
+                        >
+                          <Phone size={13} color="var(--gold)" /> {broker.phone}
                         </a>
                         <button 
                           onClick={() => openBrokerModal(broker)} 
-                          className="btn-outline" 
-                          style={{ padding: '8px 12px', fontSize: '0.8rem' }}
+                          className="editorial-link"
+                          style={{ fontSize: '0.74rem' }}
                         >
-                          {t.brokers.viewProfile}
+                          {t.brokers.viewProfile} <ArrowRight size={13} />
                         </button>
                       </div>
                     </div>
@@ -2002,63 +2024,109 @@ export default function App() {
       )}
 
       {/* =====================================================================
-          FOOTER OFFICIEL ENRICHI (#4)
+          FOOTER ARCHITECTURAL 4 COLONNES AVEC FILET D'OR SUPÉRIEUR (#2, #20)
          ===================================================================== */}
       <footer style={{
         background: '#050506',
-        borderTop: '1px solid var(--border-subtle)',
-        padding: '48px 0 28px',
-        marginTop: 'auto'
+        marginTop: 'auto',
+        position: 'relative'
       }}>
-        <div className="container">
+        <hr className="gold-hairline" />
+        <div className="container" style={{ padding: '64px 24px 32px' }}>
           <div style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-            gap: '20px',
-            paddingBottom: '24px',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(230px, 1fr))',
+            gap: '40px',
+            paddingBottom: '44px',
             borderBottom: '1px solid rgba(255,255,255,0.06)'
           }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '20px', flexWrap: 'wrap' }}>
-              <img 
-                src="/gx/himalaya-immobilier-logo.svg" 
-                alt="Himalaya" 
-                style={{ height: '42px', display: 'block', cursor: 'pointer' }}
-                onClick={() => navigateTo('home')}
-              />
-              <a
-                href="https://equipeimpact-multi-prets.zohobookings.ca/#/Himalaya"
-                target="_blank"
-                rel="noreferrer"
-                style={{ opacity: 0.85, display: 'inline-flex', alignItems: 'center' }}
-                title="Multi-Prêts Hypothèques"
-              >
-                <img
-                  src="/gx/m/Multi_Prets.png"
-                  alt="Multi-Prêts Hypothèques"
-                  style={{ height: '28px', objectFit: 'contain' }}
+            {/* Colonne 1 : Identité Himalaya & Multi-Prêts */}
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '18px', flexWrap: 'wrap', marginBottom: '16px' }}>
+                <img 
+                  src="/gx/himalaya-immobilier-logo.svg" 
+                  alt="Himalaya" 
+                  style={{ height: '46px', display: 'block', cursor: 'pointer' }}
+                  onClick={() => navigateTo('home')}
                 />
-              </a>
+                <a
+                  href="https://equipeimpact-multi-prets.zohobookings.ca/#/Himalaya"
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{ opacity: 0.9, display: 'inline-flex', alignItems: 'center' }}
+                  title="Multi-Prêts Hypothèques"
+                >
+                  <img
+                    src="/gx/m/Multi_Prets.png"
+                    alt="Multi-Prêts Hypothèques"
+                    style={{ height: '30px', objectFit: 'contain' }}
+                  />
+                </a>
+              </div>
+              <p style={{ fontSize: '0.84rem', color: 'var(--text-secondary)', lineHeight: 1.65 }}>
+                {isEn
+                  ? 'Real Estate Agency (OACIQ) specializing in commercial, residential, outfitter, franchise & international properties since 2014.'
+                  : 'Agence immobilière (OACIQ) spécialisée en immobilier commercial, résidentiel, pourvoiries, franchises et international depuis 2014.'}
+              </p>
             </div>
 
-            <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', fontSize: '0.83rem', color: 'var(--text-secondary)' }}>
-              <button onClick={() => navigateTo('home')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer' }}>{t.nav.home}</button>
-              <button onClick={() => navigateTo('a-propos')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer' }}>{t.nav.about}</button>
-              <button onClick={() => navigateTo('proprietes')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer' }}>{t.nav.properties}</button>
-              <button onClick={() => navigateTo('franchises')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer' }}>Franchises</button>
-              <button onClick={() => navigateTo('outils')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer' }}>{t.nav.tools}</button>
-              <button onClick={() => navigateTo('courtiers')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer' }}>{t.nav.brokers}</button>
-              <button onClick={() => navigateTo('agences')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer' }}>{t.nav.agencies}</button>
-              <button onClick={() => navigateTo('evenements')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer' }}>{t.nav.news}</button>
-              <button onClick={() => navigateTo('balados')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer' }}>{t.nav.podcasts}</button>
-              <button onClick={() => navigateTo('nous-joindre')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer' }}>{t.nav.contact}</button>
-              <button onClick={() => navigateTo('zone-equipe')} style={{ background: 'none', border: 'none', color: 'var(--gold-light)', cursor: 'pointer', fontWeight: 600 }}>{t.nav.team}</button>
+            {/* Colonne 2 : Siège social Montréal */}
+            <div>
+              <div className="badge-gold" style={{ marginBottom: '12px' }}>
+                {isEn ? 'Headquarters — Montreal' : 'Siège social — Montréal'}
+              </div>
+              <div style={{ fontSize: '0.86rem', color: 'var(--text-secondary)', lineHeight: 1.7 }}>
+                <div style={{ color: '#fff', fontWeight: 600 }}>Immobilier Himalaya Real Estate Corp.</div>
+                <div>{t.contact.hqAddress}</div>
+                <div style={{ marginTop: '8px', display: 'flex', flexDirection: 'column', gap: '3px' }}>
+                  <a href="tel:5143791788" style={{ color: 'var(--gold-light)', fontWeight: 600 }}>(514) 379-1788</a>
+                  <a href="tel:18008204828" style={{ color: 'var(--text-secondary)' }}>1 800 820-4828</a>
+                  <a href="mailto:info@himalayacorp.com" style={{ color: 'var(--gold-light)' }}>info@himalayacorp.com</a>
+                </div>
+              </div>
+            </div>
+
+            {/* Colonne 3 : Bureau International Paris & Franchises */}
+            <div>
+              <div className="badge-gold" style={{ marginBottom: '12px' }}>
+                {isEn ? 'International — Paris & CQF' : 'International — Paris & CQF'}
+              </div>
+              <div style={{ fontSize: '0.86rem', color: 'var(--text-secondary)', lineHeight: 1.7 }}>
+                <div style={{ color: '#fff', fontWeight: 600 }}>
+                  {isEn ? 'Paris Representative Office' : 'Bureau de représentation — Paris'}
+                </div>
+                <div>14 Avenue de l’Opéra, 75001 Paris, France</div>
+                <div style={{ marginTop: '8px' }}>
+                  <span style={{ color: 'var(--gold-light)', fontSize: '0.8rem' }}>
+                    {isEn ? 'Member of the Quebec Franchise Council (CQF)' : 'Membre du Conseil québécois de la franchise (CQF)'}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Colonne 4 : Navigation Rapide */}
+            <div>
+              <div className="badge-gold" style={{ marginBottom: '12px' }}>
+                {isEn ? 'Navigation' : 'Navigation'}
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px 14px', fontSize: '0.83rem', color: 'var(--text-secondary)' }}>
+                <button onClick={() => navigateTo('home')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', textAlign: 'left' }}>{t.nav.home}</button>
+                <button onClick={() => navigateTo('proprietes')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', textAlign: 'left' }}>{t.nav.properties}</button>
+                <button onClick={() => navigateTo('a-propos')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', textAlign: 'left' }}>{isEn ? 'The Agency' : 'L’Agence'}</button>
+                <button onClick={() => navigateTo('franchises')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', textAlign: 'left' }}>Franchises</button>
+                <button onClick={() => navigateTo('courtiers')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', textAlign: 'left' }}>{t.nav.brokers}</button>
+                <button onClick={() => navigateTo('outils')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', textAlign: 'left' }}>{t.nav.tools}</button>
+                <button onClick={() => navigateTo('agences')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', textAlign: 'left' }}>{t.nav.agencies}</button>
+                <button onClick={() => navigateTo('evenements')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', textAlign: 'left' }}>{t.nav.news}</button>
+                <button onClick={() => navigateTo('balados')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', textAlign: 'left' }}>{t.nav.podcasts}</button>
+                <button onClick={() => navigateTo('nous-joindre')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', textAlign: 'left' }}>{t.nav.contact}</button>
+                <button onClick={() => navigateTo('zone-equipe')} style={{ background: 'none', border: 'none', color: 'var(--gold-light)', cursor: 'pointer', fontWeight: 600, textAlign: 'left', gridColumn: '1 / -1' }}>{t.nav.team}</button>
+              </div>
             </div>
           </div>
 
           <div style={{
-            paddingTop: '18px',
+            paddingTop: '22px',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
@@ -2085,7 +2153,7 @@ export default function App() {
               </button>
             </div>
 
-            <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
               {OFFICIAL_SOCIAL_LINKS.map(soc => (
                 <a key={soc.id} href={soc.url} target="_blank" rel="noreferrer" style={{ color: 'var(--gold-light)', fontWeight: 500 }}>
                   {soc.label}
@@ -2160,7 +2228,7 @@ export default function App() {
                 {isEn ? LEGAL_DOCUMENTS[legalModalType].title_en : LEGAL_DOCUMENTS[legalModalType].title}
               </h2>
               {LEGAL_DOCUMENTS[legalModalType].sections.map((sec, idx) => (
-                <div key={idx} style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border-subtle)', borderRadius: '10px', padding: '16px 18px' }}>
+                <div key={idx} style={{ paddingBottom: '14px', borderBottom: '1px solid var(--border-subtle)' }}>
                   <h3 style={{ fontSize: '0.96rem', fontWeight: 700, color: 'var(--gold-light)', marginBottom: '6px' }}>
                     {isEn ? sec.heading_en : sec.heading}
                   </h3>
@@ -2177,7 +2245,7 @@ export default function App() {
   );
 }
 
-/* Carte Propriété épurée (avec badge Vendu #8) */
+/* Carte Propriété Style Galerie « Sans Cadre » (#5, #6, #7, #8, #9) */
 function PropertyCard({ deal, t, onSelect }) {
   const isEn = t?.code === 'EN';
   const isSold = deal.status === 'Vendu';
@@ -2205,10 +2273,10 @@ function PropertyCard({ deal, t, onSelect }) {
           onError={e => { e.target.src = 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=900&q=80'; }}
         />
         <div style={{
-          position: 'absolute', top: '12px', left: '12px',
+          position: 'absolute', top: '14px', left: '14px', zIndex: 2,
           display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap'
         }}>
-          <span className="badge-gold" style={{ background: 'rgba(9,9,11,0.88)', backdropFilter: 'blur(6px)' }}>
+          <span className="badge-gold">
             {displayCategory}
           </span>
           {isSold && (
@@ -2218,7 +2286,7 @@ function PropertyCard({ deal, t, onSelect }) {
               fontWeight: 800,
               fontSize: '0.7rem',
               padding: '3px 9px',
-              borderRadius: '999px',
+              borderRadius: '4px',
               letterSpacing: '0.08em',
               textTransform: 'uppercase'
             }}>
@@ -2227,36 +2295,37 @@ function PropertyCard({ deal, t, onSelect }) {
           )}
         </div>
 
+        {/* Prix et localisation intégrés au dégradé bas de la photo (#8) */}
         <div style={{
-          position: 'absolute', bottom: '12px', left: '12px',
-          background: 'rgba(9,9,11,0.92)', border: '1px solid var(--border-gold)',
-          padding: '5px 11px', borderRadius: '7px', fontWeight: 700, color: 'var(--gold-light)',
-          fontSize: '0.96rem', whiteSpace: 'nowrap'
+          position: 'absolute', bottom: '14px', left: '16px', right: '16px', zIndex: 2,
+          display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: '10px'
         }}>
-          {displayPrice}
+          <div style={{ fontWeight: 700, color: 'var(--gold-light)', fontSize: '1.15rem', letterSpacing: '0.01em', textShadow: '0 2px 10px rgba(0,0,0,0.85)' }}>
+            {displayPrice}
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.78rem', color: '#e4e4ea', textShadow: '0 2px 8px rgba(0,0,0,0.9)' }}>
+            <MapPin size={12} color="var(--gold)" style={{ flexShrink: 0 }} />
+            <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '170px' }}>
+              {locationLabel}
+            </span>
+          </div>
         </div>
       </div>
 
-      <div style={{ padding: '18px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+      <div style={{ padding: '18px 2px 0', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
         <div>
-          <h3 style={{
-            fontSize: '1.08rem',
-            fontWeight: 700,
-            marginBottom: '6px',
-            lineHeight: 1.3,
+          <h3 className="serif-title" style={{
+            fontSize: '1.32rem',
+            fontWeight: 600,
+            marginBottom: '12px',
+            lineHeight: 1.28,
             display: '-webkit-box',
-            WebkitLineClamp: 1,
+            WebkitLineClamp: 2,
             WebkitBoxOrient: 'vertical',
             overflow: 'hidden'
           }}>
             {displayTitle}
           </h3>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '0.82rem', color: 'var(--text-muted)', marginBottom: '16px' }}>
-            <MapPin size={13} color="var(--gold)" style={{ flexShrink: 0 }} />
-            <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-              {locationLabel}
-            </span>
-          </div>
         </div>
 
         <div style={{
@@ -2264,14 +2333,14 @@ function PropertyCard({ deal, t, onSelect }) {
           alignItems: 'center',
           justifyContent: 'space-between',
           paddingTop: '12px',
-          borderTop: '1px solid var(--border-subtle)',
+          borderTop: '1px solid rgba(255,255,255,0.06)',
           gap: '10px'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: 0 }}>
             <img 
               src={broker.photo} 
               alt={broker.name}
-              style={{ width: '28px', height: '28px', borderRadius: '50%', objectFit: 'cover', objectPosition: 'top center', border: '1px solid var(--gold)', flexShrink: 0 }}
+              style={{ width: '26px', height: '26px', borderRadius: '50%', objectFit: 'cover', objectPosition: 'top center', border: '1px solid var(--gold)', flexShrink: 0 }}
               onError={e => { e.target.src = 'https://www.himalayacorp.com/gx/00/defaut_courtier.jpg'; }}
             />
             <span style={{ fontSize: '0.8rem', fontWeight: 500, color: 'var(--text-secondary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
@@ -2279,8 +2348,8 @@ function PropertyCard({ deal, t, onSelect }) {
             </span>
           </div>
 
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '0.8rem', fontWeight: 600, color: 'var(--gold-light)', whiteSpace: 'nowrap', flexShrink: 0 }}>
-            {t?.properties?.viewListing || 'Voir la fiche'} <ChevronRight size={14} />
+          <span className="editorial-link" style={{ fontSize: '0.73rem' }}>
+            {isEn ? 'View Dossier' : 'Voir le dossier'} <ArrowRight size={13} />
           </span>
         </div>
       </div>

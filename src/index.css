@@ -14,7 +14,7 @@
   --border-gold: rgba(200, 164, 93, 0.34);
   --success: #e3c485;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-serif: var(--font-sans);
+  --font-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
   --shadow-lg: 0 18px 44px rgba(0, 0, 0, 0.65);
   --shadow-gold: 0 8px 26px rgba(200, 164, 93, 0.18);
 }
@@ -70,10 +70,63 @@ button, select, input, textarea {
   padding: 0 24px;
 }
 
-.serif-title {
-  font-family: var(--font-sans);
-  font-weight: 700;
-  letter-spacing: -0.02em;
+.serif-title,
+.editorial-heading {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+/* Filet d'or architectural ultra-fin en dégradé (#2) */
+.gold-hairline {
+  height: 1px;
+  width: 100%;
+  border: none;
+  background: linear-gradient(90deg, transparent 0%, rgba(200, 164, 93, 0.55) 50%, transparent 100%);
+}
+
+/* Numérotation éditoriale discrète 01, 02, 03 (#3) */
+.editorial-num {
+  font-family: var(--font-serif);
+  font-size: 1.55rem;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--gold);
+  opacity: 0.88;
+  letter-spacing: 0.06em;
+  line-height: 1;
+}
+
+/* Lien éditorial « Voir le dossier → » avec flèche glissante (#9) */
+.editorial-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--gold-light);
+  cursor: pointer;
+  transition: color 0.25s ease;
+}
+
+.editorial-link svg {
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.editorial-link:hover,
+.property-card:hover .editorial-link {
+  color: #ffffff;
+}
+
+.editorial-link:hover svg,
+.property-card:hover .editorial-link svg {
+  transform: translateX(5px);
+  color: var(--gold);
 }
 
 .gold-gradient-text {
@@ -339,9 +392,9 @@ button, select, input, textarea {
 .internal-banner-title {
   position: relative;
   z-index: 2;
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: clamp(1.55rem, 2.6vw, 2.2rem);
-  font-weight: 400;
+  font-family: var(--font-serif);
+  font-size: clamp(1.85rem, 3.1vw, 2.65rem);
+  font-weight: 600;
   letter-spacing: 0.14em;
   padding-left: 0.14em;
   text-transform: uppercase;
@@ -503,16 +556,16 @@ button, select, input, textarea {
   display: none;
 }
 
-/* Hero Section (Fond lever de soleil lumineux et dégagé) */
+/* Hero Section (Fond lever de soleil lumineux et fondu noir profond en bas #15, #16) */
 .hero-section {
   position: relative;
-  min-height: 610px;
+  min-height: 670px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 135px 0 80px;
+  padding: 155px 0 105px;
   overflow: hidden;
-  border-bottom: 1px solid var(--border-subtle);
+  border-bottom: none;
 }
 
 .hero-video-bg {
@@ -522,8 +575,8 @@ button, select, input, textarea {
   height: 100%;
   object-fit: cover;
   z-index: 0;
-  opacity: 0.9;
-  filter: brightness(1.1) saturate(1.05);
+  opacity: 0.92;
+  filter: brightness(1.08) saturate(1.05);
 }
 
 .hero-overlay {
@@ -531,9 +584,10 @@ button, select, input, textarea {
   inset: 0;
   background: linear-gradient(
     180deg,
-    rgba(9, 9, 11, 0.22) 0%,
-    rgba(9, 9, 11, 0.12) 50%,
-    rgba(9, 9, 11, 0.86) 100%
+    rgba(9, 9, 11, 0.25) 0%,
+    rgba(9, 9, 11, 0.14) 45%,
+    rgba(9, 9, 11, 0.72) 82%,
+    #09090b 100%
   );
   z-index: 1;
 }
@@ -543,43 +597,93 @@ button, select, input, textarea {
   z-index: 2;
   width: 100%;
   text-align: center;
-  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.65);
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.7);
 }
 
-/* Search Bar */
+/* Indicateur de défilement minimaliste en fil d'or vertical (#16) */
+.hero-scroll-indicator {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  pointer-events: none;
+}
+
+.hero-scroll-line {
+  width: 1px;
+  height: 44px;
+  background: linear-gradient(180deg, var(--gold) 0%, rgba(200, 164, 93, 0) 100%);
+  animation: scrollPulse 2.4s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scaleY(0.75);
+    transform-origin: top;
+  }
+  50% {
+    opacity: 1;
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+}
+
+/* Barre de recherche Hero façon « Conciergerie Privée » (#13) */
 .search-bar-box {
-  background: rgba(14, 14, 17, 0.86);
-  backdrop-filter: blur(18px);
-  border: 1px solid var(--border-gold);
-  border-radius: 12px;
-  padding: 12px;
-  max-width: 920px;
-  margin: 28px auto 0;
-  box-shadow: var(--shadow-lg);
+  background: rgba(11, 11, 14, 0.78);
+  backdrop-filter: blur(22px);
+  border: 1px solid rgba(200, 164, 93, 0.38);
+  border-radius: 10px;
+  padding: 8px 10px;
+  max-width: 960px;
+  margin: 34px auto 0;
+  box-shadow: 0 24px 56px rgba(0, 0, 0, 0.75);
   text-shadow: none;
 }
 
 .search-grid {
   display: grid;
   grid-template-columns: 1.5fr 1.1fr 1fr auto;
-  gap: 10px;
+  gap: 0;
   align-items: center;
 }
 
+.search-grid .form-control {
+  background: transparent;
+  border: none;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0;
+  padding: 12px 16px;
+}
+
+.search-grid .form-control:focus {
+  border-bottom: none;
+  background: rgba(200, 164, 93, 0.05);
+}
+
+/* Champs de formulaires style « Ligne de Signature » (#18) */
 .form-control {
   width: 100%;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.025);
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
   color: var(--text-main);
-  padding: 11px 13px;
-  border-radius: 8px;
+  padding: 12px 14px;
+  border-radius: 4px 4px 0 0;
   font-size: 0.86rem;
   outline: none;
-  transition: border-color 0.2s;
+  transition: border-color 0.25s ease, background 0.25s ease;
 }
 
 .form-control:focus {
-  border-color: var(--gold);
+  border-bottom-color: var(--gold);
+  background: rgba(200, 164, 93, 0.05);
 }
 
 .form-control option {
@@ -591,22 +695,21 @@ button, select, input, textarea {
 .specialty-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  gap: 24px;
 }
 
 .specialty-card {
   position: relative;
-  height: 310px;
-  border-radius: 12px;
+  height: 330px;
+  border-radius: 8px;
   overflow: hidden;
-  border: 1px solid var(--border-subtle);
+  border: none;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.4s ease;
 }
 
 .specialty-card:hover {
   transform: translateY(-4px);
-  border-color: var(--gold);
   box-shadow: var(--shadow-gold);
 }
 
@@ -614,11 +717,11 @@ button, select, input, textarea {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  transition: transform 1.35s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .specialty-card:hover img {
-  transform: scale(1.05);
+  transform: scale(1.07);
 }
 
 .specialty-overlay {
@@ -628,96 +731,180 @@ button, select, input, textarea {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 20px;
+  padding: 24px;
 }
 
-/* Property Cards */
+/* Cartes de propriétés « Sans Cadre » Style Galerie / Sotheby's (#5, #6, #7, #8, #9) */
 .properties-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 38px 28px;
 }
 
 .property-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: 12px;
-  overflow: hidden;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 0;
+  padding-bottom: 22px;
+  overflow: visible;
   display: flex;
   flex-direction: column;
-  transition: all 0.25s ease;
+  transition: border-color 0.35s ease, transform 0.35s ease;
 }
 
 .property-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--border-gold);
-  box-shadow: var(--shadow-lg);
+  transform: translateY(-3px);
+  border-bottom-color: var(--gold);
 }
 
 .property-img-wrap {
   position: relative;
-  height: 220px;
+  aspect-ratio: 16 / 10;
+  height: auto;
+  border-radius: 6px;
   overflow: hidden;
   background: #09090b;
+}
+
+.property-img-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(9, 9, 11, 0.18) 0%,
+    rgba(9, 9, 11, 0) 42%,
+    rgba(9, 9, 11, 0.86) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
 }
 
 .property-img-wrap img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.4s ease;
+  transition: transform 1.35s cubic-bezier(0.19, 1, 0.22, 1), filter 0.8s ease;
 }
 
 .property-card:hover .property-img-wrap img {
-  transform: scale(1.04);
+  transform: scale(1.065);
+  filter: brightness(1.05);
 }
 
-/* Broker Cards */
+/* Portraits des courtiers avec fondu studio & ligne dorée animée (#10, #11, #12) */
 .brokers-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 22px;
+  grid-template-columns: repeat(auto-fill, minmax(265px, 1fr));
+  gap: 36px 26px;
 }
 
 .broker-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: 12px;
-  overflow: hidden;
-  transition: all 0.25s ease;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 0;
+  padding-bottom: 18px;
+  overflow: visible;
+  transition: border-color 0.3s ease, transform 0.3s ease;
   display: flex;
   flex-direction: column;
 }
 
 .broker-card:hover {
   transform: translateY(-3px);
-  border-color: var(--border-gold);
-  box-shadow: var(--shadow-gold);
+  border-bottom-color: var(--gold);
 }
 
-/* Modal Backdrop */
+.broker-photo-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 314 / 460;
+  background: #09090b;
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.broker-photo-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(9, 9, 11, 0) 55%,
+    rgba(9, 9, 11, 0.92) 100%
+  );
+  pointer-events: none;
+}
+
+.broker-photo-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  transition: transform 1.25s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.broker-card:hover .broker-photo-wrap img {
+  transform: scale(1.045);
+}
+
+.broker-name-line {
+  height: 1px;
+  width: 28px;
+  background: var(--gold);
+  margin: 8px 0 10px;
+  transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.broker-card:hover .broker-name-line {
+  width: 72px;
+}
+
+/* Modales avec toile de fond floutée profonde & animation fade-up (#19) */
 .modal-backdrop {
   position: fixed;
   inset: 0;
   z-index: 200;
-  background: rgba(5, 5, 6, 0.86);
-  backdrop-filter: blur(8px);
+  background: rgba(5, 5, 7, 0.88);
+  backdrop-filter: blur(16px);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px;
   overflow-y: auto;
+  animation: backdropFadeIn 0.22s ease-out;
 }
 
 .modal-panel {
-  background: #121215;
+  background: #0e0e11;
   border: 1px solid var(--border-gold);
-  border-radius: 14px;
-  max-width: 1020px;
+  border-radius: 10px;
+  max-width: 1040px;
   width: 100%;
   max-height: 90vh;
   overflow-y: auto;
-  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.85);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.92);
+  animation: modalFadeUp 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes backdropFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 /* Responsive */

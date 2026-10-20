@@ -496,10 +496,10 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
           }}
         >
           <div>
-            <span className="badge-gold" style={{ marginBottom: '10px' }}>
+            <span className="badge-gold" style={{ marginBottom: '8px' }}>
               {isEn ? 'Financial & Real Estate Simulators 2026' : 'Centre de calcul & Simulateurs 2026'}
             </span>
-            <h2 style={{ fontSize: '2rem', fontWeight: 700, lineHeight: 1.2, marginBottom: '6px' }}>
+            <h2 className="serif-title" style={{ fontSize: '2.4rem', fontWeight: 600, lineHeight: 1.15, marginBottom: '6px' }}>
               {isEn ? 'Real Estate & Financial ' : 'Outils Immobiliers '}
               <span className="gold-gradient-text">{isEn ? 'Tools' : '& Financiers'}</span>
             </h2>
@@ -540,13 +540,14 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
           </div>
         </div>
 
-        {/* Navigation des 7 outils (Grille sobre Noir, Or & Blanc) */}
+        {/* Navigation des 7 outils — Barre d'onglets éditoriale sans boîtes imbriquées (#17) */}
         <div
           style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))',
-            gap: '10px',
-            marginBottom: '32px'
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '6px',
+            borderBottom: '1px solid var(--border-subtle)',
+            marginBottom: '40px'
           }}
         >
           {toolsList.map((tool) => {
@@ -557,32 +558,23 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                 key={tool.id}
                 onClick={() => setActiveTool(tool.id)}
                 style={{
-                  background: isActive ? 'rgba(200, 164, 93, 0.14)' : 'var(--bg-card)',
-                  border: `1px solid ${isActive ? 'var(--gold)' : 'var(--border-subtle)'}`,
-                  borderRadius: '12px',
-                  padding: '14px 12px',
+                  background: 'transparent',
+                  border: 'none',
+                  borderBottom: isActive ? '2px solid var(--gold)' : '2px solid transparent',
+                  padding: '12px 16px',
                   textAlign: 'left',
                   cursor: 'pointer',
                   transition: 'all 0.2s ease',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '6px'
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  color: isActive ? 'var(--gold-light)' : 'var(--text-secondary)',
+                  fontWeight: isActive ? 700 : 500,
+                  fontSize: '0.84rem'
                 }}
               >
-                <Icon size={18} style={{ color: 'var(--gold)' }} />
-                <div
-                  style={{
-                    fontSize: '0.86rem',
-                    fontWeight: 700,
-                    color: isActive ? 'var(--gold-light)' : 'var(--text-main)',
-                    lineHeight: 1.25
-                  }}
-                >
-                  {tool.title}
-                </div>
-                <div style={{ fontSize: '0.73rem', color: 'var(--text-muted)', lineHeight: 1.25 }}>
-                  {tool.sub}
-                </div>
+                <Icon size={15} style={{ color: isActive ? 'var(--gold)' : 'var(--text-muted)' }} />
+                <span>{tool.title}</span>
               </button>
             );
           })}
@@ -592,106 +584,70 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
             OUTIL 1 : RENTABILITÉ PLEX & COMMERCIAL (TGA / CAP RATE, MRB, RNO)
            ================================================================= */}
         {activeTool === 'plex' && (
-          <div
-            style={{
-              background: 'var(--bg-card)',
-              border: '1px solid var(--border-gold)',
-              borderRadius: '14px',
-              padding: '30px'
-            }}
-          >
-            {/* 4 KPIs principaux */}
+          <div style={{ paddingTop: '4px' }}>
+            {/* 4 KPIs principaux en bandeau éditorial épuré (zéro cadre dans un cadre #17) */}
             <div
               style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                gap: '14px',
-                marginBottom: '28px'
+                gap: '24px',
+                paddingBottom: '32px',
+                marginBottom: '36px',
+                borderBottom: '1px solid var(--border-subtle)'
               }}
             >
-              <div
-                style={{
-                  background: 'var(--bg-dark)',
-                  border: '1px solid var(--border-subtle)',
-                  borderRadius: '10px',
-                  padding: '18px',
-                  textAlign: 'center'
-                }}
-              >
-                <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>
+              <div style={{ textAlign: 'center', padding: '8px 12px' }}>
+                <div style={{ fontSize: '0.73rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                   {isEn ? 'GIM (Gross Multiplier)' : 'MRB (Multiplicateur Brut)'}
                 </div>
-                <div className="gold-gradient-text" style={{ fontSize: '1.75rem', fontWeight: 700, margin: '4px 0' }}>
+                <div className="serif-title gold-gradient-text" style={{ fontSize: '2.5rem', fontWeight: 600, margin: '6px 0' }}>
                   {plexResult.mrb}x
                 </div>
-                <div style={{ fontSize: '0.74rem', color: 'var(--text-secondary)' }}>
+                <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
                   {isEn ? 'Price / Gross Income' : 'Prix / Revenus bruts'}
                 </div>
               </div>
 
-              <div
-                style={{
-                  background: 'var(--bg-dark)',
-                  border: '1px solid var(--border-subtle)',
-                  borderRadius: '10px',
-                  padding: '18px',
-                  textAlign: 'center'
-                }}
-              >
-                <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>
+              <div style={{ textAlign: 'center', padding: '8px 12px' }}>
+                <div style={{ fontSize: '0.73rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                   {isEn ? 'Cap Rate (TGA)' : 'Taux de capitalisation (TGA)'}
                 </div>
-                <div className="gold-gradient-text" style={{ fontSize: '1.75rem', fontWeight: 700, margin: '4px 0' }}>
+                <div className="serif-title gold-gradient-text" style={{ fontSize: '2.5rem', fontWeight: 600, margin: '6px 0' }}>
                   {plexResult.capRate} %
                 </div>
-                <div style={{ fontSize: '0.74rem', color: 'var(--text-secondary)' }}>
+                <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
                   {isEn ? 'NOI / Purchase Price' : 'RNO / Prix d’achat'}
                 </div>
               </div>
 
-              <div
-                style={{
-                  background: 'var(--bg-dark)',
-                  border: '1px solid var(--border-subtle)',
-                  borderRadius: '10px',
-                  padding: '18px',
-                  textAlign: 'center'
-                }}
-              >
-                <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>
+              <div style={{ textAlign: 'center', padding: '8px 12px' }}>
+                <div style={{ fontSize: '0.73rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                   {isEn ? 'Net Monthly Cashflow' : 'Cashflow net mensuel'}
                 </div>
                 <div
+                  className="serif-title"
                   style={{
-                    fontSize: '1.75rem',
-                    fontWeight: 700,
-                    margin: '4px 0',
+                    fontSize: '2.5rem',
+                    fontWeight: 600,
+                    margin: '6px 0',
                     color: plexResult.monthlyCashflow >= 0 ? 'var(--gold-light)' : '#f87171'
                   }}
                 >
                   {(plexResult.monthlyCashflow >= 0 ? '+' : '') + fmtCAD(plexResult.monthlyCashflow)}
                 </div>
-                <div style={{ fontSize: '0.74rem', color: 'var(--text-secondary)' }}>
+                <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
                   {isEn ? 'After debt & expenses' : 'Après hypothèque & dépenses'}
                 </div>
               </div>
 
-              <div
-                style={{
-                  background: 'var(--bg-dark)',
-                  border: '1px solid var(--border-subtle)',
-                  borderRadius: '10px',
-                  padding: '18px',
-                  textAlign: 'center'
-                }}
-              >
-                <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>
+              <div style={{ textAlign: 'center', padding: '8px 12px' }}>
+                <div style={{ fontSize: '0.73rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                   {isEn ? 'Cash-on-Cash ROI' : 'Rendement sur mise de fonds'}
                 </div>
-                <div style={{ fontSize: '1.75rem', fontWeight: 700, margin: '4px 0', color: 'var(--text-main)' }}>
+                <div className="serif-title" style={{ fontSize: '2.5rem', fontWeight: 600, margin: '6px 0', color: 'var(--text-main)' }}>
                   {plexResult.roi} %
                 </div>
-                <div style={{ fontSize: '0.74rem', color: 'var(--text-secondary)' }}>
+                <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
                   {isEn ? 'Annual Cashflow / Down Payment' : 'Cashflow annuel / Mise de fonds'}
                 </div>
               </div>
