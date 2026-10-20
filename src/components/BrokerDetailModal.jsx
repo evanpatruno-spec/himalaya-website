@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { X, Phone, Mail, MapPin, Globe, ChevronRight, Share2 } from 'lucide-react';
+import { HIMALAYA_FRANCHISES } from '../data/siteContent';
 
 export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSelectDeal }) {
   const [copied, setCopied] = useState(false);
@@ -26,6 +27,7 @@ export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSe
   const displayAddress = isEn ? (broker.address_en || broker.city_en || broker.city) : (broker.address || broker.city);
   const displayBio = isEn ? (broker.bio_en || broker.bio) : broker.bio;
   const displayMarkets = isEn ? (broker.markets_en || broker.markets) : broker.markets;
+  const brokerFranchises = HIMALAYA_FRANCHISES.filter(f => f.brokerIds && f.brokerIds.includes(broker.id));
 
   const handleShareProfile = () => {
     const shareUrl = `${window.location.origin}${window.location.pathname}?courtier=${encodeURIComponent(broker.id)}#courtiers`;
@@ -168,6 +170,43 @@ export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSe
                 {t?.brokers?.specialties || 'Marchés & Pays'}
               </div>
               <div style={{ fontSize: '0.88rem', fontWeight: 600, color: '#fff' }}>{displayMarkets.join(' • ')}</div>
+            </div>
+          )}
+
+          {brokerFranchises.length > 0 && (
+            <div style={{
+              paddingBottom: deals.length > 0 ? '20px' : '4px',
+              marginBottom: deals.length > 0 ? '24px' : '0',
+              borderBottom: deals.length > 0 ? '1px solid var(--border-subtle)' : 'none'
+            }}>
+              <div className="badge-gold" style={{ marginBottom: '14px' }}>
+                {isEn ? 'Franchises Supported' : 'Franchises accompagnées'}
+              </div>
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '28px',
+                flexWrap: 'wrap'
+              }}>
+                {brokerFranchises.map(fr => (
+                  <div key={fr.id} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    {fr.logo && (
+                      <img
+                        src={fr.logo}
+                        alt={fr.name}
+                        title={fr.name}
+                        style={{
+                          height: '32px',
+                          maxWidth: '120px',
+                          width: 'auto',
+                          objectFit: 'contain',
+                          filter: fr.invertLogo ? 'brightness(0) invert(1)' : 'none'
+                        }}
+                      />
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
           )}
 

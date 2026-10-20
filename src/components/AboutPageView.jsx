@@ -428,9 +428,12 @@ export default function AboutPageView({
                     {isEn ? 'Franchises' : 'Franchises'}
                   </h3>
                   <p style={{ fontSize: '0.84rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '12px' }}>
-                    {isEn
-                      ? 'Franchises supported by Himalaya: Pacini, Arabian Oud, and Grillade Taurino.'
-                      : 'Franchises accompagnées par Himalaya : Pacini, Arabian Oud et Grillade Taurino.'}
+                    {tr(lang,
+                      'Franchises accompagnées par Himalaya : Pacini, Arabian Oud, Grillade Torino, Les Moulins La Fayette, Chocolat Cotard et Nettoyeur Daoust.',
+                      'Franchises supported by Himalaya: Pacini, Arabian Oud, Grillade Torino, Les Moulins La Fayette, Chocolat Cotard, and Nettoyeur Daoust.',
+                      'Franquicias acompañadas por Himalaya: Pacini, Arabian Oud, Grillade Torino, Les Moulins La Fayette, Chocolat Cotard y Nettoyeur Daoust.',
+                      '喜马拉雅地产服务的连锁品牌：Pacini、Arabian Oud、Grillade Torino、Les Moulins La Fayette、Chocolat Cotard 及 Nettoyeur Daoust。'
+                    )}
                   </p>
                   <span style={{ fontSize: '0.8rem', color: 'var(--gold-light)', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
                     {isEn ? 'View franchises' : 'Voir les franchises'} <ChevronRight size={14} />
@@ -1047,9 +1050,12 @@ export default function AboutPageView({
                   {isEn ? 'Contact Roger Rhéaume & Mike Ainajian — Franchise Division' : 'Contacter Roger Rhéaume & Mike Ainajian — Division Franchise'}
                 </h3>
                 <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', marginTop: '4px' }}>
-                  {isEn
-                    ? 'Are you a franchisee looking for a commercial space (Pacini, Arabian Oud, Grillade Torino, or another banner)? Send us your criteria.'
-                    : 'Vous êtes client franchisé ou franchiseur (Pacini, Arabian Oud, Grillade Torino ou autre bannière) et cherchez un emplacement ? Transmettez-nous vos critères.'}
+                  {tr(lang,
+                    'Vous êtes client franchisé ou franchiseur (Pacini, Arabian Oud, Grillade Torino, Les Moulins La Fayette, Chocolat Cotard, Nettoyeur Daoust ou autre bannière) et cherchez un emplacement ? Transmettez-nous vos critères.',
+                    'Are you a franchisee or franchisor looking for a commercial space (Pacini, Arabian Oud, Grillade Torino, Les Moulins La Fayette, Chocolat Cotard, Nettoyeur Daoust, or another banner)? Send us your criteria.',
+                    '¿Es usted franquiciado o franquiciador (Pacini, Arabian Oud, Grillade Torino, Les Moulins La Fayette, Chocolat Cotard, Nettoyeur Daoust u otra marca) y busca un local comercial? Envíenos sus criterios.',
+                    '如果您是连锁品牌方或特许经营加盟商（Pacini、Arabian Oud、Grillade Torino、Les Moulins La Fayette、Chocolat Cotard、Nettoyeur Daoust 或其他品牌）并正在寻找商业地段，请提交您的选址需求。'
+                  )}
                 </p>
               </div>
 
@@ -1102,7 +1108,7 @@ export default function AboutPageView({
                         className="form-control"
                         value={franchiseBrand}
                         onChange={(e) => setFranchiseBrand(e.target.value)}
-                        placeholder={isEn ? 'Ex: Pacini, Arabian Oud, Grillade Torino...' : 'Ex. : Pacini, Arabian Oud, Grillade Torino...'}
+                        placeholder={isEn ? 'Ex: Pacini, Arabian Oud, Grillade Torino, Moulin La Fayette, Cotard, Daoust...' : 'Ex. : Pacini, Arabian Oud, Grillade Torino, Moulin La Fayette, Cotard, Daoust...'}
                       />
                     </div>
                     <div>
