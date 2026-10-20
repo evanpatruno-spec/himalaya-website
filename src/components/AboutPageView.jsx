@@ -48,25 +48,6 @@ export default function AboutPageView({
     }
   }, [initialTab, standaloneFranchisePage]);
 
-  // Superficie commerciale type recherchée par enseigne (Idée #6)
-  const getFranchiseSqftBadge = (fr) => {
-    const mapByNameOrId = {
-      Subway: '800 – 1 600 pi² (75 – 150 m²)',
-      Thaïzone: '1 400 – 2 400 pi² (130 – 225 m²)',
-      'Les Pères Nature': '6 000 – 15 000 pi² (550 – 1 400 m²)',
-      'Les Moulins La Fayette': '1 500 – 2 800 pi² (140 – 260 m²)',
-      'Chocolat Cotard': '800 – 1 800 pi² (75 – 170 m²)',
-      'Nettoyeur Daoust': '1 000 – 2 200 pi² (95 – 205 m²)',
-      pacini: '800 – 1 600 pi² (75 – 150 m²)',
-      grillade_torino: '1 400 – 2 400 pi² (130 – 225 m²)',
-      arabian_oud: '6 000 – 15 000 pi² (550 – 1 400 m²)',
-      moulin_lafayette: '1 500 – 2 800 pi² (140 – 260 m²)',
-      chocolat_cotard: '800 – 1 800 pi² (75 – 170 m²)',
-      nettoyeur_daoust: '1 000 – 2 200 pi² (95 – 205 m²)'
-    };
-    return mapByNameOrId[fr.name] || mapByNameOrId[fr.id] || '1 000 – 2 500 pi² (95 – 230 m²)';
-  };
-
   const matchesFranchiseSector = (fr, sectorKey) => {
     if (!sectorKey || sectorKey === 'all') return true;
     const name = fr.name || '';
@@ -1031,7 +1012,6 @@ export default function AboutPageView({
                   onClick={() => {
                     setFranchiseFormMode('tenant');
                     setFranchiseBrand(fr.name);
-                    setFranchiseSqft(getFranchiseSqftBadge(fr));
                     if (fr.sectorValue) setFranchiseSector(fr.sectorValue);
                     const el = document.getElementById('franchise-contact-form') || document.getElementById('form-franchise-himalaya');
                     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1079,23 +1059,9 @@ export default function AboutPageView({
                   <div style={{ fontSize: '0.73rem', color: 'var(--gold)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '6px' }}>
                     {pickLang(fr, 'category', lang)}
                   </div>
-                  <h3 className="serif-title" style={{ fontSize: '1.45rem', fontWeight: 600, color: '#fff', margin: '0 0 8px' }}>
+                  <h3 className="serif-title" style={{ fontSize: '1.45rem', fontWeight: 600, color: '#fff', margin: '0 0 14px' }}>
                     {pickLang(fr, 'name', lang)}
                   </h3>
-
-                  {/* Fine mention dorée de la superficie commerciale type recherchée (Idée #6) */}
-                  <div
-                    style={{
-                      fontSize: '0.76rem',
-                      color: 'var(--gold-light)',
-                      letterSpacing: '0.03em',
-                      marginBottom: '14px',
-                      opacity: 0.92
-                    }}
-                  >
-                    {tr(lang, 'Superficie recherchée :', 'Target Area:', 'Superficie buscada:', '目标选址面积：')}{' '}
-                    <span style={{ color: 'var(--gold)', fontWeight: 600 }}>{getFranchiseSqftBadge(fr)}</span>
-                  </div>
 
                   {/* Actions discrètes (#1 & #5 : Pré-remplir le formulaire + Site officiel) */}
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '18px', flexWrap: 'wrap' }}>
