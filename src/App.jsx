@@ -70,10 +70,11 @@ export default function App() {
   const [legalModalType, setLegalModalType] = useState(null); // 'terms' | 'privacy' | null
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // Détection du défilement pour le header compact (#3)
+  // Détection du défilement avec hystérésis (zéro clignotement / oscillation au scroll #3)
   useEffect(() => {
     const onScroll = () => {
-      setIsScrolled(window.scrollY > 90);
+      const y = window.scrollY;
+      setIsScrolled(prev => (prev ? y > 35 : y > 110));
     };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -210,13 +211,16 @@ export default function App() {
       });
   }, [rechercheBut, filtrePropriete, filtreRegion, filtreCourtier, searchKeyword, sortBy]);
 
-  // Filtrage courtiers insensible aux accents (Point 4)
+  // Filtrage courtiers multi-rôles (Résidentiel & Commercial, Direction, International)
   const filteredBrokers = useMemo(() => {
     const q = normalizeText(brokerSearch);
     return INITIAL_HIMALAYA_BROKERS.filter(b => {
-      if (brokerCategoryFilter !== 'all' && b.category !== brokerCategoryFilter) return false;
+      if (brokerCategoryFilter !== 'all') {
+        const cats = Array.isArray(b.categories) ? b.categories : [b.category];
+        if (!cats.includes(brokerCategoryFilter)) return false;
+      }
       if (q) {
-        const hay = normalizeText(`${b.name} ${b.title} ${b.city}`);
+        const hay = normalizeText(`${b.name} ${b.title} ${b.shortTitle} ${b.city}`);
         return hay.includes(q);
       }
       return true;
@@ -345,7 +349,7 @@ export default function App() {
             </ul>
           </nav>
 
-          {/* Losange Central Officiel Himalaya (Déployé en haut, Compact au défilement #3) */}
+          {/* Losange Central Officiel Himalaya (Déployé en haut, Fondu fluide au défilement #3) */}
           <div className="header-diamond-wrap">
             <div
               className="header-diamond-box"
@@ -358,14 +362,18 @@ export default function App() {
                 alt="Immobilier Himalaya Real Estate Corp."
                 onError={e => { e.target.src = 'https://www.himalayacorp.com/gx/himalaya-immobilier-logo.png'; }}
               />
-              <div className="diamond-logo-compact">
-                <span className="gold-gradient-text" style={{ fontSize: '1.15rem', fontWeight: 800, letterSpacing: '0.2em' }}>
-                  HIMALAYA
-                </span>
-                <span style={{ fontSize: '0.56rem', color: 'rgba(255,255,255,0.75)', letterSpacing: '0.16em', textTransform: 'uppercase' }}>
-                  Immobilier | Real Estate
-                </span>
-              </div>
+            </div>
+            <div
+              className="header-compact-brand"
+              onClick={() => navigateTo('home', { filtrePropriete: 'all', filtreCourtier: 'all' })}
+              title={t.nav.home}
+            >
+              <span className="gold-gradient-text" style={{ fontSize: '1.22rem', fontWeight: 800, letterSpacing: '0.22em' }}>
+                HIMALAYA
+              </span>
+              <span style={{ fontSize: '0.58rem', color: 'rgba(255,255,255,0.78)', letterSpacing: '0.18em', textTransform: 'uppercase', marginTop: '2px' }}>
+                Immobilier | Real Estate
+              </span>
             </div>
           </div>
 
@@ -1094,8 +1102,8 @@ export default function App() {
 
                     <div style={{ padding: '16px 18px 18px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                       <div onClick={() => openBrokerModal(broker)} style={{ marginBottom: '14px', cursor: 'pointer' }}>
-                        <div style={{ fontSize: '0.74rem', color: 'var(--gold)', fontWeight: 600, marginBottom: '4px', lineHeight: 1.35 }}>
-                          {isEn ? (broker.shortTitle_en || broker.shortTitle) : broker.shortTitle}
+                        <div style={{ fontSize: '0.74rem', color: 'var(--gold)', fontWeight: 600, marginBottom: '5px', lineHeight: 1.4 }}>
+                          {isEn ? (broker.title_en || broker.shortTitle_en) : (broker.title || broker.shortTitle)}
                         </div>
                         <h3 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: '4px' }}>{broker.name}</h3>
                         <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px' }}>

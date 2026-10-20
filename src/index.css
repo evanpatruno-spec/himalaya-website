@@ -154,7 +154,7 @@ button, select, input, textarea {
   z-index: 120;
   background: #000000;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  transition: background 0.25s ease, box-shadow 0.25s ease;
+  transition: background 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
 }
 
 .main-header.is-scrolled {
@@ -164,19 +164,14 @@ button, select, input, textarea {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.75);
 }
 
+/* Hauteur constante de 88px : aucun décalage de mise en page (zéro clignotement au scroll) */
 .header-inner {
   display: grid;
-  grid-template-columns: 1fr 310px 1fr;
+  grid-template-columns: 1fr 290px 1fr;
   align-items: center;
   height: 88px;
   gap: 8px;
   position: relative;
-  transition: height 0.25s ease, grid-template-columns 0.25s ease;
-}
-
-.main-header.is-scrolled .header-inner {
-  height: 66px;
-  grid-template-columns: 1fr 190px 1fr;
 }
 
 .header-nav-side {
@@ -187,14 +182,14 @@ button, select, input, textarea {
 
 .header-nav-left {
   justify-content: space-between;
-  padding-right: 12px;
+  padding-right: 10px;
 }
 
 .header-multiprets-link {
   display: inline-flex;
   align-items: center;
-  padding: 4px 8px 4px 0;
-  opacity: 0.92;
+  padding: 4px 12px 4px 0;
+  opacity: 0.96;
   transition: opacity 0.2s ease, transform 0.2s ease;
   flex-shrink: 0;
 }
@@ -205,40 +200,33 @@ button, select, input, textarea {
 }
 
 .header-multiprets-link img {
-  height: 28px;
+  height: 46px;
   width: auto;
   display: block;
   object-fit: contain;
 }
 
-.main-header.is-scrolled .header-multiprets-link img {
-  height: 23px;
-}
-
 .header-nav-right {
   justify-content: flex-start;
-  padding-left: 12px;
+  padding-left: 10px;
 }
 
 .header-diamond-wrap {
   position: relative;
-  width: 310px;
+  width: 290px;
   height: 88px;
   display: flex;
+  align-items: center;
   justify-content: center;
-  transition: width 0.25s ease, height 0.25s ease;
 }
 
-.main-header.is-scrolled .header-diamond-wrap {
-  width: 190px;
-  height: 66px;
-}
-
+/* Grand losange blanc déployé en haut de page */
 .header-diamond-box {
   position: absolute;
   top: 0;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateY(0) scale(1);
+  transform-origin: top center;
   width: 310px;
   height: 220px;
   background: url('https://www.himalayacorp.com/gx/m/bg-logo.png') top center / 100% auto no-repeat;
@@ -248,45 +236,51 @@ button, select, input, textarea {
   align-items: center;
   cursor: pointer;
   z-index: 130;
+  opacity: 1;
   filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.7));
-  transition: all 0.25s ease;
+  transition: opacity 0.28s cubic-bezier(0.22, 1, 0.36, 1), transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
 }
 
 .header-diamond-box:hover {
-  transform: translateX(-50%) scale(1.02);
+  transform: translateX(-50%) translateY(0) scale(1.02);
 }
 
 .header-diamond-box .diamond-logo-full {
   width: 134px;
   height: auto;
   display: block;
-  transition: opacity 0.2s ease;
 }
 
-.header-diamond-box .diamond-logo-compact {
-  display: none;
-}
-
-/* Mode compact au défilement (#3) : le losange se rétracte proprement dans la barre noire */
-.main-header.is-scrolled .header-diamond-box {
-  width: 180px;
-  height: 66px;
-  background: none;
-  padding-top: 0;
-  justify-content: center;
-  filter: none;
-}
-
-.main-header.is-scrolled .header-diamond-box .diamond-logo-full {
-  display: none;
-}
-
-.main-header.is-scrolled .header-diamond-box .diamond-logo-compact {
+/* Logo compact intégré dans la barre noire lors du défilement */
+.header-compact-brand {
+  position: absolute;
+  inset: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  line-height: 1.1;
+  cursor: pointer;
+  z-index: 131;
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  line-height: 1.15;
+  transition: opacity 0.28s cubic-bezier(0.22, 1, 0.36, 1), transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+/* Transition fluide au défilement (#3) sans aucun saut de hauteur */
+.main-header.is-scrolled .header-diamond-box {
+  opacity: 0;
+  transform: translateX(-50%) translateY(-32px) scale(0.86);
+  pointer-events: none;
+}
+
+.main-header.is-scrolled .header-compact-brand {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
 }
 
 /* Bandeau panoramique Montagne Enneigée Noir & Blanc sous le losange (#1) */
