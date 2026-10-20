@@ -1,7 +1,9 @@
-import React, { useEffect } from 'react';
-import { X, Phone, Mail, MapPin, Globe, ChevronRight } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { X, Phone, Mail, MapPin, Globe, ChevronRight, Share2 } from 'lucide-react';
 
 export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSelectDeal }) {
+  const [copied, setCopied] = useState(false);
+
   useEffect(() => {
     const prev = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
@@ -24,6 +26,15 @@ export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSe
   const displayBio = isEn ? (broker.bio_en || broker.bio) : broker.bio;
   const displayMarkets = isEn ? (broker.markets_en || broker.markets) : broker.markets;
 
+  const handleShareProfile = () => {
+    const shareUrl = `${window.location.origin}${window.location.pathname}?courtier=${encodeURIComponent(broker.id)}#courtiers`;
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(shareUrl);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    }
+  };
+
   return (
     <div className="modal-backdrop" onClick={onClose}>
       <div className="modal-panel" style={{ maxWidth: '780px' }} onClick={e => e.stopPropagation()}>
@@ -33,26 +44,34 @@ export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSe
           justifyContent: 'space-between',
           padding: '16px 24px',
           borderBottom: '1px solid var(--border-subtle)',
-          background: 'rgba(18, 18, 21, 0.96)'
+          background: 'rgba(18, 18, 21, 0.96)',
+          gap: '12px',
+          flexWrap: 'wrap'
         }}>
           <span className="badge-gold">{displayShortTitle}</span>
-          <button
-            onClick={onClose}
-            style={{
-              background: 'rgba(255,255,255,0.06)',
-              border: '1px solid var(--border-subtle)',
-              color: '#fff',
-              width: '34px',
-              height: '34px',
-              borderRadius: '8px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              cursor: 'pointer'
-            }}
-          >
-            <X size={18} />
-          </button>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <button onClick={handleShareProfile} className="btn-outline" style={{ padding: '6px 12px', fontSize: '0.78rem' }}>
+              <Share2 size={13} />
+              {copied ? (isEn ? 'Profile link copied!' : 'Lien du profil copié !') : (isEn ? 'Share profile' : 'Partager le profil')}
+            </button>
+            <button
+              onClick={onClose}
+              style={{
+                background: 'rgba(255,255,255,0.06)',
+                border: '1px solid var(--border-subtle)',
+                color: '#fff',
+                width: '34px',
+                height: '34px',
+                borderRadius: '8px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer'
+              }}
+            >
+              <X size={18} />
+            </button>
+          </div>
         </div>
 
         <div style={{ padding: '26px' }}>

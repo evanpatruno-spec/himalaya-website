@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import {
   Calculator,
   Building2,
@@ -9,7 +9,8 @@ import {
   Clock,
   CheckCircle2,
   ArrowRight,
-  Printer
+  Printer,
+  X
 } from 'lucide-react';
 import { submitLeadToProspection } from '../utils/prospectionBridge';
 
@@ -65,7 +66,7 @@ function computeWelcomeTax(price, isMontreal) {
   return { total, brackets };
 }
 
-export default function ToolsHubView({ lang = 'FR', onNavigate }) {
+export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal, onClearPreselectedDeal }) {
   const isEn = lang === 'EN';
   const [activeTool, setActiveTool] = useState('plex');
 
@@ -130,6 +131,34 @@ export default function ToolsHubView({ lang = 'FR', onNavigate }) {
   const [leadEmail, setLeadEmail] = useState('');
   const [leadPhone, setLeadPhone] = useState('');
   const [leadSent, setLeadSent] = useState(false);
+
+  // Pré-remplissage automatique lorsqu'on arrive depuis une fiche propriété (#6)
+  useEffect(() => {
+    if (!preselectedDeal) return;
+    const p = Math.round(Number(preselectedDeal.price) || 0);
+    if (p >= 25000) {
+      setPlexPrice(p);
+      setPlexGrossIncome(Math.round(p * 0.085));
+      setMcLoan(Math.round(p * 0.75));
+      setWtPrice(p);
+      setWtIsMtl(/montr[eé]al/i.test(String(preselectedDeal.city || '') + ' ' + String(preselectedDeal.region || '')));
+      setCcPrice(p);
+      setRvbPrice(p);
+      setRvbDown(Math.round(p * 0.2));
+      setWaitPrice(p);
+
+      const rawMun = preselectedDeal.specs?.['Taxes municipales'];
+      if (rawMun) {
+        const parsedMun = Number(String(rawMun).replace(/[^\d]/g, ''));
+        if (parsedMun > 0) setPlexTaxMun(parsedMun);
+      }
+      const rawScol = preselectedDeal.specs?.['Taxes scolaires'];
+      if (rawScol) {
+        const parsedScol = Number(String(rawScol).replace(/[^\d]/g, ''));
+        if (parsedScol > 0) setPlexTaxScol(parsedScol);
+      }
+    }
+  }, [preselectedDeal]);
 
   const fmtCAD = (n) =>
     Math.round(Number(n) || 0).toLocaleString(isEn ? 'en-CA' : 'fr-CA') + (isEn ? ' $' : ' $');
@@ -410,9 +439,46 @@ export default function ToolsHubView({ lang = 'FR', onNavigate }) {
   };
 
   return (
-    <main style={{ flex: 1, padding: '125px 0 80px' }}>
+    <main style={{ flex: 1, padding: '44px 0 80px' }}>
       <div className="container">
-        {/* En-tête Outils Immobiliers */}
+        {/* Bandeau de propriété pré-sélectionnée (#6) */}
+        {preselectedDeal && (
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '16px',
+            flexWrap: 'wrap',
+            padding: '14px 20px',
+            marginBottom: '22px',
+            borderRadius: '12px',
+            background: 'rgba(200, 164, 93, 0.12)',
+            border: '1px solid var(--gold)'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
+              <span className="badge-gold">MLS {preselectedDeal.mls_number}</span>
+              <div>
+                <div style={{ fontSize: '0.78rem', color: 'var(--gold-light)', fontWeight: 600 }}>
+                  {isEn ? 'Active Property Simulation Pre-filled:' : 'Simulation pré-remplie avec la propriété sélectionnée :'}
+                </div>
+                <div style={{ fontSize: '1rem', fontWeight: 700, color: '#fff' }}>
+                  {isEn ? (preselectedDeal.title_en || preselectedDeal.title) : preselectedDeal.title} — {preselectedDeal.city} ({fmtCAD(preselectedDeal.price)})
+                </div>
+              </div>
+            </div>
+            {onClearPreselectedDeal && (
+              <button
+                onClick={onClearPreselectedDeal}
+                className="btn-outline"
+                style={{ padding: '6px 12px', fontSize: '0.78rem' }}
+              >
+                <X size={14} /> {isEn ? 'Reset to default values' : 'Réinitialiser'}
+              </button>
+            )}
+          </div>
+        )}
+
+        {/* En-tête Outils Immobiliers + Partenaire Multi-Prêts (#2) */}
         <div
           style={{
             display: 'flex',
@@ -427,19 +493,45 @@ export default function ToolsHubView({ lang = 'FR', onNavigate }) {
             <span className="badge-gold" style={{ marginBottom: '10px' }}>
               {isEn ? 'Financial & Real Estate Simulators 2026' : 'Centre de calcul & Simulateurs 2026'}
             </span>
-            <h1 style={{ fontSize: '2.2rem', fontWeight: 700, lineHeight: 1.2, marginBottom: '6px' }}>
+            <h2 style={{ fontSize: '2rem', fontWeight: 700, lineHeight: 1.2, marginBottom: '6px' }}>
               {isEn ? 'Real Estate & Financial ' : 'Outils Immobiliers '}
               <span className="gold-gradient-text">{isEn ? 'Tools' : '& Financiers'}</span>
-            </h1>
-            <p style={{ color: 'var(--text-secondary)', fontSize: '0.94rem', maxWidth: '760px' }}>
+            </h2>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '0.94rem', maxWidth: '720px' }}>
               {isEn
                 ? 'Strategic analysis calculators based on Canadian banking rules (B-20), CMHC, and Quebec/Montreal transfer duty brackets.'
                 : 'Outils d’analyse stratégique et financière basés sur les barèmes canadiens (test B-20, SCHL) et les droits de mutation du Québec et de Montréal.'}
             </p>
           </div>
-          <button onClick={() => window.print()} className="btn-outline" style={{ fontSize: '0.82rem' }}>
-            <Printer size={15} /> {isEn ? 'Print / Save PDF' : 'Imprimer / Exporter PDF'}
-          </button>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+            <a
+              href="https://equipeimpact-multi-prets.zohobookings.ca/#/Himalaya"
+              target="_blank"
+              rel="noreferrer"
+              className="btn-outline"
+              style={{
+                borderColor: 'var(--border-gold)',
+                padding: '8px 14px',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '10px',
+                fontSize: '0.8rem'
+              }}
+              title={isEn ? 'Book a mortgage consultation with Multi-Prêts' : 'Prendre rendez-vous hypothécaire avec Multi-Prêts'}
+            >
+              <img
+                src="https://www.himalayacorp.com/gx/m/Multi_Prets.png"
+                alt="Multi-Prêts Hypothèques"
+                style={{ height: '22px', objectFit: 'contain' }}
+              />
+              <span style={{ color: 'var(--gold-light)', fontWeight: 600 }}>
+                {isEn ? 'Multi-Prêts Pre-Approval →' : 'Préqualification Multi-Prêts →'}
+              </span>
+            </a>
+            <button onClick={() => window.print()} className="btn-outline" style={{ fontSize: '0.82rem' }}>
+              <Printer size={15} /> {isEn ? 'Print / Save PDF' : 'Imprimer / Exporter PDF'}
+            </button>
+          </div>
         </div>
 
         {/* Navigation des 7 outils (Grille sobre Noir, Or & Blanc) */}

@@ -147,13 +147,21 @@ button, select, input, textarea {
   color: var(--gold-light);
 }
 
-/* Header Navigation avec Losange Central Officiel Himalaya */
+/* Header Navigation avec Losange Central Officiel Himalaya (#1, #2, #3) */
 .main-header {
-  position: relative;
+  position: sticky;
   top: 0;
   z-index: 120;
   background: #000000;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  transition: background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.main-header.is-scrolled {
+  background: rgba(5, 5, 7, 0.96);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border-gold);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.75);
 }
 
 .header-inner {
@@ -163,6 +171,12 @@ button, select, input, textarea {
   height: 88px;
   gap: 8px;
   position: relative;
+  transition: height 0.25s ease, grid-template-columns 0.25s ease;
+}
+
+.main-header.is-scrolled .header-inner {
+  height: 66px;
+  grid-template-columns: 1fr 190px 1fr;
 }
 
 .header-nav-side {
@@ -172,8 +186,33 @@ button, select, input, textarea {
 }
 
 .header-nav-left {
-  justify-content: flex-end;
+  justify-content: space-between;
   padding-right: 12px;
+}
+
+.header-multiprets-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px 4px 0;
+  opacity: 0.92;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.header-multiprets-link:hover {
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+.header-multiprets-link img {
+  height: 28px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.main-header.is-scrolled .header-multiprets-link img {
+  height: 23px;
 }
 
 .header-nav-right {
@@ -187,6 +226,12 @@ button, select, input, textarea {
   height: 88px;
   display: flex;
   justify-content: center;
+  transition: width 0.25s ease, height 0.25s ease;
+}
+
+.main-header.is-scrolled .header-diamond-wrap {
+  width: 190px;
+  height: 66px;
 }
 
 .header-diamond-box {
@@ -204,17 +249,100 @@ button, select, input, textarea {
   cursor: pointer;
   z-index: 130;
   filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.7));
-  transition: transform 0.2s ease;
+  transition: all 0.25s ease;
 }
 
 .header-diamond-box:hover {
   transform: translateX(-50%) scale(1.02);
 }
 
-.header-diamond-box img {
+.header-diamond-box .diamond-logo-full {
   width: 134px;
   height: auto;
   display: block;
+  transition: opacity 0.2s ease;
+}
+
+.header-diamond-box .diamond-logo-compact {
+  display: none;
+}
+
+/* Mode compact au défilement (#3) : le losange se rétracte proprement dans la barre noire */
+.main-header.is-scrolled .header-diamond-box {
+  width: 180px;
+  height: 66px;
+  background: none;
+  padding-top: 0;
+  justify-content: center;
+  filter: none;
+}
+
+.main-header.is-scrolled .header-diamond-box .diamond-logo-full {
+  display: none;
+}
+
+.main-header.is-scrolled .header-diamond-box .diamond-logo-compact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.1;
+}
+
+/* Bandeau panoramique Montagne Enneigée Noir & Blanc sous le losange (#1) */
+.internal-mountain-banner {
+  position: relative;
+  min-height: 235px;
+  padding: 146px 20px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  text-align: center;
+  overflow: hidden;
+  background: #141519;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.internal-mountain-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('https://www.himalayacorp.com/gx/m/bg-gen.jpg') 50% 0 no-repeat;
+  background-size: cover;
+  filter: grayscale(100%) contrast(1.08) brightness(0.88);
+  z-index: 0;
+}
+
+.internal-mountain-banner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(9, 9, 11, 0.15) 0%, rgba(9, 9, 11, 0.35) 65%, rgba(9, 9, 11, 0.92) 100%);
+  z-index: 1;
+}
+
+.internal-banner-title {
+  position: relative;
+  z-index: 2;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(1.55rem, 2.6vw, 2.2rem);
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-shadow: 0 3px 18px rgba(0, 0, 0, 0.85);
+  margin: 0;
+}
+
+.internal-banner-subtitle {
+  position: relative;
+  z-index: 2;
+  font-size: 0.82rem;
+  color: var(--gold-light);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: 6px;
 }
 
 .nav-links {
@@ -490,8 +618,12 @@ button, select, input, textarea {
     height: 150px;
     padding-top: 15px;
   }
-  .header-diamond-box img {
-    width: 92px;
+  .header-diamond-box .diamond-logo-full {
+    width: 94px;
+  }
+  .internal-mountain-banner {
+    min-height: 185px;
+    padding: 105px 16px 24px;
   }
   .mobile-menu-btn {
     display: inline-flex !important;

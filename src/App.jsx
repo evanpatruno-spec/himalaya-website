@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, Suspense, lazy } from 'react';
 import { 
   Search, MapPin, Phone, Mail, Sparkles, 
   ArrowRight, Lock, ExternalLink, ChevronRight, 
@@ -8,19 +8,21 @@ import liveDealsData from './data/himalayaLiveDeals.json';
 import { INITIAL_HIMALAYA_BROKERS } from './data/brokersData';
 import { 
   HIMALAYA_AGENCIES, HIMALAYA_EVENTS, HIMALAYA_NEWS, 
-  HIMALAYA_PODCASTS, SPECIALTIES_DATA 
+  HIMALAYA_PODCASTS, SPECIALTIES_DATA, OFFICIAL_SOCIAL_LINKS, LEGAL_DOCUMENTS 
 } from './data/siteContent';
 import { TRANSLATIONS } from './data/translations';
 import { 
   normalizeText, dealBelongsToBroker, 
   submitLeadToProspection, getStoredWebLeads 
 } from './utils/prospectionBridge';
-import PropertyDetailModal from './components/PropertyDetailModal';
-import BuyerNDAModal from './components/BuyerNDAModal';
-import BrokerDetailModal from './components/BrokerDetailModal';
-import PropertiesMapView from './components/PropertiesMapView';
-import AboutPageView from './components/AboutPageView';
-import ToolsHubView from './components/ToolsHubView';
+
+// Code-splitting & Lazy Loading des vues lourdes et modales (#19)
+const PropertyDetailModal = lazy(() => import('./components/PropertyDetailModal'));
+const BuyerNDAModal = lazy(() => import('./components/BuyerNDAModal'));
+const BrokerDetailModal = lazy(() => import('./components/BrokerDetailModal'));
+const PropertiesMapView = lazy(() => import('./components/PropertiesMapView'));
+const AboutPageView = lazy(() => import('./components/AboutPageView'));
+const ToolsHubView = lazy(() => import('./components/ToolsHubView'));
 
 const VALID_PAGES = ['home', 'proprietes', 'courtiers', 'agences', 'a-propos', 'outils', 'evenements', 'balados', 'nous-joindre', 'zone-equipe'];
 
@@ -59,10 +61,24 @@ export default function App() {
   const [brokerCategoryFilter, setBrokerCategoryFilter] = useState('all');
   const [brokerSearch, setBrokerSearch] = useState('');
 
-  // Modales (Points 14, 16)
+  // Modales & États additionnels (#3, #4, #6, #15, #16, #18)
   const [selectedDeal, setSelectedDeal] = useState(null);
   const [selectedBroker, setSelectedBroker] = useState(null);
   const [ndaModalDeal, setNdaModalDeal] = useState(undefined);
+  const [toolPreselectedDeal, setToolPreselectedDeal] = useState(null);
+  const [newsYearFilter, setNewsYearFilter] = useState('all');
+  const [legalModalType, setLegalModalType] = useState(null); // 'terms' | 'privacy' | null
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Détection du défilement pour le header compact (#3)
+  useEffect(() => {
+    const onScroll = () => {
+      setIsScrolled(window.scrollY > 90);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   // Lecteur Balados (Point 5)
   const [playingPodcastId, setPlayingPodcastId] = useState(null);
@@ -82,14 +98,26 @@ export default function App() {
   });
   const [webLeads, setWebLeads] = useState(() => getStoredWebLeads());
 
-  // Synchronisation URL & Bouton Retour navigateur + Deep-linking ?mls=... (Points 3 & 14)
+  // Synchronisation URL & Bouton Retour navigateur + Deep-linking ?propriete=... & ?courtier=... (#16, #18)
   useEffect(() => {
     const syncFromUrl = () => {
       const params = new URLSearchParams(window.location.search);
-      const mlsParam = params.get('mls');
-      if (mlsParam) {
-        const found = liveDealsData.find(d => String(d.mls_number).toLowerCase() === mlsParam.toLowerCase());
+      const propParam = params.get('propriete') || params.get('mls');
+      if (propParam) {
+        const found = liveDealsData.find(d => String(d.mls_number).toLowerCase() === propParam.toLowerCase());
         if (found) setSelectedDeal(found);
+      } else {
+        setSelectedDeal(null);
+      }
+
+      const brokerParam = params.get('courtier');
+      if (brokerParam) {
+        const foundBroker = INITIAL_HIMALAYA_BROKERS.find(
+          b => b.id.toLowerCase() === brokerParam.toLowerCase() || normalizeText(b.name) === normalizeText(brokerParam)
+        );
+        if (foundBroker) setSelectedBroker(foundBroker);
+      } else {
+        setSelectedBroker(null);
       }
 
       const hash = window.location.hash.replace('#', '').trim();
@@ -118,13 +146,19 @@ export default function App() {
     return Array.from(s).sort();
   }, []);
 
-  // Filtrage des propriétés avec recherche insensible aux accents (Points 4 & 8)
+  // Filtrage des propriétés avec distinction claire À vendre / À louer / Vendu (#8)
   const filteredProperties = useMemo(() => {
     const qNorm = normalizeText(searchKeyword);
 
     return liveDealsData
       .filter(d => {
-        if (rechercheBut !== 'all' && d.transaction_type !== rechercheBut) return false;
+        if (rechercheBut === 'Vendu') {
+          if (d.status !== 'Vendu') return false;
+        } else if (rechercheBut === 'Vente') {
+          if (d.transaction_type !== 'Vente' || d.status === 'Vendu') return false;
+        } else if (rechercheBut === 'Location') {
+          if (d.transaction_type !== 'Location' || d.status === 'Vendu') return false;
+        }
 
         if (filtrePropriete !== 'all') {
           const cat = normalizeText(d.category);
@@ -206,7 +240,8 @@ export default function App() {
     setSelectedDeal(deal);
     if (deal?.mls_number) {
       const url = new URL(window.location.href);
-      url.searchParams.set('mls', deal.mls_number);
+      url.searchParams.delete('mls');
+      url.searchParams.set('propriete', deal.mls_number);
       window.history.replaceState(null, '', url.toString());
     }
   };
@@ -214,11 +249,41 @@ export default function App() {
   const closeDealModal = () => {
     setSelectedDeal(null);
     const url = new URL(window.location.href);
-    if (url.searchParams.has('mls')) {
-      url.searchParams.delete('mls');
+    url.searchParams.delete('mls');
+    url.searchParams.delete('propriete');
+    window.history.replaceState(null, '', url.toString());
+  };
+
+  const openBrokerModal = (broker) => {
+    setSelectedBroker(broker);
+    if (broker?.id) {
+      const url = new URL(window.location.href);
+      url.searchParams.set('courtier', broker.id);
       window.history.replaceState(null, '', url.toString());
     }
   };
+
+  const closeBrokerModal = () => {
+    setSelectedBroker(null);
+    const url = new URL(window.location.href);
+    url.searchParams.delete('courtier');
+    window.history.replaceState(null, '', url.toString());
+  };
+
+  const internalBannerTitle = useMemo(() => {
+    switch (activePage) {
+      case 'a-propos': return t.nav.about;
+      case 'proprietes': return t.nav.properties;
+      case 'courtiers': return t.nav.brokers;
+      case 'agences': return t.nav.agencies;
+      case 'outils': return isEn ? 'Financial Tools & Simulators' : 'Outils & Calculateurs';
+      case 'evenements': return t.nav.news;
+      case 'balados': return t.nav.podcasts;
+      case 'nous-joindre': return t.nav.contact;
+      case 'zone-equipe': return t.nav.team;
+      default: return '';
+    }
+  }, [activePage, t, isEn]);
 
   const handleContactSubmit = async (e) => {
     e.preventDefault();
@@ -239,17 +304,24 @@ export default function App() {
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      {/* HEADER PRINCIPAL — Losange central officiel Himalaya au centre de la barre en haut */}
-      <header className="main-header">
+      {/* HEADER PRINCIPAL — Losange central officiel Himalaya + Mode compact au scroll (#2, #3) */}
+      <header className={`main-header ${isScrolled ? 'is-scrolled' : ''}`}>
         <div className="container header-inner">
-          {/* Navigation Gauche (comme sur la photo : À propos, Agences, Courtiers, Actualités) */}
+          {/* Navigation Gauche : Multi-Prêts Hypothèques + À propos, Agences, Courtiers, Actualités (#2) */}
           <nav className="desktop-nav header-nav-side header-nav-left">
+            <a
+              href="https://equipeimpact-multi-prets.zohobookings.ca/#/Himalaya"
+              target="_blank"
+              rel="noreferrer"
+              className="header-multiprets-link"
+              title={isEn ? 'Multi-Prêts Mortgages — Pre-Qualification' : 'Multi-Prêts Hypothèques — Préqualification'}
+            >
+              <img
+                src="https://www.himalayacorp.com/gx/m/Multi_Prets.png"
+                alt="Multi-Prêts Hypothèques"
+              />
+            </a>
             <ul className="nav-links">
-              <li>
-                <button className={`nav-btn ${activePage === 'home' ? 'active' : ''}`} onClick={() => navigateTo('home')}>
-                  {t.nav.home}
-                </button>
-              </li>
               <li>
                 <button className={`nav-btn ${activePage === 'a-propos' ? 'active' : ''}`} onClick={() => navigateTo('a-propos')}>
                   {t.nav.about}
@@ -273,7 +345,7 @@ export default function App() {
             </ul>
           </nav>
 
-          {/* Losange Central Officiel Himalaya */}
+          {/* Losange Central Officiel Himalaya (Déployé en haut, Compact au défilement #3) */}
           <div className="header-diamond-wrap">
             <div
               className="header-diamond-box"
@@ -281,10 +353,19 @@ export default function App() {
               title={t.nav.home}
             >
               <img
+                className="diamond-logo-full"
                 src="https://www.himalayacorp.com/gx/himalaya-immobilier-logo.svg"
                 alt="Immobilier Himalaya Real Estate Corp."
                 onError={e => { e.target.src = 'https://www.himalayacorp.com/gx/himalaya-immobilier-logo.png'; }}
               />
+              <div className="diamond-logo-compact">
+                <span className="gold-gradient-text" style={{ fontSize: '1.15rem', fontWeight: 800, letterSpacing: '0.2em' }}>
+                  HIMALAYA
+                </span>
+                <span style={{ fontSize: '0.56rem', color: 'rgba(255,255,255,0.75)', letterSpacing: '0.16em', textTransform: 'uppercase' }}>
+                  Immobilier | Real Estate
+                </span>
+              </div>
             </div>
           </div>
 
@@ -421,6 +502,14 @@ export default function App() {
           </div>
         )}
       </header>
+
+      {/* BANDEAU PANORAMIQUE MONTAGNE ENNEIGÉE NOIR & BLANC SOUS LE LOSANGE (#1) */}
+      {activePage !== 'home' && (
+        <section className="internal-mountain-banner">
+          <h1 className="internal-banner-title">{internalBannerTitle}</h1>
+          <div className="internal-banner-subtitle">Immobilier Himalaya Real Estate Corp.</div>
+        </section>
+      )}
 
       {/* =====================================================================
           PAGE 1 : ACCUEIL ÉPURÉ
@@ -657,20 +746,50 @@ export default function App() {
       )}
 
       {/* =====================================================================
-          PAGE 2 : NOS PROPRIÉTÉS (Grille + Vue Carte Interactive - Point 11)
+          PAGE 2 : NOS PROPRIÉTÉS (Grille + Vue Carte Interactive + Filtre Vendu #8)
          ===================================================================== */}
       {activePage === 'proprietes' && (
-        <main style={{ flex: 1, padding: '125px 0 80px' }}>
+        <main style={{ flex: 1, padding: '44px 0 80px' }}>
           <div className="container">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px', flexWrap: 'wrap', gap: '12px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '12px' }}>
               <div>
-                <h1 style={{ fontSize: '2.1rem', fontWeight: 700, letterSpacing: '-0.02em' }}>{t.properties.title}</h1>
+                <h2 style={{ fontSize: '1.85rem', fontWeight: 700, letterSpacing: '-0.02em' }}>{t.properties.title}</h2>
                 <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginTop: '4px' }}>
                   {filteredProperties.length} {t.properties.shownCount} {liveDealsData.length} {t.properties.activeMandates}
                 </p>
               </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+                {/* Filtres rapides de statut (#8 : Tous | À vendre | À louer | Vendu) */}
+                <div style={{
+                  display: 'inline-flex',
+                  background: 'var(--bg-card)',
+                  border: '1px solid var(--border-subtle)',
+                  borderRadius: '8px',
+                  padding: '3px',
+                  gap: '2px'
+                }}>
+                  {[
+                    { id: 'all', label: isEn ? 'All' : 'Tous' },
+                    { id: 'Vente', label: t.properties.forSale },
+                    { id: 'Location', label: t.properties.forRent },
+                    { id: 'Vendu', label: isEn ? 'Sold / Realized' : 'Vendu / Réalisé' }
+                  ].map(st => (
+                    <button
+                      key={st.id}
+                      onClick={() => setRechercheBut(st.id)}
+                      style={{
+                        padding: '6px 11px', borderRadius: '6px', border: 'none', cursor: 'pointer',
+                        fontSize: '0.78rem', fontWeight: 600,
+                        background: rechercheBut === st.id ? 'var(--gold)' : 'transparent',
+                        color: rechercheBut === st.id ? '#09090b' : 'var(--text-secondary)'
+                      }}
+                    >
+                      {st.label}
+                    </button>
+                  ))}
+                </div>
+
                 {/* Bascule sobre Grille | Carte (Point 11) */}
                 <div style={{
                   display: 'inline-flex',
@@ -744,6 +863,7 @@ export default function App() {
                   <option value="all">{t.properties.saleAndRent}</option>
                   <option value="Vente">{t.properties.forSale}</option>
                   <option value="Location">{t.properties.forRent}</option>
+                  <option value="Vendu">{isEn ? 'Sold / Realized' : 'Vendu / Réalisé'}</option>
                 </select>
 
                 <select className="form-control" value={filtreRegion} onChange={e => setFiltreRegion(e.target.value)}>
@@ -804,11 +924,13 @@ export default function App() {
                 </button>
               </div>
             ) : propertiesViewMode === 'map' ? (
-              <PropertiesMapView 
-                properties={filteredProperties}
-                onSelectDeal={deal => openDealModal(deal)}
-                t={t}
-              />
+              <Suspense fallback={<div style={{ padding: '40px', textAlign: 'center', color: 'var(--gold-light)' }}>Chargement de la carte...</div>}>
+                <PropertiesMapView 
+                  properties={filteredProperties}
+                  onSelectDeal={deal => openDealModal(deal)}
+                  t={t}
+                />
+              </Suspense>
             ) : (
               <div className="properties-grid">
                 {filteredProperties.map(deal => (
@@ -829,29 +951,35 @@ export default function App() {
           PAGE 3 : À PROPOS (Contenu intégral himalayacorp.com FR & EN)
          ===================================================================== */}
       {activePage === 'a-propos' && (
-        <AboutPageView
-          lang={lang}
-          directors={INITIAL_HIMALAYA_BROKERS.filter(b => b.category === 'direction')}
-          onSelectBroker={setSelectedBroker}
-          onNavigate={navigateTo}
-        />
+        <Suspense fallback={<div style={{ padding: '60px', textAlign: 'center', color: 'var(--gold-light)' }}>Chargement...</div>}>
+          <AboutPageView
+            lang={lang}
+            directors={INITIAL_HIMALAYA_BROKERS.filter(b => b.category === 'direction')}
+            onSelectBroker={openBrokerModal}
+            onNavigate={navigateTo}
+          />
+        </Suspense>
       )}
 
       {/* =====================================================================
-          PAGE 3B : OUTILS IMMOBILIERS & FINANCIERS (Snippet evanpatruno.ca)
+          PAGE 3B : OUTILS IMMOBILIERS & FINANCIERS (Snippet evanpatruno.ca + #6)
          ===================================================================== */}
       {activePage === 'outils' && (
-        <ToolsHubView
-          lang={lang}
-          onNavigate={navigateTo}
-        />
+        <Suspense fallback={<div style={{ padding: '60px', textAlign: 'center', color: 'var(--gold-light)' }}>Chargement des outils...</div>}>
+          <ToolsHubView
+            lang={lang}
+            onNavigate={navigateTo}
+            preselectedDeal={toolPreselectedDeal}
+            onClearPreselectedDeal={() => setToolPreselectedDeal(null)}
+          />
+        </Suspense>
       )}
 
       {/* =====================================================================
           PAGE 4 : AGENCES
          ===================================================================== */}
       {activePage === 'agences' && (
-        <main style={{ flex: 1, padding: '125px 0 80px' }}>
+        <main style={{ flex: 1, padding: '44px 0 80px' }}>
           <div className="container">
             <div style={{ marginBottom: '28px' }}>
               <h1 style={{ fontSize: '2.1rem', fontWeight: 700, marginBottom: '6px' }}>{t.agencies.title}</h1>
@@ -905,14 +1033,14 @@ export default function App() {
       )}
 
       {/* =====================================================================
-          PAGE 5 : COURTIERS (Correspondance exacte mandats + Modale profil - Points 8 & 16)
+          PAGE 5 : COURTIERS (Correspondance exacte mandats + Modale profil - #16)
          ===================================================================== */}
       {activePage === 'courtiers' && (
-        <main style={{ flex: 1, padding: '125px 0 80px' }}>
+        <main style={{ flex: 1, padding: '44px 0 80px' }}>
           <div className="container">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '28px', flexWrap: 'wrap', gap: '14px' }}>
               <div>
-                <h1 style={{ fontSize: '2.1rem', fontWeight: 700, marginBottom: '4px' }}>{t.brokers.title}</h1>
+                <h2 style={{ fontSize: '1.85rem', fontWeight: 700, marginBottom: '4px' }}>{t.brokers.title}</h2>
                 <p style={{ color: 'var(--text-secondary)', fontSize: '0.92rem' }}>
                   {INITIAL_HIMALAYA_BROKERS.length} {t.brokers.subtitle}
                 </p>
@@ -953,7 +1081,7 @@ export default function App() {
                 return (
                   <div key={broker.id} className="broker-card">
                     <div 
-                      onClick={() => setSelectedBroker(broker)}
+                      onClick={() => openBrokerModal(broker)}
                       style={{ position: 'relative', width: '100%', aspectRatio: '314 / 543', background: '#09090b', overflow: 'hidden', cursor: 'pointer' }}
                     >
                       <img 
@@ -965,7 +1093,7 @@ export default function App() {
                     </div>
 
                     <div style={{ padding: '16px 18px 18px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                      <div onClick={() => setSelectedBroker(broker)} style={{ marginBottom: '14px', cursor: 'pointer' }}>
+                      <div onClick={() => openBrokerModal(broker)} style={{ marginBottom: '14px', cursor: 'pointer' }}>
                         <div style={{ fontSize: '0.74rem', color: 'var(--gold)', fontWeight: 600, marginBottom: '4px', lineHeight: 1.35 }}>
                           {isEn ? (broker.shortTitle_en || broker.shortTitle) : broker.shortTitle}
                         </div>
@@ -985,7 +1113,7 @@ export default function App() {
                           <Phone size={13} /> {broker.phone}
                         </a>
                         <button 
-                          onClick={() => setSelectedBroker(broker)} 
+                          onClick={() => openBrokerModal(broker)} 
                           className="btn-outline" 
                           style={{ padding: '8px 12px', fontSize: '0.8rem' }}
                         >
@@ -1002,12 +1130,12 @@ export default function App() {
       )}
 
       {/* =====================================================================
-          PAGE 6 : ÉVÉNEMENTS & ACTUALITÉS
+          PAGE 6 : ÉVÉNEMENTS & ACTUALITÉS (Avec archives multi-années #15)
          ===================================================================== */}
       {activePage === 'evenements' && (
-        <main style={{ flex: 1, padding: '125px 0 80px' }}>
+        <main style={{ flex: 1, padding: '44px 0 80px' }}>
           <div className="container">
-            <h1 style={{ fontSize: '2.1rem', fontWeight: 700, marginBottom: '28px' }}>{t.news.title}</h1>
+            <h2 style={{ fontSize: '1.85rem', fontWeight: 700, marginBottom: '22px' }}>{t.news.title}</h2>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '20px', marginBottom: '44px' }}>
               {HIMALAYA_EVENTS.map(ev => (
@@ -1031,11 +1159,28 @@ export default function App() {
               ))}
             </div>
 
-            <h2 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '18px' }}>
-              {t.news.recentNews}
-            </h2>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px', marginBottom: '20px' }}>
+              <h2 style={{ fontSize: '1.5rem', fontWeight: 700 }}>
+                {t.news.recentNews}
+              </h2>
+
+              {/* Filtres d'archives par année (#15) */}
+              <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                {['all', '2026', '2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018'].map(yr => (
+                  <button
+                    key={yr}
+                    onClick={() => setNewsYearFilter(yr)}
+                    className={newsYearFilter === yr ? 'btn-gold' : 'btn-outline'}
+                    style={{ padding: '6px 12px', fontSize: '0.78rem' }}
+                  >
+                    {yr === 'all' ? (isEn ? 'All Years' : 'Toutes les années') : yr}
+                  </button>
+                ))}
+              </div>
+            </div>
+
             <div className="properties-grid">
-              {HIMALAYA_NEWS.map(news => (
+              {HIMALAYA_NEWS.filter(n => newsYearFilter === 'all' || n.year === newsYearFilter).map(news => (
                 <div key={news.id} className="property-card">
                   <div className="property-img-wrap" style={{ height: '190px' }}>
                     <img 
@@ -1071,7 +1216,7 @@ export default function App() {
           PAGE 7 : BALADOS (Lecteur intégré propre — Point 5)
          ===================================================================== */}
       {activePage === 'balados' && (
-        <main style={{ flex: 1, padding: '125px 0 80px' }}>
+        <main style={{ flex: 1, padding: '44px 0 80px' }}>
           <div className="container">
             <div style={{ marginBottom: '28px' }}>
               <h1 style={{ fontSize: '2.1rem', fontWeight: 700, marginBottom: '6px' }}>{t.podcasts.title}</h1>
@@ -1149,7 +1294,7 @@ export default function App() {
           PAGE 8 : NOUS JOINDRE + ÉVALUER MA PROPRIÉTÉ (Connecté à Himalaya Prospection - Points 9, 17, 20)
          ===================================================================== */}
       {activePage === 'nous-joindre' && (
-        <main style={{ flex: 1, padding: '125px 0 80px' }}>
+        <main style={{ flex: 1, padding: '44px 0 80px' }}>
           <div className="container">
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '32px' }}>
               <div>
@@ -1333,7 +1478,7 @@ export default function App() {
           PAGE 9 : ZONE ÉQUIPE & SYNCHRONISATION HIMALAYA PROSPECTION (Point 20)
          ===================================================================== */}
       {activePage === 'zone-equipe' && (
-        <main style={{ flex: 1, padding: '125px 0 80px' }}>
+        <main style={{ flex: 1, padding: '44px 0 80px' }}>
           <div className="container">
             <div style={{
               background: 'var(--bg-card)',
@@ -1404,12 +1549,12 @@ export default function App() {
       )}
 
       {/* =====================================================================
-          FOOTER ÉPURÉ
+          FOOTER OFFICIEL ENRICHI (#4)
          ===================================================================== */}
       <footer style={{
         background: '#050506',
         borderTop: '1px solid var(--border-subtle)',
-        padding: '44px 0 28px',
+        padding: '48px 0 28px',
         marginTop: 'auto'
       }}>
         <div className="container">
@@ -1422,19 +1567,38 @@ export default function App() {
             paddingBottom: '24px',
             borderBottom: '1px solid rgba(255,255,255,0.06)'
           }}>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '20px', flexWrap: 'wrap' }}>
               <img 
                 src="https://www.himalayacorp.com/gx/himalaya-immobilier-logo.svg" 
                 alt="Himalaya" 
-                style={{ height: '42px', display: 'block' }}
+                style={{ height: '42px', display: 'block', cursor: 'pointer' }}
+                onClick={() => navigateTo('home')}
                 onError={e => { e.target.src = 'https://www.himalayacorp.com/gx/himalaya-immobilier-logo.png'; }}
               />
+              <a
+                href="https://equipeimpact-multi-prets.zohobookings.ca/#/Himalaya"
+                target="_blank"
+                rel="noreferrer"
+                style={{ opacity: 0.85, display: 'inline-flex', alignItems: 'center' }}
+                title="Multi-Prêts Hypothèques"
+              >
+                <img
+                  src="https://www.himalayacorp.com/gx/m/Multi_Prets.png"
+                  alt="Multi-Prêts Hypothèques"
+                  style={{ height: '24px', objectFit: 'contain' }}
+                />
+              </a>
             </div>
 
-            <div style={{ display: 'flex', gap: '18px', flexWrap: 'wrap', fontSize: '0.84rem', color: 'var(--text-secondary)' }}>
+            <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', fontSize: '0.83rem', color: 'var(--text-secondary)' }}>
+              <button onClick={() => navigateTo('home')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer' }}>{t.nav.home}</button>
+              <button onClick={() => navigateTo('a-propos')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer' }}>{t.nav.about}</button>
               <button onClick={() => navigateTo('proprietes')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer' }}>{t.nav.properties}</button>
+              <button onClick={() => navigateTo('outils')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer' }}>{t.nav.tools}</button>
               <button onClick={() => navigateTo('courtiers')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer' }}>{t.nav.brokers}</button>
               <button onClick={() => navigateTo('agences')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer' }}>{t.nav.agencies}</button>
+              <button onClick={() => navigateTo('evenements')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer' }}>{t.nav.news}</button>
+              <button onClick={() => navigateTo('balados')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer' }}>{t.nav.podcasts}</button>
               <button onClick={() => navigateTo('nous-joindre')} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer' }}>{t.nav.contact}</button>
               <button onClick={() => navigateTo('zone-equipe')} style={{ background: 'none', border: 'none', color: 'var(--gold-light)', cursor: 'pointer', fontWeight: 600 }}>{t.nav.team}</button>
             </div>
@@ -1446,55 +1610,124 @@ export default function App() {
             justifyContent: 'space-between',
             alignItems: 'center',
             flexWrap: 'wrap',
-            gap: '10px',
+            gap: '14px',
             fontSize: '0.76rem',
             color: 'var(--text-muted)'
           }}>
-            <div>© 2026 Immobilier Himalaya Real Estate Corp.</div>
-            <div style={{ display: 'flex', gap: '14px' }}>
-              <a href="https://www.facebook.com/himalayarealestate/" target="_blank" rel="noreferrer">Facebook</a>
-              <a href="https://www.linkedin.com/company/immobilier-himalaya-real-estate-corp." target="_blank" rel="noreferrer">LinkedIn</a>
-              <a href="https://www.instagram.com/himalayaimmobilier/" target="_blank" rel="noreferrer">Instagram</a>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
+              <span>© 2026 Immobilier Himalaya Real Estate Corp. {isEn ? 'All rights reserved.' : 'Tous droits réservés.'}</span>
+              <span>|</span>
+              <button
+                onClick={() => setLegalModalType('terms')}
+                style={{ background: 'none', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer', fontSize: '0.76rem', textDecoration: 'underline' }}
+              >
+                {isEn ? 'Terms of Use' : "Conditions d'utilisation"}
+              </button>
+              <span>|</span>
+              <button
+                onClick={() => setLegalModalType('privacy')}
+                style={{ background: 'none', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer', fontSize: '0.76rem', textDecoration: 'underline' }}
+              >
+                {isEn ? 'Privacy Policy (Law 25)' : 'Politique de confidentialité'}
+              </button>
+            </div>
+
+            <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+              {OFFICIAL_SOCIAL_LINKS.map(soc => (
+                <a key={soc.id} href={soc.url} target="_blank" rel="noreferrer" style={{ color: 'var(--gold-light)', fontWeight: 500 }}>
+                  {soc.label}
+                </a>
+              ))}
             </div>
           </div>
         </div>
       </footer>
 
-      {/* MODALES */}
-      {selectedDeal && (
-        <PropertyDetailModal 
-          deal={selectedDeal}
-          t={t}
-          onClose={closeDealModal}
-          onOpenNDA={deal => setNdaModalDeal(deal)}
-          onFilterByBroker={brokerName => navigateTo('proprietes', { filtreCourtier: brokerName })}
-        />
-      )}
+      {/* MODALES AVEC LAZY LOADING (#4, #5, #6, #16, #19) */}
+      <Suspense fallback={null}>
+        {selectedDeal && (
+          <PropertyDetailModal 
+            deal={selectedDeal}
+            t={t}
+            onClose={closeDealModal}
+            onOpenNDA={deal => setNdaModalDeal(deal)}
+            onFilterByBroker={brokerName => navigateTo('proprietes', { filtreCourtier: brokerName })}
+            onSimulateInTools={deal => {
+              closeDealModal();
+              setToolPreselectedDeal(deal);
+              navigateTo('outils');
+            }}
+          />
+        )}
 
-      {selectedBroker && (
-        <BrokerDetailModal
-          broker={selectedBroker}
-          deals={liveDealsData.filter(d => dealBelongsToBroker(d, selectedBroker.name))}
-          t={t}
-          onClose={() => setSelectedBroker(null)}
-          onSelectDeal={deal => openDealModal(deal)}
-        />
-      )}
+        {selectedBroker && (
+          <BrokerDetailModal
+            broker={selectedBroker}
+            deals={liveDealsData.filter(d => dealBelongsToBroker(d, selectedBroker.name))}
+            t={t}
+            onClose={closeBrokerModal}
+            onSelectDeal={deal => openDealModal(deal)}
+          />
+        )}
 
-      {ndaModalDeal !== undefined && (
-        <BuyerNDAModal 
-          deal={ndaModalDeal}
-          t={t}
-          onClose={() => { setWebLeads(getStoredWebLeads()); setNdaModalDeal(undefined); }}
-        />
+        {ndaModalDeal !== undefined && (
+          <BuyerNDAModal 
+            deal={ndaModalDeal}
+            t={t}
+            onClose={() => { setWebLeads(getStoredWebLeads()); setNdaModalDeal(undefined); }}
+          />
+        )}
+      </Suspense>
+
+      {/* Modale Conditions d'utilisation & Politique de confidentialité (#4) */}
+      {legalModalType && LEGAL_DOCUMENTS[legalModalType] && (
+        <div className="modal-backdrop" onClick={() => setLegalModalType(null)}>
+          <div className="modal-panel" style={{ maxWidth: '720px' }} onClick={e => e.stopPropagation()}>
+            <div style={{
+              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+              padding: '16px 24px', borderBottom: '1px solid var(--border-subtle)',
+              background: 'rgba(18, 18, 21, 0.96)'
+            }}>
+              <span className="badge-gold">
+                {isEn ? LEGAL_DOCUMENTS[legalModalType].title_en : LEGAL_DOCUMENTS[legalModalType].title}
+              </span>
+              <button
+                onClick={() => setLegalModalType(null)}
+                style={{
+                  background: 'rgba(255,255,255,0.06)', border: '1px solid var(--border-subtle)',
+                  color: '#fff', width: '34px', height: '34px', borderRadius: '8px',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer'
+                }}
+              >
+                <X size={18} />
+              </button>
+            </div>
+            <div style={{ padding: '26px', display: 'flex', flexDirection: 'column', gap: '18px' }}>
+              <h2 style={{ fontSize: '1.45rem', fontWeight: 700 }}>
+                {isEn ? LEGAL_DOCUMENTS[legalModalType].title_en : LEGAL_DOCUMENTS[legalModalType].title}
+              </h2>
+              {LEGAL_DOCUMENTS[legalModalType].sections.map((sec, idx) => (
+                <div key={idx} style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border-subtle)', borderRadius: '10px', padding: '16px 18px' }}>
+                  <h3 style={{ fontSize: '0.96rem', fontWeight: 700, color: 'var(--gold-light)', marginBottom: '6px' }}>
+                    {isEn ? sec.heading_en : sec.heading}
+                  </h3>
+                  <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', lineHeight: 1.65 }}>
+                    {isEn ? sec.body_en : sec.body}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
 }
 
-/* Carte Propriété épurée (sans pavé de texte, régions nettoyées, boutons sur 1 ligne) */
+/* Carte Propriété épurée (avec badge Vendu #8) */
 function PropertyCard({ deal, t, onSelect }) {
   const isEn = t?.code === 'EN';
+  const isSold = deal.status === 'Vendu';
   const broker = (deal.brokers_details && deal.brokers_details[0]) || {
     name: deal.assigned_broker || 'Équipe Himalaya',
     photo: 'https://www.himalayacorp.com/gx/00/defaut_courtier.jpg'
@@ -1518,11 +1751,25 @@ function PropertyCard({ deal, t, onSelect }) {
         />
         <div style={{
           position: 'absolute', top: '12px', left: '12px',
-          display: 'flex', alignItems: 'center', gap: '6px'
+          display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap'
         }}>
           <span className="badge-gold" style={{ background: 'rgba(9,9,11,0.88)', backdropFilter: 'blur(6px)' }}>
             {displayCategory}
           </span>
+          {isSold && (
+            <span style={{
+              background: 'var(--gold)',
+              color: '#09090b',
+              fontWeight: 800,
+              fontSize: '0.7rem',
+              padding: '3px 9px',
+              borderRadius: '999px',
+              letterSpacing: '0.08em',
+              textTransform: 'uppercase'
+            }}>
+              {isEn ? 'SOLD' : 'VENDU'}
+            </span>
+          )}
         </div>
 
         <div style={{

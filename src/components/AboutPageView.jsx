@@ -15,6 +15,7 @@ import {
   ArrowRight
 } from 'lucide-react';
 import { ABOUT_CONTENT } from '../data/aboutContent';
+import { submitLeadToProspection } from '../utils/prospectionBridge';
 
 export default function AboutPageView({
   lang = 'FR',
@@ -27,13 +28,43 @@ export default function AboutPageView({
   const [activeTab, setActiveTab] = useState('qui-nous-sommes');
   const [openFaqIndex, setOpenFaqIndex] = useState(0);
 
+  // États du formulaire de candidature intégré (#14 — Devenir courtier / Devenir affilié)
+  const [careerType, setCareerType] = useState('courtier');
+  const [careerName, setCareerName] = useState('');
+  const [careerEmail, setCareerEmail] = useState('');
+  const [careerPhone, setCareerPhone] = useState('');
+  const [careerAddress, setCareerAddress] = useState('');
+  const [careerMotivation, setCareerMotivation] = useState('');
+  const [careerSent, setCareerSent] = useState(false);
+
+  const handleCareerSubmit = async (e) => {
+    e.preventDefault();
+    await submitLeadToProspection({
+      type: careerType === 'affilie' ? 'candidature_affilie' : 'candidature_courtier',
+      source: careerType === 'affilie' ? 'Formulaire Devenir Affilié (À propos)' : 'Formulaire Devenir Courtier (À propos)',
+      nom: careerName,
+      email: careerEmail,
+      telephone: careerPhone,
+      adresse: careerAddress,
+      message: careerMotivation
+    });
+    setCareerSent(true);
+  };
+
+  const scrollToCareerForm = (volet) => {
+    setCareerType(volet);
+    setCareerSent(false);
+    const el = document.getElementById('form-candidature-himalaya');
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   const switchTab = (tabId) => {
     setActiveTab(tabId);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <main style={{ flex: 1, padding: '125px 0 80px' }}>
+    <main style={{ flex: 1, padding: '44px 0 80px' }}>
       <div className="container">
         {/* En-tête de la page À propos */}
         <div style={{ marginBottom: '28px' }}>
@@ -867,7 +898,7 @@ export default function AboutPageView({
                 </div>
 
                 <button
-                  onClick={() => onNavigate && onNavigate('nous-joindre')}
+                  onClick={() => scrollToCareerForm('courtier')}
                   className="btn-gold"
                   style={{ width: '100%' }}
                 >
@@ -916,13 +947,189 @@ export default function AboutPageView({
                 </div>
 
                 <button
-                  onClick={() => onNavigate && onNavigate('nous-joindre')}
+                  onClick={() => scrollToCareerForm('affilie')}
                   className="btn-outline"
                   style={{ width: '100%' }}
                 >
                   {c.careers.applyBtn} <ArrowRight size={15} />
                 </button>
               </div>
+            </div>
+
+            {/* Formulaire officiel de candidature intégré (#14 — devenir-courtier-immobilier.html & devenir-affilie.html) */}
+            <div
+              id="form-candidature-himalaya"
+              style={{
+                background: 'var(--bg-card)',
+                border: '1px solid var(--border-gold)',
+                borderRadius: '14px',
+                padding: '32px'
+              }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px', marginBottom: '22px' }}>
+                <div>
+                  <span className="badge-gold" style={{ marginBottom: '8px' }}>
+                    {isEn ? 'Confidential Application Form' : 'Formulaire de candidature confidentiel'}
+                  </span>
+                  <h3 style={{ fontSize: '1.45rem', fontWeight: 700 }}>
+                    {careerType === 'affilie'
+                      ? (isEn ? 'Apply to Become an Affiliated Agency' : 'Postuler — Devenir Agence Affiliée Himalaya')
+                      : (isEn ? 'Apply to Become a Himalaya Real Estate Broker' : 'Postuler — Devenir Courtier Immobilier Himalaya')}
+                  </h3>
+                  <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', marginTop: '4px' }}>
+                    {isEn
+                      ? 'Your application is sent directly and confidentially to Roger Rhéaume & Geniev Mondoux.'
+                      : 'Votre candidature est transmise directement et en toute confidentialité à la direction (Roger Rhéaume & Geniev Mondoux).'}
+                  </p>
+                </div>
+
+                <div style={{ display: 'flex', gap: '8px' }}>
+                  <button
+                    type="button"
+                    onClick={() => { setCareerType('courtier'); setCareerSent(false); }}
+                    className={careerType === 'courtier' ? 'btn-gold' : 'btn-outline'}
+                    style={{ padding: '7px 14px', fontSize: '0.8rem' }}
+                  >
+                    {isEn ? 'Broker Application' : 'Volet Courtier'}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => { setCareerType('affilie'); setCareerSent(false); }}
+                    className={careerType === 'affilie' ? 'btn-gold' : 'btn-outline'}
+                    style={{ padding: '7px 14px', fontSize: '0.8rem' }}
+                  >
+                    {isEn ? 'Affiliate Application' : 'Volet Affilié'}
+                  </button>
+                </div>
+              </div>
+
+              {careerSent ? (
+                <div style={{
+                  padding: '24px',
+                  borderRadius: '12px',
+                  background: 'rgba(200, 164, 93, 0.12)',
+                  border: '1px solid var(--gold)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  flexWrap: 'wrap',
+                  gap: '16px'
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <CheckCircle2 size={24} color="var(--gold)" />
+                    <div>
+                      <div style={{ fontWeight: 700, fontSize: '1rem', color: '#fff' }}>
+                        {isEn ? 'Application Received Successfully!' : 'Candidature transmise avec succès !'}
+                      </div>
+                      <div style={{ fontSize: '0.86rem', color: 'var(--text-secondary)' }}>
+                        {isEn
+                          ? 'Thank you for your interest in Himalaya Real Estate Corp. Our executive team will contact you shortly.'
+                          : 'Merci de votre intérêt pour Immobilier Himalaya Real Estate Corp. Notre direction communiquera avec vous sous peu.'}
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setCareerSent(false);
+                      setCareerName('');
+                      setCareerEmail('');
+                      setCareerPhone('');
+                      setCareerAddress('');
+                      setCareerMotivation('');
+                    }}
+                    className="btn-outline"
+                    style={{ fontSize: '0.8rem', padding: '7px 14px' }}
+                  >
+                    {isEn ? 'New Application' : 'Nouvelle candidature'}
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleCareerSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '14px' }}>
+                    <div>
+                      <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
+                        {isEn ? 'Full Name *' : 'Nom complet *'}
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        className="form-control"
+                        value={careerName}
+                        onChange={(e) => setCareerName(e.target.value)}
+                        placeholder={isEn ? 'Your full name' : 'Votre nom et prénom'}
+                      />
+                    </div>
+                    <div>
+                      <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
+                        {isEn ? 'Email Address *' : 'Adresse courriel *'}
+                      </label>
+                      <input
+                        type="email"
+                        required
+                        className="form-control"
+                        value={careerEmail}
+                        onChange={(e) => setCareerEmail(e.target.value)}
+                        placeholder="courriel@exemple.com"
+                      />
+                    </div>
+                    <div>
+                      <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
+                        {isEn ? 'Phone Number *' : 'Téléphone *'}
+                      </label>
+                      <input
+                        type="tel"
+                        required
+                        className="form-control"
+                        value={careerPhone}
+                        onChange={(e) => setCareerPhone(e.target.value)}
+                        placeholder="(514) 000-0000"
+                      />
+                    </div>
+                    <div>
+                      <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
+                        {isEn ? 'City / Address / Current Agency' : 'Ville / Adresse / Agence actuelle'}
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={careerAddress}
+                        onChange={(e) => setCareerAddress(e.target.value)}
+                        placeholder={isEn ? 'Montreal, QC (OACIQ License)' : 'Montréal, QC (Permis OACIQ)'}
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
+                      {isEn
+                        ? 'Why would you like to join our team? (Experience, specialties, territories) *'
+                        : 'Pourquoi désirez-vous joindre notre équipe ? (Expérience, spécialités, territoires) *'}
+                    </label>
+                    <textarea
+                      required
+                      rows={4}
+                      className="form-control"
+                      value={careerMotivation}
+                      onChange={(e) => setCareerMotivation(e.target.value)}
+                      placeholder={
+                        isEn
+                          ? 'Tell us about your real estate background and goals...'
+                          : 'Parlez-nous de votre parcours en courtage immobilier et de vos objectifs...'
+                      }
+                    />
+                  </div>
+
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
+                    <span style={{ fontSize: '0.76rem', color: 'var(--text-muted)' }}>
+                      * {isEn ? 'Required fields. Treated with 100% confidentiality.' : 'Champs obligatoires. Traitement 100 % confidentiel.'}
+                    </span>
+                    <button type="submit" className="btn-gold" style={{ padding: '11px 24px' }}>
+                      {isEn ? 'Submit My Application' : 'Soumettre ma candidature'} <ArrowRight size={15} />
+                    </button>
+                  </div>
+                </form>
+              )}
             </div>
           </div>
         )}

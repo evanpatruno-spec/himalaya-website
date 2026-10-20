@@ -63,6 +63,7 @@ export const HIMALAYA_EVENTS = [
 export const HIMALAYA_NEWS = [
   {
     id: 'news_86',
+    year: '2026',
     title: 'COCKTAIL CQF — Conseil Québécois de la Franchise',
     title_en: 'CQF Cocktail — Quebec Franchise Council',
     date: '28 mai 2026',
@@ -76,7 +77,8 @@ export const HIMALAYA_NEWS = [
   },
   {
     id: 'news_93',
-    title: 'Réunion Semi-Annuelle & Formation d’Équipe',
+    year: '2026',
+    title: 'Réunion Semi-Annuelle & Formation Chocolat',
     title_en: 'Semi-Annual Meeting & Team Training',
     date: '18 mai 2026',
     date_en: 'May 18, 2026',
@@ -89,6 +91,7 @@ export const HIMALAYA_NEWS = [
   },
   {
     id: 'news_92',
+    year: '2025',
     title: 'ICSC LAS VEGAS 2025',
     title_en: 'ICSC LAS VEGAS 2025',
     date: '27 mai 2025',
@@ -102,8 +105,9 @@ export const HIMALAYA_NEWS = [
   },
   {
     id: 'news_91',
-    title: 'Forum Immobilier Commercial APCIQ',
-    title_en: 'QPAREB Commercial Real Estate Forum',
+    year: '2024',
+    title: 'Forum Immobilier Commercial APCIQ 2024',
+    title_en: 'QPAREB Commercial Real Estate Forum 2024',
     date: '15 novembre 2024',
     date_en: 'November 15, 2024',
     category: 'Marché Commercial',
@@ -115,6 +119,7 @@ export const HIMALAYA_NEWS = [
   },
   {
     id: 'news_90',
+    year: '2024',
     title: 'Activité d’Équipe Himalaya — Automne 2024',
     title_en: 'Himalaya Team Event — Fall 2024',
     date: '11 octobre 2024',
@@ -128,6 +133,7 @@ export const HIMALAYA_NEWS = [
   },
   {
     id: 'news_89',
+    year: '2024',
     title: 'ICSC Whistler 2024',
     title_en: 'ICSC Whistler 2024',
     date: '30 janvier 2024',
@@ -138,6 +144,174 @@ export const HIMALAYA_NEWS = [
     excerpt_en: 'Building pan-Canadian relationships with commercial and resort real estate decision-makers in Whistler.',
     image: 'https://www.himalayacorp.com/DATA/NOUVELLE/520_liste~v~20240122_144101.jpg',
     url: 'https://www.himalayacorp.com/fr/actualites/89-icsc-whistler-2024.html'
+  },
+  {
+    id: 'news_88',
+    year: '2023',
+    title: 'Cocktail CQF — Juin 2023',
+    title_en: 'CQF Cocktail — June 2023',
+    date: '21 juillet 2023',
+    date_en: 'July 21, 2023',
+    category: 'Réseautage & Franchise',
+    category_en: 'Networking & Franchise',
+    excerpt: 'Rencontre avec les acteurs majeurs du réseau de la franchise au Québec lors du cocktail estival du CQF.',
+    excerpt_en: 'Meeting with key leaders of the Quebec franchise network during the CQF summer cocktail.',
+    image: 'https://www.himalayacorp.com/DATA/NOUVELLE/514_liste~v~img_3136-cocktail-cqf.jpeg',
+    url: 'https://www.himalayacorp.com/fr/actualites/88-cocktail-cqf-juin-2023.html'
+  },
+  {
+    id: 'news_87',
+    year: '2023',
+    title: 'Rencontre d’Équipe Himalaya — Février 2023',
+    title_en: 'Himalaya Team Gathering — February 2023',
+    date: '14 février 2023',
+    date_en: 'February 14, 2023',
+    category: 'Vie d’Agence',
+    category_en: 'Agency Life',
+    excerpt: 'Synergie et planification stratégique annuelle avec les courtiers résidentiels, commerciaux et internationaux d’Himalaya.',
+    excerpt_en: 'Synergy and annual strategic planning with Himalaya’s residential, commercial, and international brokers.',
+    image: 'https://www.himalayacorp.com/DATA/NOUVELLE/511_liste~v~l-equipe-d-himalaya.png',
+    url: 'https://www.himalayacorp.com/fr/actualites/87-rencontre-d-equipe-himalaya-fevrier-2023.html'
+  },
+  {
+    id: 'news_85',
+    year: '2023',
+    title: 'Cocktail Regroupement Commercial — Janvier 2023',
+    title_en: 'Commercial Brokerage Networking Cocktail — January 2023',
+    date: '12 février 2023',
+    date_en: 'February 12, 2023',
+    category: 'Marché Commercial',
+    category_en: 'Commercial Market',
+    excerpt: 'Échanges entre courtiers spécialisés et partenaires institutionnels lors du cocktail du Regroupement Commercial.',
+    excerpt_en: 'Exchanges between specialized brokers and institutional partners at the Commercial Group networking cocktail.',
+    image: 'https://www.himalayacorp.com/DATA/NOUVELLE/508_liste~v~jean-philippe-vachon-et-sylvie-castonguay.png',
+    url: 'https://www.himalayacorp.com/fr/actualites/85-cocktail-regroupement-commercial-janvier-2023.html'
+  },
+  {
+    id: 'news_84',
+    year: '2023',
+    title: 'Ouverture — Jour après Jour Le Grand Marché en Vrac',
+    title_en: 'Grand Opening — Jour après Jour Bulk Market',
+    date: '24 janvier 2023',
+    date_en: 'January 24, 2023',
+    category: 'Implantation Commerciale',
+    category_en: 'Retail Expansion',
+    excerpt: 'Accompagnement immobilier commercial par Himalaya pour l’ouverture d’une nouvelle succursale commerciale.',
+    excerpt_en: 'Commercial real estate advisory by Himalaya for the opening of a new retail location.',
+    image: 'https://www.himalayacorp.com/DATA/NOUVELLE/501_liste~v~facade-de-la-succursale.jpg',
+    url: 'https://www.himalayacorp.com/fr/actualites/84-ouverture-jour-apres-jour-le-grand-marche-en-vrac.html'
+  },
+  {
+    id: 'news_81',
+    year: '2022',
+    title: 'Cocktail des Fêtes APCIQ 2022',
+    title_en: 'QPAREB Holiday Cocktail 2022',
+    date: '28 décembre 2022',
+    date_en: 'December 28, 2022',
+    category: 'APCIQ',
+    category_en: 'QPAREB',
+    excerpt: 'Célébration de fin d’année avec l’Association professionnelle des courtiers immobiliers du Québec (APCIQ).',
+    excerpt_en: 'Year-end celebration with the Quebec Professional Association of Real Estate Brokers (QPAREB).',
+    image: 'https://www.himalayacorp.com/DATA/NOUVELLE/475_liste~v~regr-est-14-dec.jpg',
+    url: 'https://www.himalayacorp.com/fr/actualites/81-cocktail-des-fetes-apciq-2022.html'
+  },
+  {
+    id: 'news_79',
+    year: '2022',
+    title: 'Congrès Annuel de la FPQ 2022 (Fédération des Pourvoiries)',
+    title_en: 'FPQ Annual Outfitters Convention 2022',
+    date: '1er décembre 2022',
+    date_en: 'December 1, 2022',
+    category: 'Pourvoiries & Villégiature',
+    category_en: 'Outfitters & Resorts',
+    excerpt: 'Kiosque officiel d’Immobilier Himalaya au Congrès annuel de la Fédération des pourvoiries du Québec (FPQ).',
+    excerpt_en: 'Official Himalaya Real Estate booth at the Quebec Outfitters Federation (FPQ) Annual Convention.',
+    image: 'https://www.himalayacorp.com/DATA/NOUVELLE/464_liste~v~kiosque-himalaya.jpg',
+    url: 'https://www.himalayacorp.com/fr/actualites/79-congres-annuel-de-la-fpq-2022.html'
+  },
+  {
+    id: 'news_78',
+    year: '2022',
+    title: 'Action Politique & Représentation Immobilière',
+    title_en: 'Public Affairs & Real Estate Representation',
+    date: '7 novembre 2022',
+    date_en: 'November 7, 2022',
+    category: 'Affaires Publiques',
+    category_en: 'Public Affairs',
+    excerpt: 'Engagement actif de la direction d’Himalaya auprès des décideurs publics pour l’avenir du courtage immobilier.',
+    excerpt_en: 'Active engagement by Himalaya’s leadership with public decision-makers on the future of real estate brokerage.',
+    image: 'https://www.himalayacorp.com/DATA/NOUVELLE/462_liste~v~jean-philippe-vachon-roger-rheaume-alain-therrien-et-christian-parent-.jpg',
+    url: 'https://www.himalayacorp.com/fr/actualites/78-action-politique.html'
+  },
+  {
+    id: 'news_64',
+    year: '2021',
+    title: 'Franchise KROOD, Bar Tartare et Poke Bowl',
+    title_en: 'KROOD Franchise — Tartare & Poke Bowl Concept',
+    date: '28 décembre 2021',
+    date_en: 'December 28, 2021',
+    category: 'Franchise & Restauration',
+    category_en: 'Franchise & Dining',
+    excerpt: 'Développement et sélection de sites stratégiques pour l’expansion de bannières de restauration au Québec.',
+    excerpt_en: 'Development and strategic site selection for restaurant franchise expansion across Quebec.',
+    image: 'https://www.himalayacorp.com/DATA/NOUVELLE/416_liste~v~resto-krood.jpg',
+    url: 'https://www.himalayacorp.com/fr/actualites/64-franchise-krood-bar-tartare-et-poke-bowl.html'
+  },
+  {
+    id: 'news_61',
+    year: '2021',
+    title: 'Immobilier Himalaya partout au Québec',
+    title_en: 'Himalaya Real Estate Across Quebec',
+    date: '22 avril 2021',
+    date_en: 'April 22, 2021',
+    category: 'Expansion Régionale',
+    category_en: 'Regional Expansion',
+    excerpt: 'Rayonnement pancanadien et présence accrue de nos courtiers dans toutes les régions économiques du Québec.',
+    excerpt_en: 'Growing presence of our brokers across all major economic regions of Quebec.',
+    image: 'https://www.himalayacorp.com/DATA/NOUVELLE/395_liste~v~20210330_172033.jpg',
+    url: 'https://www.himalayacorp.com/fr/actualites/61-immobilier-himalaya-partout-au-quebec.html'
+  },
+  {
+    id: 'news_59',
+    year: '2020',
+    title: 'Cocktail d’Été Himalaya 2020',
+    title_en: 'Himalaya Summer Cocktail 2020',
+    date: '28 septembre 2020',
+    date_en: 'September 28, 2020',
+    category: 'Vie d’Agence',
+    category_en: 'Agency Life',
+    excerpt: 'Retrouvailles estivales de l’équipe de courtiers et partenaires d’Immobilier Himalaya.',
+    excerpt_en: 'Summer gathering of Himalaya Real Estate’s brokers and partners.',
+    image: 'https://www.himalayacorp.com/DATA/NOUVELLE/385_liste~v~20200916_185937.jpg',
+    url: 'https://www.himalayacorp.com/fr/actualites/59-cocktail-d-ete-himalaya.html'
+  },
+  {
+    id: 'news_55',
+    year: '2019',
+    title: 'Forum Immobilier 2019 & Congrès Camping Québec',
+    title_en: 'Real Estate Forum 2019 & Camping Québec Convention',
+    date: '8 novembre 2019',
+    date_en: 'November 8, 2019',
+    category: 'Sommets & Congrès',
+    category_en: 'Summits & Conventions',
+    excerpt: 'Présence remarquée de l’équipe Himalaya au Forum Immobilier et au Congrès annuel des propriétaires de campings du Québec.',
+    excerpt_en: 'Strong presence by the Himalaya team at the Real Estate Forum and the Annual Convention of Campground Owners of Quebec.',
+    image: 'https://www.himalayacorp.com/DATA/NOUVELLE/349_liste~v~equipe.jpg',
+    url: 'https://www.himalayacorp.com/fr/actualites/55-forum-immobilier-2019.html'
+  },
+  {
+    id: 'news_41',
+    year: '2018',
+    title: 'ICSC Convention Canadienne — Toronto 2018',
+    title_en: 'ICSC Canadian Convention — Toronto 2018',
+    date: '4 octobre 2018',
+    date_en: 'October 4, 2018',
+    category: 'International & ICSC',
+    category_en: 'International & ICSC',
+    excerpt: 'Représentation des grands dossiers commerciaux québécois lors de la convention canadienne de l’ICSC à Toronto.',
+    excerpt_en: 'Representing major Quebec commercial real estate mandates at the ICSC Canadian Convention in Toronto.',
+    image: 'https://www.himalayacorp.com/DATA/NOUVELLE/271_liste~v~20181002_113806.jpg',
+    url: 'https://www.himalayacorp.com/fr/actualites/41-icsc-convention-canadienne-toronto.html'
   }
 ];
 
@@ -198,3 +372,61 @@ export const SPECIALTIES_DATA = [
     fallbackImage: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=900&q=80'
   }
 ];
+
+export const OFFICIAL_SOCIAL_LINKS = [
+  { id: 'facebook', label: 'Facebook', url: 'https://www.facebook.com/himalayarealestate/' },
+  { id: 'linkedin', label: 'LinkedIn', url: 'https://www.linkedin.com/company/immobilier-himalaya-real-estate-corp.' },
+  { id: 'instagram', label: 'Instagram', url: 'https://www.instagram.com/himalayaimmobilier/' },
+  { id: 'twitter', label: 'X (Twitter)', url: 'https://twitter.com/Himalaya_corp' }
+];
+
+export const LEGAL_DOCUMENTS = {
+  terms: {
+    title: "Conditions d’utilisation",
+    title_en: "Terms of Use",
+    sections: [
+      {
+        heading: "1. Propriété intellectuelle et exactitude des renseignements",
+        heading_en: "1. Intellectual Property & Accuracy of Information",
+        body: "Le présent site web est exploité par Immobilier Himalaya Real Estate Corp., agence immobilière dûment titulaire d’un permis délivré par l’Organisme d’autoréglementation du courtage immobilier du Québec (OACIQ). Toutes les fiches descriptives, photographies, données techniques et analyses financières demeurent la propriété exclusive d’Immobilier Himalaya Real Estate Corp. et de ses concédants. Bien que les renseignements relatifs aux inscriptions (No Centris / MLS, prix, taxes, évaluations et superficies) soient réputés fiables, ils sont fournis à titre indicatif et ne remplacent pas une vérification diligente par l’acheteur ou le locataire.",
+        body_en: "This website is operated by Immobilier Himalaya Real Estate Corp., a real estate agency duly licensed by the Organisme d’autoréglementation du courtage immobilier du Québec (OACIQ). All property descriptions, photographs, technical specifications, and financial calculators remain the exclusive property of Immobilier Himalaya Real Estate Corp. While listing details (Centris / MLS numbers, prices, taxes, assessments, and dimensions) are deemed reliable, they are provided for informational purposes and do not replace formal due diligence by a prospective buyer or tenant."
+      },
+      {
+        heading: "2. Outils et simulateurs financiers",
+        heading_en: "2. Financial Calculators & Simulation Tools",
+        body: "Les résultats générés par les calculateurs hypothécaires, de rentabilité (TGA, RPB, cashflow), de taxe de bienvenue et de capacité d’emprunt sont des estimations mathématiques à titre informatif seulement. Ils ne constituent en aucun cas une offre de prêt, un avis juridique, fiscal ou comptable.",
+        body_en: "Results generated by the mortgage, investment return (Cap Rate, GIM, cashflow), welcome tax, and borrowing capacity calculators are mathematical estimates provided strictly for informational purposes. They do not constitute a loan commitment or legal, tax, or accounting advice."
+      },
+      {
+        heading: "3. Ententes de confidentialité (NDA)",
+        heading_en: "3. Non-Disclosure Agreements (NDA)",
+        body: "L’accès aux états financiers, baux commerciaux et documents d’exploitation des entreprises, pourvoiries, campings et immeubles à revenus est strictement assujetti à la signature préalable d’une entente de confidentialité et à la validation du courtier inscripteur responsable du dossier.",
+        body_en: "Access to financial statements, commercial leases, and operating records for businesses, outfitters, campgrounds, and income properties is strictly subject to prior execution of a Non-Disclosure Agreement (NDA) and approval by the listing broker."
+      }
+    ]
+  },
+  privacy: {
+    title: "Politique de confidentialité (Loi 25)",
+    title_en: "Privacy Policy (Law 25 Compliance)",
+    sections: [
+      {
+        heading: "1. Collecte et utilisation des renseignements personnels",
+        heading_en: "1. Collection & Use of Personal Information",
+        body: "Immobilier Himalaya Real Estate Corp. recueille uniquement les renseignements personnels que vous transmettez volontairement via nos formulaires (nom, numéro de téléphone, adresse courriel, critères d’investissement ou candidature). Ces renseignements sont utilisés exclusivement pour traiter votre demande immobilière, vous mettre en relation avec le courtier attitré ou évaluer votre candidature.",
+        body_en: "Immobilier Himalaya Real Estate Corp. collects only the personal information you voluntarily submit through our forms (name, phone number, email address, investment criteria, or career application). This information is used exclusively to process your real estate inquiry, connect you with the assigned broker, or evaluate your application."
+      },
+      {
+        heading: "2. Conservation, sécurité et confidentialité",
+        heading_en: "2. Retention, Security & Confidentiality",
+        body: "Conformément aux obligations déontologiques de l’OACIQ et à la Loi 25 sur la protection des renseignements personnels dans le secteur privé au Québec, vos données sont traitées de manière strictement confidentielle et ne sont jamais vendues ni cédées à des tiers non autorisés.",
+        body_en: "In compliance with OACIQ professional standards and Quebec’s Law 25 on the protection of personal information in the private sector, your data is treated with strict confidentiality and is never sold or disclosed to unauthorized third parties."
+      },
+      {
+        heading: "3. Responsable de la protection des renseignements personnels",
+        heading_en: "3. Privacy Officer Contact",
+        body: "Pour toute demande d’accès, de rectification ou de retrait de vos renseignements personnels, vous pouvez communiquer avec la direction d’Immobilier Himalaya Real Estate Corp. au 2000, avenue McGill College, bureau 600, Montréal (Québec) H3A 3H3, par téléphone au 1 800 820-4828 ou par courriel à r.rheaume@himalayacorp.com.",
+        body_en: "For any request to access, rectify, or withdraw your personal information, please contact the management of Immobilier Himalaya Real Estate Corp. at 2000 McGill College Ave, Suite 600, Montreal (Quebec) H3A 3H3, by phone at 1 800 820-4828, or by email at r.rheaume@himalayacorp.com."
+      }
+    ]
+  }
+};

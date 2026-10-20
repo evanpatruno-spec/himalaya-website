@@ -1,17 +1,50 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { 
-  X, MapPin, Phone, Mail, ExternalLink, 
-  ChevronLeft, ChevronRight, Sparkles, Lock, Share2, CheckCircle2, Calculator
+  X, MapPin, Phone, Mail, ExternalLink, FileText, Maximize2,
+  ChevronLeft, ChevronRight, Sparkles, Lock, Share2, CheckCircle2, Calculator, ArrowRight
 } from 'lucide-react';
 import { isNdaSignedForDeal } from '../utils/prospectionBridge';
 
 const FALLBACK_IMG = 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=80';
 
-export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFilterByBroker }) {
+const SPEC_TRANSLATIONS_EN = {
+  "No MLS": "MLS / Centris #",
+  "Région": "Region",
+  "Quartier": "Neighborhood",
+  "Pays": "Country",
+  "Superficie du terrain": "Lot Area",
+  "Superficie habitable": "Living Area",
+  "Superficie commerciale": "Commercial Area",
+  "Superficie du bâtiment": "Building Area",
+  "Dimensions du terrain": "Lot Dimensions",
+  "Dimensions du bâtiment": "Building Dimensions",
+  "Année de construction": "Year Built",
+  "Année d'évaluation": "Assessment Year",
+  "Évaluation municipale du terrain": "Municipal Land Assessment",
+  "Évaluation municipale du bâtiment": "Municipal Building Assessment",
+  "Taxes municipales": "Municipal Taxes",
+  "Taxes scolaires": "School Taxes",
+  "Nombre d'unités au total": "Total Units",
+  "Type de bâtiment": "Building Style",
+  "Nombre de chambres": "Bedrooms",
+  "Nombre de salles de bains": "Bathrooms",
+  "Nombre de salles d'eau": "Powder Rooms",
+  "Stationnement total": "Parking",
+  "Reprise de finance": "Foreclosure",
+  "Approvisionnement en eau": "Water Supply",
+  "Système d'égouts": "Sewage System",
+  "Particularités": "Features",
+  "Proximité": "Nearby",
+  "Topographie": "Topography",
+  "Zonage": "Zoning"
+};
+
+export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFilterByBroker, onSimulateInTools }) {
   const [photoIdx, setPhotoIdx] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  // Calculateur de financement sobre (Point 13)
+  // Calculateur de financement rapide intégré
   const [downPaymentPct, setDownPaymentPct] = useState(25);
   const [interestRate, setInterestRate] = useState(5.25);
 
@@ -21,13 +54,15 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
       : [deal?.main_photo || FALLBACK_IMG];
   }, [deal]);
 
-  // Verrouillage du scroll + Navigation clavier (Points 6 & 7)
   useEffect(() => {
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
 
     const handleKeyDown = (e) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape') {
+        if (lightboxOpen) setLightboxOpen(false);
+        else onClose();
+      }
       if (e.key === 'ArrowLeft' && photos.length > 1) {
         setPhotoIdx(prev => (prev === 0 ? photos.length - 1 : prev - 1));
       }
@@ -41,7 +76,7 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
       document.body.style.overflow = prevOverflow;
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [onClose, photos.length]);
+  }, [onClose, photos.length, lightboxOpen]);
 
   if (!deal) return null;
 
@@ -59,13 +94,13 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
   const broker = (deal.brokers_details && deal.brokers_details[0]) || {
     name: deal.assigned_broker || 'Direction Himalaya',
     phone: '514-898-4898',
-    email: 'info@himalayacorp.com',
+    email: 'r.rheaume@himalayacorp.com',
     photo: 'https://www.himalayacorp.com/gx/00/defaut_courtier.jpg'
   };
 
-  // Partage avec lien direct ?mls=... (Point 14)
+  // Partage avec lien direct ?propriete=... (#16 & #18)
   const handleShare = () => {
-    const shareUrl = `${window.location.origin}${window.location.pathname}?mls=${encodeURIComponent(deal.mls_number)}`;
+    const shareUrl = `${window.location.origin}${window.location.pathname}?propriete=${encodeURIComponent(deal.mls_number)}#proprietes`;
     if (navigator.clipboard) {
       navigator.clipboard.writeText(shareUrl);
       setCopied(true);
@@ -73,8 +108,8 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
     }
   };
 
-  // Calcul mensuel (amortissement 25 ans)
   const priceNum = Number(deal.price) || 0;
+  const isSold = deal.status === 'Vendu';
   const showCalculator = deal.transaction_type !== 'Location' && priceNum >= 50000;
   const loanAmount = priceNum * (1 - downPaymentPct / 100);
   const monthlyRate = (interestRate / 100) / 12;
@@ -109,20 +144,39 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
           gap: '12px',
           flexWrap: 'wrap'
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
             <span className="badge-gold">
               {displayCategory}
             </span>
+            {isSold && (
+              <span style={{
+                background: 'var(--gold)',
+                color: '#09090b',
+                fontWeight: 800,
+                fontSize: '0.72rem',
+                padding: '3px 10px',
+                borderRadius: '999px',
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase'
+              }}>
+                {isEn ? 'SOLD / REALIZED' : 'VENDU / RÉALISÉ'}
+              </span>
+            )}
             <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
               MLS <strong style={{ color: 'var(--text-main)' }}>{deal.mls_number}</strong>
             </span>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
             <button onClick={handleShare} className="btn-outline" style={{ padding: '6px 12px', fontSize: '0.78rem' }}>
               <Share2 size={13} />
-              {copied ? (t?.modal?.copied || 'Lien copié !') : (t?.modal?.share || 'Partager')}
+              {copied ? (isEn ? 'Direct link copied!' : 'Lien direct copié !') : (isEn ? 'Copy direct link' : 'Copier le lien')}
             </button>
+            {deal.pdf_url && (
+              <a href={deal.pdf_url} target="_blank" rel="noreferrer" className="btn-outline" style={{ padding: '6px 12px', fontSize: '0.78rem' }}>
+                <FileText size={13} /> {isEn ? 'Printable Sheet' : 'Fiche imprimable'}
+              </a>
+            )}
             {displayUrl && (
               <a href={displayUrl} target="_blank" rel="noreferrer" className="btn-outline" style={{ padding: '6px 12px', fontSize: '0.78rem' }}>
                 <ExternalLink size={13} /> {t?.modal?.originalListing || 'Source'}
@@ -150,10 +204,10 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
 
         {/* Contenu principal */}
         <div style={{ padding: '24px' }}>
-          {/* Galerie photo */}
+          {/* Galerie photo haute résolution (#5) */}
           <div style={{
             position: 'relative',
-            height: '400px',
+            height: '430px',
             borderRadius: '12px',
             overflow: 'hidden',
             background: '#09090b',
@@ -163,9 +217,22 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
             <img 
               src={photos[photoIdx]} 
               alt={displayTitle}
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              onClick={() => setLightboxOpen(true)}
+              style={{ width: '100%', height: '100%', objectFit: 'cover', cursor: 'zoom-in' }}
               onError={e => { e.target.src = FALLBACK_IMG; }}
             />
+            <button
+              onClick={() => setLightboxOpen(true)}
+              title={isEn ? 'View Fullscreen' : 'Plein écran'}
+              style={{
+                position: 'absolute', top: '12px', right: '14px',
+                background: 'rgba(9,9,11,0.82)', border: '1px solid var(--border-subtle)',
+                color: '#fff', padding: '6px 10px', borderRadius: '8px',
+                display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.74rem', cursor: 'pointer'
+              }}
+            >
+              <Maximize2 size={13} /> {isEn ? 'Fullscreen' : 'Agrandir'}
+            </button>
             {photos.length > 1 && (
               <>
                 <button 
@@ -195,18 +262,18 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
                   background: 'rgba(9,9,11,0.85)', padding: '4px 11px',
                   borderRadius: '999px', fontSize: '0.75rem', border: '1px solid var(--border-subtle)'
                 }}>
-                  {photoIdx + 1} / {photos.length}
+                  {photoIdx + 1} / {photos.length} {isEn ? 'photos' : 'photos'}
                 </div>
               </>
             )}
           </div>
 
-          {/* Miniatures avec fallback sécurisé (Point 6) */}
+          {/* Miniatures complètes (#5) */}
           {photos.length > 1 && (
             <div style={{
-              display: 'flex', gap: '8px', overflowX: 'auto', paddingBottom: '8px', marginBottom: '20px'
+              display: 'flex', gap: '8px', overflowX: 'auto', paddingBottom: '8px', marginBottom: '22px'
             }}>
-              {photos.slice(0, 12).map((p, idx) => (
+              {photos.map((p, idx) => (
                 <img 
                   key={idx}
                   src={p}
@@ -214,8 +281,8 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
                   onClick={() => setPhotoIdx(idx)}
                   onError={e => { e.target.src = FALLBACK_IMG; }}
                   style={{
-                    width: '72px', height: '50px', objectFit: 'cover', borderRadius: '6px', cursor: 'pointer',
-                    border: idx === photoIdx ? '2px solid var(--gold)' : '1px solid transparent',
+                    width: '76px', height: '54px', objectFit: 'cover', borderRadius: '6px', cursor: 'pointer',
+                    border: idx === photoIdx ? '2px solid var(--gold)' : '1px solid rgba(255,255,255,0.1)',
                     opacity: idx === photoIdx ? 1 : 0.55,
                     flexShrink: 0
                   }}
@@ -224,7 +291,7 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
             </div>
           )}
 
-          {/* Grille 2 colonnes : Détails à gauche, Courtier + NDA + Financement à droite */}
+          {/* Grille 2 colonnes */}
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))',
@@ -237,57 +304,108 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
               </h2>
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--text-secondary)', fontSize: '0.88rem', marginBottom: '14px' }}>
                 <MapPin size={15} color="var(--gold)" />
-                <span>{deal.city} ({deal.region})</span>
+                <span>{deal.address ? `${deal.address}, ` : ''}{deal.city} ({deal.region})</span>
               </div>
 
-              <div style={{
-                fontSize: '1.45rem',
-                fontWeight: 700,
-                color: 'var(--gold-light)',
-                padding: '10px 16px',
-                background: 'rgba(200, 164, 93, 0.08)',
-                border: '1px solid var(--border-gold)',
-                borderRadius: '8px',
-                marginBottom: '20px',
-                display: 'inline-block'
-              }}>
-                {displayPrice}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap', marginBottom: '20px' }}>
+                <div style={{
+                  fontSize: '1.45rem',
+                  fontWeight: 700,
+                  color: 'var(--gold-light)',
+                  padding: '10px 16px',
+                  background: 'rgba(200, 164, 93, 0.08)',
+                  border: '1px solid var(--border-gold)',
+                  borderRadius: '8px',
+                  display: 'inline-block'
+                }}>
+                  {displayPrice}
+                </div>
+
+                {/* Bouton direct vers les Outils & Calculateurs avec prix pré-rempli (#6) */}
+                {showCalculator && onSimulateInTools && (
+                  <button
+                    onClick={() => onSimulateInTools(deal)}
+                    className="btn-outline"
+                    style={{
+                      borderColor: 'var(--border-gold)',
+                      color: 'var(--gold-light)',
+                      padding: '10px 14px',
+                      fontSize: '0.8rem',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '7px'
+                    }}
+                  >
+                    <Calculator size={14} color="var(--gold)" />
+                    {isEn ? 'Analyze in Financial Tools' : 'Analyser dans nos Outils financiers'}
+                    <ArrowRight size={13} />
+                  </button>
+                )}
               </div>
 
               <h3 style={{ fontSize: '0.86rem', fontWeight: 600, color: 'var(--gold-light)', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                {t?.modal?.description || 'Description'}
+                {t?.modal?.description || 'Description détaillée'}
               </h3>
-              <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', lineHeight: 1.7, marginBottom: '22px', whiteSpace: 'pre-line' }}>
+              <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', lineHeight: 1.72, marginBottom: '22px', whiteSpace: 'pre-line' }}>
                 {displayDesc || t?.modal?.defaultDesc || 'Description détaillée disponible auprès du courtier inscripteur.'}
               </p>
+
+              {(deal.inclusions || deal.exclusions) && (
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+                  gap: '10px',
+                  marginBottom: '22px'
+                }}>
+                  {deal.inclusions && (
+                    <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border-subtle)', borderRadius: '8px', padding: '10px 12px' }}>
+                      <div style={{ fontSize: '0.72rem', color: 'var(--gold)', textTransform: 'uppercase', fontWeight: 700, marginBottom: '4px' }}>
+                        {isEn ? 'Inclusions' : 'Inclusions'}
+                      </div>
+                      <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)' }}>{deal.inclusions}</div>
+                    </div>
+                  )}
+                  {deal.exclusions && (
+                    <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border-subtle)', borderRadius: '8px', padding: '10px 12px' }}>
+                      <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700, marginBottom: '4px' }}>
+                        {isEn ? 'Exclusions' : 'Exclusions'}
+                      </div>
+                      <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)' }}>{deal.exclusions}</div>
+                    </div>
+                  )}
+                </div>
+              )}
 
               {cleanSpecs.length > 0 && (
                 <>
                   <h3 style={{ fontSize: '0.86rem', fontWeight: 600, color: 'var(--gold-light)', marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                    {t?.modal?.specs || 'Caractéristiques'}
+                    {isEn ? 'Technical Specifications & Taxes' : (t?.modal?.specs || 'Caractéristiques techniques & Taxes')}
                   </h3>
                   <div style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fill, minmax(190px, 1fr))',
+                    gridTemplateColumns: 'repeat(auto-fill, minmax(195px, 1fr))',
                     gap: '8px'
                   }}>
-                    {cleanSpecs.slice(0, 8).map(([label, val], i) => (
-                      <div key={i} style={{
-                        background: 'rgba(255,255,255,0.025)',
-                        border: '1px solid var(--border-subtle)',
-                        padding: '8px 11px',
-                        borderRadius: '7px'
-                      }}>
-                        <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>{label}</div>
-                        <div style={{ fontSize: '0.84rem', fontWeight: 600, color: 'var(--text-main)', marginTop: '2px' }}>{val}</div>
-                      </div>
-                    ))}
+                    {cleanSpecs.map(([label, val], i) => {
+                      const displayLabel = isEn ? (SPEC_TRANSLATIONS_EN[label] || label) : label;
+                      return (
+                        <div key={i} style={{
+                          background: 'rgba(255,255,255,0.025)',
+                          border: '1px solid var(--border-subtle)',
+                          padding: '9px 12px',
+                          borderRadius: '7px'
+                        }}>
+                          <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>{displayLabel}</div>
+                          <div style={{ fontSize: '0.84rem', fontWeight: 600, color: 'var(--text-main)', marginTop: '2px' }}>{val}</div>
+                        </div>
+                      );
+                    })}
                   </div>
                 </>
               )}
             </div>
 
-            {/* Colonne droite sobre : Courtier + Salle NDA + Simulateur */}
+            {/* Colonne droite : Courtier + Salle NDA + Simulateur */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div style={{
                 background: 'var(--bg-surface)',
@@ -367,7 +485,7 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
                 )}
               </div>
 
-              {/* Simulateur de financement sobre (Point 13) */}
+              {/* Simulateur de financement + Lien vers Outils (#6) & Multi-Prêts (#2) */}
               {showCalculator && (
                 <div style={{
                   background: 'rgba(255,255,255,0.02)',
@@ -416,21 +534,58 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
 
                   <div style={{
                     display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                    paddingTop: '10px', borderTop: '1px solid var(--border-subtle)', fontSize: '0.8rem'
+                    paddingTop: '10px', borderTop: '1px solid var(--border-subtle)', fontSize: '0.8rem',
+                    marginBottom: '12px'
                   }}>
                     <span style={{ color: 'var(--text-secondary)' }}>{t?.modal?.monthlyEst || 'Versement mensuel (25 ans)'}</span>
                     <strong style={{ color: 'var(--gold-light)', fontSize: '0.96rem' }}>
-                      {monthlyPayment.toLocaleString('fr-CA')} $ / mois
+                      {monthlyPayment.toLocaleString('fr-CA')} $ / {isEn ? 'mo' : 'mois'}
                     </strong>
                   </div>
+
+                  {onSimulateInTools && (
+                    <button
+                      onClick={() => onSimulateInTools(deal)}
+                      className="btn-outline"
+                      style={{
+                        width: '100%',
+                        justifyContent: 'center',
+                        marginBottom: '10px',
+                        fontSize: '0.78rem',
+                        padding: '8px 12px',
+                        borderColor: 'var(--border-gold)',
+                        color: 'var(--gold-light)'
+                      }}
+                    >
+                      <Calculator size={13} />
+                      {isEn ? 'Simulate Full Return & Welcome Tax →' : 'Simuler rentabilité & taxe de bienvenue →'}
+                    </button>
+                  )}
 
                   <a
                     href="https://equipeimpact-multi-prets.zohobookings.ca/#/Himalaya"
                     target="_blank"
                     rel="noreferrer"
-                    style={{ display: 'inline-block', marginTop: '8px', fontSize: '0.75rem', color: 'var(--gold-light)', textDecoration: 'underline' }}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      marginTop: '6px',
+                      padding: '8px 10px',
+                      borderRadius: '8px',
+                      background: 'rgba(255,255,255,0.03)',
+                      border: '1px solid var(--border-subtle)',
+                      fontSize: '0.75rem',
+                      color: 'var(--gold-light)',
+                      textDecoration: 'none'
+                    }}
                   >
-                    {t?.modal?.multiPretsLink || 'Préqualification Multi-Prêts →'}
+                    <span>{t?.modal?.multiPretsLink || 'Préqualification Multi-Prêts →'}</span>
+                    <img
+                      src="https://www.himalayacorp.com/gx/m/Multi_Prets.png"
+                      alt="Multi-Prêts Hypothèques"
+                      style={{ height: '18px', objectFit: 'contain' }}
+                    />
                   </a>
                 </div>
               )}
@@ -438,6 +593,63 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
           </div>
         </div>
       </div>
+
+      {/* Lightbox Plein Écran */}
+      {lightboxOpen && (
+        <div
+          onClick={(e) => { e.stopPropagation(); setLightboxOpen(false); }}
+          style={{
+            position: 'fixed', inset: 0, zIndex: 2000,
+            background: 'rgba(5, 5, 7, 0.96)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            padding: '24px'
+          }}
+        >
+          <button
+            onClick={() => setLightboxOpen(false)}
+            style={{
+              position: 'absolute', top: '20px', right: '24px',
+              background: 'rgba(255,255,255,0.1)', border: '1px solid var(--border-gold)',
+              color: '#fff', width: '42px', height: '42px', borderRadius: '50%',
+              display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer'
+            }}
+          >
+            <X size={20} />
+          </button>
+          {photos.length > 1 && (
+            <>
+              <button
+                onClick={(e) => { e.stopPropagation(); handlePrev(); }}
+                style={{
+                  position: 'absolute', left: '24px', top: '50%', transform: 'translateY(-50%)',
+                  background: 'rgba(9,9,11,0.85)', border: '1px solid var(--border-gold)',
+                  color: '#fff', width: '48px', height: '48px', borderRadius: '50%',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer'
+                }}
+              >
+                <ChevronLeft size={24} />
+              </button>
+              <button
+                onClick={(e) => { e.stopPropagation(); handleNext(); }}
+                style={{
+                  position: 'absolute', right: '24px', top: '50%', transform: 'translateY(-50%)',
+                  background: 'rgba(9,9,11,0.85)', border: '1px solid var(--border-gold)',
+                  color: '#fff', width: '48px', height: '48px', borderRadius: '50%',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer'
+                }}
+              >
+                <ChevronRight size={24} />
+              </button>
+            </>
+          )}
+          <img
+            src={photos[photoIdx]}
+            alt={displayTitle}
+            onClick={(e) => e.stopPropagation()}
+            style={{ maxWidth: '92vw', maxHeight: '88vh', objectFit: 'contain', borderRadius: '8px', border: '1px solid var(--border-subtle)' }}
+          />
+        </div>
+      )}
     </div>
   );
 }
