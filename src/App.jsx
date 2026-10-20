@@ -340,7 +340,7 @@ export default function App() {
               />
             </a>
             <ul className="nav-links">
-              {/* 1. L'AGENCE ▾ (Fusion À propos + Agences + Carrières + Partenaires + FAQ — Idées 13 à 16) */}
+              {/* 1. L'AGENCE ▾ */}
               <li className="nav-item-dropdown">
                 <button
                   className={`nav-btn ${(activePage === 'a-propos' || activePage === 'agences') ? 'active' : ''}`}
@@ -349,19 +349,22 @@ export default function App() {
                   {isEn ? 'The Agency' : 'L’Agence'} <span className="nav-btn-chevron">▾</span>
                 </button>
                 <div className="nav-dropdown-panel">
-                  <div className="nav-dropdown-kicker">
-                    {isEn ? 'Immobilier Himalaya Corp.' : 'Immobilier Himalaya Corp.'}
-                  </div>
                   <button
                     type="button"
                     className="nav-dropdown-link"
                     onClick={() => navigateTo('a-propos', { aboutTab: 'qui-nous-sommes' })}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'Who We Are & Co-Founders' : 'Qui nous sommes & Co-fondateurs'}
+                      {isEn ? 'Who We Are' : 'Qui nous sommes'}
                     </span>
-                    <span className="nav-dropdown-link-sub">
-                      {isEn ? 'Roger Rhéaume & Geniev Mondoux' : 'Roger Rhéaume & Geniev Mondoux'}
+                  </button>
+                  <button
+                    type="button"
+                    className="nav-dropdown-link"
+                    onClick={() => navigateTo('a-propos', { aboutTab: 'co-fondateurs' })}
+                  >
+                    <span className="nav-dropdown-link-title">
+                      {isEn ? 'Co-Founders' : 'Co-fondateurs'}
                     </span>
                   </button>
                   <button
@@ -370,10 +373,7 @@ export default function App() {
                     onClick={() => navigateTo('agences')}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'Our Offices (Montreal, Paris & International)' : 'Nos Bureaux (Montréal, Paris & International)'}
-                    </span>
-                    <span className="nav-dropdown-link-sub">
-                      {isEn ? 'Headquarters & affiliated agencies worldwide' : 'Siège social et réseau d’agences affiliées'}
+                      {isEn ? 'Our Offices' : 'Nos agences'}
                     </span>
                   </button>
                   <button
@@ -384,9 +384,6 @@ export default function App() {
                     <span className="nav-dropdown-link-title">
                       {isEn ? 'Services & Associations' : 'Services & Associations'}
                     </span>
-                    <span className="nav-dropdown-link-sub">
-                      {isEn ? 'Commercial, Residential, CQF & CCIFP' : 'Commercial, Résidentiel, CQF & CCIFP'}
-                    </span>
                   </button>
                   <div className="nav-dropdown-divider" />
                   <button
@@ -395,10 +392,7 @@ export default function App() {
                     onClick={() => navigateTo('a-propos', { aboutTab: 'carrieres' })}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'Careers — Become a Broker or Affiliate' : 'Carrières — Devenir courtier ou affilié'}
-                    </span>
-                    <span className="nav-dropdown-link-sub">
-                      {isEn ? 'Confidential recruitment & international network' : 'Candidature confidentielle & affiliation'}
+                      {isEn ? 'Careers & Affiliates' : 'Carrières & Affiliés'}
                     </span>
                   </button>
                   <button
@@ -407,10 +401,7 @@ export default function App() {
                     onClick={() => navigateTo('a-propos', { aboutTab: 'liens' })}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'Professional Partners & Official Links' : 'Partenaires professionnels & Liens utiles'}
-                    </span>
-                    <span className="nav-dropdown-link-sub">
-                      {isEn ? 'Notaries, lawyers, tax experts & surveyors' : 'Notaires, avocats, fiscalistes & arpenteurs'}
+                      {isEn ? 'Partners & Links' : 'Partenaires & Liens'}
                     </span>
                   </button>
                   <button
@@ -419,16 +410,13 @@ export default function App() {
                     onClick={() => navigateTo('a-propos', { aboutTab: 'faq' })}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'Frequently Asked Questions (FAQ)' : 'Foire aux questions (FAQ)'}
-                    </span>
-                    <span className="nav-dropdown-link-sub">
-                      {isEn ? '12 key answers on brokerage in Quebec' : '12 réponses clés sur le courtage au Québec'}
+                      {isEn ? 'FAQ' : 'FAQ'}
                     </span>
                   </button>
                 </div>
               </li>
 
-              {/* 2. COURTIERS ▾ (Accès direct + filtres par spécialité) */}
+              {/* 2. COURTIERS ▾ */}
               <li className="nav-item-dropdown">
                 <button
                   className={`nav-btn ${activePage === 'courtiers' ? 'active' : ''}`}
@@ -437,19 +425,13 @@ export default function App() {
                   {t.nav.brokers} <span className="nav-btn-chevron">▾</span>
                 </button>
                 <div className="nav-dropdown-panel">
-                  <div className="nav-dropdown-kicker">
-                    {isEn ? 'Our Brokerage Team' : 'Notre équipe de courtiers'}
-                  </div>
                   <button
                     type="button"
                     className="nav-dropdown-link"
                     onClick={() => navigateTo('courtiers', { brokerCategoryFilter: 'all' })}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? `All Our Brokers (${INITIAL_HIMALAYA_BROKERS.length})` : `Toute l’équipe (${INITIAL_HIMALAYA_BROKERS.length} courtiers)`}
-                    </span>
-                    <span className="nav-dropdown-link-sub">
-                      {isEn ? 'Complete directory & active mandates' : 'Répertoire complet et mandats actifs'}
+                      {isEn ? 'All Brokers' : 'Tous nos courtiers'}
                     </span>
                   </button>
                   <div className="nav-dropdown-divider" />
@@ -459,10 +441,7 @@ export default function App() {
                     onClick={() => navigateTo('courtiers', { brokerCategoryFilter: 'direction' })}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'Executive Management & Co-Founders' : 'Direction & Co-fondateurs'}
-                    </span>
-                    <span className="nav-dropdown-link-sub">
-                      {isEn ? 'Roger Rhéaume & Geniev Mondoux' : 'Roger Rhéaume & Geniev Mondoux'}
+                      {isEn ? 'Management' : 'Direction'}
                     </span>
                   </button>
                   <button
@@ -471,10 +450,7 @@ export default function App() {
                     onClick={() => navigateTo('courtiers', { brokerCategoryFilter: 'commercial' })}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'Commercial & Investment Brokerage' : 'Courtage Commercial & Investissement'}
-                    </span>
-                    <span className="nav-dropdown-link-sub">
-                      {isEn ? 'Businesses, industrial, multi-family & franchises' : 'Entreprises, industriel, multilogements & franchises'}
+                      {isEn ? 'Commercial' : 'Commercial'}
                     </span>
                   </button>
                   <button
@@ -483,10 +459,7 @@ export default function App() {
                     onClick={() => navigateTo('courtiers', { brokerCategoryFilter: 'residentiel' })}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'Residential Brokerage' : 'Courtage Résidentiel'}
-                    </span>
-                    <span className="nav-dropdown-link-sub">
-                      {isEn ? 'Homes, condos, estates & prestige properties' : 'Maisons, condos, domaines & propriétés de prestige'}
+                      {isEn ? 'Residential' : 'Résidentiel'}
                     </span>
                   </button>
                   <button
@@ -495,16 +468,13 @@ export default function App() {
                     onClick={() => navigateTo('courtiers', { brokerCategoryFilter: 'international' })}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'International Network (Paris & Europe)' : 'Réseau International (Paris & Europe)'}
-                    </span>
-                    <span className="nav-dropdown-link-sub">
-                      {isEn ? 'Cross-border support & affiliated brokers' : 'Accompagnement transatlantique & courtiers affiliés'}
+                      {isEn ? 'International' : 'International'}
                     </span>
                   </button>
                 </div>
               </li>
 
-              {/* 3. FRANCHISES ▾ (Idées 10 à 12 : Pacini, Arabian Oud, Grillade Taurino, Emplacements, CQF/Paris) */}
+              {/* 3. FRANCHISES ▾ */}
               <li className="nav-item-dropdown">
                 <button
                   className={`nav-btn ${activePage === 'franchises' ? 'active' : ''}`}
@@ -513,19 +483,13 @@ export default function App() {
                   Franchises <span className="nav-btn-chevron">▾</span>
                 </button>
                 <div className="nav-dropdown-panel">
-                  <div className="nav-dropdown-kicker">
-                    {isEn ? 'Franchise Division • CQF Member' : 'Pôle Franchises • Membre CQF'}
-                  </div>
                   <button
                     type="button"
                     className="nav-dropdown-link"
                     onClick={() => navigateTo('franchises')}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'Our Franchise Clients' : 'Nos Enseignes Clientes'}
-                    </span>
-                    <span className="nav-dropdown-link-sub">
-                      Pacini • Arabian Oud • Grillade Taurino
+                      {isEn ? 'Our Franchise Clients' : 'Nos enseignes clientes'}
                     </span>
                   </button>
                   <button
@@ -542,10 +506,7 @@ export default function App() {
                     }}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'Find a Location for My Franchise' : 'Trouver un emplacement pour ma franchise'}
-                    </span>
-                    <span className="nav-dropdown-link-sub">
-                      {isEn ? 'Site selection & commercial lease negotiation' : 'Sélection de sites & négociation de baux commerciaux'}
+                      {isEn ? 'Find a Location' : 'Trouver un emplacement'}
                     </span>
                   </button>
                   <button
@@ -554,10 +515,7 @@ export default function App() {
                     onClick={() => navigateTo('evenements')}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'CQF Network & Franchise Expo Paris' : 'Réseau CQF & Franchise Expo Paris'}
-                    </span>
-                    <span className="nav-dropdown-link-sub">
-                      {isEn ? 'Quebec–Europe trade missions & conventions' : 'Missions Québec–Europe & salons de la franchise'}
+                      {isEn ? 'CQF & Paris Network' : 'Réseau CQF & Paris'}
                     </span>
                   </button>
                 </div>
@@ -597,7 +555,7 @@ export default function App() {
           {/* Navigation Droite (3 onglets aérés : Propriétés ▾, Outils & Médias ▾, Nous joindre ▾ + FR | EN) */}
           <div className="desktop-nav header-nav-side header-nav-right">
             <ul className="nav-links">
-              {/* 4. PROPRIÉTÉS ▾ (Idées 5 à 9 : Commercial, Pourvoiries, Terrains, Résidentiel, Carte, NDA) */}
+              {/* 4. PROPRIÉTÉS ▾ */}
               <li className="nav-item-dropdown">
                 <button
                   className={`nav-btn ${activePage === 'proprietes' ? 'active' : ''}`}
@@ -606,19 +564,22 @@ export default function App() {
                   {t.nav.properties} <span className="nav-btn-chevron">▾</span>
                 </button>
                 <div className="nav-dropdown-panel align-right">
-                  <div className="nav-dropdown-kicker">
-                    {isEn ? `Active Portfolio (${liveDealsData.length} Mandates)` : `Portefeuille actif (${liveDealsData.length} mandats)`}
-                  </div>
+                  <button
+                    type="button"
+                    className="nav-dropdown-link"
+                    onClick={() => navigateTo('proprietes', { filtrePropriete: 'all', propertiesViewMode: 'grid' })}
+                  >
+                    <span className="nav-dropdown-link-title">
+                      {isEn ? 'All Properties' : 'Toutes les propriétés'}
+                    </span>
+                  </button>
                   <button
                     type="button"
                     className="nav-dropdown-link"
                     onClick={() => navigateTo('proprietes', { filtrePropriete: 'commercial', propertiesViewMode: 'grid' })}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'Commercial & Investment Real Estate' : 'Immobilier Commercial & Investissement'}
-                    </span>
-                    <span className="nav-dropdown-link-sub">
-                      {isEn ? 'Commercial buildings, industrial, multi-family & businesses' : 'Immeubles commerciaux, industriel, multilogements & fonds de commerce'}
+                      {isEn ? 'Commercial & Investment' : 'Commercial & Investissement'}
                     </span>
                   </button>
                   <button
@@ -627,10 +588,7 @@ export default function App() {
                     onClick={() => navigateTo('proprietes', { filtrePropriete: 'pourvoirie', propertiesViewMode: 'grid' })}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'Outfitters, Estates & Hospitality' : 'Pourvoiries, Domaines & Hôtellerie'}
-                    </span>
-                    <span className="nav-dropdown-link-sub">
-                      {isEn ? 'Exclusive hunting/fishing lodges, campgrounds & resorts' : 'Pourvoiries, campings, auberges & centres de villégiature'}
+                      {isEn ? 'Outfitters & Hospitality' : 'Pourvoiries & Hôtellerie'}
                     </span>
                   </button>
                   <button
@@ -639,10 +597,7 @@ export default function App() {
                     onClick={() => navigateTo('proprietes', { filtrePropriete: 'terrain', propertiesViewMode: 'grid' })}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'Land & Development Sites' : 'Terrains & Développement'}
-                    </span>
-                    <span className="nav-dropdown-link-sub">
-                      {isEn ? 'Development land, forestry & waterfront lots' : 'Terrains à développer, terres boisées & lots riverains'}
+                      {isEn ? 'Land' : 'Terrains'}
                     </span>
                   </button>
                   <button
@@ -651,10 +606,7 @@ export default function App() {
                     onClick={() => navigateTo('proprietes', { filtrePropriete: 'residentiel', propertiesViewMode: 'grid' })}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'Residential & Prestige' : 'Résidentiel & Prestige'}
-                    </span>
-                    <span className="nav-dropdown-link-sub">
-                      {isEn ? 'Houses, condos, chalets & luxury residences' : 'Maisons, condos, chalets & résidences de prestige'}
+                      {isEn ? 'Residential' : 'Résidentiel'}
                     </span>
                   </button>
                   <div className="nav-dropdown-divider" />
@@ -664,10 +616,7 @@ export default function App() {
                     onClick={() => navigateTo('proprietes', { filtrePropriete: 'all', propertiesViewMode: 'map' })}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'Interactive Map of Properties' : 'Carte interactive des mandats'}
-                    </span>
-                    <span className="nav-dropdown-link-sub">
-                      {isEn ? 'Geolocated view across Quebec' : 'Exploration géographique à travers le Québec'}
+                      {isEn ? 'Interactive Map' : 'Carte interactive'}
                     </span>
                   </button>
                   <button
@@ -676,16 +625,13 @@ export default function App() {
                     onClick={() => setNdaModalDeal(null)}
                   >
                     <span className="nav-dropdown-link-title" style={{ color: 'var(--gold-light)' }}>
-                      {isEn ? 'Off-Market Mandates Access (NDA)' : 'Accès Mandats Hors-Marché (NDA)'}
-                    </span>
-                    <span className="nav-dropdown-link-sub">
-                      {isEn ? 'Confidential files for qualified buyers' : 'Dossiers confidentiels pour acquéreurs qualifiés'}
+                      {isEn ? 'Off-Market (NDA)' : 'Hors-marché (NDA)'}
                     </span>
                   </button>
                 </div>
               </li>
 
-              {/* 5. OUTILS & MÉDIAS ▾ (Idées 17 à 20 : Fusion Outils + Multi-Prêts + Actualités + Balados) */}
+              {/* 5. OUTILS & MÉDIAS ▾ */}
               <li className="nav-item-dropdown">
                 <button
                   className={`nav-btn ${(activePage === 'outils' || activePage === 'evenements' || activePage === 'balados') ? 'active' : ''}`}
@@ -694,19 +640,13 @@ export default function App() {
                   {isEn ? 'Tools & Media' : 'Outils & Médias'} <span className="nav-btn-chevron">▾</span>
                 </button>
                 <div className="nav-dropdown-panel align-right">
-                  <div className="nav-dropdown-kicker">
-                    {isEn ? 'Financial Simulators 2026' : 'Simulateurs & Calculateurs 2026'}
-                  </div>
                   <button
                     type="button"
                     className="nav-dropdown-link"
                     onClick={() => navigateTo('outils', { toolTab: 'plex' })}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'Commercial & Multi-Family ROI (Cap Rate)' : 'Analyseur Commercial & Plex (TGA / Cap Rate)'}
-                    </span>
-                    <span className="nav-dropdown-link-sub">
-                      {isEn ? 'NOI, Cap Rate, GIM & Cash-on-Cash' : 'RNO, TGA, MRB et flux de trésorerie net'}
+                      {isEn ? 'Commercial & Plex ROI' : 'Rentabilité Commercial & Plex'}
                     </span>
                   </button>
                   <button
@@ -715,10 +655,7 @@ export default function App() {
                     onClick={() => navigateTo('outils', { toolTab: 'welcome' })}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'Welcome Tax Calculator (Transfer Duties)' : 'Calculateur de Taxe de bienvenue'}
-                    </span>
-                    <span className="nav-dropdown-link-sub">
-                      {isEn ? 'Official 2026 Montreal & Quebec brackets' : 'Barèmes officiels 2026 Montréal & Québec'}
+                      {isEn ? 'Welcome Tax' : 'Taxe de bienvenue'}
                     </span>
                   </button>
                   <button
@@ -727,10 +664,7 @@ export default function App() {
                     onClick={() => navigateTo('outils', { toolTab: 'mortgage' })}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'Mortgage & B-20 Borrowing Capacity' : 'Simulateur Hypothécaire & Capacité B-20'}
-                    </span>
-                    <span className="nav-dropdown-link-sub">
-                      {isEn ? 'Payments, CMHC & closing costs' : 'Versements, SCHL et frais de clôture'}
+                      {isEn ? 'Mortgage Calculator' : 'Calculatrice hypothécaire'}
                     </span>
                   </button>
                   <a
@@ -740,27 +674,18 @@ export default function App() {
                     className="nav-dropdown-link"
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'Mortgage Pre-Qualification (Multi-Prêts)' : 'Préqualification Hypothécaire (Multi-Prêts)'}
+                      {isEn ? 'Multi-Prêts Pre-Qualification' : 'Préqualification Multi-Prêts'}
                       <ExternalLink size={12} style={{ color: 'var(--gold)' }} />
-                    </span>
-                    <span className="nav-dropdown-link-sub">
-                      {isEn ? 'Book directly with our Multi-Prêts partner' : 'Rendez-vous direct avec notre partenaire Multi-Prêts'}
                     </span>
                   </a>
                   <div className="nav-dropdown-divider" />
-                  <div className="nav-dropdown-kicker">
-                    {isEn ? 'News, Conventions & Podcasts' : 'Médias, Salons & Balados'}
-                  </div>
                   <button
                     type="button"
                     className="nav-dropdown-link"
                     onClick={() => navigateTo('evenements')}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'News & Events (CQF / Paris)' : 'Actualités & Salons (CQF / Paris)'}
-                    </span>
-                    <span className="nav-dropdown-link-sub">
-                      {isEn ? 'Trade shows, conferences & multi-year archives' : 'Salons internationaux, conférences et archives'}
+                      {isEn ? 'News & Events' : 'Actualités & Événements'}
                     </span>
                   </button>
                   <button
@@ -769,16 +694,13 @@ export default function App() {
                     onClick={() => navigateTo('balados')}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'Himalaya Real Estate Podcasts' : 'Balados Immobiliers Himalaya'}
-                    </span>
-                    <span className="nav-dropdown-link-sub">
-                      {isEn ? 'Listen to our episodes on investment & franchises' : 'Écoutez nos épisodes sur l’investissement et les franchises'}
+                      {isEn ? 'Podcasts' : 'Balados'}
                     </span>
                   </button>
                 </div>
               </li>
 
-              {/* 6. NOUS JOINDRE ▾ (Bouton d'action doré épuré à l'extrême droite — Idée #3) */}
+              {/* 6. NOUS JOINDRE ▾ */}
               <li className="nav-item-dropdown">
                 <button
                   className={`nav-btn nav-btn-cta ${activePage === 'nous-joindre' ? 'active' : ''}`}
@@ -787,19 +709,13 @@ export default function App() {
                   {t.nav.contact} <span className="nav-btn-chevron">▾</span>
                 </button>
                 <div className="nav-dropdown-panel align-right">
-                  <div className="nav-dropdown-kicker">
-                    {isEn ? 'Direct Contact & Advisory' : 'Contact direct & Accompagnement'}
-                  </div>
                   <button
                     type="button"
                     className="nav-dropdown-link"
                     onClick={() => navigateTo('nous-joindre', { contactTab: 'general' })}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'Contact Our Offices (Montreal & Paris)' : 'Contacter nos bureaux (Montréal & Paris)'}
-                    </span>
-                    <span className="nav-dropdown-link-sub">
-                      (514) 379-1788 • info@himalayacorp.com
+                      {isEn ? 'Contact Us' : 'Nous contacter'}
                     </span>
                   </button>
                   <button
@@ -808,10 +724,7 @@ export default function App() {
                     onClick={() => navigateTo('nous-joindre', { contactTab: 'valuation' })}
                   >
                     <span className="nav-dropdown-link-title" style={{ color: 'var(--gold-light)' }}>
-                      {isEn ? 'Request a Free Property Valuation' : 'Évaluer ma propriété gratuitement'}
-                    </span>
-                    <span className="nav-dropdown-link-sub">
-                      {isEn ? 'Confidential market opinion for sellers' : 'Opinion de la valeur marchande confidentielle'}
+                      {isEn ? 'Evaluate My Property' : 'Évaluer ma propriété'}
                     </span>
                   </button>
                   <button
@@ -820,10 +733,7 @@ export default function App() {
                     onClick={() => navigateTo('a-propos', { aboutTab: 'carrieres' })}
                   >
                     <span className="nav-dropdown-link-title">
-                      {isEn ? 'Join Himalaya (Brokers & Affiliates)' : 'Joindre Himalaya (Courtiers & Affiliés)'}
-                    </span>
-                    <span className="nav-dropdown-link-sub">
-                      {isEn ? 'Submit your confidential application' : 'Soumettre une candidature confidentielle'}
+                      {isEn ? 'Become a Broker / Affiliate' : 'Devenir courtier / affilié'}
                     </span>
                   </button>
                 </div>
