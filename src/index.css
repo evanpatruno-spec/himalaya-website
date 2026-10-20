@@ -87,16 +87,25 @@ button, select, input, textarea {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 4px 11px;
-  border-radius: 999px;
-  font-size: 0.72rem;
-  font-weight: 600;
+  padding: 0;
+  font-size: 0.73rem;
+  font-weight: 700;
   text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: transparent;
+  color: var(--gold);
+  border: none;
+  white-space: nowrap;
+}
+
+.property-img-wrap .badge-gold {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.7rem;
   letter-spacing: 0.06em;
-  background: rgba(200, 164, 93, 0.14);
+  background: rgba(9, 9, 11, 0.88);
   color: var(--gold-light);
   border: 1px solid rgba(200, 164, 93, 0.32);
-  white-space: nowrap;
 }
 
 .btn-gold {

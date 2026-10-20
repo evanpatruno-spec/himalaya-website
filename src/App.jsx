@@ -701,14 +701,17 @@ export default function App() {
             </div>
           </section>
 
-          {/* BANNIÈRE CHIFFRES CLÉS AUTHENTIQUES & PRÉSENTATION CONCISE */}
+          {/* BANNIÈRE CHIFFRES CLÉS AUTHENTIQUES & PRÉSENTATION ÉPURÉE */}
           <section style={{ padding: '64px 0', background: 'var(--bg-dark)' }}>
             <div className="container">
               <div style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-                gap: '18px',
-                marginBottom: '40px'
+                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                gap: '24px',
+                padding: '28px 0',
+                borderTop: '1px solid var(--border-subtle)',
+                borderBottom: '1px solid var(--border-subtle)',
+                marginBottom: '56px'
               }}>
                 {[
                   { num: `${liveDealsData.length}`, label: t.home.statMandates },
@@ -716,44 +719,32 @@ export default function App() {
                   { num: t.home.statFoundedNum, label: t.home.statFounded },
                   { num: t.home.statPolesNum, label: t.home.statPoles }
                 ].map((stat, i) => (
-                  <div key={i} style={{
-                    background: 'var(--bg-card)',
-                    border: '1px solid var(--border-subtle)',
-                    borderRadius: '12px',
-                    padding: '22px',
-                    textAlign: 'center'
-                  }}>
-                    <div className="gold-gradient-text" style={{ fontSize: '2rem', fontWeight: 700 }}>
+                  <div key={i} style={{ textAlign: 'center', padding: '6px 12px' }}>
+                    <div className="gold-gradient-text" style={{ fontSize: '2.2rem', fontWeight: 700, lineHeight: 1.1 }}>
                       {stat.num}
                     </div>
-                    <div style={{ fontSize: '0.84rem', color: 'var(--text-secondary)', marginTop: '4px' }}>
+                    <div style={{ fontSize: '0.84rem', color: 'var(--text-secondary)', marginTop: '6px' }}>
                       {stat.label}
                     </div>
                   </div>
                 ))}
               </div>
 
-              {/* VITRINE FRANCHISES SUR L'ACCUEIL (PACINI, ARABIAN OUD & GRILLADE TAURINO) */}
-              <div style={{
-                background: 'var(--bg-card)',
-                border: '1px solid var(--border-gold)',
-                borderRadius: '14px',
-                padding: '28px',
-                marginBottom: '36px'
-              }}>
+              {/* VITRINE FRANCHISES SUR L'ACCUEIL (PACINI, ARABIAN OUD & GRILLADE TAURINO) — SANS CADRES IMBRIQUÉS */}
+              <div style={{ marginBottom: '56px' }}>
                 <div style={{
                   display: 'flex',
                   justifyContent: 'space-between',
-                  alignItems: 'center',
+                  alignItems: 'flex-end',
                   flexWrap: 'wrap',
                   gap: '16px',
-                  marginBottom: '20px'
+                  marginBottom: '28px'
                 }}>
                   <div>
-                    <span className="badge-gold" style={{ marginBottom: '8px' }}>
+                    <span className="badge-gold" style={{ marginBottom: '6px' }}>
                       {isEn ? 'CQF Member • Franchise Clients' : 'Membre CQF • Clients Franchisés'}
                     </span>
-                    <h3 style={{ fontSize: '1.45rem', fontWeight: 700 }}>
+                    <h3 style={{ fontSize: '1.65rem', fontWeight: 700 }}>
                       {isEn
                         ? 'Franchises Supported by Immobilier Himalaya'
                         : 'Franchises accompagnées par Immobilier Himalaya'}
@@ -761,7 +752,7 @@ export default function App() {
                   </div>
                   <button
                     onClick={() => navigateTo('franchises')}
-                    className="btn-gold"
+                    className="btn-outline"
                     style={{ fontSize: '0.84rem', padding: '10px 18px' }}
                   >
                     {isEn ? 'Open Franchises Section' : 'Accéder à l’onglet Franchises'} <ArrowRight size={14} />
@@ -770,38 +761,62 @@ export default function App() {
 
                 <div style={{
                   display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-                  gap: '16px'
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                  gap: '24px'
                 }}>
                   {HIMALAYA_FRANCHISES.map(fr => (
                     <div
                       key={fr.id}
                       onClick={() => navigateTo('franchises')}
                       style={{
-                        background: 'rgba(255,255,255,0.02)',
+                        background: 'var(--bg-card)',
                         border: '1px solid var(--border-subtle)',
-                        borderRadius: '12px',
-                        padding: '18px 20px',
+                        borderRadius: '14px',
+                        padding: '26px',
                         cursor: 'pointer',
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'space-between',
-                        gap: '10px'
+                        gap: '18px',
+                        transition: 'border-color 0.25s ease, transform 0.25s ease'
                       }}
                     >
                       <div>
-                        <div style={{ fontSize: '0.72rem', color: 'var(--gold)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>
+                        {fr.logo && (
+                          <div style={{
+                            height: '64px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'flex-start',
+                            marginBottom: '18px',
+                            paddingBottom: '14px',
+                            borderBottom: '1px solid var(--border-subtle)'
+                          }}>
+                            <img
+                              src={fr.logo}
+                              alt={fr.name}
+                              style={{
+                                maxHeight: fr.logoHeight || '44px',
+                                maxWidth: '180px',
+                                width: 'auto',
+                                objectFit: 'contain',
+                                filter: fr.invertLogo ? 'brightness(0) invert(1)' : 'none'
+                              }}
+                            />
+                          </div>
+                        )}
+                        <div style={{ fontSize: '0.72rem', color: 'var(--gold)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '6px' }}>
                           {isEn ? fr.category_en : fr.category}
                         </div>
-                        <h4 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#fff', marginBottom: '6px' }}>
+                        <h4 style={{ fontSize: '1.3rem', fontWeight: 700, color: '#fff', marginBottom: '8px' }}>
                           {isEn ? fr.name_en : fr.name}
                         </h4>
-                        <p style={{ fontSize: '0.84rem', color: 'var(--text-secondary)', lineHeight: 1.55 }}>
+                        <p style={{ fontSize: '0.86rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
                           {isEn ? fr.description_en : fr.description}
                         </p>
                       </div>
-                      <div style={{ paddingTop: '10px', borderTop: '1px solid var(--border-subtle)', fontSize: '0.8rem', color: 'var(--gold-light)', fontWeight: 600 }}>
-                        {isEn ? 'Assigned Broker(s): ' : 'Courtier(s) attitré(s) : '} {fr.brokerNames}
+                      <div style={{ paddingTop: '12px', borderTop: '1px solid var(--border-subtle)', fontSize: '0.82rem', color: 'var(--gold-light)', fontWeight: 600 }}>
+                        {isEn ? 'Assigned Broker(s): ' : 'Courtier(s) attitré(s) : '} <span style={{ color: '#fff' }}>{fr.brokerNames}</span>
                       </div>
                     </div>
                   ))}
@@ -809,10 +824,8 @@ export default function App() {
               </div>
 
               <div style={{
-                background: 'var(--bg-card)',
-                border: '1px solid var(--border-gold)',
-                borderRadius: '14px',
-                padding: '32px',
+                paddingTop: '36px',
+                borderTop: '1px solid var(--border-subtle)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
@@ -820,14 +833,14 @@ export default function App() {
                 flexWrap: 'wrap'
               }}>
                 <div style={{ maxWidth: '660px' }}>
-                  <h3 style={{ fontSize: '1.45rem', fontWeight: 700, marginBottom: '8px' }}>
+                  <h3 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '8px' }}>
                     {t.home.ctaTitle}
                   </h3>
-                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.92rem' }}>
+                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.94rem', lineHeight: 1.6 }}>
                     {t.home.ctaDesc}
                   </p>
                 </div>
-                <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
                   <button onClick={() => navigateTo('courtiers')} className="btn-gold">
                     {t.home.ourBrokersBtn} <ArrowRight size={15} />
                   </button>

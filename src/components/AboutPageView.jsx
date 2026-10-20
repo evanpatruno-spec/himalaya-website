@@ -156,125 +156,91 @@ export default function AboutPageView({
         )}
 
         {/* =================================================================
-            ONGLET 1 : QUI NOUS SOMMES (Profil complet, Mission, Valeurs + Aperçu)
+            ONGLET 1 : QUI NOUS SOMMES (Mise en page éditoriale épurée, sans cadres imbriqués)
            ================================================================= */}
         {activeTab === 'qui-nous-sommes' && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
-            {/* Bloc principal : Qui nous sommes & Notre Profil (4 paragraphes officiels) */}
-            <div
-              style={{
-                background: 'var(--bg-card)',
-                border: '1px solid var(--border-gold)',
-                borderRadius: '14px',
-                padding: '32px'
-              }}
-            >
-              <h2 style={{ fontSize: '1.45rem', fontWeight: 700, color: 'var(--gold-light)', marginBottom: '14px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
+            {/* Bloc principal éditorial ouvert : Qui nous sommes & Notre Profil */}
+            <div style={{ paddingBottom: '32px', borderBottom: '1px solid var(--border-subtle)' }}>
+              <h2 style={{ fontSize: '1.6rem', fontWeight: 700, color: 'var(--gold-light)', marginBottom: '14px' }}>
                 {c.whoWeAre.heading}
               </h2>
               <p
                 style={{
-                  fontSize: '0.98rem',
+                  fontSize: '1rem',
                   color: 'var(--text-primary)',
-                  lineHeight: 1.75,
-                  marginBottom: '28px'
+                  lineHeight: 1.8,
+                  marginBottom: '28px',
+                  maxWidth: '960px'
                 }}
               >
                 {c.whoWeAre.intro}
               </p>
 
-              <div style={{ borderTop: '1px solid var(--border-subtle)', paddingTop: '24px' }}>
-                <h3
-                  style={{
-                    fontSize: '1.1rem',
-                    fontWeight: 700,
-                    color: 'var(--gold)',
-                    letterSpacing: '0.04em',
-                    marginBottom: '14px'
-                  }}
-                >
-                  {c.whoWeAre.profileTitle}
-                </h3>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                  {c.whoWeAre.profileParagraphs.map((para, idx) => (
-                    <p
-                      key={idx}
-                      style={{
-                        fontSize: '0.95rem',
-                        color: 'var(--text-secondary)',
-                        lineHeight: 1.75
-                      }}
-                    >
-                      {para}
-                    </p>
-                  ))}
-                </div>
+              <h3
+                style={{
+                  fontSize: '0.82rem',
+                  fontWeight: 700,
+                  color: 'var(--gold)',
+                  letterSpacing: '0.1em',
+                  marginBottom: '14px'
+                }}
+              >
+                {c.whoWeAre.profileTitle}
+              </h3>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '20px' }}>
+                {c.whoWeAre.profileParagraphs.map((para, idx) => (
+                  <p
+                    key={idx}
+                    style={{
+                      fontSize: '0.94rem',
+                      color: 'var(--text-secondary)',
+                      lineHeight: 1.75
+                    }}
+                  >
+                    {para}
+                  </p>
+                ))}
               </div>
             </div>
 
-            {/* Grille Mission & Valeurs */}
+            {/* Grille Mission & Valeurs épurée */}
             <div
               style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-                gap: '22px'
+                gap: '36px',
+                paddingBottom: '32px',
+                borderBottom: '1px solid var(--border-subtle)'
               }}
             >
-              <div
-                style={{
-                  background: 'var(--bg-card)',
-                  border: '1px solid var(--border-subtle)',
-                  borderRadius: '14px',
-                  padding: '28px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between'
-                }}
-              >
-                <div>
-                  <div
-                    style={{
-                      fontSize: '0.8rem',
-                      fontWeight: 700,
-                      color: 'var(--gold)',
-                      letterSpacing: '0.05em',
-                      marginBottom: '10px'
-                    }}
-                  >
-                    {c.whoWeAre.missionTitle}
-                  </div>
-                  <p style={{ fontSize: '0.96rem', color: 'var(--text-primary)', lineHeight: 1.75 }}>
-                    {c.whoWeAre.missionText}
-                  </p>
-                </div>
+              <div>
                 <div
                   style={{
-                    marginTop: '20px',
-                    paddingTop: '16px',
-                    borderTop: '1px solid var(--border-subtle)',
-                    fontSize: '0.86rem',
-                    color: 'var(--gold-light)',
-                    fontWeight: 500
+                    fontSize: '0.78rem',
+                    fontWeight: 700,
+                    color: 'var(--gold)',
+                    letterSpacing: '0.1em',
+                    marginBottom: '10px'
                   }}
                 >
+                  {c.whoWeAre.missionTitle}
+                </div>
+                <p style={{ fontSize: '0.98rem', color: 'var(--text-primary)', lineHeight: 1.75, marginBottom: '14px' }}>
+                  {c.whoWeAre.missionText}
+                </p>
+                <div style={{ fontSize: '0.88rem', color: 'var(--gold-light)', fontWeight: 500 }}>
                   {c.whoWeAre.contactCta}
                 </div>
               </div>
 
-              <div
-                style={{
-                  background: 'var(--bg-card)',
-                  border: '1px solid var(--border-subtle)',
-                  borderRadius: '14px',
-                  padding: '28px'
-                }}
-              >
+              <div>
                 <div
                   style={{
-                    fontSize: '0.8rem',
+                    fontSize: '0.78rem',
                     fontWeight: 700,
                     color: 'var(--gold)',
-                    letterSpacing: '0.05em',
+                    letterSpacing: '0.1em',
                     marginBottom: '10px'
                   }}
                 >
@@ -284,39 +250,34 @@ export default function AboutPageView({
                   style={{
                     fontSize: '0.95rem',
                     color: 'var(--text-secondary)',
-                    lineHeight: 1.7,
-                    marginBottom: '18px'
+                    lineHeight: 1.75,
+                    marginBottom: '16px'
                   }}
                 >
                   {c.whoWeAre.valuesText}
                 </p>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}>
                   {c.whoWeAre.valuesList.map((val) => (
                     <span
                       key={val}
-                      className="badge-gold"
                       style={{
-                        padding: '7px 14px',
-                        fontSize: '0.82rem',
-                        background: 'rgba(200, 164, 93, 0.12)'
+                        fontSize: '0.86rem',
+                        fontWeight: 600,
+                        color: 'var(--gold-light)',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '6px'
                       }}
                     >
-                      {val}
+                      <span style={{ color: 'var(--gold)' }}>•</span> {val}
                     </span>
                   ))}
                 </div>
               </div>
             </div>
 
-            {/* Section Co-fondateurs & Direction */}
-            <div
-              style={{
-                background: 'var(--bg-card)',
-                border: '1px solid var(--border-subtle)',
-                borderRadius: '14px',
-                padding: '28px'
-              }}
-            >
+            {/* Section Co-fondateurs & Direction (sans cadre englobant superflu) */}
+            <div style={{ paddingBottom: '32px', borderBottom: '1px solid var(--border-subtle)' }}>
               <div
                 style={{
                   display: 'flex',
@@ -324,7 +285,7 @@ export default function AboutPageView({
                   alignItems: 'center',
                   flexWrap: 'wrap',
                   gap: '12px',
-                  marginBottom: '20px'
+                  marginBottom: '22px'
                 }}
               >
                 <div>
@@ -337,10 +298,10 @@ export default function AboutPageView({
                 </div>
                 <button
                   onClick={() => switchTab('co-fondateurs')}
-                  className="btn-gold"
-                  style={{ padding: '9px 16px', fontSize: '0.84rem' }}
+                  className="btn-outline"
+                  style={{ padding: '8px 16px', fontSize: '0.82rem' }}
                 >
-                  {isEn ? 'Read Full Co-Founders Story & Video' : 'Lire l’histoire complète des co-fondateurs & vidéo'}{' '}
+                  {isEn ? 'Read Full Co-Founders Story & Video' : 'Histoire des co-fondateurs & vidéo'}{' '}
                   <ArrowRight size={14} />
                 </button>
               </div>
@@ -358,7 +319,7 @@ export default function AboutPageView({
                     className="broker-card"
                     style={{
                       display: 'grid',
-                      gridTemplateColumns: '130px 1fr',
+                      gridTemplateColumns: '125px 1fr',
                       overflow: 'hidden',
                       alignItems: 'stretch'
                     }}
@@ -368,7 +329,7 @@ export default function AboutPageView({
                       style={{
                         background: '#09090b',
                         cursor: 'pointer',
-                        minHeight: '195px'
+                        minHeight: '185px'
                       }}
                     >
                       <img
@@ -392,7 +353,7 @@ export default function AboutPageView({
                       }}
                     >
                       <div>
-                        <div style={{ fontSize: '0.74rem', color: 'var(--gold)', fontWeight: 600, marginBottom: '4px' }}>
+                        <div style={{ fontSize: '0.73rem', color: 'var(--gold)', fontWeight: 600, marginBottom: '4px' }}>
                           {isEn ? dir.shortTitle_en || dir.shortTitle : dir.shortTitle}
                         </div>
                         <h3 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: '6px' }}>{dir.name}</h3>
@@ -411,21 +372,13 @@ export default function AboutPageView({
                           {isEn ? dir.bio_en || dir.bio : dir.bio}
                         </p>
                       </div>
-                      <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-                        <button
+                      <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', alignItems: 'center' }}>
+                        <span
                           onClick={() => onSelectBroker && onSelectBroker(dir)}
-                          className="btn-outline"
-                          style={{ fontSize: '0.78rem', padding: '6px 12px' }}
+                          style={{ fontSize: '0.8rem', color: 'var(--gold-light)', fontWeight: 600, cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
                         >
                           {isEn ? 'Broker Profile' : 'Fiche courtier'} <ChevronRight size={13} />
-                        </button>
-                        <button
-                          onClick={() => switchTab('co-fondateurs')}
-                          className="btn-outline"
-                          style={{ fontSize: '0.78rem', padding: '6px 12px', borderColor: 'var(--border-subtle)' }}
-                        >
-                          {isEn ? 'Full Bio' : 'Biographie complète'}
-                        </button>
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -545,22 +498,15 @@ export default function AboutPageView({
         )}
 
         {/* =================================================================
-            ONGLET 2 : CO-FONDATEURS (Texte intégral + photos + vidéo YouTube)
+            ONGLET 2 : CO-FONDATEURS (Mise en page éditoriale épurée)
            ================================================================= */}
         {activeTab === 'co-fondateurs' && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
-            <div
-              style={{
-                background: 'var(--bg-card)',
-                border: '1px solid var(--border-gold)',
-                borderRadius: '14px',
-                padding: '28px'
-              }}
-            >
-              <h2 style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--gold-light)', marginBottom: '12px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '36px' }}>
+            <div style={{ paddingBottom: '24px', borderBottom: '1px solid var(--border-subtle)' }}>
+              <h2 style={{ fontSize: '1.55rem', fontWeight: 700, color: 'var(--gold-light)', marginBottom: '12px' }}>
                 {c.coFounders.heading}
               </h2>
-              <p style={{ fontSize: '0.96rem', color: 'var(--text-primary)', lineHeight: 1.75 }}>
+              <p style={{ fontSize: '0.98rem', color: 'var(--text-primary)', lineHeight: 1.8, maxWidth: '920px' }}>
                 {c.coFounders.intro}
               </p>
             </div>
@@ -574,31 +520,29 @@ export default function AboutPageView({
                 <div
                   key={founder.id}
                   style={{
-                    background: 'var(--bg-card)',
-                    border: '1px solid var(--border-subtle)',
-                    borderRadius: '14px',
-                    padding: '30px'
+                    paddingBottom: '36px',
+                    borderBottom: '1px solid var(--border-subtle)'
                   }}
                 >
                   <div
                     style={{
                       display: 'grid',
                       gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-                      gap: '28px',
+                      gap: '32px',
                       alignItems: 'start'
                     }}
                   >
                     {/* Colonne portrait + galerie photos */}
-                    <div style={{ maxWidth: '320px' }}>
+                    <div style={{ maxWidth: '300px' }}>
                       <div
                         style={{
                           width: '100%',
                           aspectRatio: '314 / 543',
                           borderRadius: '12px',
                           overflow: 'hidden',
-                          border: '1px solid var(--border-gold)',
+                          border: '1px solid var(--border-subtle)',
                           background: '#09090b',
-                          marginBottom: '14px'
+                          marginBottom: '12px'
                         }}
                       >
                         <img
@@ -628,8 +572,7 @@ export default function AboutPageView({
                               style={{
                                 borderRadius: '8px',
                                 overflow: 'hidden',
-                                border: '1px solid var(--border-subtle)',
-                                height: '82px',
+                                height: '78px',
                                 background: '#09090b'
                               }}
                             >
@@ -657,7 +600,7 @@ export default function AboutPageView({
 
                     {/* Colonne texte biographique intégral */}
                     <div>
-                      <div style={{ fontSize: '0.78rem', color: 'var(--gold)', fontWeight: 600, marginBottom: '4px' }}>
+                      <div style={{ fontSize: '0.76rem', color: 'var(--gold)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '4px' }}>
                         {founder.credentials}
                       </div>
                       <h3 style={{ fontSize: '1.65rem', fontWeight: 700, marginBottom: '4px' }}>{founder.name}</h3>
@@ -726,14 +669,7 @@ export default function AboutPageView({
             })}
 
             {/* Vidéo officielle présente sur co-fondateurs.html */}
-            <div
-              style={{
-                background: 'var(--bg-card)',
-                border: '1px solid var(--border-subtle)',
-                borderRadius: '14px',
-                padding: '24px'
-              }}
-            >
+            <div>
               <h3 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: '14px' }}>
                 {c.coFounders.videoTitle}
               </h3>
@@ -762,25 +698,18 @@ export default function AboutPageView({
         )}
 
         {/* =================================================================
-            ONGLET 3 : SERVICES & ASSOCIATIONS (services.html)
+            ONGLET 3 : SERVICES & ASSOCIATIONS (services.html — mise en page épurée)
            ================================================================= */}
         {activeTab === 'services' && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '26px' }}>
-            <div
-              style={{
-                background: 'var(--bg-card)',
-                border: '1px solid var(--border-gold)',
-                borderRadius: '14px',
-                padding: '30px'
-              }}
-            >
-              <h2 style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--gold-light)', marginBottom: '12px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '36px' }}>
+            <div style={{ paddingBottom: '28px', borderBottom: '1px solid var(--border-subtle)' }}>
+              <h2 style={{ fontSize: '1.55rem', fontWeight: 700, color: 'var(--gold-light)', marginBottom: '12px' }}>
                 {c.services.heading}
               </h2>
-              <p style={{ fontSize: '0.96rem', color: 'var(--text-primary)', lineHeight: 1.75, marginBottom: '12px' }}>
+              <p style={{ fontSize: '0.98rem', color: 'var(--text-primary)', lineHeight: 1.8, marginBottom: '12px', maxWidth: '940px' }}>
                 {c.services.intro1}
               </p>
-              <p style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', lineHeight: 1.75 }}>
+              <p style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', lineHeight: 1.75, maxWidth: '940px' }}>
                 {c.services.intro2}
               </p>
             </div>
@@ -789,25 +718,20 @@ export default function AboutPageView({
               style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-                gap: '22px'
+                gap: '36px',
+                paddingBottom: '32px',
+                borderBottom: '1px solid var(--border-subtle)'
               }}
             >
               {/* Volet 1 : Vente, location et recherche */}
-              <div
-                style={{
-                  background: 'var(--bg-card)',
-                  border: '1px solid var(--border-subtle)',
-                  borderRadius: '14px',
-                  padding: '26px'
-                }}
-              >
+              <div>
                 <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--gold-light)', marginBottom: '16px' }}>
                   {c.services.brokerageTitle}
                 </h3>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                   {c.services.brokerageItems.map((item, idx) => (
                     <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.92rem' }}>
-                      <CheckCircle2 size={16} style={{ color: 'var(--gold)', flexShrink: 0 }} />
+                      <CheckCircle2 size={15} style={{ color: 'var(--gold)', flexShrink: 0 }} />
                       <span>{item}</span>
                     </div>
                   ))}
@@ -815,21 +739,14 @@ export default function AboutPageView({
               </div>
 
               {/* Volet 2 : Consultation immobilière */}
-              <div
-                style={{
-                  background: 'var(--bg-card)',
-                  border: '1px solid var(--border-subtle)',
-                  borderRadius: '14px',
-                  padding: '26px'
-                }}
-              >
+              <div>
                 <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--gold-light)', marginBottom: '16px' }}>
                   {c.services.consultingTitle}
                 </h3>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                   {c.services.consultingItems.map((item, idx) => (
                     <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.92rem' }}>
-                      <CheckCircle2 size={16} style={{ color: 'var(--gold)', flexShrink: 0 }} />
+                      <CheckCircle2 size={15} style={{ color: 'var(--gold)', flexShrink: 0 }} />
                       <span>{item}</span>
                     </div>
                   ))}
@@ -842,17 +759,10 @@ export default function AboutPageView({
               style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-                gap: '22px'
+                gap: '36px'
               }}
             >
-              <div
-                style={{
-                  background: 'var(--bg-card)',
-                  border: '1px solid var(--border-subtle)',
-                  borderRadius: '14px',
-                  padding: '26px'
-                }}
-              >
+              <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
                   <Globe size={18} style={{ color: 'var(--gold)' }} />
                   <h3 style={{ fontSize: '1.15rem', fontWeight: 700 }}>{c.services.internationalTitle}</h3>
@@ -862,14 +772,7 @@ export default function AboutPageView({
                 </p>
               </div>
 
-              <div
-                style={{
-                  background: 'var(--bg-card)',
-                  border: '1px solid var(--border-subtle)',
-                  borderRadius: '14px',
-                  padding: '26px'
-                }}
-              >
+              <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
                   <Award size={18} style={{ color: 'var(--gold)' }} />
                   <h3 style={{ fontSize: '1.15rem', fontWeight: 700 }}>{c.services.associationsTitle}</h3>
@@ -884,24 +787,22 @@ export default function AboutPageView({
                 >
                   {c.services.associationsText}
                 </p>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                   {c.services.associationsBadges.map((b) => (
                     <div
                       key={b.code}
                       style={{
                         display: 'flex',
-                        alignItems: 'center',
-                        gap: '10px',
-                        padding: '8px 12px',
-                        borderRadius: '8px',
-                        background: 'rgba(200, 164, 93, 0.07)',
-                        border: '1px solid var(--border-subtle)'
+                        alignItems: 'baseline',
+                        gap: '12px',
+                        paddingBottom: '8px',
+                        borderBottom: '1px solid var(--border-subtle)'
                       }}
                     >
-                      <span style={{ fontWeight: 700, color: 'var(--gold)', fontSize: '0.82rem', minWidth: '52px' }}>
+                      <span style={{ fontWeight: 700, color: 'var(--gold)', fontSize: '0.84rem', minWidth: '56px' }}>
                         {b.code}
                       </span>
-                      <span style={{ fontSize: '0.84rem', color: 'var(--text-primary)' }}>{b.name}</span>
+                      <span style={{ fontSize: '0.86rem', color: 'var(--text-primary)' }}>{b.name}</span>
                     </div>
                   ))}
                 </div>
@@ -912,88 +813,122 @@ export default function AboutPageView({
 
         {/* =================================================================
             ONGLET FRANCHISES : PACINI, ARABIAN OUD & GRILLADE TAURINO
+            (Avec logos officiels et mise en page épurée sans cadres imbriqués)
            ================================================================= */}
         {activeTab === 'franchises' && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
-            {/* Bannière d'introduction CQF & Clients Franchisés */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
+            {/* En-tête éditorial ouvert (aucun cadre autour de l'introduction) */}
             <div
               style={{
-                background: 'var(--bg-card)',
-                border: '1px solid var(--border-gold)',
-                borderRadius: '14px',
-                padding: '32px'
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'flex-end',
+                flexWrap: 'wrap',
+                gap: '20px',
+                paddingBottom: '28px',
+                borderBottom: '1px solid var(--border-subtle)'
               }}
             >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px', marginBottom: '16px' }}>
-                <div>
-                  <span className="badge-gold" style={{ marginBottom: '10px' }}>
-                    {isEn ? 'Member of the Quebec Franchise Council (CQF)' : 'Membre du Conseil québécois de la franchise (CQF)'}
-                  </span>
-                  <h2 style={{ fontSize: '1.65rem', fontWeight: 700, color: '#fff' }}>
-                    {isEn
-                      ? 'Franchises Supported by Immobilier Himalaya'
-                      : 'Franchises accompagnées par Immobilier Himalaya'}
-                  </h2>
+              <div style={{ maxWidth: '800px' }}>
+                <div className="badge-gold" style={{ marginBottom: '8px' }}>
+                  {isEn ? 'Member of the Quebec Franchise Council (CQF)' : 'Membre du Conseil québécois de la franchise (CQF)'}
                 </div>
-                <button
-                  type="button"
-                  onClick={() => {
-                    const el = document.getElementById('form-franchise-himalaya');
-                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                  }}
-                  className="btn-gold"
-                >
-                  <Store size={15} /> {isEn ? 'Contact Our Franchise Team' : 'Contacter notre équipe Franchise'}
-                </button>
+                <h2 style={{ fontSize: '1.85rem', fontWeight: 700, color: '#fff', marginBottom: '10px' }}>
+                  {isEn
+                    ? 'Franchises Supported by Immobilier Himalaya'
+                    : 'Franchises accompagnées par Immobilier Himalaya'}
+                </h2>
+                <p style={{ fontSize: '0.96rem', color: 'var(--text-secondary)', lineHeight: 1.7 }}>
+                  {isEn
+                    ? 'Immobilier Himalaya Real Estate Corp. accompanies franchise banners and franchisees in selecting commercial locations and negotiating leases.'
+                    : 'Immobilier Himalaya Real Estate Corp. accompagne les bannières et les clients franchisés dans la recherche d’emplacements commerciaux et la négociation de baux.'}
+                </p>
               </div>
-              <p style={{ fontSize: '0.96rem', color: 'var(--text-secondary)', lineHeight: 1.75, maxWidth: '920px' }}>
-                {isEn
-                  ? 'Immobilier Himalaya Real Estate Corp., member of the Quebec Franchise Council (CQF), accompanies franchise banners and franchisees in selecting commercial locations and negotiating leases.'
-                  : 'Immobilier Himalaya Real Estate Corp., membre du Conseil québécois de la franchise (CQF), accompagne les bannières et les clients franchisés dans la recherche d’emplacements commerciaux et la négociation de baux.'}
-              </p>
+              <button
+                type="button"
+                onClick={() => {
+                  const el = document.getElementById('form-franchise-himalaya');
+                  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }}
+                className="btn-gold"
+              >
+                <Store size={15} /> {isEn ? 'Contact Our Franchise Team' : 'Contacter notre équipe Franchise'}
+              </button>
             </div>
 
-            {/* LES 3 FRANCHISES ACCOMPAGNÉES : PACINI, ARABIAN OUD & GRILLADE TAURINO */}
-            <div>
-              <h3 style={{ fontSize: '1.35rem', fontWeight: 700, marginBottom: '16px' }}>
-                {isEn ? 'Our Franchise Clients & Assigned Brokers' : 'Nos franchises clientes & courtiers attitrés'}
-              </h3>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(330px, 1fr))', gap: '22px' }}>
-                {HIMALAYA_FRANCHISES.map((fr) => {
-                  const assignedBrokers = directors.filter((d) => fr.brokerIds.includes(d.id));
-                  return (
-                    <div
-                      key={fr.id}
-                      className="property-card"
-                      style={{
-                        padding: '26px',
-                        border: '1px solid var(--border-gold)',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'space-between',
-                        gap: '18px'
-                      }}
-                    >
-                      <div>
-                        <span className="badge-gold" style={{ marginBottom: '10px' }}>
+            {/* LES 3 FRANCHISES AVEC LEURS LOGOS OFFICIELS : PACINI, ARABIAN OUD & GRILLADE TAURINO */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '28px' }}>
+              {HIMALAYA_FRANCHISES.map((fr) => {
+                const assignedBrokers = directors.filter((d) => fr.brokerIds.includes(d.id));
+                return (
+                  <div
+                    key={fr.id}
+                    style={{
+                      background: 'var(--bg-card)',
+                      border: '1px solid var(--border-subtle)',
+                      borderRadius: '14px',
+                      overflow: 'hidden',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'space-between'
+                    }}
+                  >
+                    <div>
+                      {/* Zone Logo Officiel de la Franchise */}
+                      <div
+                        style={{
+                          height: '130px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          padding: '22px 28px',
+                          background: 'linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.005) 100%)',
+                          borderBottom: '1px solid var(--border-subtle)'
+                        }}
+                      >
+                        <img
+                          src={fr.logo}
+                          alt={fr.name}
+                          style={{
+                            height: fr.logoHeight || '56px',
+                            maxWidth: '210px',
+                            width: 'auto',
+                            objectFit: 'contain',
+                            display: 'block',
+                            filter: fr.invertLogo ? 'brightness(0) invert(1)' : 'none'
+                          }}
+                        />
+                      </div>
+
+                      {/* Texte descriptif épuré */}
+                      <div style={{ padding: '24px 26px 16px' }}>
+                        <div className="badge-gold" style={{ marginBottom: '6px' }}>
                           {isEn ? fr.category_en : fr.category}
-                        </span>
-                        <h4 style={{ fontSize: '1.45rem', fontWeight: 700, color: '#fff', marginBottom: '8px' }}>
+                        </div>
+                        <h3 style={{ fontSize: '1.4rem', fontWeight: 700, color: '#fff', marginBottom: '8px' }}>
                           {isEn ? fr.name_en : fr.name}
-                        </h4>
+                        </h3>
                         <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.65 }}>
                           {isEn ? fr.description_en : fr.description}
                         </p>
                       </div>
+                    </div>
 
-                      {/* Courtiers responsables de cette franchise */}
-                      <div style={{ paddingTop: '14px', borderTop: '1px solid var(--border-subtle)' }}>
-                        <div style={{ fontSize: '0.75rem', color: 'var(--gold)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '10px' }}>
+                    {/* Courtiers attitrés — Présentation directe et épurée (zéro sous-boîte) */}
+                    <div style={{ padding: '0 26px 24px' }}>
+                      <div
+                        style={{
+                          paddingTop: '16px',
+                          borderTop: '1px solid var(--border-subtle)',
+                          marginBottom: '16px'
+                        }}
+                      >
+                        <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '12px' }}>
                           {assignedBrokers.length > 1
                             ? (isEn ? 'Assigned Himalaya Brokers' : 'Courtiers Himalaya attitrés')
                             : (isEn ? 'Assigned Himalaya Broker' : 'Courtier Himalaya attitré')}
                         </div>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                           {assignedBrokers.map((brk) => (
                             <div
                               key={brk.id}
@@ -1001,23 +936,19 @@ export default function AboutPageView({
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'space-between',
-                                gap: '10px',
-                                padding: '10px 12px',
-                                borderRadius: '10px',
-                                background: 'rgba(255,255,255,0.03)',
-                                border: '1px solid var(--border-subtle)'
+                                gap: '10px'
                               }}
                             >
                               <div
                                 onClick={() => onSelectBroker && onSelectBroker(brk)}
-                                style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}
+                                style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }}
                               >
                                 <img
                                   src={brk.photo}
                                   alt={brk.name}
                                   style={{
-                                    width: '44px',
-                                    height: '44px',
+                                    width: '42px',
+                                    height: '42px',
                                     borderRadius: '50%',
                                     objectFit: 'cover',
                                     objectPosition: 'top center',
@@ -1025,26 +956,24 @@ export default function AboutPageView({
                                   }}
                                 />
                                 <div>
-                                  <div style={{ fontWeight: 700, fontSize: '0.9rem', color: '#fff' }}>{brk.name}</div>
-                                  <div style={{ fontSize: '0.76rem', color: 'var(--gold-light)' }}>{brk.phone}</div>
+                                  <div style={{ fontWeight: 600, fontSize: '0.92rem', color: '#fff' }}>{brk.name}</div>
+                                  <div style={{ fontSize: '0.8rem', color: 'var(--gold-light)' }}>{brk.phone}</div>
                                 </div>
                               </div>
-                              <div style={{ display: 'flex', gap: '6px' }}>
+                              <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
                                 <a
                                   href={`tel:${brk.phone}`}
-                                  className="btn-gold"
-                                  style={{ padding: '6px 10px', fontSize: '0.75rem' }}
+                                  style={{ color: 'var(--gold-light)', display: 'inline-flex', alignItems: 'center' }}
                                   title={brk.phone}
                                 >
-                                  <Phone size={12} />
+                                  <Phone size={15} />
                                 </a>
                                 <a
                                   href={`mailto:${brk.email}?subject=${encodeURIComponent(`Franchise ${fr.name} — Immobilier Himalaya`)}`}
-                                  className="btn-outline"
-                                  style={{ padding: '6px 10px', fontSize: '0.75rem' }}
+                                  style={{ color: 'var(--text-secondary)', display: 'inline-flex', alignItems: 'center' }}
                                   title={brk.email}
                                 >
-                                  <Mail size={12} />
+                                  <Mail size={15} />
                                 </a>
                               </div>
                             </div>
@@ -1052,40 +981,46 @@ export default function AboutPageView({
                         </div>
                       </div>
 
-                      <button
-                        type="button"
+                      <span
                         onClick={() => {
                           setFranchiseBrand(fr.name);
                           const el = document.getElementById('form-franchise-himalaya');
                           if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                         }}
-                        className="btn-outline"
-                        style={{ width: '100%', fontSize: '0.82rem', padding: '9px 14px' }}
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '6px',
+                          fontSize: '0.84rem',
+                          fontWeight: 600,
+                          color: 'var(--gold-light)',
+                          cursor: 'pointer'
+                        }}
                       >
-                        {isEn ? `Inquire About ${fr.name}` : `Demande d’information — ${fr.name}`} <ArrowRight size={14} />
-                      </button>
+                        {isEn ? `Inquire about ${fr.name}` : `Demande d’information — ${fr.name}`} <ArrowRight size={14} />
+                      </span>
                     </div>
-                  );
-                })}
-              </div>
+                  </div>
+                );
+              })}
             </div>
 
-            {/* Les 3 engagements réels d'Himalaya dans le secteur de la franchise (CQF, Salon de Paris, Partenaires) */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))', gap: '18px' }}>
+            {/* Les 3 engagements réels d'Himalaya (CQF, Salon de Paris, Partenaires) — Sans cadres */}
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                gap: '32px',
+                paddingTop: '32px',
+                borderTop: '1px solid var(--border-subtle)'
+              }}
+            >
               {HIMALAYA_FRANCHISE_HIGHLIGHTS.map((hl) => (
-                <div
-                  key={hl.id}
-                  style={{
-                    background: 'var(--bg-card)',
-                    border: '1px solid var(--border-subtle)',
-                    borderRadius: '14px',
-                    padding: '24px'
-                  }}
-                >
-                  <span className="badge-gold" style={{ marginBottom: '10px' }}>
+                <div key={hl.id}>
+                  <div className="badge-gold" style={{ marginBottom: '6px' }}>
                     {isEn ? hl.badge_en : hl.badge}
-                  </span>
-                  <h3 style={{ fontSize: '1.12rem', fontWeight: 700, marginBottom: '8px', color: 'var(--gold-light)' }}>
+                  </div>
+                  <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '8px', color: '#fff' }}>
                     {isEn ? hl.title_en : hl.title}
                   </h3>
                   <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', lineHeight: 1.65 }}>
