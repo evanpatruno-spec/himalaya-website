@@ -165,9 +165,14 @@ button, select, input, textarea {
 }
 
 /* Hauteur constante de 88px : aucun décalage de mise en page (zéro clignotement au scroll) */
+.main-header .container {
+  max-width: 1440px;
+  padding: 0 20px;
+}
+
 .header-inner {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 290px minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) 324px minmax(0, 1fr);
   align-items: center;
   height: 88px;
   gap: 8px;
@@ -183,13 +188,13 @@ button, select, input, textarea {
 
 .header-nav-left {
   justify-content: space-between;
-  padding-right: 12px;
+  padding-right: 18px;
 }
 
 .header-multiprets-link {
   display: inline-flex;
   align-items: center;
-  padding: 4px 12px 4px 0;
+  padding: 4px 6px 4px 0;
   opacity: 0.96;
   transition: opacity 0.2s ease, transform 0.2s ease;
   flex-shrink: 0;
@@ -201,7 +206,7 @@ button, select, input, textarea {
 }
 
 .header-multiprets-link img {
-  height: 46px;
+  height: 40px;
   width: auto;
   display: block;
   object-fit: contain;
@@ -209,13 +214,13 @@ button, select, input, textarea {
 
 .header-nav-right {
   justify-content: space-between;
-  padding-left: 12px;
+  padding-left: 18px;
 }
 
 /* Le losange est positionné par rapport à .header-inner (50% exact du container) */
 .header-diamond-wrap {
   position: static;
-  width: 290px;
+  width: 324px;
   height: 88px;
   display: flex;
   align-items: center;
@@ -229,10 +234,10 @@ button, select, input, textarea {
   left: 50%;
   transform: translateX(-50%) translateY(0) scale(1);
   transform-origin: top center;
-  width: 310px;
-  height: 220px;
+  width: 296px;
+  height: 212px;
   background: url('/gx/m/bg-logo.png') top center / 100% auto no-repeat;
-  padding-top: 22px;
+  padding-top: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -249,7 +254,7 @@ button, select, input, textarea {
 }
 
 .header-diamond-box .diamond-logo-full {
-  width: 138px;
+  width: 134px;
   height: auto;
   display: block;
 }
@@ -338,7 +343,7 @@ button, select, input, textarea {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 2px;
   list-style: none;
 }
 
@@ -346,11 +351,11 @@ button, select, input, textarea {
   background: transparent;
   border: none;
   color: #ffffff;
-  font-size: 0.82rem;
+  font-size: 0.79rem;
   font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
-  padding: 8px 11px;
+  letter-spacing: 0.03em;
+  padding: 8px 8px;
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s ease;
