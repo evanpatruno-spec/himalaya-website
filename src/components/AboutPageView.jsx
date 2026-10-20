@@ -869,6 +869,7 @@ export default function AboutPageView({
                   key={fr.id}
                   onClick={() => {
                     setFranchiseBrand(fr.name);
+                    if (fr.sectorValue) setFranchiseSector(fr.sectorValue);
                     const el = document.getElementById('form-franchise-himalaya');
                     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                   }}
@@ -876,7 +877,7 @@ export default function AboutPageView({
                     background: 'transparent',
                     borderTop: '1px solid rgba(200, 164, 93, 0.38)',
                     borderBottom: '1px solid var(--border-subtle)',
-                    padding: '34px 20px 28px',
+                    padding: '34px 20px 26px',
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
@@ -915,9 +916,34 @@ export default function AboutPageView({
                   <div style={{ fontSize: '0.73rem', color: 'var(--gold)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '6px' }}>
                     {pickLang(fr, 'category', lang)}
                   </div>
-                  <h3 className="serif-title" style={{ fontSize: '1.45rem', fontWeight: 600, color: '#fff', margin: 0 }}>
+                  <h3 className="serif-title" style={{ fontSize: '1.45rem', fontWeight: 600, color: '#fff', margin: '0 0 14px' }}>
                     {pickLang(fr, 'name', lang)}
                   </h3>
+
+                  {/* Actions discrètes (#1 & #5 : Pré-remplir le formulaire + Site officiel) */}
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '18px', flexWrap: 'wrap' }}>
+                    <span className="editorial-link" style={{ fontSize: '0.73rem' }}>
+                      {tr(lang, 'Chercher un local', 'Find a Location', 'Buscar local', '寻找门店选址')} <ArrowRight size={12} />
+                    </span>
+                    {fr.website && (
+                      <a
+                        href={fr.website}
+                        target="_blank"
+                        rel="noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        style={{
+                          fontSize: '0.73rem',
+                          color: 'var(--text-secondary)',
+                          textDecoration: 'none',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '4px'
+                        }}
+                      >
+                        {tr(lang, 'Site officiel', 'Official Website', 'Sitio oficial', '官方网站')} <ExternalLink size={11} />
+                      </a>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>

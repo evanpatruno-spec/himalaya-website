@@ -20,8 +20,14 @@ export default defineConfig({
           if (id.includes('node_modules/react') || id.includes('node_modules/react-dom')) {
             return 'vendor-react';
           }
+          if (id.includes('src/data/aboutContent')) {
+            return 'himalaya-about-data';
+          }
+          if (id.includes('src/data/himalayaLiveDeals')) {
+            return 'himalaya-listings';
+          }
           if (id.includes('src/data/')) {
-            return 'himalaya-data';
+            return 'himalaya-core-data';
           }
         }
       }

@@ -677,6 +677,8 @@ export const HIMALAYA_FRANCHISES = [
     category_en: 'Restaurant & Dining',
     category_es: 'Restauración y Gastronomía',
     category_zh: '餐饮连锁',
+    sectorValue: 'Restauration & Alimentation',
+    website: 'https://pacini.com',
     brokerIds: ['roger_rheaume', 'mike_ainajian'],
     brokerNames: 'Roger Rhéaume & Mike Ainajian'
   },
@@ -693,6 +695,8 @@ export const HIMALAYA_FRANCHISES = [
     category_en: 'Luxury Perfumery & Retail',
     category_es: 'Perfumería de Lujo y Comercio',
     category_zh: '奢华香水与高端零售',
+    sectorValue: 'Commerce de détail',
+    website: 'https://us.arabianoud.com',
     brokerIds: ['roger_rheaume'],
     brokerNames: 'Roger Rhéaume'
   },
@@ -709,6 +713,8 @@ export const HIMALAYA_FRANCHISES = [
     category_en: 'Restaurant & Grill',
     category_es: 'Restauración y Parrilla',
     category_zh: '餐饮与特色烧烤',
+    sectorValue: 'Restauration & Alimentation',
+    website: 'https://grilladetorino.com',
     brokerIds: ['roger_rheaume'],
     brokerNames: 'Roger Rhéaume'
   },
@@ -725,6 +731,8 @@ export const HIMALAYA_FRANCHISES = [
     category_en: 'Bakery, Pastry & Café',
     category_es: 'Panadería, Pastelería y Café',
     category_zh: '法式烘焙、甜品与咖啡馆',
+    sectorValue: 'Restauration & Alimentation',
+    website: 'https://lesmoulinslafayette.com',
     brokerIds: ['roger_rheaume'],
     brokerNames: 'Roger Rhéaume'
   },
@@ -741,6 +749,8 @@ export const HIMALAYA_FRANCHISES = [
     category_en: 'Artisanal Chocolatier & Gelato',
     category_es: 'Chocolatería y Heladería Artesanal',
     category_zh: '手工巧克力与冰淇淋店',
+    sectorValue: 'Restauration & Alimentation',
+    website: 'https://cotardchocolatier.com',
     brokerIds: ['roger_rheaume'],
     brokerNames: 'Roger Rhéaume'
   },
@@ -757,6 +767,8 @@ export const HIMALAYA_FRANCHISES = [
     category_en: 'Eco-Performance Dry Cleaning',
     category_es: 'Tintorería Ecológica y Servicios',
     category_zh: '生态环保干洗连锁',
+    sectorValue: 'Services & Cliniques',
+    website: 'https://daousteco.com',
     brokerIds: ['roger_rheaume'],
     brokerNames: 'Roger Rhéaume'
   }

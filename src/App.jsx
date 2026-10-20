@@ -1193,9 +1193,32 @@ export default function App() {
                       <div style={{ fontSize: '0.72rem', color: 'var(--gold)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '6px' }}>
                         {pickLang(fr, 'category', lang)}
                       </div>
-                      <h4 className="serif-title" style={{ fontSize: '1.45rem', fontWeight: 600, color: '#fff', margin: 0 }}>
+                      <h4 className="serif-title" style={{ fontSize: '1.45rem', fontWeight: 600, color: '#fff', margin: '0 0 12px' }}>
                         {pickLang(fr, 'name', lang)}
                       </h4>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px', flexWrap: 'wrap' }}>
+                        <span className="editorial-link" style={{ fontSize: '0.72rem' }}>
+                          {tr(lang, 'Chercher un local', 'Find a Location', 'Buscar local', '寻找门店选址')} <ArrowRight size={12} />
+                        </span>
+                        {fr.website && (
+                          <a
+                            href={fr.website}
+                            target="_blank"
+                            rel="noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            style={{
+                              fontSize: '0.72rem',
+                              color: 'var(--text-secondary)',
+                              textDecoration: 'none',
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '4px'
+                            }}
+                          >
+                            {tr(lang, 'Site officiel', 'Official Website', 'Sitio oficial', '官方网站')} <ExternalLink size={11} />
+                          </a>
+                        )}
+                      </div>
                     </div>
                   ))}
                 </div>
