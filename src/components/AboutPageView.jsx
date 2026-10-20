@@ -948,296 +948,297 @@ export default function AboutPageView({
               ))}
             </div>
 
-            {/* BARRE UNIQUE DES COURTIERS ATTITRÉS À LA DIVISION FRANCHISE (ZÉRO RÉPÉTITION) */}
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                flexWrap: 'wrap',
-                gap: '24px',
-                padding: '24px 0',
-                borderTop: '1px solid rgba(200, 164, 93, 0.28)',
-                borderBottom: '1px solid var(--border-subtle)'
-              }}
-            >
-              <div>
-                <div className="badge-gold" style={{ marginBottom: '4px' }}>
-                  {tr(lang, 'Division Franchise & Emplacements Commerciaux', 'Franchise & Commercial Site Selection Division', 'División de Franquicias y Ubicaciones Comerciales', '特许经营与商业选址部')}
-                </div>
-                <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', margin: 0 }}>
-                  {tr(
-                    lang,
-                    'Accompagnement stratégique, sélection de sites et négociation de baux commerciaux assurés par nos courtiers attitrés :',
-                    'Strategic representation, site selection, and commercial lease negotiation led by our assigned brokers:',
-                    'Representación estratégica, selección de sitios y negociación de arrendamientos comerciales a cargo de nuestros corredores asignados:',
-                    '由我们的专属商业经纪人提供战略代理、门店选址与商业租约谈判：'
-                  )}
-                </p>
-              </div>
-
-              <div style={{ display: 'flex', alignItems: 'center', gap: '32px', flexWrap: 'wrap' }}>
-                {directors
-                  .filter((d) => ['roger_rheaume', 'mike_ainajian'].includes(d.id))
-                  .map((brk) => (
-                    <div key={brk.id} style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-                      <img
-                        src={brk.photo}
-                        alt={brk.name}
-                        onClick={() => onSelectBroker && onSelectBroker(brk)}
-                        style={{
-                          width: '46px',
-                          height: '46px',
-                          borderRadius: '50%',
-                          objectFit: 'cover',
-                          objectPosition: 'top center',
-                          border: '1px solid var(--gold)',
-                          cursor: 'pointer'
-                        }}
-                      />
-                      <div>
-                        <div
-                          onClick={() => onSelectBroker && onSelectBroker(brk)}
-                          style={{ fontWeight: 600, fontSize: '0.95rem', color: '#fff', cursor: 'pointer' }}
-                        >
-                          {brk.name}
-                        </div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '2px' }}>
-                          <a href={`tel:${brk.phone}`} style={{ fontSize: '0.82rem', color: 'var(--gold-light)', textDecoration: 'none' }}>
-                            {brk.phone}
-                          </a>
-                          <a href={`mailto:${brk.email}`} style={{ color: 'var(--text-secondary)', display: 'inline-flex', alignItems: 'center' }} title={brk.email}>
-                            <Mail size={14} />
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-              </div>
-            </div>
-
-            {/* Les 3 engagements réels d'Himalaya (CQF, Salon de Paris, Partenaires) — Numérotés 01, 02, 03 (#3) */}
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-                gap: '32px',
-                paddingTop: '36px',
-                borderTop: '1px solid var(--border-subtle)'
-              }}
-            >
-              {HIMALAYA_FRANCHISE_HIGHLIGHTS.map((hl, idx) => (
-                <div key={hl.id}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
-                    <span className="editorial-num" style={{ fontSize: '1.25rem' }}>0{idx + 1}</span>
-                    <span className="badge-gold">
-                      {pickLang(hl, 'badge', lang)}
-                    </span>
-                  </div>
-                  <h3 className="serif-title" style={{ fontSize: '1.35rem', fontWeight: 600, marginBottom: '8px', color: '#fff' }}>
-                    {pickLang(hl, 'title', lang)}
-                  </h3>
-                  <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', lineHeight: 1.65 }}>
-                    {pickLang(hl, 'desc', lang)}
-                  </p>
-                </div>
-              ))}
-            </div>
-
-            {/* Formulaire dédié aux clients franchisés et franchiseurs */}
+            {/* SECTION BASSE ÉPURÉE EN 2 COLONNES SANS BOÎTE (Infos CQF/Paris + Courtiers à gauche, Formulaire minimaliste à droite) */}
             <div
               id="form-franchise-himalaya"
               style={{
-                background: 'var(--bg-card)',
-                border: '1px solid var(--border-gold)',
-                borderRadius: '14px',
-                padding: '32px'
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+                gap: '56px',
+                alignItems: 'start',
+                paddingTop: '44px',
+                borderTop: '1px solid rgba(200, 164, 93, 0.32)'
               }}
             >
-              <div style={{ marginBottom: '20px' }}>
-                <span className="badge-gold" style={{ marginBottom: '8px' }}>
-                  {isEn ? 'Franchise & Commercial Real Estate' : 'Espace Clients Franchisés & Franchiseurs'}
-                </span>
-                <h3 style={{ fontSize: '1.45rem', fontWeight: 700 }}>
-                  {isEn ? 'Contact Roger Rhéaume & Mike Ainajian — Franchise Division' : 'Contacter Roger Rhéaume & Mike Ainajian — Division Franchise'}
-                </h3>
-                <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', marginTop: '4px' }}>
-                  {tr(lang,
-                    'Vous êtes client franchisé ou franchiseur (Pacini, Arabian Oud, Grillade Torino, Les Moulins La Fayette, Chocolat Cotard, Nettoyeur Daoust ou autre bannière) et cherchez un emplacement ? Transmettez-nous vos critères.',
-                    'Are you a franchisee or franchisor looking for a commercial space (Pacini, Arabian Oud, Grillade Torino, Les Moulins La Fayette, Chocolat Cotard, Nettoyeur Daoust, or another banner)? Send us your criteria.',
-                    '¿Es usted franquiciado o franquiciador (Pacini, Arabian Oud, Grillade Torino, Les Moulins La Fayette, Chocolat Cotard, Nettoyeur Daoust u otra marca) y busca un local comercial? Envíenos sus criterios.',
-                    '如果您是连锁品牌方或特许经营加盟商（Pacini、Arabian Oud、Grillade Torino、Les Moulins La Fayette、Chocolat Cotard、Nettoyeur Daoust 或其他品牌）并正在寻找商业地段，请提交您的选址需求。'
+              {/* COLONNE GAUCHE : Piliers CQF / Paris / Partenaires (en 3 lignes courtes) + Courtiers attitrés */}
+              <div>
+                <div className="gold-eyebrow" style={{ marginBottom: '8px' }}>
+                  {tr(lang, 'DIVISION FRANCHISE', 'FRANCHISE DIVISION', 'DIVISIÓN FRANQUICIAS', '特许经营专部')}
+                </div>
+                <h3 className="serif-title" style={{ fontSize: '2rem', fontWeight: 600, color: '#fff', marginBottom: '16px', lineHeight: 1.2 }}>
+                  {tr(
+                    lang,
+                    'Expansion réseau & sélection de sites commerciaux',
+                    'Network Expansion & Commercial Site Selection',
+                    'Expansión de red y selección de sitios comerciales',
+                    '品牌网络拓展与商业门店选址'
                   )}
-                </p>
+                </h3>
+
+                {/* 3 points clés ultra-concis au lieu de 3 longs blocs de texte */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '32px', paddingBottom: '28px', borderBottom: '1px solid var(--border-subtle)' }}>
+                  <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
+                    <span style={{ color: 'var(--gold)' }}>•</span>
+                    <span>
+                      <strong style={{ color: '#fff', fontWeight: 600 }}>Conseil québécois de la franchise (CQF)</strong> — {tr(lang, 'Membre officiel accompagnant franchiseurs et franchisés.', 'Official member supporting franchisors and franchisees.', 'Miembro oficial para franquiciadores y franquiciados.', '官方成员，服务各大特许经营总部与加盟商。')}
+                    </span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
+                    <span style={{ color: 'var(--gold)' }}>•</span>
+                    <span>
+                      <strong style={{ color: '#fff', fontWeight: 600 }}>Salon de la Franchise à Paris & ICSC</strong> — {tr(lang, 'Rayonnement international (Porte de Versailles, Las Vegas, Toronto).', 'International presence (Paris, Las Vegas, Toronto).', 'Presencia internacional (París, Las Vegas, Toronto).', '出席巴黎国际特许经营展与 ICSC 峰会。')}
+                    </span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
+                    <span style={{ color: 'var(--gold)' }}>•</span>
+                    <span>
+                      <strong style={{ color: '#fff', fontWeight: 600 }}>{tr(lang, 'Écosystème spécialisé', 'Specialized Partner Network', 'Red de socios especializados', '专业合作伙伴网络')}</strong> — {tr(lang, 'Droit de la franchise, géomarketing et design commercial (Fasken, Tutino, FlagFranchise, Indicia).', 'Franchise law, geomarketing, and commercial design (Fasken, Tutino, FlagFranchise, Indicia).', 'Derecho de franquicias, geomarketing y diseño comercial.', '涵盖特许经营法律、地理营销与商业设计。')}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Courtiers attitrés */}
+                <div style={{ fontSize: '0.72rem', color: 'var(--gold)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '16px' }}>
+                  {tr(lang, 'Courtiers attitrés — Division Franchise', 'Assigned Brokers — Franchise Division', 'Corredores asignados — División Franquicias', '特许经营专属经纪人')}
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '28px', flexWrap: 'wrap' }}>
+                  {directors
+                    .filter((d) => ['roger_rheaume', 'mike_ainajian'].includes(d.id))
+                    .map((brk) => (
+                      <div key={brk.id} style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                        <img
+                          src={brk.photo}
+                          alt={brk.name}
+                          onClick={() => onSelectBroker && onSelectBroker(brk)}
+                          style={{
+                            width: '48px',
+                            height: '48px',
+                            borderRadius: '50%',
+                            objectFit: 'cover',
+                            objectPosition: 'top center',
+                            border: '1px solid var(--gold)',
+                            cursor: 'pointer'
+                          }}
+                        />
+                        <div>
+                          <div
+                            onClick={() => onSelectBroker && onSelectBroker(brk)}
+                            style={{ fontWeight: 600, fontSize: '0.96rem', color: '#fff', cursor: 'pointer' }}
+                          >
+                            {brk.name}
+                          </div>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '2px' }}>
+                            <a href={`tel:${brk.phone}`} style={{ fontSize: '0.84rem', color: 'var(--gold-light)', textDecoration: 'none' }}>
+                              {brk.phone}
+                            </a>
+                            <a href={`mailto:${brk.email}`} style={{ color: 'var(--text-secondary)', display: 'inline-flex', alignItems: 'center' }} title={brk.email}>
+                              <Mail size={14} />
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                </div>
               </div>
 
-              {franchiseSent ? (
-                <div
-                  style={{
-                    padding: '24px',
-                    borderRadius: '12px',
-                    background: 'rgba(200, 164, 93, 0.12)',
-                    border: '1px solid var(--gold)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    flexWrap: 'wrap',
-                    gap: '16px'
-                  }}
-                >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                    <CheckCircle2 size={24} color="var(--gold)" />
-                    <div>
-                      <div style={{ fontWeight: 700, fontSize: '1rem', color: '#fff' }}>
-                        {isEn ? 'Franchise Request Sent!' : 'Demande transmise avec succès !'}
-                      </div>
-                      <div style={{ fontSize: '0.86rem', color: 'var(--text-secondary)' }}>
-                        {isEn
-                          ? 'Roger Rhéaume or Mike Ainajian will contact you shortly.'
-                          : 'Roger Rhéaume ou Mike Ainajian communiquera avec vous rapidement.'}
-                      </div>
-                    </div>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => setFranchiseSent(false)}
-                    className="btn-outline"
-                    style={{ fontSize: '0.8rem', padding: '7px 14px' }}
-                  >
-                    {isEn ? 'New Request' : 'Nouvelle demande'}
-                  </button>
+              {/* COLONNE DROITE : Formulaire architectural ouvert (zéro boîte grise, champs soulignés épurés) */}
+              <div>
+                <div className="gold-eyebrow" style={{ marginBottom: '8px' }}>
+                  {tr(lang, 'TROUVER UN EMPLACEMENT', 'FIND A COMMERCIAL LOCATION', 'BUSCAR UN LOCAL COMERCIAL', '寻找商业门店选址')}
                 </div>
-              ) : (
-                <form onSubmit={handleFranchiseSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '14px' }}>
-                    <div>
-                      <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
-                        {isEn ? 'Franchise / Banner Name *' : 'Nom de la franchise / bannière *'}
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        className="form-control"
-                        value={franchiseBrand}
-                        onChange={(e) => setFranchiseBrand(e.target.value)}
-                        placeholder={isEn ? 'Ex: Pacini, Arabian Oud, Grillade Torino, Moulin La Fayette, Cotard, Daoust...' : 'Ex. : Pacini, Arabian Oud, Grillade Torino, Moulin La Fayette, Cotard, Daoust...'}
-                      />
-                    </div>
-                    <div>
-                      <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
-                        {isEn ? 'Business Sector *' : 'Secteur d’activité *'}
-                      </label>
-                      <select
-                        className="form-control"
-                        value={franchiseSector}
-                        onChange={(e) => setFranchiseSector(e.target.value)}
-                      >
-                        <option value="Restauration & Alimentation">{isEn ? 'Food Service & Restaurants' : 'Restauration & Alimentation'}</option>
-                        <option value="Commerce de détail">{isEn ? 'Retail & Storefront' : 'Commerce de détail & Boutique'}</option>
-                        <option value="Services & Cliniques">{isEn ? 'Services, Clinics & Fitness' : 'Services professionnels, Clinique & Santé'}</option>
-                        <option value="Hôtellerie & Villégiature">{isEn ? 'Hospitality & Resort' : 'Hôtellerie, Camping & Villégiature'}</option>
-                        <option value="Industriel & Entrepôt">{isEn ? 'Industrial & Distribution' : 'Industriel léger & Distribution'}</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
-                        {isEn ? 'Required Area (sq.ft.) *' : 'Superficie recherchée (pi²) *'}
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        className="form-control"
-                        value={franchiseSqft}
-                        onChange={(e) => setFranchiseSqft(e.target.value)}
-                        placeholder={isEn ? 'Ex: 1,500 - 3,000 sq.ft.' : 'Ex. : 1 500 à 3 000 pi²'}
-                      />
-                    </div>
-                    <div>
-                      <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
-                        {isEn ? 'Target Cities / Regions *' : 'Villes ou régions ciblées *'}
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        className="form-control"
-                        value={franchiseRegions}
-                        onChange={(e) => setFranchiseRegions(e.target.value)}
-                        placeholder={isEn ? 'Ex: Montreal, Laval, South Shore...' : 'Ex. : Montréal, Laval, Rive-Sud, Laurentides...'}
-                      />
-                    </div>
-                  </div>
+                <h3 className="serif-title" style={{ fontSize: '1.75rem', fontWeight: 600, color: '#fff', marginBottom: '22px' }}>
+                  {tr(lang, 'Transmettre vos critères d’emplacement', 'Submit Your Location Criteria', 'Enviar sus criterios de ubicación', '提交您的门店选址需求')}
+                </h3>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '14px' }}>
-                    <div>
-                      <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
-                        {isEn ? 'Full Name *' : 'Nom complet *'}
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        className="form-control"
-                        value={franchiseContactName}
-                        onChange={(e) => setFranchiseContactName(e.target.value)}
-                        placeholder={isEn ? 'Your full name' : 'Votre nom complet'}
-                      />
+                {franchiseSent ? (
+                  <div
+                    style={{
+                      padding: '24px 0',
+                      borderTop: '1px solid var(--gold)',
+                      borderBottom: '1px solid var(--border-subtle)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      flexWrap: 'wrap',
+                      gap: '16px'
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                      <CheckCircle2 size={22} color="var(--gold)" />
+                      <div>
+                        <div style={{ fontWeight: 600, fontSize: '1rem', color: '#fff' }}>
+                          {tr(lang, 'Demande transmise avec succès', 'Franchise Request Sent', 'Solicitud enviada con éxito', '选址需求已成功发送')}
+                        </div>
+                        <div style={{ fontSize: '0.86rem', color: 'var(--text-secondary)' }}>
+                          {tr(lang, 'Roger Rhéaume ou Mike Ainajian communiquera avec vous rapidement.', 'Roger Rhéaume or Mike Ainajian will contact you shortly.', 'Roger Rhéaume o Mike Ainajian se pondrá en contacto con usted.', 'Roger Rhéaume 或 Mike Ainajian 将尽快与您联系。')}
+                        </div>
+                      </div>
                     </div>
-                    <div>
-                      <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
-                        {isEn ? 'Email *' : 'Courriel *'}
-                      </label>
-                      <input
-                        type="email"
-                        required
-                        className="form-control"
-                        value={franchiseEmail}
-                        onChange={(e) => setFranchiseEmail(e.target.value)}
-                        placeholder="courriel@exemple.com"
-                      />
-                    </div>
-                    <div>
-                      <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
-                        {isEn ? 'Phone *' : 'Téléphone *'}
-                      </label>
-                      <input
-                        type="tel"
-                        required
-                        className="form-control"
-                        value={franchisePhone}
-                        onChange={(e) => setFranchisePhone(e.target.value)}
-                        placeholder="(514) 000-0000"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
-                      {isEn
-                        ? 'Project Details & Location Requirements'
-                        : 'Détails de votre projet et critères d’emplacement'}
-                    </label>
-                    <textarea
-                      rows={3}
-                      className="form-control"
-                      value={franchiseNotes}
-                      onChange={(e) => setFranchiseNotes(e.target.value)}
-                      placeholder={
-                        isEn
-                          ? 'Describe your project...'
-                          : 'Précisez votre projet de franchise et vos besoins...'
-                      }
-                    />
-                  </div>
-
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
-                    <span style={{ fontSize: '0.76rem', color: 'var(--text-muted)' }}>
-                      * {isEn ? 'Strictly confidential handling by Roger Rhéaume & Mike Ainajian.' : 'Traitement strictement confidentiel par Roger Rhéaume et Mike Ainajian.'}
-                    </span>
-                    <button type="submit" className="btn-gold" style={{ padding: '11px 24px' }}>
-                      {isEn ? 'Submit Franchise Inquiry' : 'Envoyer ma demande Franchise'} <ArrowRight size={15} />
+                    <button
+                      type="button"
+                      onClick={() => setFranchiseSent(false)}
+                      className="btn-outline"
+                      style={{ fontSize: '0.78rem', padding: '7px 14px' }}
+                    >
+                      {tr(lang, 'Nouvelle demande', 'New Request', 'Nueva solicitud', '新咨询')}
                     </button>
                   </div>
-                </form>
-              )}
+                ) : (
+                  <form onSubmit={handleFranchiseSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '22px' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '24px' }}>
+                      <div>
+                        <label style={{ display: 'block', fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--gold-light)', marginBottom: '6px' }}>
+                          {tr(lang, 'Franchise / Bannière *', 'Franchise / Banner *', 'Franquicia / Marca *', '连锁品牌名称 *')}
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={franchiseBrand}
+                          onChange={(e) => setFranchiseBrand(e.target.value)}
+                          placeholder="Pacini, Arabian Oud, Torino..."
+                          style={{
+                            width: '100%',
+                            background: 'transparent',
+                            border: 'none',
+                            borderBottom: '1px solid rgba(255,255,255,0.2)',
+                            padding: '10px 0',
+                            color: '#fff',
+                            fontSize: '0.94rem',
+                            outline: 'none'
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <label style={{ display: 'block', fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--gold-light)', marginBottom: '6px' }}>
+                          {tr(lang, 'Secteur d’activité', 'Business Sector', 'Sector de actividad', '行业类别')}
+                        </label>
+                        <select
+                          value={franchiseSector}
+                          onChange={(e) => setFranchiseSector(e.target.value)}
+                          style={{
+                            width: '100%',
+                            background: '#0a0a0c',
+                            border: 'none',
+                            borderBottom: '1px solid rgba(255,255,255,0.2)',
+                            padding: '10px 0',
+                            color: '#fff',
+                            fontSize: '0.94rem',
+                            outline: 'none'
+                          }}
+                        >
+                          <option value="Restauration & Alimentation">{isEn ? 'Food Service & Restaurants' : 'Restauration & Alimentation'}</option>
+                          <option value="Commerce de détail">{isEn ? 'Retail & Storefront' : 'Commerce de détail & Boutique'}</option>
+                          <option value="Services & Cliniques">{isEn ? 'Services, Clinics & Dry Cleaning' : 'Services & Nettoyeurs'}</option>
+                          <option value="Hôtellerie & Villégiature">{isEn ? 'Hospitality & Resort' : 'Hôtellerie & Villégiature'}</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '24px' }}>
+                      <div>
+                        <label style={{ display: 'block', fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--gold-light)', marginBottom: '6px' }}>
+                          {tr(lang, 'Régions ciblées & Superficie *', 'Target Regions & Area *', 'Regiones y Superficie *', '目标区域与面积需求 *')}
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={franchiseRegions}
+                          onChange={(e) => setFranchiseRegions(e.target.value)}
+                          placeholder={isEn ? 'Ex: Montreal, Laval • 2,000 sq.ft.' : 'Ex. : Montréal, Laval • 1 500 à 3 000 pi²'}
+                          style={{
+                            width: '100%',
+                            background: 'transparent',
+                            border: 'none',
+                            borderBottom: '1px solid rgba(255,255,255,0.2)',
+                            padding: '10px 0',
+                            color: '#fff',
+                            fontSize: '0.94rem',
+                            outline: 'none'
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <label style={{ display: 'block', fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--gold-light)', marginBottom: '6px' }}>
+                          {tr(lang, 'Nom complet *', 'Full Name *', 'Nombre completo *', '您的姓名 *')}
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={franchiseContactName}
+                          onChange={(e) => setFranchiseContactName(e.target.value)}
+                          placeholder={isEn ? 'Your full name' : 'Votre nom complet'}
+                          style={{
+                            width: '100%',
+                            background: 'transparent',
+                            border: 'none',
+                            borderBottom: '1px solid rgba(255,255,255,0.2)',
+                            padding: '10px 0',
+                            color: '#fff',
+                            fontSize: '0.94rem',
+                            outline: 'none'
+                          }}
+                        />
+                      </div>
+                    </div>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '24px' }}>
+                      <div>
+                        <label style={{ display: 'block', fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--gold-light)', marginBottom: '6px' }}>
+                          {tr(lang, 'Courriel *', 'Email *', 'Correo electrónico *', '电子邮箱 *')}
+                        </label>
+                        <input
+                          type="email"
+                          required
+                          value={franchiseEmail}
+                          onChange={(e) => setFranchiseEmail(e.target.value)}
+                          placeholder="courriel@exemple.com"
+                          style={{
+                            width: '100%',
+                            background: 'transparent',
+                            border: 'none',
+                            borderBottom: '1px solid rgba(255,255,255,0.2)',
+                            padding: '10px 0',
+                            color: '#fff',
+                            fontSize: '0.94rem',
+                            outline: 'none'
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <label style={{ display: 'block', fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--gold-light)', marginBottom: '6px' }}>
+                          {tr(lang, 'Téléphone *', 'Phone *', 'Teléfono *', '联系电话 *')}
+                        </label>
+                        <input
+                          type="tel"
+                          required
+                          value={franchisePhone}
+                          onChange={(e) => setFranchisePhone(e.target.value)}
+                          placeholder="(514) 000-0000"
+                          style={{
+                            width: '100%',
+                            background: 'transparent',
+                            border: 'none',
+                            borderBottom: '1px solid rgba(255,255,255,0.2)',
+                            padding: '10px 0',
+                            color: '#fff',
+                            fontSize: '0.94rem',
+                            outline: 'none'
+                          }}
+                        />
+                      </div>
+                    </div>
+
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px', paddingTop: '8px' }}>
+                      <span style={{ fontSize: '0.76rem', color: 'var(--text-muted)' }}>
+                        * {tr(lang, 'Traitement confidentiel — Roger Rhéaume & Mike Ainajian', 'Confidential handling — Roger Rhéaume & Mike Ainajian', 'Tratamiento confidencial — Roger Rhéaume & Mike Ainajian', '由 Roger Rhéaume 与 Mike Ainajian 保密跟进')}
+                      </span>
+                      <button type="submit" className="btn-gold" style={{ padding: '11px 24px' }}>
+                        {tr(lang, 'Envoyer ma demande', 'Submit Inquiry', 'Enviar solicitud', '提交选址咨询')} <ArrowRight size={15} />
+                      </button>
+                    </div>
+                  </form>
+                )}
+              </div>
             </div>
           </div>
         )}
