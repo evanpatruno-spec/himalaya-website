@@ -331,7 +331,7 @@ export default function App() {
               target="_blank"
               rel="noreferrer"
               className="header-multiprets-link"
-              title={isEn ? 'Multi-Prêts Mortgages — Pre-Qualification' : 'Multi-Prêts Hypothèques — Préqualification'}
+              title={tr(lang, 'Multi-Prêts Hypothèques — Préqualification', 'Multi-Prêts Mortgages — Pre-Qualification', 'Multi-Prêts Hipotecas — Precalificación', 'Multi-Prêts 按揭贷款 — 预审资格')}
             >
               <img
                 src="/gx/m/Multi_Prets.png"
@@ -979,7 +979,7 @@ export default function App() {
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '36px', flexWrap: 'wrap', gap: '12px' }}>
                 <div>
                   <span className="badge-gold" style={{ marginBottom: '6px' }}>
-                    {isEn ? 'Areas of Expertise' : 'Pôles de courtage'}
+                    {tr(lang, 'Pôles de courtage', 'Areas of Expertise', 'Áreas de especialización', '核心经纪业务')}
                   </span>
                   <h2 className="serif-title" style={{ fontSize: '2.35rem', fontWeight: 600 }}>{t.home.specialtiesTitle}</h2>
                 </div>
@@ -1007,7 +1007,7 @@ export default function App() {
                   >
                     <img 
                       src={spec.image} 
-                      alt={isEn ? (spec.title_en || spec.title) : spec.title}
+                      alt={pickLang(spec, 'title', lang)}
                       onError={e => { e.target.src = spec.fallbackImage; }}
                     />
                     <div className="specialty-overlay">
@@ -1015,10 +1015,10 @@ export default function App() {
                         0{idx + 1}
                       </span>
                       <span style={{ fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--gold-light)', fontWeight: 600, marginBottom: '4px' }}>
-                        {isEn ? (spec.subtitle_en || spec.subtitle) : spec.subtitle}
+                        {pickLang(spec, 'subtitle', lang)}
                       </span>
                       <h3 className="serif-title" style={{ fontSize: '1.45rem', fontWeight: 600, marginBottom: '12px', color: '#fff', lineHeight: 1.2 }}>
-                        {isEn ? (spec.title_en || spec.title) : spec.title}
+                        {pickLang(spec, 'title', lang)}
                       </h3>
                       <span className="editorial-link">
                         {t.home.explore} <ArrowRight size={14} />
@@ -1038,7 +1038,7 @@ export default function App() {
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '38px', flexWrap: 'wrap', gap: '16px' }}>
                 <div>
                   <span className="badge-gold" style={{ marginBottom: '6px' }}>
-                    {isEn ? 'Curated Selection' : 'Sélection de mandats'}
+                    {tr(lang, 'Sélection de mandats', 'Curated Selection', 'Selección de mandatos', '精选在售物业')}
                   </span>
                   <h2 className="serif-title" style={{ fontSize: '2.35rem', fontWeight: 600 }}>{t.home.featuredTitle}</h2>
                 </div>
@@ -1280,7 +1280,7 @@ export default function App() {
                   gap: '2px'
                 }}>
                   {[
-                    { id: 'all', label: isEn ? 'All' : 'Tous' },
+                    { id: 'all', label: tr(lang, 'Tous', 'All', 'Todos', '全部') },
                     { id: 'Vente', label: t.properties.forSale },
                     { id: 'Location', label: t.properties.forRent }
                   ].map(st => (
@@ -1620,12 +1620,12 @@ export default function App() {
                     <div style={{ padding: '16px 2px 0', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                       <div onClick={() => openBrokerModal(broker)} style={{ marginBottom: '14px', cursor: 'pointer' }}>
                         <div style={{ fontSize: '0.73rem', color: 'var(--gold)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: '4px', lineHeight: 1.4 }}>
-                          {isEn ? (broker.title_en || broker.shortTitle_en) : (broker.title || broker.shortTitle)}
+                          {pickLang(broker, 'title', lang) || pickLang(broker, 'shortTitle', lang)}
                         </div>
                         <h3 className="serif-title" style={{ fontSize: '1.45rem', fontWeight: 600 }}>{broker.name}</h3>
                         <div className="broker-name-line" />
                         <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px' }}>
-                          <span>{isEn ? (broker.city_en || broker.city) : broker.city}</span>
+                          <span>{pickLang(broker, 'city', lang)}</span>
                           {brokerDeals.length > 0 && (
                             <span style={{ color: 'var(--gold-light)', fontWeight: 600, fontSize: '0.76rem' }}>
                               {brokerDeals.length} {t.brokers.activeMandates}
@@ -1714,20 +1714,20 @@ export default function App() {
                   <div className="property-img-wrap" style={{ height: '190px' }}>
                     <img 
                       src={news.image} 
-                      alt={isEn ? (news.title_en || news.title) : news.title}
+                      alt={pickLang(news, 'title', lang)}
                       onError={e => { e.target.src = 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=800&q=80'; }}
                     />
                   </div>
                   <div style={{ padding: '18px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                     <div>
                       <div style={{ fontSize: '0.75rem', color: 'var(--gold)', marginBottom: '6px' }}>
-                        {isEn ? (news.date_en || news.date) : news.date} • {isEn ? (news.category_en || news.category) : news.category}
+                        {pickLang(news, 'date', lang)} • {pickLang(news, 'category', lang)}
                       </div>
                       <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '8px' }}>
-                        {isEn ? (news.title_en || news.title) : news.title}
+                        {pickLang(news, 'title', lang)}
                       </h3>
                       <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '14px' }}>
-                        {isEn ? (news.excerpt_en || news.excerpt) : news.excerpt}
+                        {pickLang(news, 'excerpt', lang)}
                       </p>
                     </div>
                     <a href={news.url} target="_blank" rel="noreferrer" style={{ color: 'var(--gold-light)', fontSize: '0.82rem', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
@@ -2512,7 +2512,7 @@ export default function App() {
               background: 'rgba(18, 18, 21, 0.96)'
             }}>
               <span className="badge-gold">
-                {isEn ? LEGAL_DOCUMENTS[legalModalType].title_en : LEGAL_DOCUMENTS[legalModalType].title}
+                {pickLang(LEGAL_DOCUMENTS[legalModalType], 'title', lang)}
               </span>
               <button
                 onClick={() => setLegalModalType(null)}
@@ -2527,15 +2527,15 @@ export default function App() {
             </div>
             <div style={{ padding: '26px', display: 'flex', flexDirection: 'column', gap: '18px' }}>
               <h2 style={{ fontSize: '1.45rem', fontWeight: 700 }}>
-                {isEn ? LEGAL_DOCUMENTS[legalModalType].title_en : LEGAL_DOCUMENTS[legalModalType].title}
+                {pickLang(LEGAL_DOCUMENTS[legalModalType], 'title', lang)}
               </h2>
               {LEGAL_DOCUMENTS[legalModalType].sections.map((sec, idx) => (
                 <div key={idx} style={{ paddingBottom: '14px', borderBottom: '1px solid var(--border-subtle)' }}>
                   <h3 style={{ fontSize: '0.96rem', fontWeight: 700, color: 'var(--gold-light)', marginBottom: '6px' }}>
-                    {isEn ? sec.heading_en : sec.heading}
+                    {pickLang(sec, 'heading', lang)}
                   </h3>
                   <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', lineHeight: 1.65 }}>
-                    {isEn ? sec.body_en : sec.body}
+                    {pickLang(sec, 'body', lang)}
                   </p>
                 </div>
               ))}
@@ -2550,8 +2550,8 @@ export default function App() {
           type="button"
           className="scroll-top-btn"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          aria-label={isEn ? 'Back to top' : 'Retour en haut'}
-          title={isEn ? 'Back to top' : 'Retour en haut'}
+          aria-label={tr(lang, 'Retour en haut', 'Back to top', 'Volver arriba', '返回顶部')}
+          title={tr(lang, 'Retour en haut', 'Back to top', 'Volver arriba', '返回顶部')}
         >
           ↑
         </button>
@@ -2563,7 +2563,6 @@ export default function App() {
 /* Carte Propriété Style Galerie « Sans Cadre » (#5, #6, #7, #8, #9) */
 function PropertyCard({ deal, t, onSelect }) {
   const code = t?.code || 'FR';
-  const isEn = code !== 'FR';
   const isSold = deal.status === 'Vendu';
   const broker = (deal.brokers_details && deal.brokers_details[0]) || {
     name: deal.assigned_broker || 'Équipe Himalaya',
@@ -2574,9 +2573,9 @@ function PropertyCard({ deal, t, onSelect }) {
     ? `${deal.city} (${deal.region})`
     : (deal.city || deal.region);
 
-  const displayCategory = isEn ? (deal.category_en || deal.category || deal.transaction_type) : (deal.category || deal.transaction_type);
-  const displayPrice = isEn ? (deal.price_raw_en || deal.price_raw) : deal.price_raw;
-  const displayTitle = isEn ? (deal.title_en || deal.title) : deal.title;
+  const displayCategory = pickLang(deal, 'category', code) || deal.transaction_type;
+  const displayPrice = pickLang(deal, 'price_raw', code);
+  const displayTitle = pickLang(deal, 'title', code);
 
   return (
     <div className="property-card" onClick={onSelect} style={{ cursor: 'pointer' }}>

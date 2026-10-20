@@ -13,7 +13,7 @@ import {
   X
 } from 'lucide-react';
 import { submitLeadToProspection } from '../utils/prospectionBridge';
-import { tr } from '../data/translations';
+import { tr, pickLang } from '../data/translations';
 
 // Capitalisation semi-annuelle canadienne (Loi sur l'intérêt au Canada)
 function getEffectiveMonthlyRate(annualPct) {
@@ -22,7 +22,7 @@ function getEffectiveMonthlyRate(annualPct) {
 }
 
 // Calcul officiel des droits de mutation (Taxe de bienvenue 2026 — Québec & Montréal)
-function computeWelcomeTax(price, isMontreal) {
+function computeWelcomeTax(price, isMontreal, lang = 'FR') {
   let rem = Math.max(0, Number(price) || 0);
   const brackets = [];
   const p1 = 61500;
@@ -50,7 +50,11 @@ function computeWelcomeTax(price, isMontreal) {
         rem -= t4;
       }
       if (rem > 0) {
-        brackets.push({ label: 'Excédent (+ 1 223 100 $)', rate: '3.0 %', amount: rem * 0.03 });
+        brackets.push({
+          label: tr(lang, 'Excédent (+ 1 223 100 $)', 'Excess (+ $1,223,100)', 'Excedente (+ 1 223 100 $)', '超出部分 (+ 1 223 100 $)'),
+          rate: '3.0 %',
+          amount: rem * 0.03
+        });
       }
     } else {
       const p2 = 307800;
@@ -58,7 +62,11 @@ function computeWelcomeTax(price, isMontreal) {
       brackets.push({ label: '61 500 $ – 307 800 $', rate: '1.0 %', amount: t2b * 0.01 });
       rem -= t2b;
       if (rem > 0) {
-        brackets.push({ label: 'Excédent (+ 307 800 $)', rate: '1.5 %', amount: rem * 0.015 });
+        brackets.push({
+          label: tr(lang, 'Excédent (+ 307 800 $)', 'Excess (+ $307,800)', 'Excedente (+ 307 800 $)', '超出部分 (+ 307 800 $)'),
+          rate: '1.5 %',
+          amount: rem * 0.015
+        });
       }
     }
   }
@@ -67,8 +75,8 @@ function computeWelcomeTax(price, isMontreal) {
   return { total, brackets };
 }
 
-export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal, onClearPreselectedDeal, initialTool }) {
-  const isEn = lang !== 'FR';
+export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, preselectedDeal, onClearPreselectedDeal, initialTool }) {
+  const lang = t?.code || propLang || 'FR';
   const [activeTool, setActiveTool] = useState(initialTool || 'plex');
 
   useEffect(() => {
@@ -168,7 +176,7 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
   }, [preselectedDeal]);
 
   const fmtCAD = (n) =>
-    Math.round(Number(n) || 0).toLocaleString(isEn ? 'en-CA' : 'fr-CA') + (isEn ? ' $' : ' $');
+    Math.round(Number(n) || 0).toLocaleString(tr(lang, 'fr-CA', 'en-CA', 'es-ES', 'zh-CN')) + ' $';
 
   const toolsList = [
     {
@@ -347,7 +355,7 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
   }, [mcLoan, mcRate, mcAmort, mcFreq]);
 
   // Calcul 4 : Taxe de Bienvenue
-  const wtResult = useMemo(() => computeWelcomeTax(wtPrice, wtIsMtl), [wtPrice, wtIsMtl]);
+  const wtResult = useMemo(() => computeWelcomeTax(wtPrice, wtIsMtl, lang), [wtPrice, wtIsMtl, lang]);
 
   // Calcul 5 : Frais de clôture
   const ccResult = useMemo(() => {
@@ -359,11 +367,11 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
     const loan = Math.max(0, ccPrice - down);
     const schlPrem = loan * schlRate;
     const schlTax = schlPrem * 0.09; // 9% taxe provinciale sur prime SCHL au Québec
-    const welcome = computeWelcomeTax(ccPrice, true).total;
+    const welcome = computeWelcomeTax(ccPrice, true, lang).total;
     const others = Number(ccInsp) + Number(ccNotary) + Number(ccMove);
     const totalCash = down + schlTax + welcome + others;
     return { down, schlPrem, schlTax, welcome, others, totalCash };
-  }, [ccPrice, ccDownPct, ccInsp, ccNotary, ccMove]);
+  }, [ccPrice, ccDownPct, ccInsp, ccNotary, ccMove, lang]);
 
   // Calcul 6 : Louer vs Acheter
   const rvbResult = useMemo(() => {
@@ -466,10 +474,16 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
               <span className="badge-gold">MLS {preselectedDeal.mls_number}</span>
               <div>
                 <div style={{ fontSize: '0.78rem', color: 'var(--gold-light)', fontWeight: 600 }}>
-                  {isEn ? 'Active Property Simulation Pre-filled:' : 'Simulation pré-remplie avec la propriété sélectionnée :'}
+                  {tr(
+                    lang,
+                    'Simulation pré-remplie avec la propriété sélectionnée :',
+                    'Active Property Simulation Pre-filled:',
+                    'Simulación prellenada con la propiedad seleccionada:',
+                    '已根据所选房产预填模拟数据：'
+                  )}
                 </div>
                 <div style={{ fontSize: '1rem', fontWeight: 700, color: '#fff' }}>
-                  {isEn ? (preselectedDeal.title_en || preselectedDeal.title) : preselectedDeal.title} — {preselectedDeal.city} ({fmtCAD(preselectedDeal.price)})
+                  {pickLang(preselectedDeal, 'title', lang)} — {preselectedDeal.city} ({fmtCAD(preselectedDeal.price)})
                 </div>
               </div>
             </div>
@@ -479,7 +493,7 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                 className="btn-outline"
                 style={{ padding: '6px 12px', fontSize: '0.78rem' }}
               >
-                <X size={14} /> {isEn ? 'Reset to default values' : 'Réinitialiser'}
+                <X size={14} /> {tr(lang, 'Réinitialiser', 'Reset to default values', 'Restablecer valores', '重置为默认值')}
               </button>
             )}
           </div>
@@ -603,31 +617,31 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
             >
               <div style={{ textAlign: 'center', padding: '8px 12px' }}>
                 <div style={{ fontSize: '0.73rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-                  {isEn ? 'GIM (Gross Multiplier)' : 'MRB (Multiplicateur Brut)'}
+                  {tr(lang, 'MRB (Multiplicateur Brut)', 'GIM (Gross Multiplier)', 'MRB (Multiplicador Bruto)', 'GIM (总收入乘数)')}
                 </div>
                 <div className="serif-title gold-gradient-text" style={{ fontSize: '2.5rem', fontWeight: 600, margin: '6px 0' }}>
                   {plexResult.mrb}x
                 </div>
                 <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
-                  {isEn ? 'Price / Gross Income' : 'Prix / Revenus bruts'}
+                  {tr(lang, 'Prix / Revenus bruts', 'Price / Gross Income', 'Precio / Ingresos brutos', '购买价 / 年度总收入')}
                 </div>
               </div>
 
               <div style={{ textAlign: 'center', padding: '8px 12px' }}>
                 <div style={{ fontSize: '0.73rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-                  {isEn ? 'Cap Rate (TGA)' : 'Taux de capitalisation (TGA)'}
+                  {tr(lang, 'Taux de capitalisation (TGA)', 'Cap Rate (TGA)', 'Tasa de Capitalización (Cap Rate)', '资本化率 (Cap Rate)')}
                 </div>
                 <div className="serif-title gold-gradient-text" style={{ fontSize: '2.5rem', fontWeight: 600, margin: '6px 0' }}>
                   {plexResult.capRate} %
                 </div>
                 <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
-                  {isEn ? 'NOI / Purchase Price' : 'RNO / Prix d’achat'}
+                  {tr(lang, 'RNO / Prix d’achat', 'NOI / Purchase Price', 'NOI / Precio de compra', '净营业收入 / 购买价')}
                 </div>
               </div>
 
               <div style={{ textAlign: 'center', padding: '8px 12px' }}>
                 <div style={{ fontSize: '0.73rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-                  {isEn ? 'Net Monthly Cashflow' : 'Cashflow net mensuel'}
+                  {tr(lang, 'Cashflow net mensuel', 'Net Monthly Cashflow', 'Flujo de caja neto mensual', '每月净现金流')}
                 </div>
                 <div
                   className="serif-title"
@@ -641,19 +655,19 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                   {(plexResult.monthlyCashflow >= 0 ? '+' : '') + fmtCAD(plexResult.monthlyCashflow)}
                 </div>
                 <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
-                  {isEn ? 'After debt & expenses' : 'Après hypothèque & dépenses'}
+                  {tr(lang, 'Après hypothèque & dépenses', 'After debt & expenses', 'Después de hipoteca y gastos', '扣除按揭与运营开支后')}
                 </div>
               </div>
 
               <div style={{ textAlign: 'center', padding: '8px 12px' }}>
                 <div style={{ fontSize: '0.73rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-                  {isEn ? 'Cash-on-Cash ROI' : 'Rendement sur mise de fonds'}
+                  {tr(lang, 'Rendement sur mise de fonds', 'Cash-on-Cash ROI', 'Retorno sobre capital (ROI)', '首付现金回报率 (ROI)')}
                 </div>
                 <div className="serif-title" style={{ fontSize: '2.5rem', fontWeight: 600, margin: '6px 0', color: 'var(--text-main)' }}>
                   {plexResult.roi} %
                 </div>
                 <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
-                  {isEn ? 'Annual Cashflow / Down Payment' : 'Cashflow annuel / Mise de fonds'}
+                  {tr(lang, 'Cashflow annuel / Mise de fonds', 'Annual Cashflow / Down Payment', 'Flujo anual / Pago inicial', '年度现金流 / 首付款')}
                 </div>
               </div>
             </div>
@@ -668,12 +682,18 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
               {/* Colonne 1 : Acquisition & Financement */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
                 <h3 style={{ fontSize: '1.05rem', fontWeight: 700, color: 'var(--gold-light)' }}>
-                  {isEn ? '1. Acquisition, Gross Income & Financing' : '1. Acquisition, Revenus bruts & Financement'}
+                  {tr(
+                    lang,
+                    '1. Acquisition, Revenus bruts & Financement',
+                    '1. Acquisition, Gross Income & Financing',
+                    '1. Adquisición, Ingresos Brutos y Financiamiento',
+                    '1. 收购价格、总收入与融资方案'
+                  )}
                 </h3>
 
                 <div>
                   <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                    {isEn ? 'Purchase Price ($)' : 'Prix d’achat de l’immeuble ($)'}
+                    {tr(lang, 'Prix d’achat de l’immeuble ($)', 'Purchase Price ($)', 'Precio de compra del inmueble ($)', '物业购买价格 ($)')}
                   </label>
                   <input
                     type="number"
@@ -687,7 +707,7 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                   <div>
                     <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {isEn ? 'Annual Gross Income ($)' : 'Revenus bruts annuels ($)'}
+                      {tr(lang, 'Revenus bruts annuels ($)', 'Annual Gross Income ($)', 'Ingresos brutos anuales ($)', '年度总租金收入 ($)')}
                     </label>
                     <input
                       type="number"
@@ -699,7 +719,7 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                   </div>
                   <div>
                     <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {isEn ? 'Vacancy Rate (%)' : 'Taux d’inoccupation (%)'}
+                      {tr(lang, 'Taux d’inoccupation (%)', 'Vacancy Rate (%)', 'Tasa de vacancia (%)', '空置率 (%)')}
                     </label>
                     <input
                       type="number"
@@ -714,7 +734,7 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px' }}>
                   <div>
                     <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {isEn ? 'Down Payment (%)' : 'Mise de fonds (%)'}
+                      {tr(lang, 'Mise de fonds (%)', 'Down Payment (%)', 'Pago inicial (%)', '首付比例 (%)')}
                     </label>
                     <input
                       type="number"
@@ -726,7 +746,7 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                   </div>
                   <div>
                     <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {isEn ? 'Interest Rate (%)' : 'Taux d’intérêt (%)'}
+                      {tr(lang, 'Taux d’intérêt (%)', 'Interest Rate (%)', 'Tasa de interés (%)', '贷款利率 (%)')}
                     </label>
                     <input
                       type="number"
@@ -738,28 +758,28 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                   </div>
                   <div>
                     <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {isEn ? 'Amortization' : 'Amortissement'}
+                      {tr(lang, 'Amortissement', 'Amortization', 'Amortización', '摊销年限')}
                     </label>
                     <select
                       className="form-control"
                       value={plexAmort}
                       onChange={(e) => setPlexAmort(Number(e.target.value))}
                     >
-                      <option value={20}>20 {isEn ? 'years' : 'ans'}</option>
-                      <option value={25}>25 {isEn ? 'years' : 'ans'}</option>
-                      <option value={30}>30 {isEn ? 'years' : 'ans'}</option>
+                      <option value={20}>20 {tr(lang, 'ans', 'years', 'años', '年')}</option>
+                      <option value={25}>25 {tr(lang, 'ans', 'years', 'años', '年')}</option>
+                      <option value={30}>30 {tr(lang, 'ans', 'years', 'años', '年')}</option>
                     </select>
                   </div>
                 </div>
 
                 <h3 style={{ fontSize: '1.05rem', fontWeight: 700, color: 'var(--gold-light)', marginTop: '8px' }}>
-                  {isEn ? '2. Annual Operating Expenses' : '2. Dépenses d’exploitation annuelles'}
+                  {tr(lang, '2. Dépenses d’exploitation annuelles', '2. Annual Operating Expenses', '2. Gastos Operativos Anuales', '2. 年度运营开支')}
                 </h3>
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                   <div>
                     <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {isEn ? 'Municipal Taxes ($/yr)' : 'Taxes municipales ($/an)'}
+                      {tr(lang, 'Taxes municipales ($/an)', 'Municipal Taxes ($/yr)', 'Impuestos municipales ($/año)', '市政税 ($/年)')}
                     </label>
                     <input
                       type="number"
@@ -771,7 +791,7 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                   </div>
                   <div>
                     <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {isEn ? 'School Taxes ($/yr)' : 'Taxes scolaires ($/an)'}
+                      {tr(lang, 'Taxes scolaires ($/an)', 'School Taxes ($/yr)', 'Impuestos escolares ($/año)', '学校税 ($/年)')}
                     </label>
                     <input
                       type="number"
@@ -783,7 +803,7 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                   </div>
                   <div>
                     <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {isEn ? 'Building Insurance ($/yr)' : 'Assurance immeuble ($/an)'}
+                      {tr(lang, 'Assurance immeuble ($/an)', 'Building Insurance ($/yr)', 'Seguro del edificio ($/año)', '建筑保险 ($/年)')}
                     </label>
                     <input
                       type="number"
@@ -795,7 +815,7 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                   </div>
                   <div>
                     <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {isEn ? 'Energy / Heating ($/yr)' : 'Énergie / Chauffage ($/an)'}
+                      {tr(lang, 'Énergie / Chauffage ($/an)', 'Energy / Heating ($/yr)', 'Energía / Calefacción ($/año)', '能源 / 供暖 ($/年)')}
                     </label>
                     <input
                       type="number"
@@ -807,7 +827,7 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                   </div>
                   <div>
                     <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {isEn ? 'Maintenance Reserve (%)' : 'Entretien & réserve (%)'}
+                      {tr(lang, 'Entretien & réserve (%)', 'Maintenance Reserve (%)', 'Mantenimiento y reserva (%)', '维护与准备金 (%)')}
                     </label>
                     <input
                       type="number"
@@ -819,7 +839,7 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                   </div>
                   <div>
                     <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {isEn ? 'Management ($/yr)' : 'Gestion / Conciergerie ($/an)'}
+                      {tr(lang, 'Gestion / Conciergerie ($/an)', 'Management ($/yr)', 'Gestión / Conserjería ($/año)', '物业管理费 ($/年)')}
                     </label>
                     <input
                       type="number"
@@ -843,25 +863,25 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
               >
                 <div>
                   <h3 className="serif-title" style={{ fontSize: '1.35rem', fontWeight: 600, color: 'var(--gold-light)', marginBottom: '16px', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-                    {isEn ? 'Financial Operating Summary' : 'Sommaire financier d’exploitation'}
+                    {tr(lang, 'Sommaire financier d’exploitation', 'Financial Operating Summary', 'Resumen Financiero Operativo', '年度财务运营汇总')}
                   </h3>
 
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '0.9rem' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
                       <span style={{ color: 'var(--text-secondary)' }}>
-                        {isEn ? 'Down Payment Injected' : 'Mise de fonds injectée'} ({plexDownPct}%)
+                        {tr(lang, 'Mise de fonds injectée', 'Down Payment Injected', 'Pago inicial inyectado', '投入首付款')} ({plexDownPct}%)
                       </span>
                       <strong>{fmtCAD(plexResult.downAmount)}</strong>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
                       <span style={{ color: 'var(--text-secondary)' }}>
-                        {isEn ? 'Effective Gross Income (Net of Vacancy)' : 'Revenus effectifs nets de vacance'}
+                        {tr(lang, 'Revenus effectifs nets de vacance', 'Effective Gross Income (Net of Vacancy)', 'Ingresos efectivos netos de vacancia', '扣除空置后的有效总收入')}
                       </span>
                       <strong>{fmtCAD(plexResult.effectiveIncome)}</strong>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
                       <span style={{ color: 'var(--text-secondary)' }}>
-                        {isEn ? 'Total Operating Expenses' : 'Total des dépenses d’exploitation'}
+                        {tr(lang, 'Total des dépenses d’exploitation', 'Total Operating Expenses', 'Total de gastos operativos', '运营总开支')}
                       </span>
                       <strong style={{ color: '#f87171' }}>- {fmtCAD(plexResult.totalExpenses)}</strong>
                     </div>
@@ -875,18 +895,18 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                         fontWeight: 700
                       }}
                     >
-                      <span>{isEn ? 'Net Operating Income (NOI / RNO)' : 'Revenu Net d’Opération (RNO / NOI)'}</span>
+                      <span>{tr(lang, 'Revenu Net d’Opération (RNO / NOI)', 'Net Operating Income (NOI / RNO)', 'Ingreso Operativo Neto (NOI)', '净营业收入 (NOI)')}</span>
                       <span>{fmtCAD(plexResult.noi)}</span>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
                       <span style={{ color: 'var(--text-secondary)' }}>
-                        {isEn ? 'Annual Mortgage Debt Service' : 'Service de la dette hypothécaire (annuel)'}
+                        {tr(lang, 'Service de la dette hypothécaire (annuel)', 'Annual Mortgage Debt Service', 'Servicio de deuda hipotecaria (anual)', '年度按揭还本付息总额')}
                       </span>
                       <strong style={{ color: '#f87171' }}>- {fmtCAD(plexResult.annualDebtService)}</strong>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
                       <span style={{ color: 'var(--text-secondary)' }}>
-                        {isEn ? '1st Year Principal Repaid (Equity)' : 'Capital remboursé la 1re année (Équité)'}
+                        {tr(lang, 'Capital remboursé la 1re année (Équité)', '1st Year Principal Repaid (Equity)', 'Capital amortizado el 1.er año (Patrimonio)', '第一年偿还本金 (净资产积累)')}
                       </span>
                       <strong style={{ color: 'var(--gold-light)' }}>+ {fmtCAD(plexResult.firstYearPrincipal)}</strong>
                     </div>
@@ -900,7 +920,7 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                         fontWeight: 700
                       }}
                     >
-                      <span>{isEn ? 'Real Net Annual Cashflow' : 'Cashflow net annuel réel'}</span>
+                      <span>{tr(lang, 'Cashflow net annuel réel', 'Real Net Annual Cashflow', 'Flujo de caja neto anual real', '实际年度净现金流')}</span>
                       <span className="serif-title" style={{ fontSize: '1.35rem', color: plexResult.annualCashflow >= 0 ? 'var(--gold-light)' : '#f87171' }}>
                         {(plexResult.annualCashflow >= 0 ? '+ ' : '') + fmtCAD(plexResult.annualCashflow)}
                       </span>
@@ -917,13 +937,13 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                     className="btn-gold"
                     style={{ flex: 1 }}
                   >
-                    {isEn ? 'Receive Full Analysis Report' : 'Recevoir le bilan détaillé par courriel'}
+                    {tr(lang, 'Recevoir le bilan détaillé par courriel', 'Receive Full Analysis Report', 'Recibir informe detallado por correo', '通过电子邮件接收完整分析报告')}
                   </button>
                   <button
                     onClick={() => onNavigate && onNavigate('courtiers')}
                     className="btn-outline"
                   >
-                    {isEn ? 'Speak with a Broker' : 'Parler à un courtier'}
+                    {tr(lang, 'Parler à un courtier', 'Speak with a Broker', 'Hablar con un corredor', '联系经纪人咨询')}
                   </button>
                 </div>
               </div>
@@ -939,11 +959,11 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '40px' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
                 <h3 className="serif-title" style={{ fontSize: '1.35rem', fontWeight: 600, color: 'var(--gold-light)', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-                  {isEn ? 'Household Income, Debts & Rate' : 'Revenus du ménage, dettes et taux'}
+                  {tr(lang, 'Revenus du ménage, dettes et taux', 'Household Income, Debts & Rate', 'Ingresos del hogar, deudas y tasa', '家庭收入、负债与按揭利率')}
                 </h3>
                 <div>
                   <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                    {isEn ? 'Gross Annual Household Income ($)' : 'Revenu annuel brut du ménage ($)'}
+                    {tr(lang, 'Revenu annuel brut du ménage ($)', 'Gross Annual Household Income ($)', 'Ingreso anual bruto del hogar ($)', '家庭年度总收入 ($)')}
                   </label>
                   <input
                     type="number"
@@ -956,7 +976,7 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                   <div>
                     <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {isEn ? 'Monthly Debt Payments ($)' : 'Dettes mensuelles ($)'}
+                      {tr(lang, 'Dettes mensuelles ($)', 'Monthly Debt Payments ($)', 'Pagos de deudas mensuales ($)', '每月其他债务支出 ($)')}
                     </label>
                     <input
                       type="number"
@@ -968,7 +988,7 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                   </div>
                   <div>
                     <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {isEn ? 'Available Down Payment ($)' : 'Mise de fonds disponible ($)'}
+                      {tr(lang, 'Mise de fonds disponible ($)', 'Available Down Payment ($)', 'Pago inicial disponible ($)', '可用首付款资金 ($)')}
                     </label>
                     <input
                       type="number"
@@ -982,7 +1002,7 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                   <div>
                     <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {isEn ? 'Negotiated Mortgage Rate (%)' : 'Taux hypothécaire négocié (%)'}
+                      {tr(lang, 'Taux hypothécaire négocié (%)', 'Negotiated Mortgage Rate (%)', 'Tasa hipotecaria negociada (%)', '协商按揭利率 (%)')}
                     </label>
                     <input
                       type="number"
@@ -994,7 +1014,7 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                   </div>
                   <div>
                     <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {isEn ? 'Municipal & School Taxes ($/yr)' : 'Taxes mun. & scolaires ($/an)'}
+                      {tr(lang, 'Taxes mun. & scolaires ($/an)', 'Municipal & School Taxes ($/yr)', 'Impuestos mun. y escolares ($/año)', '市政税与学校税 ($/年)')}
                     </label>
                     <input
                       type="number"
@@ -1008,7 +1028,7 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                   <div>
                     <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {isEn ? 'Condo Fees ($/month)' : 'Frais de copropriété ($/mois)'}
+                      {tr(lang, 'Frais de copropriété ($/mois)', 'Condo Fees ($/month)', 'Gastos de condominio ($/mes)', '公寓物业管理费 ($/月)')}
                     </label>
                     <input
                       type="number"
@@ -1020,7 +1040,7 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                   </div>
                   <div>
                     <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {isEn ? 'Heating Estimate ($/month)' : 'Chauffage estimé ($/mois)'}
+                      {tr(lang, 'Chauffage estimé ($/mois)', 'Heating Estimate ($/month)', 'Calefacción estimada ($/mes)', '预估供暖费 ($/月)')}
                     </label>
                     <input
                       type="number"
@@ -1043,10 +1063,16 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
               >
                 <div>
                   <span className="badge-gold" style={{ marginBottom: '12px' }}>
-                    {isEn ? `B-20 Qualifying Rate: ${affResult.stressRate}%` : `Taux de qualification B-20 : ${affResult.stressRate} %`}
+                    {tr(
+                      lang,
+                      `Taux de qualification B-20 : ${affResult.stressRate} %`,
+                      `B-20 Qualifying Rate: ${affResult.stressRate}%`,
+                      `Tasa de calificación B-20: ${affResult.stressRate} %`,
+                      `B-20 压力测试合格利率：${affResult.stressRate}%`
+                    )}
                   </span>
                   <div style={{ fontSize: '0.84rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '6px' }}>
-                    {isEn ? 'Maximum Estimated Purchase Price' : 'Prix d’achat maximal estimé'}
+                    {tr(lang, 'Prix d’achat maximal estimé', 'Maximum Estimated Purchase Price', 'Precio máximo de compra estimado', '预估最高可购房价')}
                   </div>
                   <div className="serif-title gold-gradient-text" style={{ fontSize: '3rem', fontWeight: 700, marginBottom: '24px', paddingBottom: '20px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
                     {fmtCAD(affResult.maxPrice)}
@@ -1055,7 +1081,7 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
                     <div style={{ borderLeft: '2px solid rgba(255,255,255,0.18)', paddingLeft: '14px' }}>
                       <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                        {isEn ? 'Net Mortgage Loan' : 'Prêt hypothécaire net'}
+                        {tr(lang, 'Prêt hypothécaire net', 'Net Mortgage Loan', 'Préstamo hipotecario neto', '净按揭贷款额')}
                       </div>
                       <div className="serif-title" style={{ fontSize: '1.45rem', fontWeight: 600, marginTop: '4px' }}>
                         {fmtCAD(affResult.netLoan)}
@@ -1063,7 +1089,7 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                     </div>
                     <div style={{ borderLeft: '2px solid var(--gold)', paddingLeft: '14px' }}>
                       <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                        {isEn ? 'Down Payment Applied' : 'Mise de fonds appliquée'}
+                        {tr(lang, 'Mise de fonds appliquée', 'Down Payment Applied', 'Pago inicial aplicado', '已投入首付款')}
                       </div>
                       <div className="serif-title" style={{ fontSize: '1.45rem', fontWeight: 600, marginTop: '4px', color: 'var(--gold-light)' }}>
                         {fmtCAD(affDown)}
@@ -1080,7 +1106,7 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                   className="btn-gold"
                   style={{ width: '100%', marginTop: '28px' }}
                 >
-                  {isEn ? 'Receive My Pre-Qualification Report' : 'Recevoir mon bilan de capacité d’emprunt'}
+                  {tr(lang, 'Recevoir mon bilan de capacité d’emprunt', 'Receive My Pre-Qualification Report', 'Recibir mi informe de capacidad de endeudamiento', '获取我的贷款能力评估报告')}
                 </button>
               </div>
             </div>
@@ -1095,11 +1121,11 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '40px' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 <h3 className="serif-title" style={{ fontSize: '1.35rem', fontWeight: 600, color: 'var(--gold-light)', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-                  {isEn ? 'Mortgage Parameters' : 'Paramètres du prêt hypothécaire'}
+                  {tr(lang, 'Paramètres du prêt hypothécaire', 'Mortgage Parameters', 'Parámetros del préstamo hipotecario', '按揭贷款参数设置')}
                 </h3>
                 <div>
                   <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                    {isEn ? 'Mortgage Loan Amount ($)' : 'Montant du prêt hypothécaire ($)'}
+                    {tr(lang, 'Montant du prêt hypothécaire ($)', 'Mortgage Loan Amount ($)', 'Monto del préstamo hipotecario ($)', '按揭贷款金额 ($)')}
                   </label>
                   <input
                     type="number"
@@ -1112,7 +1138,7 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                   <div>
                     <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {isEn ? 'Interest Rate (%)' : 'Taux d’intérêt (%)'}
+                      {tr(lang, 'Taux d’intérêt (%)', 'Interest Rate (%)', 'Tasa de interés (%)', '贷款年利率 (%)')}
                     </label>
                     <input
                       type="number"
@@ -1124,33 +1150,33 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                   </div>
                   <div>
                     <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {isEn ? 'Amortization (Years)' : 'Amortissement (Années)'}
+                      {tr(lang, 'Amortissement (Années)', 'Amortization (Years)', 'Amortización (Años)', '摊销年限 (年)')}
                     </label>
                     <select
                       className="form-control"
                       value={mcAmort}
                       onChange={(e) => setMcAmort(Number(e.target.value))}
                     >
-                      <option value={15}>15 {isEn ? 'years' : 'ans'}</option>
-                      <option value={20}>20 {isEn ? 'years' : 'ans'}</option>
-                      <option value={25}>25 {isEn ? 'years' : 'ans'}</option>
-                      <option value={30}>30 {isEn ? 'years' : 'ans'}</option>
+                      <option value={15}>15 {tr(lang, 'ans', 'years', 'años', '年')}</option>
+                      <option value={20}>20 {tr(lang, 'ans', 'years', 'años', '年')}</option>
+                      <option value={25}>25 {tr(lang, 'ans', 'years', 'años', '年')}</option>
+                      <option value={30}>30 {tr(lang, 'ans', 'years', 'años', '年')}</option>
                     </select>
                   </div>
                 </div>
                 <div>
                   <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                    {isEn ? 'Payment Frequency' : 'Fréquence des versements'}
+                    {tr(lang, 'Fréquence des versements', 'Payment Frequency', 'Frecuencia de pagos', '还款频率')}
                   </label>
                   <select
                     className="form-control"
                     value={mcFreq}
                     onChange={(e) => setMcFreq(Number(e.target.value))}
                   >
-                    <option value={12}>{isEn ? 'Monthly (12/yr)' : 'Mensuel (12/an)'}</option>
-                    <option value={24}>{isEn ? 'Semi-monthly (24/yr)' : 'Bimensuel (24/an)'}</option>
-                    <option value={26}>{isEn ? 'Bi-weekly (26/yr)' : 'Aux 2 semaines (26/an)'}</option>
-                    <option value={52}>{isEn ? 'Weekly (52/yr)' : 'Hebdomadaire (52/an)'}</option>
+                    <option value={12}>{tr(lang, 'Mensuel (12/an)', 'Monthly (12/yr)', 'Mensual (12/año)', '每月还款 (12次/年)')}</option>
+                    <option value={24}>{tr(lang, 'Bimensuel (24/an)', 'Semi-monthly (24/yr)', 'Quincenal (24/año)', '半月还款 (24次/年)')}</option>
+                    <option value={26}>{tr(lang, 'Aux 2 semaines (26/an)', 'Bi-weekly (26/yr)', 'Cada 2 semanas (26/año)', '双周还款 (26次/年)')}</option>
+                    <option value={52}>{tr(lang, 'Hebdomadaire (52/an)', 'Weekly (52/yr)', 'Semanal (52/año)', '每周还款 (52次/年)')}</option>
                   </select>
                 </div>
               </div>
@@ -1165,7 +1191,7 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
               >
                 <div>
                   <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '4px' }}>
-                    {isEn ? 'Estimated Mortgage Payment' : 'Versement hypothécaire estimé'}
+                    {tr(lang, 'Versement hypothécaire estimé', 'Estimated Mortgage Payment', 'Pago hipotecario estimado', '预估每期按揭还款额')}
                   </div>
                   <div className="serif-title gold-gradient-text" style={{ fontSize: '2.9rem', fontWeight: 700, marginBottom: '20px', paddingBottom: '18px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
                     {fmtCAD(mcResult.payment)}
@@ -1174,7 +1200,7 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '20px' }}>
                     <div style={{ borderLeft: '2px solid rgba(255,255,255,0.18)', paddingLeft: '14px' }}>
                       <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                        {isEn ? 'Total Interest Over Term' : 'Total des intérêts'}
+                        {tr(lang, 'Total des intérêts', 'Total Interest Over Term', 'Interés total acumulado', '贷款期总利息')}
                       </div>
                       <div className="serif-title" style={{ fontSize: '1.35rem', fontWeight: 600, marginTop: '3px' }}>
                         {fmtCAD(mcResult.totalInterest)}
@@ -1182,7 +1208,7 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                     </div>
                     <div style={{ borderLeft: '2px solid var(--gold)', paddingLeft: '14px' }}>
                       <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                        {isEn ? 'Total Paid (Principal + Int.)' : 'Total versé (Capital + Int.)'}
+                        {tr(lang, 'Total versé (Capital + Int.)', 'Total Paid (Principal + Int.)', 'Total pagado (Capital + Int.)', '还款总额 (本金 + 利息)')}
                       </div>
                       <div className="serif-title" style={{ fontSize: '1.35rem', fontWeight: 600, marginTop: '3px' }}>
                         {fmtCAD(mcResult.totalPaid)}
@@ -1199,11 +1225,15 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                     }}
                   >
                     <strong style={{ color: 'var(--gold-light)' }}>
-                      {isEn ? 'Accelerated Bi-Weekly Tip: ' : 'Astuce versement accéléré aux 2 sem. : '}
+                      {tr(lang, 'Astuce versement accéléré aux 2 sem. : ', 'Accelerated Bi-Weekly Tip: ', 'Consejo de pago quincenal acelerado: ', '加速双周还款建议：')}
                     </strong>
-                    {isEn
-                      ? `Save ${fmtCAD(mcResult.savingAccel)} in interest and pay off ~${mcResult.yearsSaved} years faster.`
-                      : `Économisez ${fmtCAD(mcResult.savingAccel)} en intérêts et libérez votre prêt ~${mcResult.yearsSaved} ans plus tôt.`}
+                    {tr(
+                      lang,
+                      `Économisez ${fmtCAD(mcResult.savingAccel)} en intérêts et libérez votre prêt ~${mcResult.yearsSaved} ans plus tôt.`,
+                      `Save ${fmtCAD(mcResult.savingAccel)} in interest and pay off ~${mcResult.yearsSaved} years faster.`,
+                      `Ahorre ${fmtCAD(mcResult.savingAccel)} en intereses y liquide su préstamo ~${mcResult.yearsSaved} años antes.`,
+                      `可节省 ${fmtCAD(mcResult.savingAccel)} 利息，并提前约 ${mcResult.yearsSaved} 年还清贷款。`
+                    )}
                   </div>
                 </div>
 
@@ -1215,7 +1245,7 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                   className="btn-gold"
                   style={{ width: '100%', marginTop: '24px' }}
                 >
-                  {isEn ? 'Receive My Amortization Schedule' : 'Recevoir mon tableau d’amortissement complet'}
+                  {tr(lang, 'Recevoir mon tableau d’amortissement complet', 'Receive My Amortization Schedule', 'Recibir mi tabla de amortización completa', '获取我的完整摊销还款表')}
                 </button>
               </div>
             </div>
@@ -1230,11 +1260,11 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '40px' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 <h3 className="serif-title" style={{ fontSize: '1.35rem', fontWeight: 600, color: 'var(--gold-light)', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-                  {isEn ? 'Property Transfer Duties (2026 Brackets)' : 'Calcul des droits de mutation (Barèmes 2026)'}
+                  {tr(lang, 'Calcul des droits de mutation (Barèmes 2026)', 'Property Transfer Duties (2026 Brackets)', 'Cálculo de Impuestos de Transferencia (Tarifas 2026)', '土地转让税计算 (2026 税率标准)')}
                 </h3>
                 <div>
                   <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                    {isEn ? 'Purchase Price / Tax Base ($)' : 'Prix d’achat / Base d’imposition ($)'}
+                    {tr(lang, 'Prix d’achat / Base d’imposition ($)', 'Purchase Price / Tax Base ($)', 'Precio de compra / Base imponible ($)', '购买价格 / 计税基数 ($)')}
                   </label>
                   <input
                     type="number"
@@ -1246,7 +1276,7 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                 </div>
                 <div>
                   <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                    {isEn ? 'Municipality' : 'Municipalité'}
+                    {tr(lang, 'Municipalité', 'Municipality', 'Municipio', '所在城市')}
                   </label>
                   <select
                     className="form-control"
@@ -1254,10 +1284,10 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                     onChange={(e) => setWtIsMtl(e.target.value === 'mtl')}
                   >
                     <option value="mtl">
-                      {isEn ? 'Montreal (Progressive brackets up to 3.0%)' : 'Montréal (Tranches progressives jusqu’à 3,0 %)'}
+                      {tr(lang, 'Montréal (Tranches progressives jusqu’à 3,0 %)', 'Montreal (Progressive brackets up to 3.0%)', 'Montreal (Tramos progresivos hasta 3,0 %)', '蒙特利尔 (累进税率最高 3.0%)')}
                     </option>
                     <option value="qc">
-                      {isEn ? 'Rest of Quebec (Standard brackets up to 1.5%)' : 'Ailleurs au Québec (Tranches standards jusqu’à 1,5 %)'}
+                      {tr(lang, 'Ailleurs au Québec (Tranches standards jusqu’à 1,5 %)', 'Rest of Quebec (Standard brackets up to 1.5%)', 'Resto de Quebec (Tramos estándar hasta 1,5 %)', '魁北克其他地区 (标准税率最高 1.5%)')}
                     </option>
                   </select>
                 </div>
@@ -1266,7 +1296,7 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
               <div style={{ padding: '4px 0' }}>
                 <div style={{ marginBottom: '20px', paddingBottom: '16px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
                   <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-                    {isEn ? 'Total Transfer Duties Payable' : 'Total de la taxe de bienvenue estimée'}
+                    {tr(lang, 'Total de la taxe de bienvenue estimée', 'Total Transfer Duties Payable', 'Total estimado del impuesto de transferencia', '预估欢迎税 (土地转让税) 总额')}
                   </div>
                   <div className="serif-title gold-gradient-text" style={{ fontSize: '2.8rem', fontWeight: 700, marginTop: '4px' }}>
                     {fmtCAD(wtResult.total)}
@@ -1307,12 +1337,12 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '40px' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
                 <h3 className="serif-title" style={{ fontSize: '1.35rem', fontWeight: 600, color: 'var(--gold-light)', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-                  {isEn ? 'Acquisition & Notary Closing Costs' : 'Paramètres des frais de clôture'}
+                  {tr(lang, 'Paramètres des frais de clôture', 'Acquisition & Notary Closing Costs', 'Parámetros de costos de cierre y notaría', '交割与公证费用参数')}
                 </h3>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                   <div>
                     <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {isEn ? 'Purchase Price ($)' : 'Prix d’achat ($)'}
+                      {tr(lang, 'Prix d’achat ($)', 'Purchase Price ($)', 'Precio de compra ($)', '购买价格 ($)')}
                     </label>
                     <input
                       type="number"
@@ -1324,7 +1354,7 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                   </div>
                   <div>
                     <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {isEn ? 'Down Payment (%)' : 'Mise de fonds (%)'}
+                      {tr(lang, 'Mise de fonds (%)', 'Down Payment (%)', 'Pago inicial (%)', '首付比例 (%)')}
                     </label>
                     <input
                       type="number"
@@ -1340,7 +1370,7 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px' }}>
                   <div>
                     <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {isEn ? 'Inspection ($)' : 'Inspection ($)'}
+                      {tr(lang, 'Inspection ($)', 'Inspection ($)', 'Inspección ($)', '验房费 ($)')}
                     </label>
                     <input
                       type="number"
@@ -1352,7 +1382,7 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                   </div>
                   <div>
                     <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {isEn ? 'Notary ($)' : 'Notaire ($)'}
+                      {tr(lang, 'Notaire ($)', 'Notary ($)', 'Notario ($)', '公证费 ($)')}
                     </label>
                     <input
                       type="number"
@@ -1364,7 +1394,7 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                   </div>
                   <div>
                     <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {isEn ? 'Moving / Misc ($)' : 'Déménagement ($)'}
+                      {tr(lang, 'Déménagement ($)', 'Moving / Misc ($)', 'Mudanza / Otros ($)', '搬家及杂费 ($)')}
                     </label>
                     <input
                       type="number"
@@ -1380,7 +1410,7 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
               <div style={{ padding: '4px 0' }}>
                 <div style={{ marginBottom: '20px', paddingBottom: '16px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
                   <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-                    {isEn ? 'Total Liquid Cash Required at Closing' : 'Total des liquidités requises à la signature'}
+                    {tr(lang, 'Total des liquidités requises à la signature', 'Total Liquid Cash Required at Closing', 'Total de liquidez requerida al cierre', '过户交割所需流动资金总额')}
                   </div>
                   <div className="serif-title gold-gradient-text" style={{ fontSize: '2.8rem', fontWeight: 700, marginTop: '4px' }}>
                     {fmtCAD(ccResult.totalCash)}
@@ -1389,24 +1419,24 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '0.9rem' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-                    <span style={{ color: 'var(--text-secondary)' }}>{isEn ? 'Down Payment' : 'Mise de fonds'}</span>
+                    <span style={{ color: 'var(--text-secondary)' }}>{tr(lang, 'Mise de fonds', 'Down Payment', 'Pago inicial', '首付款')}</span>
                     <strong>{fmtCAD(ccResult.down)}</strong>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
                     <span style={{ color: 'var(--text-secondary)' }}>
-                      {isEn ? 'Welcome Tax (Montreal est.)' : 'Taxe de bienvenue (est. Montréal)'}
+                      {tr(lang, 'Taxe de bienvenue (est. Montréal)', 'Welcome Tax (Montreal est.)', 'Impuesto de transferencia (est. Montreal)', '欢迎税 (蒙特利尔预估)')}
                     </span>
                     <strong>{fmtCAD(ccResult.welcome)}</strong>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
                     <span style={{ color: 'var(--text-secondary)' }}>
-                      {isEn ? '9% Provincial Tax on CMHC Premium' : 'Taxe de 9 % sur prime SCHL'}
+                      {tr(lang, 'Taxe de 9 % sur prime SCHL', '9% Provincial Tax on CMHC Premium', 'Impuesto provincial del 9 % sobre prima SCHL', 'CMHC 按揭保险费 9% 省税')}
                     </span>
                     <strong>{fmtCAD(ccResult.schlTax)}</strong>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
                     <span style={{ color: 'var(--text-secondary)' }}>
-                      {isEn ? 'Notary, Inspection & Moving' : 'Notaire, inspection et divers'}
+                      {tr(lang, 'Notaire, inspection et divers', 'Notary, Inspection & Moving', 'Notario, inspección y varios', '公证、验房及搬家杂费')}
                     </span>
                     <strong>{fmtCAD(ccResult.others)}</strong>
                   </div>
@@ -1424,12 +1454,12 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '40px' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
                 <h3 className="serif-title" style={{ fontSize: '1.35rem', fontWeight: 600, color: 'var(--gold-light)', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-                  {isEn ? 'Rent vs. Ownership Parameters' : 'Paramètres Louer vs Acheter'}
+                  {tr(lang, 'Paramètres Louer vs Acheter', 'Rent vs. Ownership Parameters', 'Parámetros Alquilar vs. Comprar', '租房 vs 买房对比参数')}
                 </h3>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                   <div>
                     <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {isEn ? 'Current Monthly Rent ($)' : 'Loyer mensuel actuel ($)'}
+                      {tr(lang, 'Loyer mensuel actuel ($)', 'Current Monthly Rent ($)', 'Alquiler mensual actual ($)', '当前每月租金 ($)')}
                     </label>
                     <input
                       type="number"
@@ -1441,23 +1471,23 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                   </div>
                   <div>
                     <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {isEn ? 'Comparison Horizon (Years)' : 'Horizon de comparaison'}
+                      {tr(lang, 'Horizon de comparaison', 'Comparison Horizon (Years)', 'Horizonte de comparación', '对比周期 (年)')}
                     </label>
                     <select
                       className="form-control"
                       value={rvbYears}
                       onChange={(e) => setRvbYears(Number(e.target.value))}
                     >
-                      <option value={3}>3 {isEn ? 'years' : 'ans'}</option>
-                      <option value={5}>5 {isEn ? 'years' : 'ans'}</option>
-                      <option value={10}>10 {isEn ? 'years' : 'ans'}</option>
+                      <option value={3}>3 {tr(lang, 'ans', 'years', 'años', '年')}</option>
+                      <option value={5}>5 {tr(lang, 'ans', 'years', 'años', '年')}</option>
+                      <option value={10}>10 {tr(lang, 'ans', 'years', 'años', '年')}</option>
                     </select>
                   </div>
                 </div>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px' }}>
                   <div>
                     <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {isEn ? 'Property Price ($)' : 'Prix propriété ($)'}
+                      {tr(lang, 'Prix propriété ($)', 'Property Price ($)', 'Precio propiedad ($)', '房产价格 ($)')}
                     </label>
                     <input
                       type="number"
@@ -1469,7 +1499,7 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                   </div>
                   <div>
                     <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {isEn ? 'Down Payment ($)' : 'Mise de fonds ($)'}
+                      {tr(lang, 'Mise de fonds ($)', 'Down Payment ($)', 'Pago inicial ($)', '首付款 ($)')}
                     </label>
                     <input
                       type="number"
@@ -1481,7 +1511,7 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                   </div>
                   <div>
                     <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {isEn ? 'Rate (%)' : 'Taux (%)'}
+                      {tr(lang, 'Taux (%)', 'Rate (%)', 'Tasa (%)', '利率 (%)')}
                     </label>
                     <input
                       type="number"
@@ -1505,7 +1535,7 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', paddingBottom: '20px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
                   <div style={{ borderLeft: '2px solid #f87171', paddingLeft: '14px' }}>
                     <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                      {isEn ? `Rent Lost (${rvbYears} yrs)` : `Loyers perdus (${rvbYears} ans)`}
+                      {tr(lang, `Loyers perdus (${rvbYears} ans)`, `Rent Lost (${rvbYears} yrs)`, `Alquileres perdidos (${rvbYears} años)`, `累计纯租金支出 (${rvbYears} 年)`)}
                     </div>
                     <div className="serif-title" style={{ fontSize: '1.75rem', fontWeight: 700, color: '#f87171', marginTop: '4px' }}>
                       - {fmtCAD(rvbResult.totalRent)}
@@ -1513,7 +1543,7 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                   </div>
                   <div style={{ borderLeft: '2px solid var(--gold)', paddingLeft: '14px' }}>
                     <div style={{ fontSize: '0.75rem', color: 'var(--gold)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                      {isEn ? `Total Equity (${rvbYears} yrs)` : `Équité totale (${rvbYears} ans)`}
+                      {tr(lang, `Équité totale (${rvbYears} ans)`, `Total Equity (${rvbYears} yrs)`, `Patrimonio total (${rvbYears} años)`, `累计房产净值 (${rvbYears} 年)`)}
                     </div>
                     <div className="serif-title gold-gradient-text" style={{ fontSize: '1.75rem', fontWeight: 700, marginTop: '4px' }}>
                       + {fmtCAD(rvbResult.totalEquity)}
@@ -1523,7 +1553,13 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
 
                 <div>
                   <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)' }}>
-                    {isEn ? 'New Net Wealth Created (Principal Repaid + 3%/yr Appreciation)' : 'Nouvel enrichissement net créé (Capital remboursé + Plus-value 3 %/an)'}
+                    {tr(
+                      lang,
+                      'Nouvel enrichissement net créé (Capital remboursé + Plus-value 3 %/an)',
+                      'New Net Wealth Created (Principal Repaid + 3%/yr Appreciation)',
+                      'Nueva riqueza neta creada (Capital amortizado + Plusvalía 3 %/año)',
+                      '新增净财富积累 (已还本金 + 每年 3% 房产增值)'
+                    )}
                   </div>
                   <div className="serif-title gold-gradient-text" style={{ fontSize: '2.4rem', fontWeight: 700, marginTop: '4px' }}>
                     + {fmtCAD(rvbResult.netWealthCreated)}
@@ -1542,12 +1578,12 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '40px' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
                 <h3 className="serif-title" style={{ fontSize: '1.35rem', fontWeight: 600, color: 'var(--gold-light)', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-                  {isEn ? 'Cost of Waiting Parameters' : 'Impact d’attendre une baisse de taux'}
+                  {tr(lang, 'Impact d’attendre une baisse de taux', 'Cost of Waiting Parameters', 'Impacto de esperar una baja de tasas', '等待降息 vs 立即购买参数')}
                 </h3>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                   <div>
                     <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {isEn ? 'Property Price Today ($)' : 'Prix de la propriété aujourd’hui ($)'}
+                      {tr(lang, 'Prix de la propriété aujourd’hui ($)', 'Property Price Today ($)', 'Precio de la propiedad hoy ($)', '当前房产价格 ($)')}
                     </label>
                     <input
                       type="number"
@@ -1559,24 +1595,24 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                   </div>
                   <div>
                     <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {isEn ? 'Wait Period (Months)' : 'Délai d’attente (Mois)'}
+                      {tr(lang, 'Délai d’attente (Mois)', 'Wait Period (Months)', 'Período de espera (Meses)', '等待周期 (月)')}
                     </label>
                     <select
                       className="form-control"
                       value={waitMonths}
                       onChange={(e) => setWaitMonths(Number(e.target.value))}
                     >
-                      <option value={6}>6 {isEn ? 'months' : 'mois'}</option>
-                      <option value={12}>12 {isEn ? 'months' : 'mois'}</option>
-                      <option value={18}>18 {isEn ? 'months' : 'mois'}</option>
-                      <option value={24}>24 {isEn ? 'months' : 'mois'}</option>
+                      <option value={6}>6 {tr(lang, 'mois', 'months', 'meses', '个月')}</option>
+                      <option value={12}>12 {tr(lang, 'mois', 'months', 'meses', '个月')}</option>
+                      <option value={18}>18 {tr(lang, 'mois', 'months', 'meses', '个月')}</option>
+                      <option value={24}>24 {tr(lang, 'mois', 'months', 'meses', '个月')}</option>
                     </select>
                   </div>
                 </div>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px' }}>
                   <div>
                     <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {isEn ? 'Rate Today (%)' : 'Taux actuel (%)'}
+                      {tr(lang, 'Taux actuel (%)', 'Rate Today (%)', 'Tasa actual (%)', '当前利率 (%)')}
                     </label>
                     <input
                       type="number"
@@ -1588,7 +1624,7 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                   </div>
                   <div>
                     <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {isEn ? 'Future Rate (%)' : 'Taux espéré (%)'}
+                      {tr(lang, 'Taux espéré (%)', 'Future Rate (%)', 'Tasa futura esperada (%)', '预期未来利率 (%)')}
                     </label>
                     <input
                       type="number"
@@ -1600,7 +1636,7 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                   </div>
                   <div>
                     <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {isEn ? 'Price Growth (%/yr)' : 'Hausse prix (%/an)'}
+                      {tr(lang, 'Hausse prix (%/an)', 'Price Growth (%/yr)', 'Aumento de precio (%/año)', '房价年涨幅 (%/年)')}
                     </label>
                     <input
                       type="number"
@@ -1624,7 +1660,7 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', paddingBottom: '20px', borderBottom: '1px solid rgba(255,255,255,0.08)', marginBottom: '18px' }}>
                   <div style={{ borderLeft: '2px solid #f87171', paddingLeft: '14px' }}>
                     <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                      {isEn ? `Future Property Price (+${waitMonths}m)` : `Prix futur estimé (+${waitMonths} mois)`}
+                      {tr(lang, `Prix futur estimé (+${waitMonths} mois)`, `Future Property Price (+${waitMonths}m)`, `Precio futuro estimado (+${waitMonths} meses)`, `预估未来房价 (+${waitMonths} 个月)`)}
                     </div>
                     <div className="serif-title" style={{ fontSize: '1.6rem', fontWeight: 700, marginTop: '4px' }}>
                       {fmtCAD(waitResult.priceFuture)}
@@ -1635,7 +1671,7 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                   </div>
                   <div style={{ borderLeft: '2px solid var(--gold)', paddingLeft: '14px' }}>
                     <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                      {isEn ? 'Equity Missed While Waiting' : 'Plus-value manquée en attendant'}
+                      {tr(lang, 'Plus-value manquée en attendant', 'Equity Missed While Waiting', 'Plusvalía perdida por esperar', '等待期间错失的房产增值')}
                     </div>
                     <div className="serif-title gold-gradient-text" style={{ fontSize: '1.6rem', fontWeight: 700, marginTop: '4px' }}>
                       {fmtCAD(waitResult.appreciationAmt)}
@@ -1651,12 +1687,20 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                   }}
                 >
                   {waitResult.totalImpact > 0
-                    ? isEn
-                      ? `Waiting ${waitMonths} months would cost you approximately ${fmtCAD(waitResult.totalImpact)} more over 5 years due to property appreciation, even with a lower rate.`
-                      : `Attendre ${waitMonths} mois vous coûterait environ ${fmtCAD(waitResult.totalImpact)} de plus sur 5 ans en raison de la hausse des prix, même si les taux baissent.`
-                    : isEn
-                    ? 'The projected interest rate drop offsets the estimated price increase over this period.'
-                    : 'La baisse de taux projetée compense la hausse de prix estimée sur cette période.'}
+                    ? tr(
+                        lang,
+                        `Attendre ${waitMonths} mois vous coûterait environ ${fmtCAD(waitResult.totalImpact)} de plus sur 5 ans en raison de la hausse des prix, même si les taux baissent.`,
+                        `Waiting ${waitMonths} months would cost you approximately ${fmtCAD(waitResult.totalImpact)} more over 5 years due to property appreciation, even with a lower rate.`,
+                        `Esperar ${waitMonths} meses le costaría aproximadamente ${fmtCAD(waitResult.totalImpact)} más en 5 años debido al aumento de precios, incluso si bajan las tasas.`,
+                        `由于房价上涨，即使未来利率下调，等待 ${waitMonths} 个月仍将在 5 年内使您的总成本增加约 ${fmtCAD(waitResult.totalImpact)}。`
+                      )
+                    : tr(
+                        lang,
+                        'La baisse de taux projetée compense la hausse de prix estimée sur cette période.',
+                        'The projected interest rate drop offsets the estimated price increase over this period.',
+                        'La baja de tasa proyectada compensa el aumento de precio estimado durante este período.',
+                        '在此期间，预期的利率下降足以抵消预估的房价上涨成本。'
+                      )}
                 </div>
               </div>
             </div>
@@ -1675,32 +1719,40 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                 <div style={{ textAlign: 'center', padding: '16px 0' }}>
                   <CheckCircle2 size={42} style={{ color: 'var(--gold)', margin: '0 auto 12px' }} />
                   <h3 style={{ fontSize: '1.3rem', fontWeight: 700, marginBottom: '8px' }}>
-                    {isEn ? 'Report Request Sent!' : 'Demande transmise !'}
+                    {tr(lang, 'Demande transmise !', 'Report Request Sent!', '¡Solicitud enviada!', '报告申请已发送！')}
                   </h3>
                   <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '18px' }}>
-                    {isEn
-                      ? 'An Himalaya broker will follow up shortly with your personalized financial analysis.'
-                      : 'Un courtier Himalaya vous transmettra votre bilan détaillé sous peu.'}
+                    {tr(
+                      lang,
+                      'Un courtier Himalaya vous transmettra votre bilan détaillé sous peu.',
+                      'An Himalaya broker will follow up shortly with your personalized financial analysis.',
+                      'Un corredor de Himalaya le enviará su análisis financiero detallado en breve.',
+                      '喜马拉雅地产经纪人将很快与您联系并发送个性化财务分析报告。'
+                    )}
                   </p>
                   <button onClick={() => setLeadModalOpen(false)} className="btn-gold" style={{ width: '100%' }}>
-                    {isEn ? 'Close' : 'Fermer'}
+                    {tr(lang, 'Fermer', 'Close', 'Cerrar', '关闭')}
                   </button>
                 </div>
               ) : (
                 <form onSubmit={handleLeadSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
                   <h3 style={{ fontSize: '1.3rem', fontWeight: 700 }}>
-                    {isEn ? 'Receive My Detailed Analysis' : 'Recevoir mon bilan chiffré'}
+                    {tr(lang, 'Recevoir mon bilan chiffré', 'Receive My Detailed Analysis', 'Recibir mi análisis detallado', '获取我的详细财务分析报告')}
                   </h3>
                   <p style={{ fontSize: '0.86rem', color: 'var(--text-secondary)' }}>
-                    {isEn
-                      ? 'Enter your contact details to receive your personalized report and validate your scenario with an Himalaya broker.'
-                      : 'Entrez vos coordonnées pour recevoir votre rapport détaillé et valider votre scénario avec un courtier Himalaya.'}
+                    {tr(
+                      lang,
+                      'Entrez vos coordonnées pour recevoir votre rapport détaillé et valider votre scénario avec un courtier Himalaya.',
+                      'Enter your contact details to receive your personalized report and validate your scenario with an Himalaya broker.',
+                      'Ingrese sus datos de contacto para recibir su informe detallado y validar su escenario con un corredor de Himalaya.',
+                      '请输入您的联系方式以接收详细分析报告，并与喜马拉雅地产经纪人核实您的投资方案。'
+                    )}
                   </p>
                   <input
                     type="text"
                     required
                     className="form-control"
-                    placeholder={isEn ? 'Full Name *' : 'Nom complet *'}
+                    placeholder={tr(lang, 'Nom complet *', 'Full Name *', 'Nombre completo *', '姓名 *')}
                     value={leadName}
                     onChange={(e) => setLeadName(e.target.value)}
                   />
@@ -1708,23 +1760,23 @@ export default function ToolsHubView({ lang = 'FR', onNavigate, preselectedDeal,
                     type="email"
                     required
                     className="form-control"
-                    placeholder={isEn ? 'Email Address *' : 'Adresse courriel *'}
+                    placeholder={tr(lang, 'Adresse courriel *', 'Email Address *', 'Correo electrónico *', '电子邮箱 *')}
                     value={leadEmail}
                     onChange={(e) => setLeadEmail(e.target.value)}
                   />
                   <input
                     type="tel"
                     className="form-control"
-                    placeholder={isEn ? 'Phone Number' : 'Numéro de téléphone'}
+                    placeholder={tr(lang, 'Numéro de téléphone', 'Phone Number', 'Número de teléfono', '联系电话')}
                     value={leadPhone}
                     onChange={(e) => setLeadPhone(e.target.value)}
                   />
                   <div style={{ display: 'flex', gap: '10px', marginTop: '6px' }}>
                     <button type="submit" className="btn-gold" style={{ flex: 1 }}>
-                      {isEn ? 'Send My Report' : 'Envoyer mon bilan'} <ArrowRight size={15} />
+                      {tr(lang, 'Envoyer mon bilan', 'Send My Report', 'Enviar mi informe', '发送我的报告')} <ArrowRight size={15} />
                     </button>
                     <button type="button" onClick={() => setLeadModalOpen(false)} className="btn-outline">
-                      {isEn ? 'Cancel' : 'Annuler'}
+                      {tr(lang, 'Annuler', 'Cancel', 'Cancelar', '取消')}
                     </button>
                   </div>
                 </form>

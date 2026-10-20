@@ -4,39 +4,40 @@ import {
   ChevronLeft, ChevronRight, Sparkles, Lock, Share2, CheckCircle2, Calculator, ArrowRight
 } from 'lucide-react';
 import { isNdaSignedForDeal } from '../utils/prospectionBridge';
+import { tr, pickLang } from '../data/translations';
 
 const FALLBACK_IMG = 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=80';
 
-const SPEC_TRANSLATIONS_EN = {
-  "No MLS": "MLS / Centris #",
-  "Région": "Region",
-  "Quartier": "Neighborhood",
-  "Pays": "Country",
-  "Superficie du terrain": "Lot Area",
-  "Superficie habitable": "Living Area",
-  "Superficie commerciale": "Commercial Area",
-  "Superficie du bâtiment": "Building Area",
-  "Dimensions du terrain": "Lot Dimensions",
-  "Dimensions du bâtiment": "Building Dimensions",
-  "Année de construction": "Year Built",
-  "Année d'évaluation": "Assessment Year",
-  "Évaluation municipale du terrain": "Municipal Land Assessment",
-  "Évaluation municipale du bâtiment": "Municipal Building Assessment",
-  "Taxes municipales": "Municipal Taxes",
-  "Taxes scolaires": "School Taxes",
-  "Nombre d'unités au total": "Total Units",
-  "Type de bâtiment": "Building Style",
-  "Nombre de chambres": "Bedrooms",
-  "Nombre de salles de bains": "Bathrooms",
-  "Nombre de salles d'eau": "Powder Rooms",
-  "Stationnement total": "Parking",
-  "Reprise de finance": "Foreclosure",
-  "Approvisionnement en eau": "Water Supply",
-  "Système d'égouts": "Sewage System",
-  "Particularités": "Features",
-  "Proximité": "Nearby",
-  "Topographie": "Topography",
-  "Zonage": "Zoning"
+const SPEC_TRANSLATIONS = {
+  "No MLS": ["No MLS", "MLS / Centris #", "N.º MLS / Centris", "MLS / Centris 编号"],
+  "Région": ["Région", "Region", "Región", "地区"],
+  "Quartier": ["Quartier", "Neighborhood", "Barrio / Sector", "街区"],
+  "Pays": ["Pays", "Country", "País", "国家"],
+  "Superficie du terrain": ["Superficie du terrain", "Lot Area", "Superficie del terreno", "土地面积"],
+  "Superficie habitable": ["Superficie habitable", "Living Area", "Superficie habitable", "居住面积"],
+  "Superficie commerciale": ["Superficie commerciale", "Commercial Area", "Superficie comercial", "商业面积"],
+  "Superficie du bâtiment": ["Superficie du bâtiment", "Building Area", "Superficie del edificio", "建筑面积"],
+  "Dimensions du terrain": ["Dimensions du terrain", "Lot Dimensions", "Dimensiones del terreno", "土地尺寸"],
+  "Dimensions du bâtiment": ["Dimensions du bâtiment", "Building Dimensions", "Dimensiones del edificio", "建筑尺寸"],
+  "Année de construction": ["Année de construction", "Year Built", "Año de construcción", "建造年份"],
+  "Année d'évaluation": ["Année d'évaluation", "Assessment Year", "Año de evaluación", "评估年份"],
+  "Évaluation municipale du terrain": ["Évaluation municipale du terrain", "Municipal Land Assessment", "Evaluación municipal del terreno", "市政土地估值"],
+  "Évaluation municipale du bâtiment": ["Évaluation municipale du bâtiment", "Municipal Building Assessment", "Evaluación municipal del edificio", "市政建筑估值"],
+  "Taxes municipales": ["Taxes municipales", "Municipal Taxes", "Impuestos municipales", "市政税"],
+  "Taxes scolaires": ["Taxes scolaires", "School Taxes", "Impuestos escolares", "学校税"],
+  "Nombre d'unités au total": ["Nombre d'unités au total", "Total Units", "Total de unidades", "总单元数"],
+  "Type de bâtiment": ["Type de bâtiment", "Building Style", "Tipo de edificio", "建筑类型"],
+  "Nombre de chambres": ["Nombre de chambres", "Bedrooms", "Dormitorios", "卧室数量"],
+  "Nombre de salles de bains": ["Nombre de salles de bains", "Bathrooms", "Baños", "浴室数量"],
+  "Nombre de salles d'eau": ["Nombre de salles d'eau", "Powder Rooms", "Aseos / Medios baños", "盥洗室数量"],
+  "Stationnement total": ["Stationnement total", "Parking", "Estacionamiento total", "总车位数"],
+  "Reprise de finance": ["Reprise de finance", "Foreclosure", "Recuperación bancaria", "银行法拍物业"],
+  "Approvisionnement en eau": ["Approvisionnement en eau", "Water Supply", "Suministro de agua", "供水系统"],
+  "Système d'égouts": ["Système d'égouts", "Sewage System", "Sistema de alcantarillado", "排污系统"],
+  "Particularités": ["Particularités", "Features", "Características especiales", "物业特色"],
+  "Proximité": ["Proximité", "Nearby", "Proximidad", "周边配套"],
+  "Topographie": ["Topographie", "Topography", "Topografía", "地形特征"],
+  "Zonage": ["Zonage", "Zoning", "Zonificación", "分区规划 (Zoning)"]
 };
 
 export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFilterByBroker, onSimulateInTools }) {
@@ -120,12 +121,16 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
     : Math.round(loanAmount / totalMonths);
 
   const ndaUnlocked = isNdaSignedForDeal(deal.mls_number);
-  const isEn = Boolean(t?.code && t.code !== 'FR');
-  const displayCategory = isEn ? (deal.category_en || deal.category || 'Real Estate') : (deal.category || deal.transaction_type || 'Immobilier');
-  const displayTitle = isEn ? (deal.title_en || deal.title) : deal.title;
-  const displayPrice = isEn ? (deal.price_raw_en || deal.price_raw) : deal.price_raw;
-  const displayDesc = isEn ? (deal.description_en || deal.description) : deal.description;
-  const displayUrl = isEn ? (deal.url_en || deal.url) : deal.url;
+  const lang = t?.code || 'FR';
+  const displayCategory = pickLang(deal, 'category', lang) || tr(lang, 'Immobilier', 'Real Estate', 'Inmobiliaria', '房地产');
+  const displayTitle = pickLang(deal, 'title', lang);
+  const displayPrice = pickLang(deal, 'price_raw', lang);
+  const displayDesc = pickLang(deal, 'description', lang);
+  const displayUrl = pickLang(deal, 'url', lang) || deal.url;
+  const displayTransactionType =
+    deal.transaction_type === 'Location'
+      ? tr(lang, 'À louer', 'For Rent', 'En alquiler', '出租')
+      : tr(lang, 'À vendre', 'For Sale', 'En venta', '出售');
 
   return (
     <div className="modal-backdrop" onClick={onClose}>
@@ -147,7 +152,7 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
             <span className="badge-gold">
-              {displayCategory}
+              {displayCategory} • {displayTransactionType}
             </span>
             {isSold && (
               <span style={{
@@ -160,7 +165,7 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
                 letterSpacing: '0.08em',
                 textTransform: 'uppercase'
               }}>
-                {isEn ? 'SOLD / REALIZED' : 'VENDU / RÉALISÉ'}
+                {tr(lang, 'VENDU / RÉALISÉ', 'SOLD / REALIZED', 'VENDIDO / REALIZADO', '已售 / 已成交')}
               </span>
             )}
             <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
@@ -171,16 +176,18 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
             <button onClick={handleShare} className="btn-outline" style={{ padding: '6px 12px', fontSize: '0.78rem' }}>
               <Share2 size={13} />
-              {copied ? (isEn ? 'Direct link copied!' : 'Lien direct copié !') : (isEn ? 'Copy direct link' : 'Copier le lien')}
+              {copied
+                ? tr(lang, 'Lien direct copié !', 'Direct link copied!', '¡Enlace directo copiado!', '直达链接已复制！')
+                : tr(lang, 'Copier le lien', 'Copy direct link', 'Copiar enlace', '复制链接')}
             </button>
             {deal.pdf_url && (
               <a href={deal.pdf_url} target="_blank" rel="noreferrer" className="btn-outline" style={{ padding: '6px 12px', fontSize: '0.78rem' }}>
-                <FileText size={13} /> {isEn ? 'Printable Sheet' : 'Fiche imprimable'}
+                <FileText size={13} /> {tr(lang, 'Fiche imprimable', 'Printable Sheet', 'Ficha imprimible', '可打印宣传单')}
               </a>
             )}
             {displayUrl && (
               <a href={displayUrl} target="_blank" rel="noreferrer" className="btn-outline" style={{ padding: '6px 12px', fontSize: '0.78rem' }}>
-                <ExternalLink size={13} /> {t?.modal?.originalListing || 'Source'}
+                <ExternalLink size={13} /> {t?.modal?.originalListing || tr(lang, 'Fiche officielle', 'Original Listing', 'Ficha oficial', '官方房源页')}
               </a>
             )}
             <button 
@@ -224,7 +231,7 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
             />
             <button
               onClick={() => setLightboxOpen(true)}
-              title={isEn ? 'View Fullscreen' : 'Plein écran'}
+              title={tr(lang, 'Plein écran', 'View Fullscreen', 'Pantalla completa', '全屏查看')}
               style={{
                 position: 'absolute', top: '12px', right: '14px',
                 background: 'rgba(9,9,11,0.82)', border: '1px solid var(--border-subtle)',
@@ -232,7 +239,7 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
                 display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.74rem', cursor: 'pointer'
               }}
             >
-              <Maximize2 size={13} /> {isEn ? 'Fullscreen' : 'Agrandir'}
+              <Maximize2 size={13} /> {tr(lang, 'Agrandir', 'Fullscreen', 'Ampliar', '全屏放大')}
             </button>
             {photos.length > 1 && (
               <>
@@ -263,7 +270,7 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
                   background: 'rgba(9,9,11,0.85)', padding: '4px 11px',
                   borderRadius: '999px', fontSize: '0.75rem', border: '1px solid var(--border-subtle)'
                 }}>
-                  {photoIdx + 1} / {photos.length} {isEn ? 'photos' : 'photos'}
+                  {photoIdx + 1} / {photos.length} {tr(lang, 'photos', 'photos', 'fotos', '张照片')}
                 </div>
               </>
             )}
@@ -334,17 +341,17 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
                     style={{ fontSize: '0.76rem' }}
                   >
                     <Calculator size={14} color="var(--gold)" />
-                    {isEn ? 'Analyze in Financial Tools' : 'Analyser dans nos Outils financiers'}
+                    {tr(lang, 'Analyser dans nos Outils financiers', 'Analyze in Financial Tools', 'Analizar en Herramientas financieras', '在金融工具中模拟分析')}
                     <ArrowRight size={13} />
                   </button>
                 )}
               </div>
 
               <div className="badge-gold" style={{ marginBottom: '8px' }}>
-                {t?.modal?.description || 'Description détaillée'}
+                {t?.modal?.description || tr(lang, 'Description détaillée', 'Detailed Description', 'Descripción detallada', '详细说明')}
               </div>
               <p style={{ color: 'var(--text-secondary)', fontSize: '0.92rem', lineHeight: 1.75, marginBottom: '26px', whiteSpace: 'pre-line' }}>
-                {displayDesc || t?.modal?.defaultDesc || 'Description détaillée disponible auprès du courtier inscripteur.'}
+                {displayDesc || t?.modal?.defaultDesc || tr(lang, 'Description détaillée disponible auprès du courtier inscripteur.', 'Full details available from the listing broker.', 'Descripción detallada disponible con el corredor responsable.', '详细资料可向负责经纪人索取。')}
               </p>
 
               {(deal.inclusions || deal.exclusions) && (
@@ -361,7 +368,7 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
                   {deal.inclusions && (
                     <div>
                       <div className="badge-gold" style={{ marginBottom: '4px' }}>
-                        {isEn ? 'Inclusions' : 'Inclusions'}
+                        {tr(lang, 'Inclusions', 'Inclusions', 'Inclusiones', '包含项目')}
                       </div>
                       <div style={{ fontSize: '0.84rem', color: 'var(--text-secondary)', lineHeight: 1.55 }}>{deal.inclusions}</div>
                     </div>
@@ -369,7 +376,7 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
                   {deal.exclusions && (
                     <div>
                       <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700, letterSpacing: '0.08em', marginBottom: '4px' }}>
-                        {isEn ? 'Exclusions' : 'Exclusions'}
+                        {tr(lang, 'Exclusions', 'Exclusions', 'Exclusiones', '不包含项目')}
                       </div>
                       <div style={{ fontSize: '0.84rem', color: 'var(--text-secondary)', lineHeight: 1.55 }}>{deal.exclusions}</div>
                     </div>
@@ -380,7 +387,7 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
               {cleanSpecs.length > 0 && (
                 <div>
                   <div className="badge-gold" style={{ marginBottom: '12px' }}>
-                    {isEn ? 'Technical Specifications & Taxes' : (t?.modal?.specs || 'Caractéristiques techniques & Taxes')}
+                    {t?.modal?.specs || tr(lang, 'Caractéristiques techniques & Taxes', 'Technical Specifications & Taxes', 'Especificaciones técnicas e impuestos', '技术参数与税费')}
                   </div>
                   {/* Tableau architectural à filets fins (#1) */}
                   <div style={{
@@ -390,7 +397,10 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
                     borderTop: '1px solid var(--border-subtle)'
                   }}>
                     {cleanSpecs.map(([label, val], i) => {
-                      const displayLabel = isEn ? (SPEC_TRANSLATIONS_EN[label] || label) : label;
+                      const specTuple = SPEC_TRANSLATIONS[label];
+                      const displayLabel = specTuple
+                        ? tr(lang, specTuple[0], specTuple[1], specTuple[2], specTuple[3])
+                        : label;
                       return (
                         <div key={i} style={{
                           display: 'flex',
@@ -420,7 +430,7 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
             }}>
               <div style={{ paddingBottom: '22px', borderBottom: '1px solid var(--border-subtle)' }}>
                 <div className="badge-gold" style={{ marginBottom: '12px' }}>
-                  {t?.modal?.listingBroker || 'Courtier inscripteur'}
+                  {t?.modal?.listingBroker || tr(lang, 'Courtier inscripteur', 'Listing Broker', 'Corredor responsable', '负责经纪人')}
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '16px' }}>
                   <img 
@@ -440,7 +450,7 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
                     <Phone size={14} /> {broker.phone}
                   </a>
                   <a
-                    href={`mailto:${broker.email}?subject=MLS ${deal.mls_number} - ${deal.title}`}
+                    href={`mailto:${broker.email}?subject=MLS ${deal.mls_number} - ${displayTitle}`}
                     className="btn-outline"
                     style={{ padding: '9px 12px', fontSize: '0.82rem' }}
                     title={broker.email}
@@ -459,7 +469,9 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
                     className="btn-outline"
                     style={{ padding: '9px 12px', fontSize: '0.76rem' }}
                   >
-                    {emailCopied ? (isEn ? 'Email copied!' : 'Courriel copié !') : (isEn ? 'Copy Email' : 'Copier courriel')}
+                    {emailCopied
+                      ? tr(lang, 'Courriel copié !', 'Email copied!', '¡Correo copiado!', '邮箱已复制！')
+                      : tr(lang, 'Copier courriel', 'Copy Email', 'Copiar correo', '复制邮箱')}
                   </button>
                 </div>
 
@@ -469,7 +481,7 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
                     className="editorial-link"
                     style={{ fontSize: '0.73rem', marginTop: '4px' }}
                   >
-                    {t?.modal?.seeBrokerMandates || 'Voir tous les mandats de'} {broker.name} <ArrowRight size={13} />
+                    {t?.modal?.seeBrokerMandates || tr(lang, 'Voir tous les mandats de', 'See all listings by', 'Ver todas las propiedades de', '查看该经纪人的全部房源：')} {broker.name} <ArrowRight size={13} />
                   </button>
                 )}
               </div>
@@ -477,17 +489,17 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
               {/* Salle de données NDA épurée */}
               <div style={{ paddingBottom: '22px', borderBottom: '1px solid var(--border-subtle)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '7px', color: 'var(--gold-light)', fontWeight: 700, fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '6px' }}>
-                  <Sparkles size={14} /> {t?.modal?.dataRoomTitle || 'SALLE DE DONNÉES CONFIDENTIELLE'}
+                  <Sparkles size={14} /> {t?.modal?.dataRoomTitle || tr(lang, 'SALLE DE DONNÉES CONFIDENTIELLE', 'CONFIDENTIAL DATA ROOM', 'SALA DE DATOS CONFIDENCIAL', '机密数据室 (NDA)')}
                 </div>
                 <p style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', marginBottom: '14px', lineHeight: 1.55 }}>
-                  {t?.modal?.dataRoomDesc || 'Accès aux états financiers après signature de l’entente de confidentialité (NDA).'}
+                  {t?.modal?.dataRoomDesc || tr(lang, 'Accès aux états financiers après signature de l’entente de confidentialité (NDA).', 'Access financial statements upon signing the Non-Disclosure Agreement (NDA).', 'Acceso a los estados financieros tras firmar el acuerdo de confidencialidad (NDA).', '签署保密协议 (NDA) 后即可查阅财务报表与机密运营数据。')}
                 </p>
                 {ndaUnlocked ? (
                   <div style={{
                     display: 'flex', alignItems: 'center', gap: '8px',
                     color: '#e3c485', fontSize: '0.82rem', fontWeight: 600
                   }}>
-                    <CheckCircle2 size={15} /> {t?.modal?.ndaUnlocked || 'NDA signé — Dossier demandé'}
+                    <CheckCircle2 size={15} /> {t?.modal?.ndaUnlocked || tr(lang, 'NDA signé — Dossier demandé', 'NDA Signed — File Requested', 'NDA firmado — Expediente solicitado', '已签署 NDA — 资料已申请')}
                   </div>
                 ) : (
                   <button 
@@ -495,7 +507,7 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
                     className="btn-gold" 
                     style={{ width: '100%' }}
                   >
-                    <Lock size={14} /> {t?.modal?.signNdaBtn || 'Signer le NDA (États financiers)'}
+                    <Lock size={14} /> {t?.modal?.signNdaBtn || tr(lang, 'Signer le NDA (États financiers)', 'Sign NDA (Financial Statements)', 'Firmar NDA (Estados financieros)', '签署保密协议 (获取财务报表)')}
                   </button>
                 )}
               </div>
@@ -504,13 +516,13 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
               {showCalculator && (
                 <div>
                   <div className="badge-gold" style={{ marginBottom: '12px' }}>
-                    <Calculator size={13} color="var(--gold)" /> {t?.modal?.calcTitle || 'Simulateur de financement'}
+                    <Calculator size={13} color="var(--gold)" /> {t?.modal?.calcTitle || tr(lang, 'Simulateur de financement', 'Financing Calculator', 'Simulador de financiamiento', '融资按揭模拟器')}
                   </div>
 
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '14px' }}>
                     <div>
                       <label style={{ display: 'block', fontSize: '0.72rem', color: 'var(--text-muted)', marginBottom: '4px' }}>
-                        {t?.modal?.downPayment || 'Mise de fonds'} ({downPaymentPct}%)
+                        {t?.modal?.downPayment || tr(lang, 'Mise de fonds', 'Down Payment', 'Pago inicial', '首付比例')} ({downPaymentPct}%)
                       </label>
                       <select
                         className="form-control"
@@ -526,7 +538,7 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
                     </div>
                     <div>
                       <label style={{ display: 'block', fontSize: '0.72rem', color: 'var(--text-muted)', marginBottom: '4px' }}>
-                        {t?.modal?.interestRate || 'Taux annuel'}
+                        {t?.modal?.interestRate || tr(lang, 'Taux annuel', 'Annual Rate', 'Tasa anual', '年利率')}
                       </label>
                       <select
                         className="form-control"
@@ -546,9 +558,9 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
                     display: 'flex', justifyContent: 'space-between', alignItems: 'baseline',
                     paddingTop: '10px', paddingBottom: '14px', borderTop: '1px solid rgba(255,255,255,0.06)', fontSize: '0.82rem'
                   }}>
-                    <span style={{ color: 'var(--text-secondary)' }}>{t?.modal?.monthlyEst || 'Versement mensuel (25 ans)'}</span>
+                    <span style={{ color: 'var(--text-secondary)' }}>{t?.modal?.monthlyEst || tr(lang, 'Versement mensuel (25 ans)', 'Monthly Payment (25 yrs)', 'Pago mensual (25 años)', '预估月供 (25年摊销)')}</span>
                     <strong className="serif-title" style={{ color: 'var(--gold-light)', fontSize: '1.35rem' }}>
-                      {monthlyPayment.toLocaleString('fr-CA')} $ / {isEn ? 'mo' : 'mois'}
+                      {monthlyPayment.toLocaleString('fr-CA')} $ / {tr(lang, 'mois', 'mo', 'mes', '月')}
                     </strong>
                   </div>
 
@@ -567,7 +579,7 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
                       }}
                     >
                       <Calculator size={13} />
-                      {isEn ? 'Simulate Full Return & Welcome Tax →' : 'Simuler rentabilité & taxe de bienvenue →'}
+                      {tr(lang, 'Simuler rentabilité & taxe de bienvenue →', 'Simulate Full Return & Welcome Tax →', 'Simular rentabilidad e impuesto de transferencia →', '模拟投资回报率与欢迎税 →')}
                     </button>
                   )}
 
@@ -586,7 +598,7 @@ export default function PropertyDetailModal({ deal, t, onClose, onOpenNDA, onFil
                       textDecoration: 'none'
                     }}
                   >
-                    <span>{t?.modal?.multiPretsLink || 'Préqualification Multi-Prêts →'}</span>
+                    <span>{t?.modal?.multiPretsLink || tr(lang, 'Préqualification Multi-Prêts →', 'Multi-Prêts Pre-Qualification →', 'Precalificación Multi-Prêts →', 'Multi-Prêts 按揭预审 →')}</span>
                     <img
                       src="https://www.himalayacorp.com/gx/m/Multi_Prets.png"
                       alt="Multi-Prêts Hypothèques"

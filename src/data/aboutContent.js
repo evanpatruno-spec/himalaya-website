@@ -815,7 +815,6 @@ export const ABOUT_CONTENT = {
 };
 
 ABOUT_CONTENT.ES = {
-  ...ABOUT_CONTENT.EN,
   pageTitle: 'Nosotros',
   pageSubtitle: 'Desde 2008, Immobilier Himalaya Real Estate Corp. acompaña a sus clientes en Quebec, Canadá y a nivel internacional.',
   tabs: [
@@ -830,56 +829,813 @@ ABOUT_CONTENT.ES = {
   whoWeAre: {
     heading: 'Quiénes somos',
     intro:
-      'Desde su fundación en 2008, la agencia inmobiliaria Himalaya se ha consolidado como líder en bienes raíces en Quebec, en Canadá y en todo el mundo. Nuestros clientes nos eligen por nuestra red internacional de contactos, nuestro profundo conocimiento de las transacciones inmobiliarias, nuestra integridad y nuestro servicio personalizado en los sectores comercial, residencial, turístico e industrial.',
+      'Desde su fundación en 2008, la agencia inmobiliaria Himalaya se ha consolidado como líder en bienes raíces en Quebec, en Canadá y en todo el mundo. Nuestros clientes, provenientes de diversos sectores, nos eligen por nuestra red internacional de contactos, nuestro profundo conocimiento de las transacciones inmobiliarias, nuestra integridad y nuestro destacado servicio al cliente. Cada miembro de nuestro equipo se compromete a atender adecuadamente a nuestros clientes, ofreciendo una amplia selección de propiedades de calidad en venta o alquiler en los sectores comercial, residencial e industrial.',
     profileTitle: 'NUESTRO PERFIL',
     profileParagraphs: [
-      'Immobilier Himalaya Real Estate Corp. es una agencia inmobiliaria internacional especializada en el corretaje inmobiliario comercial, industrial, turístico y de inversión residencial. Su sede central está ubicada en Montreal, Quebec (Canadá).',
-      'Reunimos a un equipo multicultural de corredores inmobiliarios profesionales e íntegros que trabajan incansablemente para satisfacer las necesidades de nuestros clientes de manera óptima.',
-      'Elegimos a nuestros corredores no solo por su competencia y experiencia, sino también por su sentido ético, integridad y compromiso con nuestros clientes.',
-      'Mantenemos sólidas relaciones de trabajo con usuarios y gestores de espacios comerciales, promotores inmobiliarios, franquiciadores e instituciones financieras.'
+      'Immobilier Himalaya Real Estate Corp. es una agencia inmobiliaria internacional especializada en el corretaje inmobiliario comercial, industrial y de inversión residencial. Su sede central está ubicada en Quebec (Canadá).',
+      'Reunimos a un equipo multicultural de corredores inmobiliarios profesionales e íntegros que trabajan incansablemente para satisfacer las necesidades de nuestros clientes de manera óptima. Nuestros corredores eligen Himalaya porque desean alcanzar nuevos niveles de excelencia y formar parte de un equipo comprometido y de alto rendimiento.',
+      'No solo seleccionamos a nuestros corredores por su competencia y experiencia, sino también por su sentido ético, su integridad y su constante búsqueda de mejores soluciones para nuestros clientes.',
+      'Para nosotros es esencial crear y mantener vínculos duraderos con los distintos actores de nuestra industria. Mantenemos excelentes relaciones de trabajo con usuarios y gestores de espacios comerciales, promotores inmobiliarios, agencias de corretaje, firmas de administración inmobiliaria e instituciones financieras.'
     ],
     missionTitle: 'NUESTRA MISIÓN',
     missionText:
-      'Favorecer la conclusión de transacciones justas y honestas, cultivar relaciones profesionales a largo plazo y ofrecer una red inmobiliaria local e internacional.',
+      'Favorecer la conclusión de transacciones justas y honestas, cultivar relaciones profesionales a largo plazo, ser el recurso inmobiliario local para todas las necesidades de nuestra clientela y ofrecer una red internacional.',
     valuesTitle: 'NUESTROS VALORES',
     valuesList: ['Colaboración', 'Comunicación', 'Escucha', 'Respeto', 'Ética'],
     valuesText:
-      'La colaboración, la comunicación, la escucha activa, el respeto y la ética son los valores fundamentales de Immobilier Himalaya en todas nuestras transacciones.',
+      'La colaboración, la comunicación, la escucha activa, el respeto y la ética son valores fundamentales en Immobilier Himalaya en todas nuestras transacciones inmobiliarias.',
     contactCta: 'Contáctenos: ¡será un placer conversar con usted sobre su proyecto inmobiliario!'
+  },
+  coFounders: {
+    heading: 'Una agencia inmobiliaria dirigida por profesionales apasionados',
+    intro:
+      'Immobilier Himalaya fue fundada por dos colaboradores de larga trayectoria que comparten, desde su primer encuentro en 1998, los mismos valores de respeto, integridad, comunicación y excelencia. Para Geniev Mondoux y Roger Rhéaume, un proceso inmobiliario no es simplemente una transacción: es una oportunidad para crear lazos, unir a las personas y ofrecer a sus clientes la posibilidad de hacer realidad los proyectos que más les importan.',
+    videoTitle: 'Presentación en video — Immobilier Himalaya',
+    videoUrl: 'https://www.youtube.com/embed/IFmG6c3ywJY',
+    founders: [
+      {
+        id: 'geniev-mondoux',
+        name: 'Geniev Mondoux',
+        role: 'Vicepresidente — Corredor inmobiliario certificado',
+        credentials: 'CPA, MBA • Cofundador y Director de agencia',
+        portrait: 'https://www.himalayacorp.com/DATA/COURTIERINFOSUP/11_courtierGrand.JPG',
+        photos: [
+          'https://www.himalayacorp.com/data/CMSIMAGE//721.jpg',
+          'https://www.himalayacorp.com/data/CMSIMAGE//722.jpg'
+        ],
+        paragraphs: [
+          'Hombre de familia que sitúa la integridad y el respeto por encima de todo, Geniev Mondoux es Contador Profesional Certificado (CPA), posee una Maestría en Administración de Empresas (MBA), y es emprendedor y creador de oportunidades. Su vocación por el trato humano y las relaciones duraderas lo llevó a iniciar su carrera inmobiliaria en 2008. Apasionado por su profesión y motivado cada día por los vínculos que construye, Geniev dedica todo su esfuerzo a brindar un servicio impecable a sus clientes. Su mayor fortaleza es innovar y encontrar soluciones concretas para llevar a buen término cualquier transacción inmobiliaria. Su gran capacidad de escucha, cercanía y cordialidad, combinadas con su competencia y amplia experiencia, lo convierten en un socio muy solicitado en numerosos proyectos inmobiliarios.',
+          'Cofundador de Himalaya junto a su socio de larga data, Roger Rhéaume, y director ejecutivo de la agencia dentro del grupo, Geniev supera con éxito los desafíos más complejos y logra siempre encontrar soluciones concretas y obtener resultados óptimos.',
+          'Impulsado por sólidos valores familiares y comprometido con mantener el respeto y la integridad en todas las esferas de su vida, Geniev es una persona cálida y cercana que siempre genera un ambiente de confianza entre clientes y colegas.'
+        ]
+      },
+      {
+        id: 'roger-rheaume',
+        name: 'Roger Rhéaume',
+        role: 'Presidente — Corredor inmobiliario certificado, DA',
+        credentials: 'Cofundador • Miembro del Consejo de Administración de la OACIQ',
+        portrait: 'https://www.himalayacorp.com/DATA/COURTIERINFOSUP/99_courtierGrand.jpg',
+        photos: [
+          'https://www.himalayacorp.com/data/CMSIMAGE//200.jpg',
+          'https://www.himalayacorp.com/data/CMSIMAGE//201.jpg',
+          'https://www.himalayacorp.com/data/CMSIMAGE//202.jpg'
+        ],
+        sections: [
+          {
+            subtitle: 'Una vida apasionante — « ¡Solo vivimos una vez en la tierra y quiero aprovecharla al máximo! »',
+            paragraphs: [
+              'Comencé a hacer senderismo de montaña y a visitar numerosos países desde los 18 años. Para mí, la montaña representa la aventura, el silencio y una fuente de energía y respeto. Escalé hasta los 5 785 metros de altitud para contemplar el monte Everest, situado en la cordillera más hermosa del mundo: el Himalaya. ¡Qué gran regalo pude hacerme para mis 50 años!',
+              'Ya sea en las montañas de Europa, Asia, África o América, las he recorrido todas y he conocido a las personas que allí habitan. Para mí, el mundo es infinito y hermoso. Desde hace más de 50 años viajo para admirar nuestro planeta, conocer a sus pueblos, sus vidas y sus costumbres. La mayor riqueza que poseo es el amor y la amistad.'
+            ]
+          },
+          {
+            subtitle: 'La pasión por el sector inmobiliario',
+            paragraphs: [
+              'Mi experiencia previa en el ámbito del comercio y los servicios me llevó a desarrollarme en el corretaje inmobiliario comercial. Adquirí más de 20 años de experiencia antes de fundar, junto a mi socio, nuestra firma de corretaje: Immobilier Himalaya Real Estate Corp. El sector inmobiliario es una verdadera pasión para mí. Actualmente formo parte del Consejo de Administración de la OACIQ, integré durante más de 5 años el Consejo del Collège Immobilier du Québec y fui Presidente del Comité Comercial de la CIGM durante más de 6 años. En 2022 abrí una oficina de corretaje inmobiliario en México junto a mi socio Fabien Herman para ayudar a inversionistas quebequenses y franceses a adquirir propiedades, además de establecer relaciones comerciales con corredores en la República Dominicana.',
+              'Mi pasión me ha llevado a impartir formaciones y conferencias a corredores para que todos estén mejor informados. Como gran viajero, he combinado mi trabajo con los viajes internacionales, teniendo presencia activa en varios países como corredor inmobiliario para captaciones y proyectos de desarrollo inmobiliario.'
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  services: {
+    heading: 'Servicios inmobiliarios que destacan por su excelencia',
+    intro1:
+      'Immobilier Himalaya es el socio de elección para cualquier transacción inmobiliaria. Nuestra presencia en varios países, así como nuestra experiencia y saber hacer, nos permiten guiar profesionalmente a nuestros clientes en sus proyectos inmobiliarios y actuar como asesores de confianza en los sectores comercial, residencial e industrial.',
+    intro2:
+      'Nuestro equipo le ofrece una gama completa de servicios de corretaje inmobiliario. Nuestro amplio conocimiento del mercado y nuestra experiencia juegan a su favor para lograr resultados óptimos a la altura de sus expectativas. Recurra a los corredores inmobiliarios de Himalaya para los siguientes servicios:',
+    brokerageTitle: 'Venta, alquiler y búsqueda de propiedades comerciales e industriales',
+    brokerageItems: [
+      'Oficinas y locales comerciales',
+      'Edificios comerciales y de renta',
+      'Propiedades multifamiliares',
+      'Empresas y fondos de comercio',
+      'Cotos de caza y pesca (pourvoiries) y campings',
+      'Hotelería y complejos turísticos',
+      'Terrenos para desarrollo',
+      'Franquicias y licencias',
+      'Venta y búsqueda de inversiones residenciales',
+      'Desarrollo de proyectos comerciales e industriales'
+    ],
+    consultingTitle: 'Consultoría inmobiliaria',
+    advisoryTitle: 'Consultoría inmobiliaria',
+    consultingItems: [
+      'Análisis e identificación de necesidades',
+      'Análisis de mercado y sector',
+      'Evaluación de oportunidades y amenazas',
+      'Análisis y recomendación de alternativas',
+      'Análisis y recomendación de servicios profesionales complementarios',
+      'Renovación de contratos de arrendamiento comerciales e industriales',
+      'Proyectos de comercialización de condominios',
+      'Vinculación y contacto con nuestra red internacional'
+    ],
+    advisoryItems: [
+      'Análisis e identificación de necesidades',
+      'Análisis de mercado y sector',
+      'Evaluación de oportunidades y amenazas',
+      'Análisis y recomendación de alternativas',
+      'Análisis y recomendación de servicios profesionales complementarios',
+      'Renovación de contratos de arrendamiento comerciales e industriales',
+      'Proyectos de comercialización de condominios',
+      'Vinculación y contacto con nuestra red internacional'
+    ],
+    internationalTitle: 'Corretaje inmobiliario internacional',
+    internationalText:
+      'Para servir mejor a nuestra clientela, hemos desarrollado sólidas relaciones comerciales a nivel internacional y conocemos en profundidad el mercado inmobiliario de numerosos países. Nuestra confiable red de contactos nos permite guiarle hacia las mejores oportunidades inmobiliarias. Para obtener más información, contáctenos: ¡estaremos encantados de reunirnos con usted para conversar sobre su proyecto y sus aspiraciones!',
+    associationsTitle: 'Asociaciones de las que somos miembros',
+    associationsText:
+      'Immobilier Himalaya es miembro del Consejo Quebequense de la Franquicia (Conseil québécois de la franchise — CQF) y de la Federación de Cotos de Caza y Pesca de Quebec (Fédération des pourvoiries du Québec — FPQ). Esto nos permite ofrecer un servicio óptimo a nuestros clientes que buscan oportunidades de venta, compra o alquiler en el sector comercial, especialmente en cotos turísticos, campings y restauración.',
+    associationsIntro:
+      'Immobilier Himalaya es miembro del Consejo Quebequense de la Franquicia (CQF) y de la Federación de Cotos de Caza y Pesca de Quebec (FPQ).',
+    associationsBadges: [
+      { code: 'OACIQ', name: 'Organismo de Autorregulación del Corretaje Inmobiliario de Quebec (OACIQ)' },
+      { code: 'FPQ', name: 'Federación de Cotos de Caza y Pesca de Quebec (FPQ)' },
+      { code: 'CQF', name: 'Consejo Quebequense de la Franquicia (CQF)' }
+    ],
+    associations: [
+      { code: 'OACIQ', name: 'Organismo de Autorregulación del Corretaje Inmobiliario de Quebec (OACIQ)' },
+      { code: 'FPQ', name: 'Federación de Cotos de Caza y Pesca de Quebec (FPQ)' },
+      { code: 'CQF', name: 'Consejo Quebequense de la Franquicia (CQF)' }
+    ]
+  },
+  careers: {
+    brokerHeading: 'Conviértase en corredor inmobiliario en Himalaya',
+    brokerParagraphs: [
+      'Desde su fundación en 2008, Immobilier Himalaya Real Estate Corp. se ha convertido en sinónimo de profundo conocimiento del sector inmobiliario comercial, industrial y residencial. Es reconocida por su honestidad, su integridad y su excepcional servicio al cliente, cualidades que fomentan la colaboración, el respeto y el éxito en las transacciones.',
+      'Al unirse a nuestra agencia como corredor inmobiliario, se beneficiará de los privilegios y la red de contactos que hemos construido a lo largo de los años. También aprovechará nuestras herramientas y formará parte integral de un equipo colaborativo que se apoya mutuamente. Gracias a Immobilier Himalaya Real Estate Corp., destacará a escala nacional e internacional.',
+      'Tanto si es un corredor inmobiliario con experiencia como si desea perfeccionarse en este sector de la industria inmobiliaria, Immobilier Himalaya Real Estate Corp. estará encantada de darle la bienvenida a su equipo.'
+    ],
+    brokerBenefitsTitle: 'Ventajas ofrecidas a los corredores de Himalaya',
+    brokerBenefits: [
+      'Formación, reuniones y seminarios mensuales',
+      'Estructura de costos reducida y ventajosa',
+      'Equipo íntegro y profesional',
+      'Red y oportunidades de desarrollo internacional',
+      'Sitio web multicultural y multilingüe',
+      'Socios multidisciplinarios (abogados, notarios, tasadores, expertos ambientales)',
+      'Imagen prestigiosa y dirección en el centro de Montreal (2000 av. McGill College)',
+      'Acceso en línea a una oficina virtual (correo electrónico, documentos, red de contactos, etc.)'
+    ],
+    affiliateHeading: 'Conviértase en afiliado de una agencia inmobiliaria de primer nivel',
+    affiliateParagraphs: [
+      'Immobilier Himalaya Real Estate Corp. goza de una envidiable reputación de excelencia inmobiliaria en Canadá y a nivel internacional. Nuestro servicio inigualable, sentido ético y profesionalismo nos convierten en el socio ideal para sus negocios.',
+      'Al convertirse en agencia afiliada, se beneficiará de las ventajas de nuestras redes nacional e internacional, así como de los privilegios adquiridos durante años de trabajo riguroso, íntegro y dedicado. La colaboración y el apoyo mutuo están en el corazón de nuestra filosofía empresarial y todas nuestras agencias afiliadas reciben un respaldo óptimo.',
+      'Immobilier Himalaya desea asociarse con agencias inmobiliarias profesionales de diferentes países y culturas para continuar su expansión internacional.'
+    ],
+    affiliateBenefitsTitle: 'Ventajas para las agencias afiliadas',
+    affiliateBenefits: [
+      'Red internacional consolidada',
+      'Visibilidad internacional multilingüe',
+      'Estructura de costos optimizada',
+      'Equipo íntegro y profesional',
+      'Imagen prestigiosa y sede en el centro de Montreal',
+      'Acceso en línea a una oficina virtual (correo electrónico, documentos, red de contactos, etc.)'
+    ],
+    contactNote: 'Comuníquese con Geniev Mondoux o Roger Rhéaume para obtener más información.',
+    applyBtn: 'Contactar a la dirección (Geniev Mondoux y Roger Rhéaume)'
+  },
+  faq: {
+    heading: 'Preguntas frecuentes — Bienes raíces comerciales e industriales',
+    subtitle: 'Respuestas a las 12 preguntas clave sobre arrendamientos comerciales, espacios industriales y corretaje especializado en Quebec.',
+    items: [
+      {
+        q: '1. ¿Qué es el alquiler base (renta base)?',
+        a: 'El alquiler base es la porción de la renta que se paga en función del número de pies cuadrados utilizados y/o el espacio arrendado incluyendo las áreas comunes, lo cual corresponde al valor inmobiliario del local.'
+      },
+      {
+        q: '2. ¿Qué es el alquiler adicional (renta adicional)?',
+        a: 'El alquiler adicional representa los gastos de operación y administración del local y del edificio (electricidad, impuestos municipales, mantenimiento, seguros, etc.), calculados también en función de los pies cuadrados utilizados y las áreas comunes.'
+      },
+      {
+        q: '3. ¿Se puede negociar el alquiler comercial?',
+        a: 'Todo es negociable: tanto el alquiler base como el alquiler adicional, así como el período de instalación y las mejoras locativas.'
+      },
+      {
+        q: '4. ¿Conviene negociar un contrato de arrendamiento a corto o a largo plazo?',
+        a: 'Para una empresa en fase de arranque, la duración del contrato debe ser lo más corta posible a fin de minimizar sus compromisos si el proyecto no resulta como se esperaba, especialmente si usted avala personalmente el contrato. Un arrendamiento de cinco años o más es ventajoso para empresas consolidadas porque permite obtener mejores precios y condiciones.'
+      },
+      {
+        q: '5. ¿Existen otros métodos para evaluar la duración de un contrato de arrendamiento?',
+        a: 'Según la inversión monetaria que el nuevo inquilino deba realizar en mejoras locativas y el número de años durante los cuales se amortizarán dichas mejoras, se puede determinar el número mínimo de años necesario para alcanzar la rentabilidad.'
+      },
+      {
+        q: '6. ¿Qué significa el período de «instalación»?',
+        a: 'La instalación es un período que se concede para que el inquilino instale todo su equipamiento a fin de poner en marcha su negocio. Por lo general, el arrendador otorga un período libre de renta (varias semanas o meses) según el tipo de comercio. El inquilino debe contar con un seguro desde el inicio de la instalación para protegerse en caso de siniestro o accidente.'
+      },
+      {
+        q: '7. ¿El derecho de permanencia en el local es automático?',
+        a: 'A diferencia del alquiler residencial, la renovación de un contrato de arrendamiento comercial se negocia desde el principio. Contar con una o varias opciones de renovación es fundamental para el inquilino, tanto para la continuidad de su negocio como para la futura venta de su empresa.'
+      },
+      {
+        q: '8. ¿Por qué incluir una opción de renovación?',
+        a: 'Las opciones de renovación son importantes porque el acondicionamiento de un local comercial es costoso y su ubicación es estratégica. También debemos tener en cuenta la posible venta futura de la empresa en función de su mercado y sus competidores.'
+      },
+      {
+        q: '9. ¿La opción de renovación es una obligación?',
+        a: 'No, una opción de renovación es un derecho negociado previamente, no una obligación. El contrato de arrendamiento especifica cuántos meses antes del vencimiento del plazo el inquilino puede ejercer su opción o rechazarla y retirarse.'
+      },
+      {
+        q: '10. ¿Mi corredor inmobiliario puede negociar mi contrato de arrendamiento?',
+        a: 'Los servicios de un buen corredor inmobiliario comercial son sumamente útiles para su empresa. Es importante asegurarse de que posea experiencia y conocimientos en arrendamientos comerciales, ya que un contrato comercial compromete al arrendador y al inquilino durante un largo período de tiempo.'
+      },
+      {
+        q: '11. ¿Cuántos corredores son profesionales del sector inmobiliario comercial e industrial?',
+        a: 'De los aproximadamente 17 000 corredores inmobiliarios en Quebec, menos del 6 % son especialistas en el sector comercial e industrial. Este ámbito difiere considerablemente del residencial: no se trata de responder a necesidades personales, sino a exigencias empresariales complejas.'
+      },
+      {
+        q: '12. ¿Los contratos comerciales e industriales son iguales a los contratos residenciales?',
+        a: 'Para concretar la venta de un edificio industrial o el arrendamiento de un espacio comercial, no basta con rellenar formularios estándar como en el sector residencial. Cada caso es único y los documentos incluyen numerosas cláusulas específicas de derecho comercial según el tipo de venta o alquiler.'
+      }
+    ]
+  },
+  links: {
+    heading: 'Enlaces inmobiliarios y Red de socios',
+    subtitle: 'Recursos gubernamentales oficiales y directorio de socios profesionales multidisciplinarios en Canadá y a nivel internacional.',
+    govTitle: 'Portales informativos gubernamentales (Quebec y Canadá)',
+    govLinks: [
+      {
+        name: 'Registraire des entreprises du Québec (Registro de Empresas)',
+        desc: 'Identidad de personas jurídicas, administradores y matrícula corporativa en Quebec',
+        url: 'https://www.registreentreprises.gouv.qc.ca'
+      },
+      {
+        name: 'Registre foncier du Québec (Registro de la Propiedad)',
+        desc: 'Consulta oficial de transacciones y títulos de propiedad en Quebec',
+        url: 'https://www.registrefoncier.gouv.qc.ca'
+      },
+      {
+        name: 'Corporations Canada',
+        desc: 'Sociedades de régimen federal y directorio corporativo canadiense',
+        url: 'https://ic.gc.ca/eic/site/cd-dgc.nsf/eng/home'
+      },
+      {
+        name: 'Directorio de Municipalidades de Quebec (MAMH)',
+        desc: 'Avalúos e impuestos municipales, reglamentos municipales de zonificación',
+        url: 'https://www.quebec.ca/gouvernement/portrait-quebec/organisation-municipale/repertoire-municipalites'
+      },
+      {
+        name: 'Comisión de Protección del Territorio Agrícola de Quebec (CPTAQ)',
+        desc: 'Zonificación agrícola, autorizaciones y cartografía del territorio',
+        url: 'https://www.cptaq.gouv.qc.ca'
+      },
+      {
+        name: 'Cartografía de zonas inundables (CEHQ)',
+        desc: 'Atlas y mapas oficiales de zonas de inundación en Quebec',
+        url: 'https://www.cehq.gouv.qc.ca/zones-inond/cartographie/index.htm'
+      },
+      {
+        name: 'Federación de Centros de Servicios Escolares / Impuestos escolares',
+        desc: 'Directorio de centros de servicios y comisiones escolares de Quebec',
+        url: 'https://www.fcssq.quebec'
+      },
+      {
+        name: 'Directorio del Patrimonio Cultural de Quebec',
+        desc: 'Inmuebles patrimoniales, sitios clasificados y áreas de protección',
+        url: 'https://www.patrimoine-culturel.gouv.qc.ca'
+      }
+    ],
+    partnersTitle: 'Socios multidisciplinarios (Canadá e Internacional)',
+    partnerGroups: [
+      {
+        category: 'Abogados — Derecho comercial y Franquicias',
+        items: [
+          {
+            name: 'FASKEN Abogados — Lic. Frédéric P. Gilbert, B.A., LL.B.',
+            specialty: 'Agentes de patentes y marcas comerciales, Derecho de franquicias',
+            address: 'Tour de la Bourse, 800 rue du Square-Victoria, oficina 3700, Montreal, QC H2Z 1E9',
+            contact: '514-397-5232 • fgilbert@fasken.com'
+          },
+          {
+            name: 'Tutino Joseph Grégoire Abogados — Lic. Isabelle Grégoire',
+            specialty: 'Vicios ocultos, franquicias y arrendamiento comercial',
+            address: '1080, Côte du Beaver Hall, oficina 600, Montreal, QC H2Z 1S8',
+            contact: '514-878-3878 • igregoire@tutinolex.com • www.tutinolex.com'
+          },
+          {
+            name: 'GAO Avocat inc. — Lic. Yuan Znan Gao, LL.B., J.D., TEP',
+            specialty: 'Derecho empresarial e inmobiliario',
+            address: '6955, boul. Taschereau, suite 106, Brossard, QC J4Z 1A7',
+            contact: '514-518-0880 • gao.avocat@gmail.com'
+          }
+        ]
+      },
+      {
+        category: 'Notarios y Agrimensores',
+        items: [
+          {
+            name: 'Lic. Lucie Bourbeau, Notaria',
+            specialty: 'Derecho inmobiliario y escrituras notariales',
+            address: '1366, av. de Grand-Mère, Shawinigan, QC G9T 2J6',
+            contact: '819-538-7696 • lbourbeau@notarius.net'
+          },
+          {
+            name: 'Stéphan Roy, Agrimensor (Arpenteur-géomètre)',
+            specialty: 'Certificados de localización, amojonamiento y topografía legal',
+            address: '262, boul. Sainte-Rose, Laval (Sainte-Rose), QC H7L 1M2',
+            contact: '514-990-2333 • sroy@stephanroy.ca • www.stephanroy.ca'
+          }
+        ]
+      },
+      {
+        category: 'Tasadores certificados (Cotos turísticos y Comercial)',
+        items: [
+          {
+            name: 'André Leblanc et Ass. — Marc-André Leblanc, CMA, É.A.',
+            specialty: 'Tasador certificado — Cotos turísticos (pourvoiries) y propiedades comerciales',
+            address: '2965, rue de Boischatel, Trois-Rivières, QC G8Z 3Z8',
+            contact: '819-373-6579 • maleblanc@groupeleblanc.ca • www.groupeleblanc.ca'
+          },
+          {
+            name: 'Jean Philippe Baril, B.A.A., É.A., AACI, P.App.',
+            specialty: 'Tasador certificado — Cotos turísticos y propiedades comerciales',
+            address: '141, rue Bonaventure, Trois-Rivières, QC G9A 2A9',
+            contact: '819-373-1401 / 1-866-373-1401 • info1401@qc.aira.com'
+          }
+        ]
+      },
+      {
+        category: 'Servicios ambientales (Análisis de suelo y Fase I/II/III)',
+        items: [
+          {
+            name: 'Physis Environnement Inc. — François Munger, Químico',
+            specialty: 'Análisis ambiental de suelos y equipamiento',
+            address: 'Montreal, Quebec',
+            contact: '514-516-2255 • fmunger@physisenvironnement.com • www.physisenvironnement.com'
+          },
+          {
+            name: 'MultiTEST — Nicolas Forest, LL.B., Vicepresidente',
+            specialty: 'Servicios ambientales y caracterización de terrenos',
+            address: '464, boul. Roland-Therrien, Longueuil, QC J4H 3V9',
+            contact: '514-990-2063 • info@multitest.ca • www.multitest.ca'
+          }
+        ]
+      },
+      {
+        category: 'Consultores de Franquicias, Geomarketing y Diseño comercial',
+        items: [
+          {
+            name: 'Imagine Franchise Consultant — Stéphane Breault, Presidente',
+            specialty: 'Desarrollo y consultoría en franquicias',
+            address: '1751, rue Richardson, oficina 4.509, Montreal, QC H3K 1G6',
+            contact: '514-935-5686 ext. 229 • sbreault@imagine-fl.com • www.imaginefranchise.com'
+          },
+          {
+            name: 'Indicia Géomarketing — Daniel Lemire, Presidente',
+            specialty: 'Estudios de mercado y geomarketing comercial',
+            address: '3467, boul. des Entreprises, suite 103, Terrebonne, QC J6X 4J9',
+            contact: '450-477-3330 • daniel.lemire@indicia.ca • www.indicia-geomarketing.com'
+          },
+          {
+            name: 'FLAGFRANCHISE — Sylvie Grégoire, MBA, CRHA, Presidenta',
+            specialty: 'Consultoría internacional en franquicias (América del Norte y Europa)',
+            address: 'Quebec y Europa',
+            contact: '1-819-347-7633 / 1-844-347-7633 • info@flagfranchise.com • www.flagfranchise.com'
+          },
+          {
+            name: 'DSD Groupe Design — Dimitri Smolens, APDIQ, DIC',
+            specialty: 'Planificación de espacios comerciales y diseño de interiores',
+            address: '2197, rue Sherbrooke Est, suite 010, Montreal, QC H2K 1C8',
+            contact: '514-985-5320 • dsmolens@groupedesign.com'
+          }
+        ]
+      },
+      {
+        category: 'Socios internacionales (Francia, República Dominicana, Costa Rica)',
+        items: [
+          {
+            name: 'Francia — HGV Conseil (Vuthy Hang) & Maison Pregevole-1968 (Sylvie Prégevole)',
+            specialty: 'Corretaje de seguros, gestión patrimonial privada y jubilación para expatriados',
+            address: 'Rueil-Malmaison (92500) y Francia',
+            contact: 'vuthy.hang@hgv-conseil.fr • sylviepregevole@maisonpregevole1968.com'
+          },
+          {
+            name: 'República Dominicana — Wilfredo Mena & Asocs. / Revart',
+            specialty: 'Arquitectura, construcción y supervisión de proyectos inmobiliarios',
+            address: 'República Dominicana',
+            contact: '809-788-0121 / 829-601-6745 • www.revartdr.org'
+          },
+          {
+            name: 'Costa Rica — ICS Consultores (Marco Aguilar)',
+            specialty: 'Consultoría fiscal y acompañamiento corporativo',
+            address: 'Costa Rica',
+            contact: 'maguilar@icsconsultores.com • www.icsconsultores.com'
+          }
+        ]
+      }
+    ]
   }
 };
 
 ABOUT_CONTENT.ZH = {
-  ...ABOUT_CONTENT.EN,
   pageTitle: '关于我们',
-  pageSubtitle: '自 2008 年以来，喜马拉雅地产集团（Immobilier Himalaya）持续为魁北克、加拿大及全球客户提供卓越的房地产顾问服务。',
+  pageSubtitle: '自 2008 年以来，喜马拉雅地产集团（Immobilier Himalaya Real Estate Corp.）持续为魁北克、加拿大及全球客户提供卓越的房地产服务。',
   tabs: [
     { id: 'qui-nous-sommes', label: '公司简介' },
     { id: 'co-fondateurs', label: '联合创始人' },
     { id: 'services', label: '专业服务与行业协会' },
     { id: 'franchises', label: '连锁特许经营' },
-    { id: 'carrieres', label: '招贤纳士与合作网络' },
+    { id: 'carrieres', label: '招贤纳士与合作机构' },
     { id: 'faq', label: '常见问题 (FAQ)' },
-    { id: 'liens', label: '官方合作伙伴' }
+    { id: 'liens', label: '房地产资源与合作伙伴' }
   ],
   whoWeAre: {
     heading: '关于喜马拉雅地产',
     intro:
-      '自 2008 年创立以来，喜马拉雅地产（Immobilier Himalaya）已成为魁北克、加拿大及国际房地产市场的领先品牌。来自全球各地的客户之所以信赖我们，是因为我们拥有广泛的国际人脉网络、深厚的房地产交易经验、高度的诚信原则以及卓越的客户服务精神，全面覆盖商业、住宅、度假庄园及工业地产。',
+      '自 2008 年创立以来，喜马拉雅地产（Immobilier Himalaya）已发展成为魁北克、加拿大乃至全球房地产领域的领军机构。来自各行各业的客户之所以信赖并选择我们，正是源于我们广泛的国际人脉网络、深厚的房地产交易专业知识、高度的诚信原则以及卓越的客户服务精神。我们团队的每一位成员都全力以赴为客户服务，在商业、住宅及工业地产领域提供丰富优质的出售与租赁物业选择。',
     profileTitle: '企业概况',
     profileParagraphs: [
-      'Immobilier Himalaya Real Estate Corp. 是一家总部位于加拿大魁北克省蒙特利尔的国际房地产经纪机构，专注于商业地产、工业地产、旅游度假物业及住宅投资市场。',
-      '我们汇聚了一支多元文化、专业诚信的持牌房地产经纪团队，竭诚为每一位客户提供量身定制的置业与投资方案。',
-      '我们在遴选经纪人时不仅看重专业能力与市场经验，更重视职业道德、诚信品质以及为客户创造价值的决心。',
-      '我们与商业空间运营商、房地产开发商、连锁特许经营品牌、物业管理公司及各大金融机构保持着长期稳固的合作关系。'
+      'Immobilier Himalaya Real Estate Corp. 是一家总部位于加拿大魁北克省的国际房地产经纪机构，专注于商业地产、工业地产及住宅投资物业经纪服务。',
+      '我们汇聚了一支多元文化背景、诚信敬业的专业房地产经纪人团队，不懈努力地以最优方式满足客户的每一项需求。经纪人之所以选择加入喜马拉雅地产，是因为他们渴望攀登卓越的新高峰，并融入一个积极进取、追求卓越的高效团队。',
+      '我们在遴选经纪人时，不仅看重其专业能力与从业经验，更重视其职业道德、诚信品质以及不断为客户寻求最佳解决方案的决心。',
+      '对我们而言，与行业各方建立并保持长期稳固的合作关系至关重要。我们与商业空间使用方与管理方、房地产开发商、经纪同行、物业管理公司及各大金融机构均保持着良好的合作关系。'
     ],
     missionTitle: '企业使命',
     missionText:
-      '促成公平诚信的交易，建立长期稳固的专业伙伴关系，成为客户全方位信赖的本地与国际房地产智库。',
+      '促成公平诚信的房地产交易，建立长期稳固的专业合作关系，成为满足客户全方位需求的本地房地产智库，并提供强大的国际资源网络。',
     valuesTitle: '核心价值观',
-    valuesList: ['协作', '沟通', '倾听', '尊重', '诚信道德'],
+    valuesList: ['协作', '沟通', '倾听', '尊重', '职业道德'],
     valuesText:
-      '协作、沟通、倾听、尊重与职业道德贯穿喜马拉雅地产的每一项房地产交易。',
-    contactCta: '欢迎联系我们：我们期待与您共同探讨您的房地产投资或置业计划！'
+      '协作、沟通、倾听、尊重与职业道德是喜马拉雅地产的核心价值观，贯穿于我们的每一笔房地产交易之中。',
+    contactCta: '欢迎联系我们：我们将非常乐意与您探讨您的房地产置业与投资项目！'
+  },
+  coFounders: {
+    heading: '由充满热忱的专业人士领航的房地产机构',
+    intro:
+      '喜马拉雅地产（Immobilier Himalaya）由两位长期合作伙伴共同创立。自 1998 年相识以来，他们始终秉持着尊重、诚信、沟通与卓越的共同价值观。对于 Geniev Mondoux 与 Roger Rhéaume 而言，房地产不仅是一笔交易，更是建立深厚联结、凝聚人脉并助力客户实现人生与事业理想的重要契机。',
+    videoTitle: '视频介绍 — 喜马拉雅地产 (Immobilier Himalaya)',
+    videoUrl: 'https://www.youtube.com/embed/IFmG6c3ywJY',
+    founders: [
+      {
+        id: 'geniev-mondoux',
+        name: 'Geniev Mondoux',
+        role: '副总裁 — 特许房地产经纪人',
+        credentials: 'CPA, MBA • 联合创始人兼机构行政总监',
+        portrait: 'https://www.himalayacorp.com/DATA/COURTIERINFOSUP/11_courtierGrand.JPG',
+        photos: [
+          'https://www.himalayacorp.com/data/CMSIMAGE//721.jpg',
+          'https://www.himalayacorp.com/data/CMSIMAGE//722.jpg'
+        ],
+        paragraphs: [
+          'Geniev Mondoux 重视家庭，将诚信与尊重奉为立身之本。他是特许专业会计师（CPA），拥有工商管理硕士学位（MBA），同时也是一位富有远见的企业家与机遇创造者。正是出于对人际交流与长久合作关系的热爱，他于 2008 年投身房地产行业。Geniev 对事业充满热忱，每天都从与客户的深入交流中汲取动力，全力以赴为客户提供无微不至的专业服务。他最大的优势在于敢于创新、善于提出切实可行的解决方案，从而推动各类复杂房地产交易顺利达成。此外，他出色的倾听能力、平易近人的亲和力，结合深厚的财务与地产专业经验，使他成为众多大型房地产项目中备受青睐的合作伙伴。',
+          '作为喜马拉雅地产的联合创始人及集团旗下机构行政总监，Geniev 与长期合作伙伴 Roger Rhéaume 携手并进，出色地应对各种复杂挑战，始终能够找到切实有效的解决方案并取得最优成果。',
+          '受深厚家庭价值观的感召，Geniev 在生活与工作的各个层面均坚守尊重与诚信原则。他为人热情开朗、风趣亲切，总能为客户与同事带来愉快融洽的合作氛围。'
+        ]
+      },
+      {
+        id: 'roger-rheaume',
+        name: 'Roger Rhéaume',
+        role: '总裁 — 特许房地产经纪人, DA',
+        credentials: '联合创始人 • 魁北克房地产经纪自律监管机构 (OACIQ) 董事会成员',
+        portrait: 'https://www.himalayacorp.com/DATA/COURTIERINFOSUP/99_courtierGrand.jpg',
+        photos: [
+          'https://www.himalayacorp.com/data/CMSIMAGE//200.jpg',
+          'https://www.himalayacorp.com/data/CMSIMAGE//201.jpg',
+          'https://www.himalayacorp.com/data/CMSIMAGE//202.jpg'
+        ],
+        sections: [
+          {
+            subtitle: '精彩人生 — “人生只有一次，我愿全力以赴活出精彩！”',
+            paragraphs: [
+              '从 18 岁起，我便开始徒步攀登高山并游历世界各国。高山对我而言象征着探索、宁静，以及力量与敬畏的源泉。在我 50 岁生日之际，我攀登至海拔 5,785 米的高度，亲眼瞻仰了坐落于世界最美山脉——喜马拉雅山脉之巅的珠穆朗玛峰。那是我送给自己最珍贵的 50 岁礼物！',
+              '无论是欧洲、亚洲、非洲还是美洲的山脉，我都曾留下足迹，并深入了解当地人民的生活。在我眼中，世界广阔无垠且充满美好。50 多年来，我游历四方，领略地球的壮丽风光，感受不同民族的生活方式与文化习俗。我所拥有的最大财富便是爱与友谊。'
+            ]
+          },
+          {
+            subtitle: '对房地产事业的无限热忱',
+            paragraphs: [
+              '我早年在商业贸易与服务领域积累的丰富经验，引领我走向商业地产经纪行业。在积累了超过 20 年的商业与营销经验后，我与合伙人共同创立了喜马拉雅地产集团（Immobilier Himalaya Real Estate Corp.）。房地产是我毕生挚爱的事业。我目前担任魁北克房地产经纪自律监管机构（OACIQ）董事会成员，曾任魁北克房地产学院（Collège Immobilier du Québec）董事逾 5 年，并担任大蒙特利尔房地产董事会（CIGM）商业委员会主席超过 6 年。2022 年，我与合伙人 Fabien Herman 在墨西哥开设了房地产经纪办事处，协助魁北克与法国投资者购置海外物业；同时，我也与多米尼加共和国的房地产经纪机构建立了紧密的业务合作关系。',
+              '出于对行业的热爱，我长期为房地产经纪人提供专业培训与专题讲座，助力同行提升专业素养。作为一名资深旅行家，我将事业与环球旅行完美结合，在多个国家积极开展房源代理与房地产开发项目。'
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  services: {
+    heading: '以卓越品质著称的全方位房地产服务',
+    intro1:
+      '喜马拉雅地产（Immobilier Himalaya）是您各类房地产交易的理想合作伙伴。我们在多个国家的业务布局、深厚的专业造诣与实操经验，使我们能够以高度的专业精神指导客户推进房地产项目，并在商业、住宅及工业领域担任值得信赖的顾问。',
+    intro2:
+      '我们的团队为您提供全方位的房地产经纪服务。我们广博的市场知识与实战经验将转化为您的竞争优势，助您获得超越预期的理想成果。欢迎委托喜马拉雅房地产经纪人办理以下业务：',
+    brokerageTitle: '商业及工业物业的出售、租赁与选址搜寻',
+    brokerageItems: [
+      '办公楼与商业铺位',
+      '商业大厦与收益型物业',
+      '多户住宅投资楼宇 (Multilogements)',
+      '企业与生意转让',
+      '狩猎垂钓度假庄园 (Pourvoiries) 与露营地',
+      '酒店与旅游度假物业',
+      '开发用地与土地储备',
+      '连锁特许经营 (Franchises) 与牌照许可',
+      '住宅投资物业的买卖与搜寻',
+      '商业与工业地产项目开发'
+    ],
+    consultingTitle: '房地产专业顾问与咨询',
+    advisoryTitle: '房地产专业顾问与咨询',
+    consultingItems: [
+      '客户需求分析与精准定位',
+      '市场与行业板块深度调研',
+      '项目机遇与潜在风险评估',
+      '备选方案分析与优化建议',
+      '配套专业服务（法律、税务、评估、环评）推荐',
+      '商业及工业租约续签谈判',
+      '公寓项目营销策划与推广',
+      '国际买家与投资人网络精准对接'
+    ],
+    advisoryItems: [
+      '客户需求分析与精准定位',
+      '市场与行业板块深度调研',
+      '项目机遇与潜在风险评估',
+      '备选方案分析与优化建议',
+      '配套专业服务（法律、税务、评估、环评）推荐',
+      '商业及工业租约续签谈判',
+      '公寓项目营销策划与推广',
+      '国际买家与投资人网络精准对接'
+    ],
+    internationalTitle: '国际房地产经纪服务',
+    internationalText:
+      '为了更好地服务客户，我们在国际范围内建立了广泛的业务联系，并深入掌握多个国家的房地产市场动态。我们稳固可靠的国际人脉网络能够引导您把握全球优质房地产投资机遇。如需了解更多详情，欢迎随时与我们联系，我们将非常荣幸与您会面，共同探讨您的项目蓝图与投资愿景！',
+    associationsTitle: '我们所属的行业协会',
+    associationsText:
+      '喜马拉雅地产是魁北克特许经营理事会（Conseil québécois de la franchise — CQF）及魁北克狩猎垂钓度假庄园联合会（Fédération des pourvoiries du Québec — FPQ）的正式成员。这使我们能够为在商业地产领域（尤其是度假庄园、露营地及餐饮连锁行业）寻求出售、收购或租赁机会的客户提供最优质的专业服务。',
+    associationsIntro:
+      '喜马拉雅地产是魁北克特许经营理事会（CQF）及魁北克狩猎垂钓度假庄园联合会（FPQ）的正式成员。',
+    associationsBadges: [
+      { code: 'OACIQ', name: '魁北克房地产经纪自律监管机构 (Organisme d’autoréglementation du courtage immobilier du Québec)' },
+      { code: 'FPQ', name: '魁北克狩猎垂钓度假庄园联合会 (Fédération des pourvoiries du Québec)' },
+      { code: 'CQF', name: '魁北克特许经营理事会 (Conseil québécois de la franchise)' }
+    ],
+    associations: [
+      { code: 'OACIQ', name: '魁北克房地产经纪自律监管机构 (OACIQ)' },
+      { code: 'FPQ', name: '魁北克狩猎垂钓度假庄园联合会 (FPQ)' },
+      { code: 'CQF', name: '魁北克特许经营理事会 (CQF)' }
+    ]
+  },
+  careers: {
+    brokerHeading: '成为喜马拉雅地产认证经纪人',
+    brokerParagraphs: [
+      '自 2008 年创立以来，Immobilier Himalaya Real Estate Corp. 已成为商业、工业和住宅房地产深厚专业知识的代名词。公司以诚实、守信和卓越的客户服务享誉业界，这些品质有力促进了团队协作、相互尊重与交易达成。',
+      '加入我们成为房地产经纪人，您将充分受益于我们多年来积累的宝贵特权与高端人脉网络。您还将使用我们完善的专业工具，并融入一个互帮互助、紧密协作的精英团队。依托 Immobilier Himalaya Real Estate Corp. 的国际化平台，您将在本地及国际市场上脱颖而出。',
+      '无论您是经验丰富的资深房地产经纪人，还是希望在商业与投资地产领域实现职业跃升，Immobilier Himalaya Real Estate Corp. 都热忱欢迎您的加入。'
+    ],
+    brokerBenefitsTitle: '喜马拉雅地产为经纪人提供的优势',
+    brokerBenefits: [
+      '每月定期的专业培训、研讨会与业务交流',
+      '极具竞争力的低成本费用结构',
+      '诚信敬业的高素质专业团队',
+      '国际市场拓展网络与跨境业务机会',
+      '多语言、多元文化官方网站展示',
+      '多学科专家合作伙伴（律师、公证人、特许评估师、环境工程专家）',
+      '蒙特利尔市中心尊贵品牌形象与办公地址（2000, av. McGill College）',
+      '全天候在线虚拟办公室系统（企业邮箱、交易文档管理、资源共享等）'
+    ],
+    affiliateHeading: '成为顶尖房地产机构的国际合作加盟伙伴',
+    affiliateParagraphs: [
+      'Immobilier Himalaya Real Estate Corp. 在加拿大及国际房地产界享有卓越声誉。我们一流的服务水准、崇高的职业道德与专业精神，使我们成为您拓展业务的理想合作伙伴。',
+      '成为我们机构的合作加盟伙伴（Affilié），您将共享我们的全国及国际资源网络，以及我们多年来通过严谨、诚信与不懈努力所积累的行业优势。协作与互助是我们企业哲学的核心，所有合作加盟机构均可获得全方位的运营支持。',
+      '喜马拉雅地产希望与来自不同国家和文化背景的专业房地产经纪机构建立战略合作，共同推进全球化业务布局。'
+    ],
+    affiliateBenefitsTitle: '合作加盟机构尊享优势',
+    affiliateBenefits: [
+      '成熟的国际房地产资源网络',
+      '多语言国际官方网站品牌曝光',
+      '精简高效的合作成本结构',
+      '诚信专业的总部支持团队',
+      '蒙特利尔市中心尊贵企业形象与总部地址',
+      '在线虚拟办公室系统支持（企业邮箱、文档协同、国际人脉对接等）'
+    ],
+    contactNote: '如需了解更多详情，欢迎联系 Geniev Mondoux 或 Roger Rhéaume。',
+    applyBtn: '联系管理层 (Geniev Mondoux & Roger Rhéaume)'
+  },
+  faq: {
+    heading: '常见问题解答 (FAQ) — 商业与工业地产',
+    subtitle: '关于魁北克商业租约、工业厂房及专业房地产经纪服务的 12 个核心问题解答。',
+    items: [
+      {
+        q: '1. 什么是“基本租金”（Loyer de base / Base Rent）？',
+        a: '基本租金是根据所使用面积的平方英尺数及/或包含公共区域分摊在内的租赁空间所支付的租金部分，对应于该商业物业本身的房地产价值。'
+      },
+      {
+        q: '2. 什么是“附加租金”（Loyer additionnel / Additional Rent）？',
+        a: '附加租金是指租赁商铺及整栋建筑的运营与管理费用（包括电力、市政物业税、维护保养、建筑保险等），同样根据所占用的平方英尺数及包含公共区域的租赁空间比例进行分摊计算。'
+      },
+      {
+        q: '3. 商业租金可以谈判吗？',
+        a: '所有条款均可谈判：不仅基本租金和附加租金可以协商，装修免租期（安装期）以及租户装修补贴（Améliorations locatives）也都可以谈判。'
+      },
+      {
+        q: '4. 应该签署短期租约还是长期租约？',
+        a: '对于初创企业而言，租约期限应尽可能简短，以便在项目未达预期时将财务承担降至最低，尤其是在您需要为租约提供个人担保的情况下。对于成熟企业而言，五年及以上的长期租约更具优势，因为可以争取到更优惠的租金单价和租赁条件。'
+      },
+      {
+        q: '5. 还有其他评估租约期限的方法吗？',
+        a: '可以根据新租户在商铺装修与改良上的资金投入总额，以及这些装修投入需要摊销折旧的年限，来测算实现盈利所需的最短租约年限。'
+      },
+      {
+        q: '6. 什么是“安装期 / 装修免租期”（Installation）？',
+        a: '安装期是指房东给予租户用于安装经营设备、完成开业准备的时间段。通常情况下，房东会根据行业类型免费提供数周或数月的免租安装期（可涵盖基本租金及附加租金）。租户必须从进场安装的第一天起购买责任保险，以防范意外或灾害风险。'
+      },
+      {
+        q: '7. 商业租户到期后是否自动享有留驻权？',
+        a: '与住宅租约不同，商业租约的续租权必须从一开始就在合同中谈判确定。在租约中加入一项或多项续租选择权（Options de renouvellement）对租户至关重要，这既关乎企业的持续经营，也直接影响未来企业转让出售时的价值。'
+      },
+      {
+        q: '8. 为什么要设立续租选择权（Option）？',
+        a: '续租选择权之所以重要，是因为商业空间的装修投入高昂且地理位置具有战略意义。此外，我们还必须根据市场环境与竞争对手情况，为企业未来的潜在整体出售预留充足的租约保障。'
+      },
+      {
+        q: '9. 续租选择权是一项强制义务吗？',
+        a: '不是。续租选择权是一项预先谈判确定的权利，而非强制义务。我们所谈判的商业租约会明确规定：在租期届满前多少个月内，租户可以选择行使续租权，或者选择放弃并在租期结束时撤离。'
+      },
+      {
+        q: '10. 我的房地产经纪人可以为我谈判商业租约吗？',
+        a: '优秀的商业房地产经纪人能为您的企业带来巨大价值。您必须确保经纪人具备丰富的商业租约实战经验与专业知识，因为一份商业租约往往意味着房东与租户之间长达数年的重大法律与财务承诺！'
+      },
+      {
+        q: '11. 魁北克有多少专门从事商业和工业地产的专业经纪人？',
+        a: '在魁北克省约 17,000 名持牌房地产经纪人中，专门从事商业和工业地产的经纪人比例不足 6%。商业与工业地产领域与住宅地产截然不同：它并非满足个人居住需求，而是要解决复杂的企业经营与投资要求。'
+      },
+      {
+        q: '12. 商业和工业地产合同与住宅合同一样吗？',
+        a: '要完成工业厂房的出售或商业空间的租赁，绝不能像住宅交易那样简单填写标准表格。每个商业案例都独一无二，合同文件包含大量针对具体买卖或租赁类型量身定制的商法专属条款。'
+      }
+    ]
+  },
+  links: {
+    heading: '房地产权威链接与合作伙伴网络',
+    subtitle: '魁北克与加拿大官方政府资源目录，以及我们在加拿大和国际上的多学科专业合作伙伴名录。',
+    govTitle: '政府官方信息门户（魁北克与加拿大）',
+    govLinks: [
+      {
+        name: '魁北克企业注册处 (Registraire des entreprises du Québec)',
+        desc: '查询魁北克法人实体身份、公司董事及企业注册登记信息',
+        url: 'https://www.registreentreprises.gouv.qc.ca'
+      },
+      {
+        name: '魁北克土地注册处 (Registre foncier du Québec)',
+        desc: '官方查询魁北克不动产交易记录、产权契约及抵押登记',
+        url: 'https://www.registrefoncier.gouv.qc.ca'
+      },
+      {
+        name: '加拿大联邦企业局 (Corporations Canada)',
+        desc: '加拿大联邦注册公司查询及全国企业名录',
+        url: 'https://ic.gc.ca/eic/site/cd-dgc.nsf/eng/home'
+      },
+      {
+        name: '魁北克市政名录 (MAMH)',
+        desc: '市政物业估值、市政地产税及各市分区规划法规查询',
+        url: 'https://www.quebec.ca/gouvernement/portrait-quebec/organisation-municipale/repertoire-municipalites'
+      },
+      {
+        name: '魁北克农业用地保护委员会 (CPTAQ)',
+        desc: '农业用地区划、非农用途审批及土地地图查询',
+        url: 'https://www.cptaq.gouv.qc.ca'
+      },
+      {
+        name: '洪水风险区官方地图 (CEHQ)',
+        desc: '魁北克省水文图集及洪泛区官方测绘地图',
+        url: 'https://www.cehq.gouv.qc.ca/zones-inond/cartographie/index.htm'
+      },
+      {
+        name: '魁北克学校服务中心联合会 / 学校税查询',
+        desc: '魁北克各学区服务中心及学校税征收名录',
+        url: 'https://www.fcssq.quebec'
+      },
+      {
+        name: '魁北克文化遗产名录 (Répertoire du patrimoine culturel)',
+        desc: '历史保护建筑、文物古迹及文化保护区查询',
+        url: 'https://www.patrimoine-culturel.gouv.qc.ca'
+      }
+    ],
+    partnersTitle: '多学科专业合作伙伴（加拿大及国际）',
+    partnerGroups: [
+      {
+        category: '商业法与特许经营律师 (Avocats)',
+        items: [
+          {
+            name: 'FASKEN 律师事务所 — Frédéric P. Gilbert 律师, B.A., LL.B.',
+            specialty: '专利与商标代理人、特许经营法与商业法专家',
+            address: 'Tour de la Bourse, 800 rue du Square-Victoria, bureau 3700, Montréal, QC H2Z 1E9',
+            contact: '514-397-5232 • fgilbert@fasken.com'
+          },
+          {
+            name: 'Tutino Joseph Grégoire 律师事务所 — Isabelle Grégoire 律师',
+            specialty: '隐蔽瑕疵诉讼、连锁特许经营及商业租约法律事务',
+            address: '1080, Côte du Beaver Hall, bureau 600, Montréal, QC H2Z 1S8',
+            contact: '514-878-3878 • igregoire@tutinolex.com • www.tutinolex.com'
+          },
+          {
+            name: 'GAO Avocat inc. — 高远瞻律师 (Me Yuan Znan Gao, LL.B., J.D., TEP)',
+            specialty: '商业法、公司法与房地产法律事务',
+            address: '6955, boul. Taschereau, suite 106, Brossard, QC J4Z 1A7',
+            contact: '514-518-0880 • gao.avocat@gmail.com'
+          }
+        ]
+      },
+      {
+        category: '公证人及土地测量师 (Notaires & Arpenteurs-géomètres)',
+        items: [
+          {
+            name: 'Lucie Bourbeau 公证师 (Notaire)',
+            specialty: '房地产法与物业过户公证交易',
+            address: '1366, av. de Grand-Mère, Shawinigan, QC G9T 2J6',
+            contact: '819-538-7696 • lbourbeau@notarius.net'
+          },
+          {
+            name: 'Stéphan Roy 土地测量师 (Arpenteur-géomètre)',
+            specialty: '物业位置证明书 (Certificat de localisation)、界桩测绘与土地勘测',
+            address: '262, boul. Sainte-Rose, Laval (Sainte-Rose), QC H7L 1M2',
+            contact: '514-990-2333 • sroy@stephanroy.ca • www.stephanroy.ca'
+          }
+        ]
+      },
+      {
+        category: '特许房地产评估师（度假庄园及商业物业）',
+        items: [
+          {
+            name: 'André Leblanc et Ass. — Marc-André Leblanc, CMA, É.A.',
+            specialty: '特许评估师 — 狩猎垂钓度假庄园 (Pourvoiries) 及商业物业估值',
+            address: '2965, rue de Boischatel, Trois-Rivières, QC G8Z 3Z8',
+            contact: '819-373-6579 • maleblanc@groupeleblanc.ca • www.groupeleblanc.ca'
+          },
+          {
+            name: 'Jean Philippe Baril, B.A.A., É.A., AACI, P.App.',
+            specialty: '特许评估师 — 度假庄园及商业地产评估',
+            address: '141, rue Bonaventure, Trois-Rivières, QC G9A 2A9',
+            contact: '819-373-1401 / 1-866-373-1401 • info1401@qc.aira.com'
+          }
+        ]
+      },
+      {
+        category: '环境工程服务（土壤分析及环境评估 Phase I/II/III）',
+        items: [
+          {
+            name: 'Physis Environnement Inc. — François Munger, 化学师',
+            specialty: '土壤环境分析与场地检测设备',
+            address: 'Montréal, Québec',
+            contact: '514-516-2255 • fmunger@physisenvironnement.com • www.physisenvironnement.com'
+          },
+          {
+            name: 'MultiTEST — Nicolas Forest, LL.B., 副总裁',
+            specialty: '场地环境评估与土壤特性表征服务',
+            address: '464, boul. Roland-Therrien, Longueuil, QC J4H 3V9',
+            contact: '514-990-2063 • info@multitest.ca • www.multitest.ca'
+          }
+        ]
+      },
+      {
+        category: '特许经营顾问、地理营销与商业空间设计',
+        items: [
+          {
+            name: 'Imagine Franchise Consultant — Stéphane Breault, 总裁',
+            specialty: '连锁特许经营网络开发与战略咨询',
+            address: '1751, rue Richardson, bureau 4.509, Montréal, QC H3K 1G6',
+            contact: '514-935-5686 poste 229 • sbreault@imagine-fl.com • www.imaginefranchise.com'
+          },
+          {
+            name: 'Indicia Géomarketing — Daniel Lemire, 总裁',
+            specialty: '商业市场调研与地理营销分析 (Géomarketing)',
+            address: '3467, boul. des Entreprises, suite 103, Terrebonne, QC J6X 4J9',
+            contact: '450-477-3330 • daniel.lemire@indicia.ca • www.indicia-geomarketing.com'
+          },
+          {
+            name: 'FLAGFRANCHISE — Sylvie Grégoire, MBA, CRHA, 总裁',
+            specialty: '国际特许经营咨询（北美与欧洲市场）',
+            address: 'Québec & Europe',
+            contact: '1-819-347-7633 / 1-844-347-7633 • info@flagfranchise.com • www.flagfranchise.com'
+          },
+          {
+            name: 'DSD Groupe Design — Dimitri Smolens, APDIQ, DIC',
+            specialty: '商业空间规划与室内设计服务',
+            address: '2197, rue Sherbrooke Est, suite 010, Montréal, QC H2K 1C8',
+            contact: '514-985-5320 • dsmolens@groupedesign.com'
+          }
+        ]
+      },
+      {
+        category: '国际合作伙伴（法国、多米尼加共和国、哥斯达黎加）',
+        items: [
+          {
+            name: '法国 — HGV Conseil (Vuthy Hang) & Maison Pregevole-1968 (Sylvie Prégevole)',
+            specialty: '保险经纪、私人财富管理与外派人士退休规划',
+            address: 'Rueil-Malmaison (92500) & France',
+            contact: 'vuthy.hang@hgv-conseil.fr • sylviepregevole@maisonpregevole1968.com'
+          },
+          {
+            name: '多米尼加共和国 — Wilfredo Mena & Asocs. / Revart',
+            specialty: '建筑设计、工程施工与房地产项目监理',
+            address: 'République Dominicaine',
+            contact: '809-788-0121 / 829-601-6745 • www.revartdr.org'
+          },
+          {
+            name: '哥斯达黎加 — ICS Consultores (Marco Aguilar)',
+            specialty: '税务咨询与企业商务配套服务',
+            address: 'Costa Rica',
+            contact: 'maguilar@icsconsultores.com • www.icsconsultores.com'
+          }
+        ]
+      }
+    ]
   }
 };

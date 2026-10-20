@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { MapPin, ChevronRight } from 'lucide-react';
+import { tr, pickLang } from '../data/translations';
 
 /**
  * Vue Carte Interactive minimaliste et sobre (Point 11)
@@ -22,7 +23,30 @@ const REGION_POSITIONS = {
   'République Dominicaine': { x: 84, y: 82 }
 };
 
+const REGION_LABELS = {
+  'Abitibi-Témiscamingue': ['Abitibi-Témiscamingue', 'Abitibi-Témiscamingue', 'Abitibi-Témiscamingue', '阿比蒂比-蒂米斯卡明格'],
+  'Outaouais': ['Outaouais', 'Outaouais', 'Outaouais', '乌塔韦区 (Outaouais)'],
+  'Laurentides': ['Laurentides', 'Laurentians', 'Laurentides', '劳伦琴山脉 (Laurentides)'],
+  'Lanaudière': ['Lanaudière', 'Lanaudière', 'Lanaudière', '拉诺迪耶尔 (Lanaudière)'],
+  'Laval': ['Laval', 'Laval', 'Laval', '拉瓦尔 (Laval)'],
+  'Montréal': ['Montréal', 'Montreal', 'Montreal', '蒙特利尔 (Montréal)'],
+  'Montérégie': ['Montérégie', 'Montérégie', 'Montérégie', '蒙泰雷吉 (Montérégie)'],
+  'Estrie': ['Estrie', 'Eastern Townships', 'Estrie', '东部乡镇 (Estrie)'],
+  'Mauricie': ['Mauricie', 'Mauricie', 'Mauricie', '莫里西区 (Mauricie)'],
+  'Région de Québec': ['Région de Québec', 'Quebec City Region', 'Región de Quebec', '魁北克城大区'],
+  'Bas-Saint-Laurent': ['Bas-Saint-Laurent', 'Bas-Saint-Laurent', 'Bas-Saint-Laurent', '下圣劳伦斯区'],
+  'Côte-Nord': ['Côte-Nord', 'Côte-Nord (North Shore)', 'Côte-Nord', '北岸地区 (Côte-Nord)'],
+  'Gaspésie': ['Gaspésie', 'Gaspésie', 'Gaspésie', '加斯佩半岛 (Gaspésie)'],
+  'République Dominicaine': ['République Dominicaine', 'Dominican Republic', 'República Dominicana', '多米尼加共和国']
+};
+
 export default function PropertiesMapView({ properties, onSelectDeal, t }) {
+  const lang = t?.code || 'FR';
+  const translateRegion = (reg) => {
+    const tuple = REGION_LABELS[reg];
+    return tuple ? tr(lang, tuple[0], tuple[1], tuple[2], tuple[3]) : reg;
+  };
+
   const groupedByRegion = useMemo(() => {
     const map = {};
     properties.forEach(p => {
@@ -73,7 +97,7 @@ export default function PropertiesMapView({ properties, onSelectDeal, t }) {
           position: 'absolute', top: '12px', left: '14px',
           fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em'
         }}>
-          {t?.properties?.mapTitle || 'Québec & International — Cliquez sur une région'}
+          {t?.properties?.mapTitle || tr(lang, 'Québec & International — Cliquez sur une région', 'Quebec & International — Click a region', 'Quebec e Internacional — Haga clic en una región', '魁北克及国际房源 — 点击选择地区')}
         </div>
 
         {regionsList.map(reg => {
@@ -108,7 +132,7 @@ export default function PropertiesMapView({ properties, onSelectDeal, t }) {
               }}
             >
               <MapPin size={12} />
-              <span>{reg}</span>
+              <span>{translateRegion(reg)}</span>
               <span style={{
                 background: isSelected ? 'rgba(0,0,0,0.2)' : 'rgba(200,164,93,0.2)',
                 color: isSelected ? '#09090b' : 'var(--gold-light)',
@@ -134,9 +158,9 @@ export default function PropertiesMapView({ properties, onSelectDeal, t }) {
           borderBottom: '1px solid var(--border-subtle)'
         }}>
           <div>
-            <h3 style={{ fontSize: '1.15rem', fontWeight: 700 }}>{currentRegion}</h3>
+            <h3 style={{ fontSize: '1.15rem', fontWeight: 700 }}>{translateRegion(currentRegion)}</h3>
             <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
-              {regionDeals.length} {t?.properties?.activeMandates || 'inscriptions'}
+              {regionDeals.length} {t?.properties?.activeMandates || tr(lang, 'inscriptions', 'listings', 'propiedades', '个房源')}
             </span>
           </div>
         </div>
@@ -160,19 +184,19 @@ export default function PropertiesMapView({ properties, onSelectDeal, t }) {
             >
               <img
                 src={deal.main_photo}
-                alt={t?.code === 'EN' ? (deal.title_en || deal.title) : deal.title}
+                alt={pickLang(deal, 'title', lang)}
                 style={{ width: '78px', height: '62px', objectFit: 'cover', borderRadius: '7px', flexShrink: 0 }}
                 onError={e => { e.target.src = 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80'; }}
               />
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ fontSize: '0.88rem', fontWeight: 700, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                  {t?.code === 'EN' ? (deal.title_en || deal.title) : deal.title}
+                  {pickLang(deal, 'title', lang)}
                 </div>
                 <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '2px' }}>
                   {deal.city} • MLS {deal.mls_number}
                 </div>
                 <div style={{ fontSize: '0.84rem', fontWeight: 700, color: 'var(--gold-light)', marginTop: '3px' }}>
-                  {t?.code === 'EN' ? (deal.price_raw_en || deal.price_raw) : deal.price_raw}
+                  {pickLang(deal, 'price_raw', lang)}
                 </div>
               </div>
               <ChevronRight size={16} color="var(--gold)" style={{ flexShrink: 0 }} />

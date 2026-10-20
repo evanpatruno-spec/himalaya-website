@@ -32,7 +32,6 @@ export default function AboutPageView({
   initialTab = 'qui-nous-sommes',
   standaloneFranchisePage = false
 }) {
-  const isEn = lang !== 'FR';
   const c = ABOUT_CONTENT[lang] || ABOUT_CONTENT.FR;
   const [activeTab, setActiveTab] = useState(standaloneFranchisePage ? 'franchises' : (initialTab || 'qui-nous-sommes'));
   const [openFaqIndex, setOpenFaqIndex] = useState(0);
@@ -114,7 +113,7 @@ export default function AboutPageView({
             {/* En-tête de la page À propos */}
             <div style={{ marginBottom: '28px' }}>
               <span className="badge-gold" style={{ marginBottom: '10px' }}>
-                {isEn ? 'Founded in 2008' : 'Fondée en 2008'}
+                {tr(lang, 'Fondée en 2008', 'Founded in 2008', 'Fundada en 2008', '创立于 2008 年')}
               </span>
               <h1 style={{ fontSize: '2.25rem', fontWeight: 700, lineHeight: 1.2, marginBottom: '8px' }}>
                 {c.pageTitle} <span className="gold-gradient-text">Himalaya</span>
@@ -291,7 +290,7 @@ export default function AboutPageView({
               >
                 <div>
                   <h2 style={{ fontSize: '1.45rem', fontWeight: 700, marginBottom: '4px' }}>
-                    {isEn ? 'Co-Founders & Executive Management' : 'Co-fondateurs & Direction'}
+                    {tr(lang, 'Co-fondateurs & Direction', 'Co-Founders & Executive Management', 'Cofundadores y Dirección Ejecutiva', '联合创始人与管理团队')}
                   </h2>
                   <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
                     {c.coFounders.heading}
@@ -302,7 +301,7 @@ export default function AboutPageView({
                   className="btn-outline"
                   style={{ padding: '8px 16px', fontSize: '0.82rem' }}
                 >
-                  {isEn ? 'Read Full Co-Founders Story & Video' : 'Histoire des co-fondateurs & vidéo'}{' '}
+                  {tr(lang, 'Histoire des co-fondateurs & vidéo', 'Read Full Co-Founders Story & Video', 'Historia de los cofundadores y video', '联合创始人故事与视频介绍')}{' '}
                   <ArrowRight size={14} />
                 </button>
               </div>
@@ -355,7 +354,7 @@ export default function AboutPageView({
                     >
                       <div>
                         <div style={{ fontSize: '0.73rem', color: 'var(--gold)', fontWeight: 600, marginBottom: '4px' }}>
-                          {isEn ? dir.shortTitle_en || dir.shortTitle : dir.shortTitle}
+                          {pickLang(dir, 'shortTitle', lang)}
                         </div>
                         <h3 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: '6px' }}>{dir.name}</h3>
                         <p
@@ -370,7 +369,7 @@ export default function AboutPageView({
                             marginBottom: '12px'
                           }}
                         >
-                          {isEn ? dir.bio_en || dir.bio : dir.bio}
+                          {pickLang(dir, 'bio', lang)}
                         </p>
                       </div>
                       <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', alignItems: 'center' }}>
@@ -378,7 +377,7 @@ export default function AboutPageView({
                           onClick={() => onSelectBroker && onSelectBroker(dir)}
                           style={{ fontSize: '0.8rem', color: 'var(--gold-light)', fontWeight: 600, cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
                         >
-                          {isEn ? 'Broker Profile' : 'Fiche courtier'} <ChevronRight size={13} />
+                          {tr(lang, 'Fiche courtier', 'Broker Profile', 'Perfil del corredor', '经纪人档案')} <ChevronRight size={13} />
                         </span>
                       </div>
                     </div>
@@ -390,7 +389,7 @@ export default function AboutPageView({
             {/* Cartes d'accès rapide aux autres rubriques officielles d'À propos */}
             <div>
               <h2 style={{ fontSize: '1.35rem', fontWeight: 700, marginBottom: '16px' }}>
-                {isEn ? 'Explore All About Himalaya Sections' : 'Toutes les rubriques À propos d’Himalaya'}
+                {tr(lang, 'Toutes les rubriques À propos d’Himalaya', 'Explore All About Himalaya Sections', 'Todas las secciones sobre Himalaya', '探索喜马拉雅地产全部专栏')}
               </h2>
               <div
                 style={{
@@ -406,15 +405,19 @@ export default function AboutPageView({
                 >
                   <Briefcase size={20} style={{ color: 'var(--gold)', marginBottom: '10px' }} />
                   <h3 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '6px' }}>
-                    {isEn ? 'Services & Associations' : 'Services & Associations'}
+                    {tr(lang, 'Services & Associations', 'Services & Associations', 'Servicios y Asociaciones', '专业服务与行业协会')}
                   </h3>
                   <p style={{ fontSize: '0.84rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '12px' }}>
-                    {isEn
-                      ? 'Commercial & industrial brokerage, real estate consulting, international network, and CQF / FPQ memberships.'
-                      : 'Courtage commercial et industriel, consultation immobilière, réseau international et adhésions CQF & FPQ.'}
+                    {tr(
+                      lang,
+                      'Courtage commercial et industriel, consultation immobilière, réseau international et adhésions CQF & FPQ.',
+                      'Commercial & industrial brokerage, real estate consulting, international network, and CQF / FPQ memberships.',
+                      'Corretaje comercial e industrial, consultoría inmobiliaria, red internacional y membresías CQF y FPQ.',
+                      '商业与工业地产经纪、房地产咨询顾问、国际资源网络以及 CQF 与 FPQ 行业协会认证。'
+                    )}
                   </p>
                   <span style={{ fontSize: '0.8rem', color: 'var(--gold-light)', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                    {isEn ? 'View services' : 'Voir les services'} <ChevronRight size={14} />
+                    {tr(lang, 'Voir les services', 'View services', 'Ver servicios', '查看服务详情')} <ChevronRight size={14} />
                   </span>
                 </div>
 
@@ -425,7 +428,7 @@ export default function AboutPageView({
                 >
                   <Store size={20} style={{ color: 'var(--gold)', marginBottom: '10px' }} />
                   <h3 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '6px' }}>
-                    {isEn ? 'Franchises' : 'Franchises'}
+                    {tr(lang, 'Franchises', 'Franchises', 'Franquicias', '连锁特许经营')}
                   </h3>
                   <p style={{ fontSize: '0.84rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '12px' }}>
                     {tr(lang,
@@ -436,7 +439,7 @@ export default function AboutPageView({
                     )}
                   </p>
                   <span style={{ fontSize: '0.8rem', color: 'var(--gold-light)', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                    {isEn ? 'View franchises' : 'Voir les franchises'} <ChevronRight size={14} />
+                    {tr(lang, 'Voir les franchises', 'View franchises', 'Ver franquicias', '查看特许经营品牌')} <ChevronRight size={14} />
                   </span>
                 </div>
 
@@ -447,15 +450,19 @@ export default function AboutPageView({
                 >
                   <Users size={20} style={{ color: 'var(--gold)', marginBottom: '10px' }} />
                   <h3 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '6px' }}>
-                    {isEn ? 'Become a Broker or Affiliate' : 'Devenir courtier ou affilié'}
+                    {tr(lang, 'Devenir courtier ou affilié', 'Become a Broker or Affiliate', 'Ser corredor o agencia afiliada', '成为经纪人或合作机构')}
                   </h3>
                   <p style={{ fontSize: '0.84rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '12px' }}>
-                    {isEn
-                      ? 'Discover the 8 benefits of joining Himalaya as a broker or becoming an international affiliated agency.'
-                      : 'Découvrez les avantages de joindre notre équipe de courtiers ou de devenir une agence affiliée.'}
+                    {tr(
+                      lang,
+                      'Découvrez les avantages de joindre notre équipe de courtiers ou de devenir une agence affiliée.',
+                      'Discover the 8 benefits of joining Himalaya as a broker or becoming an international affiliated agency.',
+                      'Descubra las ventajas de unirse a nuestro equipo de corredores o convertirse en agencia afiliada.',
+                      '了解加入喜马拉雅地产经纪人团队或成为国际合作加盟机构的专属优势。'
+                    )}
                   </p>
                   <span style={{ fontSize: '0.8rem', color: 'var(--gold-light)', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                    {isEn ? 'Careers & Affiliates' : 'Carrières & Affiliés'} <ChevronRight size={14} />
+                    {tr(lang, 'Carrières & Affiliés', 'Careers & Affiliates', 'Carreras y Afiliados', '招贤纳士与合作机构')} <ChevronRight size={14} />
                   </span>
                 </div>
 
@@ -466,15 +473,19 @@ export default function AboutPageView({
                 >
                   <HelpCircle size={20} style={{ color: 'var(--gold)', marginBottom: '10px' }} />
                   <h3 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '6px' }}>
-                    {isEn ? 'Commercial Real Estate FAQ' : 'Foire aux questions (FAQ)'}
+                    {tr(lang, 'Foire aux questions (FAQ)', 'Commercial Real Estate FAQ', 'Preguntas frecuentes (FAQ)', '商业地产常见问题 (FAQ)')}
                   </h3>
                   <p style={{ fontSize: '0.84rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '12px' }}>
-                    {isEn
-                      ? '12 practical answers on base rent, additional rent, commercial lease negotiation, and renewal options.'
-                      : '12 réponses pratiques sur le loyer de base, loyer additionnel, négociation de bail et options.'}
+                    {tr(
+                      lang,
+                      '12 réponses pratiques sur le loyer de base, loyer additionnel, négociation de bail et options.',
+                      '12 practical answers on base rent, additional rent, commercial lease negotiation, and renewal options.',
+                      '12 respuestas prácticas sobre alquiler base, alquiler adicional, negociación de arrendamientos y opciones.',
+                      '关于基本租金、附加租金、商业租约谈判及续租选择权的 12 个实用解答。'
+                    )}
                   </p>
                   <span style={{ fontSize: '0.8rem', color: 'var(--gold-light)', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                    {isEn ? 'Read the 12 Q&As' : 'Consulter les 12 Q&R'} <ChevronRight size={14} />
+                    {tr(lang, 'Consulter les 12 Q&R', 'Read the 12 Q&As', 'Consultar las 12 preguntas', '查看 12 个问答')} <ChevronRight size={14} />
                   </span>
                 </div>
 
@@ -485,15 +496,19 @@ export default function AboutPageView({
                 >
                   <Link2 size={20} style={{ color: 'var(--gold)', marginBottom: '10px' }} />
                   <h3 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '6px' }}>
-                    {isEn ? 'Real Estate Links & Partners' : 'Liens immobiliers & Partenaires'}
+                    {tr(lang, 'Liens immobiliers & Partenaires', 'Real Estate Links & Partners', 'Enlaces inmobiliarios y Socios', '房地产资源与合作伙伴')}
                   </h3>
                   <p style={{ fontSize: '0.84rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '12px' }}>
-                    {isEn
-                      ? 'Official government registries (Land Register, CPTAQ, MAMH) and vetted legal, notary, and appraisal partners.'
-                      : 'Sites gouvernementaux (Registre foncier, CPTAQ) et partenaires (avocats, notaires, évaluateurs, environnement).'}
+                    {tr(
+                      lang,
+                      'Sites gouvernementaux (Registre foncier, CPTAQ) et partenaires (avocats, notaires, évaluateurs, environnement).',
+                      'Official government registries (Land Register, CPTAQ, MAMH) and vetted legal, notary, and appraisal partners.',
+                      'Portales gubernamentales (Registro de la Propiedad, CPTAQ) y socios (abogados, notarios, tasadores, medio ambiente).',
+                      '政府官方登记处（土地注册处、农业用地委员会）及律所、公证人、评估师与环评合作伙伴。'
+                    )}
                   </p>
                   <span style={{ fontSize: '0.8rem', color: 'var(--gold-light)', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                    {isEn ? 'Open directory' : 'Voir le répertoire'} <ChevronRight size={14} />
+                    {tr(lang, 'Voir le répertoire', 'Open directory', 'Ver el directorio', '查看合作名录')} <ChevronRight size={14} />
                   </span>
                 </div>
               </div>
@@ -596,7 +611,7 @@ export default function AboutPageView({
                           className="btn-outline"
                           style={{ width: '100%', marginTop: '12px', fontSize: '0.82rem' }}
                         >
-                          {isEn ? 'View Active Listings & Contact' : 'Voir ses mandats actifs & coordonnées'}{' '}
+                          {tr(lang, 'Voir ses mandats actifs & coordonnées', 'View Active Listings & Contact', 'Ver propiedades activas y contacto', '查看在售房源与联系方式')}{' '}
                           <ChevronRight size={14} />
                         </button>
                       )}
@@ -1126,10 +1141,10 @@ export default function AboutPageView({
                             outline: 'none'
                           }}
                         >
-                          <option value="Restauration & Alimentation">{isEn ? 'Food Service & Restaurants' : 'Restauration & Alimentation'}</option>
-                          <option value="Commerce de détail">{isEn ? 'Retail & Storefront' : 'Commerce de détail & Boutique'}</option>
-                          <option value="Services & Cliniques">{isEn ? 'Services, Clinics & Dry Cleaning' : 'Services & Nettoyeurs'}</option>
-                          <option value="Hôtellerie & Villégiature">{isEn ? 'Hospitality & Resort' : 'Hôtellerie & Villégiature'}</option>
+                          <option value="Restauration & Alimentation">{tr(lang, 'Restauration & Alimentation', 'Food Service & Restaurants', 'Restauración y Alimentación', '餐饮与食品零售')}</option>
+                          <option value="Commerce de détail">{tr(lang, 'Commerce de détail & Boutique', 'Retail & Storefront', 'Comercio minorista y Boutique', '精品零售与商业门店')}</option>
+                          <option value="Services & Cliniques">{tr(lang, 'Services & Nettoyeurs', 'Services, Clinics & Dry Cleaning', 'Servicios, Clínicas y Tintorerías', '生活服务与连锁干洗')}</option>
+                          <option value="Hôtellerie & Villégiature">{tr(lang, 'Hôtellerie & Villégiature', 'Hospitality & Resort', 'Hotelería y Complejos turísticos', '酒店与旅游度假')}</option>
                         </select>
                       </div>
                     </div>
@@ -1144,7 +1159,7 @@ export default function AboutPageView({
                           required
                           value={franchiseRegions}
                           onChange={(e) => setFranchiseRegions(e.target.value)}
-                          placeholder={isEn ? 'Ex: Montreal, Laval • 2,000 sq.ft.' : 'Ex. : Montréal, Laval • 1 500 à 3 000 pi²'}
+                          placeholder={tr(lang, 'Ex. : Montréal, Laval • 1 500 à 3 000 pi²', 'Ex: Montreal, Laval • 2,000 sq.ft.', 'Ej.: Montreal, Laval • 1 500 a 3 000 pies²', '例如：蒙特利尔、拉瓦尔 • 1,500 至 3,000 平方英尺')}
                           style={{
                             width: '100%',
                             background: 'transparent',
@@ -1166,7 +1181,7 @@ export default function AboutPageView({
                           required
                           value={franchiseContactName}
                           onChange={(e) => setFranchiseContactName(e.target.value)}
-                          placeholder={isEn ? 'Your full name' : 'Votre nom complet'}
+                          placeholder={tr(lang, 'Votre nom complet', 'Your full name', 'Su nombre completo', '请输入您的姓名')}
                           style={{
                             width: '100%',
                             background: 'transparent',
@@ -1269,7 +1284,7 @@ export default function AboutPageView({
               >
                 <div>
                   <span className="badge-gold" style={{ marginBottom: '12px' }}>
-                    {isEn ? 'Careers — Real Estate Brokerage' : 'Carrières — Courtage immobilier'}
+                    {tr(lang, 'Carrières — Courtage immobilier', 'Careers — Real Estate Brokerage', 'Carreras — Corretaje inmobiliario', '职业发展 — 房地产经纪')}
                   </span>
                   <h2 style={{ fontSize: '1.4rem', fontWeight: 700, marginBottom: '14px' }}>
                     {c.careers.brokerHeading}
@@ -1318,7 +1333,7 @@ export default function AboutPageView({
               >
                 <div>
                   <span className="badge-gold" style={{ marginBottom: '12px' }}>
-                    {isEn ? 'International Network — Affiliated Agencies' : 'Réseau international — Agences affiliées'}
+                    {tr(lang, 'Réseau international — Agences affiliées', 'International Network — Affiliated Agencies', 'Red internacional — Agencias afiliadas', '国际合作网络 — 加盟经纪机构')}
                   </span>
                   <h2 style={{ fontSize: '1.4rem', fontWeight: 700, marginBottom: '14px' }}>
                     {c.careers.affiliateHeading}
@@ -1367,17 +1382,21 @@ export default function AboutPageView({
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px', marginBottom: '22px' }}>
                 <div>
                   <span className="badge-gold" style={{ marginBottom: '8px' }}>
-                    {isEn ? 'Confidential Application Form' : 'Formulaire de candidature confidentiel'}
+                    {tr(lang, 'Formulaire de candidature confidentiel', 'Confidential Application Form', 'Formulario de candidatura confidencial', '保密申请表')}
                   </span>
                   <h3 style={{ fontSize: '1.45rem', fontWeight: 700 }}>
                     {careerType === 'affilie'
-                      ? (isEn ? 'Apply to Become an Affiliated Agency' : 'Postuler — Devenir Agence Affiliée Himalaya')
-                      : (isEn ? 'Apply to Become a Himalaya Real Estate Broker' : 'Postuler — Devenir Courtier Immobilier Himalaya')}
+                      ? tr(lang, 'Postuler — Devenir Agence Affiliée Himalaya', 'Apply to Become an Affiliated Agency', 'Postular — Convertirse en Agencia Afiliada Himalaya', '申请成为喜马拉雅国际合作加盟机构')
+                      : tr(lang, 'Postuler — Devenir Courtier Immobilier Himalaya', 'Apply to Become a Himalaya Real Estate Broker', 'Postular — Convertirse en Corredor Inmobiliario Himalaya', '申请成为喜马拉雅地产认证经纪人')}
                   </h3>
                   <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', marginTop: '4px' }}>
-                    {isEn
-                      ? 'Your application is sent directly and confidentially to Roger Rhéaume & Geniev Mondoux.'
-                      : 'Votre candidature est transmise directement et en toute confidentialité à la direction (Roger Rhéaume & Geniev Mondoux).'}
+                    {tr(
+                      lang,
+                      'Votre candidature est transmise directement et en toute confidentialité à la direction (Roger Rhéaume & Geniev Mondoux).',
+                      'Your application is sent directly and confidentially to Roger Rhéaume & Geniev Mondoux.',
+                      'Su candidatura se envía directamente y con total confidencialidad a la dirección (Roger Rhéaume y Geniev Mondoux).',
+                      '您的申请将直接以严格保密方式发送至管理层（Roger Rhéaume 与 Geniev Mondoux）。'
+                    )}
                   </p>
                 </div>
 
@@ -1388,7 +1407,7 @@ export default function AboutPageView({
                     className={careerType === 'courtier' ? 'btn-gold' : 'btn-outline'}
                     style={{ padding: '7px 14px', fontSize: '0.8rem' }}
                   >
-                    {isEn ? 'Broker Application' : 'Volet Courtier'}
+                    {tr(lang, 'Volet Courtier', 'Broker Application', 'Candidatura Corredor', '经纪人申请')}
                   </button>
                   <button
                     type="button"
@@ -1396,7 +1415,7 @@ export default function AboutPageView({
                     className={careerType === 'affilie' ? 'btn-gold' : 'btn-outline'}
                     style={{ padding: '7px 14px', fontSize: '0.8rem' }}
                   >
-                    {isEn ? 'Affiliate Application' : 'Volet Affilié'}
+                    {tr(lang, 'Volet Affilié', 'Affiliate Application', 'Candidatura Afiliado', '合作机构申请')}
                   </button>
                 </div>
               </div>
@@ -1417,12 +1436,16 @@ export default function AboutPageView({
                     <CheckCircle2 size={24} color="var(--gold)" />
                     <div>
                       <div style={{ fontWeight: 700, fontSize: '1rem', color: '#fff' }}>
-                        {isEn ? 'Application Received Successfully!' : 'Candidature transmise avec succès !'}
+                        {tr(lang, 'Candidature transmise avec succès !', 'Application Received Successfully!', '¡Candidatura enviada con éxito!', '申请已成功提交！')}
                       </div>
                       <div style={{ fontSize: '0.86rem', color: 'var(--text-secondary)' }}>
-                        {isEn
-                          ? 'Thank you for your interest in Himalaya Real Estate Corp. Our executive team will contact you shortly.'
-                          : 'Merci de votre intérêt pour Immobilier Himalaya Real Estate Corp. Notre direction communiquera avec vous sous peu.'}
+                        {tr(
+                          lang,
+                          'Merci de votre intérêt pour Immobilier Himalaya Real Estate Corp. Notre direction communiquera avec vous sous peu.',
+                          'Thank you for your interest in Himalaya Real Estate Corp. Our executive team will contact you shortly.',
+                          'Gracias por su interés en Immobilier Himalaya Real Estate Corp. Nuestra dirección se pondrá en contacto con usted en breve.',
+                          '感谢您对喜马拉雅地产集团的关注，我们的管理团队将尽快与您联系。'
+                        )}
                       </div>
                     </div>
                   </div>
@@ -1439,7 +1462,7 @@ export default function AboutPageView({
                     className="btn-outline"
                     style={{ fontSize: '0.8rem', padding: '7px 14px' }}
                   >
-                    {isEn ? 'New Application' : 'Nouvelle candidature'}
+                    {tr(lang, 'Nouvelle candidature', 'New Application', 'Nueva candidatura', '提交新申请')}
                   </button>
                 </div>
               ) : (
@@ -1447,7 +1470,7 @@ export default function AboutPageView({
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '14px' }}>
                     <div>
                       <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
-                        {isEn ? 'Full Name *' : 'Nom complet *'}
+                        {tr(lang, 'Nom complet *', 'Full Name *', 'Nombre completo *', '姓名 *')}
                       </label>
                       <input
                         type="text"
@@ -1455,12 +1478,12 @@ export default function AboutPageView({
                         className="form-control"
                         value={careerName}
                         onChange={(e) => setCareerName(e.target.value)}
-                        placeholder={isEn ? 'Your full name' : 'Votre nom et prénom'}
+                        placeholder={tr(lang, 'Votre nom et prénom', 'Your full name', 'Su nombre y apellido', '请输入您的全名')}
                       />
                     </div>
                     <div>
                       <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
-                        {isEn ? 'Email Address *' : 'Adresse courriel *'}
+                        {tr(lang, 'Adresse courriel *', 'Email Address *', 'Correo electrónico *', '电子邮箱 *')}
                       </label>
                       <input
                         type="email"
@@ -1473,7 +1496,7 @@ export default function AboutPageView({
                     </div>
                     <div>
                       <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
-                        {isEn ? 'Phone Number *' : 'Téléphone *'}
+                        {tr(lang, 'Téléphone *', 'Phone Number *', 'Teléfono *', '联系电话 *')}
                       </label>
                       <input
                         type="tel"
@@ -1486,23 +1509,27 @@ export default function AboutPageView({
                     </div>
                     <div>
                       <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
-                        {isEn ? 'City / Address / Current Agency' : 'Ville / Adresse / Agence actuelle'}
+                        {tr(lang, 'Ville / Adresse / Agence actuelle', 'City / Address / Current Agency', 'Ciudad / Dirección / Agencia actual', '所在城市 / 地址 / 当前所属机构')}
                       </label>
                       <input
                         type="text"
                         className="form-control"
                         value={careerAddress}
                         onChange={(e) => setCareerAddress(e.target.value)}
-                        placeholder={isEn ? 'Montreal, QC (OACIQ License)' : 'Montréal, QC (Permis OACIQ)'}
+                        placeholder={tr(lang, 'Montréal, QC (Permis OACIQ)', 'Montreal, QC (OACIQ License)', 'Montreal, QC (Licencia OACIQ)', '蒙特利尔, QC (OACIQ 牌照)')}
                       />
                     </div>
                   </div>
 
                   <div>
                     <label style={{ display: 'block', fontSize: '0.78rem', color: 'var(--text-secondary)', marginBottom: '6px' }}>
-                      {isEn
-                        ? 'Why would you like to join our team? (Experience, specialties, territories) *'
-                        : 'Pourquoi désirez-vous joindre notre équipe ? (Expérience, spécialités, territoires) *'}
+                      {tr(
+                        lang,
+                        'Pourquoi désirez-vous joindre notre équipe ? (Expérience, spécialités, territoires) *',
+                        'Why would you like to join our team? (Experience, specialties, territories) *',
+                        '¿Por qué desea unirse a nuestro equipo? (Experiencia, especialidades, territorios) *',
+                        '您为何希望加入我们的团队？（从业经验、专业领域、业务区域）*'
+                      )}
                     </label>
                     <textarea
                       required
@@ -1510,20 +1537,22 @@ export default function AboutPageView({
                       className="form-control"
                       value={careerMotivation}
                       onChange={(e) => setCareerMotivation(e.target.value)}
-                      placeholder={
-                        isEn
-                          ? 'Tell us about your real estate background and goals...'
-                          : 'Parlez-nous de votre parcours en courtage immobilier et de vos objectifs...'
-                      }
+                      placeholder={tr(
+                        lang,
+                        'Parlez-nous de votre parcours en courtage immobilier et de vos objectifs...',
+                        'Tell us about your real estate background and goals...',
+                        'Cuéntenos sobre su trayectoria en corretaje inmobiliario y sus objetivos...',
+                        '请简要介绍您的房地产从业背景与职业发展目标...'
+                      )}
                     />
                   </div>
 
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
                     <span style={{ fontSize: '0.76rem', color: 'var(--text-muted)' }}>
-                      * {isEn ? 'Required fields. Treated with 100% confidentiality.' : 'Champs obligatoires. Traitement 100 % confidentiel.'}
+                      * {tr(lang, 'Champs obligatoires. Traitement 100 % confidentiel.', 'Required fields. Treated with 100% confidentiality.', 'Campos obligatorios. Tratamiento 100 % confidencial.', '必填项。所有信息均严格保密处理。')}
                     </span>
                     <button type="submit" className="btn-gold" style={{ padding: '11px 24px' }}>
-                      {isEn ? 'Submit My Application' : 'Soumettre ma candidature'} <ArrowRight size={15} />
+                      {tr(lang, 'Soumettre ma candidature', 'Submit My Application', 'Enviar mi candidatura', '提交申请')} <ArrowRight size={15} />
                     </button>
                   </div>
                 </form>

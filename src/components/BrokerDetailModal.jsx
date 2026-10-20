@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { X, Phone, Mail, MapPin, Globe, ChevronRight, Share2 } from 'lucide-react';
 import { HIMALAYA_FRANCHISES } from '../data/siteContent';
+import { tr, pickLang } from '../data/translations';
 
 export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSelectDeal }) {
   const [copied, setCopied] = useState(false);
@@ -21,12 +22,13 @@ export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSe
 
   if (!broker) return null;
 
-  const isEn = Boolean(t?.code && t.code !== 'FR');
-  const displayShortTitle = isEn ? (broker.shortTitle_en || broker.shortTitle) : broker.shortTitle;
-  const displayTitle = isEn ? (broker.title_en || broker.title) : broker.title;
-  const displayAddress = isEn ? (broker.address_en || broker.city_en || broker.city) : (broker.address || broker.city);
-  const displayBio = isEn ? (broker.bio_en || broker.bio) : broker.bio;
-  const displayMarkets = isEn ? (broker.markets_en || broker.markets) : broker.markets;
+  const lang = t?.code || 'FR';
+  const displayShortTitle = pickLang(broker, 'shortTitle', lang);
+  const displayTitle = pickLang(broker, 'title', lang);
+  const displayAddress = pickLang(broker, 'address', lang) || pickLang(broker, 'city', lang);
+  const displayBio = pickLang(broker, 'bio', lang);
+  const rawMarkets = pickLang(broker, 'markets', lang);
+  const displayMarkets = Array.isArray(rawMarkets) ? rawMarkets : (broker.markets || []);
   const brokerFranchises = HIMALAYA_FRANCHISES.filter(f => f.brokerIds && f.brokerIds.includes(broker.id));
 
   const handleShareProfile = () => {
@@ -55,7 +57,9 @@ export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSe
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <button onClick={handleShareProfile} className="btn-outline" style={{ padding: '6px 12px', fontSize: '0.78rem' }}>
               <Share2 size={13} />
-              {copied ? (isEn ? 'Profile link copied!' : 'Lien du profil copié !') : (isEn ? 'Share profile' : 'Partager le profil')}
+              {copied
+                ? tr(lang, 'Lien du profil copié !', 'Profile link copied!', '¡Enlace del perfil copiado!', '个人主页链接已复制！')
+                : tr(lang, 'Partager le profil', 'Share profile', 'Compartir perfil', '分享经纪人名片')}
             </button>
             <button
               onClick={onClose}
@@ -131,7 +135,9 @@ export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSe
                 className="btn-outline"
                 style={{ padding: '8px 12px', fontSize: '0.76rem' }}
               >
-                {emailCopied ? (isEn ? 'Copied!' : 'Copié !') : (isEn ? 'Copy Email' : 'Copier courriel')}
+                {emailCopied
+                  ? tr(lang, 'Copié !', 'Copied!', '¡Copiado!', '已复制！')
+                  : tr(lang, 'Copier courriel', 'Copy Email', 'Copiar correo', '复制邮箱')}
               </button>
             </div>
           </div>
@@ -139,7 +145,7 @@ export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSe
           {displayBio && (
             <div style={{ marginBottom: '24px' }}>
               <div className="badge-gold" style={{ marginBottom: '8px' }}>
-                {isEn ? 'Biography & Expertise' : 'Parcours & Expertise'}
+                {tr(lang, 'Parcours & Expertise', 'Biography & Expertise', 'Trayectoria y Experiencia', '专业履历与专长')}
               </div>
               <p style={{
                 color: 'var(--text-secondary)',
@@ -167,7 +173,7 @@ export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSe
             }}>
               <div style={{ fontSize: '0.73rem', color: 'var(--gold)', textTransform: 'uppercase', letterSpacing: '0.09em', fontWeight: 700 }}>
                 <Globe size={13} style={{ display: 'inline', marginRight: '6px' }} />
-                {t?.brokers?.specialties || 'Marchés & Pays'}
+                {t?.brokers?.specialties || tr(lang, 'Marchés & Pays', 'Markets & Countries', 'Mercados y Países', '服务市场与国家')}
               </div>
               <div style={{ fontSize: '0.88rem', fontWeight: 600, color: '#fff' }}>{displayMarkets.join(' • ')}</div>
             </div>
@@ -180,7 +186,7 @@ export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSe
               borderBottom: deals.length > 0 ? '1px solid var(--border-subtle)' : 'none'
             }}>
               <div className="badge-gold" style={{ marginBottom: '14px' }}>
-                {isEn ? 'Franchises Supported' : 'Franchises accompagnées'}
+                {tr(lang, 'Franchises accompagnées', 'Franchises Supported', 'Franquicias acompañadas', '合作品牌与特许经营')}
               </div>
               <div style={{
                 display: 'flex',
@@ -213,7 +219,7 @@ export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSe
           {deals.length > 0 && (
             <div>
               <div className="badge-gold" style={{ marginBottom: '14px' }}>
-                {deals.length} {t?.brokers?.activeMandates || 'inscription(s)'}
+                {deals.length} {t?.brokers?.activeMandates || tr(lang, 'inscription(s)', 'listing(s)', 'propiedad(es) activa(s)', '个在售房源')}
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '20px' }}>
                 {deals.map(d => (
@@ -232,7 +238,7 @@ export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSe
                     <div style={{ aspectRatio: '16 / 10', borderRadius: '6px', overflow: 'hidden', position: 'relative', marginBottom: '10px' }}>
                       <img
                         src={d.main_photo}
-                        alt={isEn ? (d.title_en || d.title) : d.title}
+                        alt={pickLang(d, 'title', lang)}
                         style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                         onError={e => { e.target.src = 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80'; }}
                       />
@@ -241,13 +247,13 @@ export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSe
                         fontSize: '0.86rem', fontWeight: 700, color: 'var(--gold-light)',
                         textShadow: '0 2px 8px rgba(0,0,0,0.9)'
                       }}>
-                        {isEn ? (d.price_raw_en || d.price_raw) : d.price_raw}
+                        {pickLang(d, 'price_raw', lang)}
                       </span>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '6px' }}>
                       <div style={{ minWidth: 0 }}>
                         <div className="serif-title" style={{ fontSize: '1.05rem', fontWeight: 600, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                          {isEn ? (d.title_en || d.title) : d.title}
+                          {pickLang(d, 'title', lang)}
                         </div>
                         <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                           {d.city}
