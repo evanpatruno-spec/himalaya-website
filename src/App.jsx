@@ -1147,10 +1147,10 @@ export default function App() {
 
                 <div style={{
                   display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
                   gap: '36px'
                 }}>
-                  {HIMALAYA_FRANCHISES.map((fr, idx) => (
+                  {HIMALAYA_FRANCHISES.map((fr) => (
                     <div
                       key={fr.id}
                       onClick={() => navigateTo('franchises')}
@@ -1158,50 +1158,44 @@ export default function App() {
                         background: 'transparent',
                         borderTop: '1px solid rgba(200, 164, 93, 0.35)',
                         borderBottom: '1px solid var(--border-subtle)',
-                        padding: '28px 0 24px',
+                        padding: '32px 20px 26px',
                         cursor: 'pointer',
                         display: 'flex',
                         flexDirection: 'column',
-                        justifyContent: 'space-between',
-                        gap: '20px',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        textAlign: 'center',
                         transition: 'border-color 0.3s ease, transform 0.3s ease'
                       }}
                     >
-                      <div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-                          <span className="editorial-num">0{idx + 1}</span>
-                          {fr.logo && (
-                            <img
-                              src={fr.logo}
-                              alt={fr.name}
-                              style={{
-                                maxHeight: fr.logoHeight || '42px',
-                                maxWidth: '165px',
-                                width: 'auto',
-                                objectFit: 'contain',
-                                filter: fr.invertLogo ? 'brightness(0) invert(1)' : 'none'
-                              }}
-                            />
-                          )}
-                        </div>
-                        <div style={{ fontSize: '0.72rem', color: 'var(--gold)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.09em', marginBottom: '6px' }}>
-                          {pickLang(fr, 'category', lang)}
-                        </div>
-                        <h4 className="serif-title" style={{ fontSize: '1.6rem', fontWeight: 600, color: '#fff', marginBottom: '10px' }}>
-                          {pickLang(fr, 'name', lang)}
-                        </h4>
-                        <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', lineHeight: 1.65 }}>
-                          {pickLang(fr, 'description', lang)}
-                        </p>
+                      <div style={{
+                        height: '124px',
+                        width: '100%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        marginBottom: '18px'
+                      }}>
+                        {fr.logo && (
+                          <img
+                            src={fr.logo}
+                            alt={fr.name}
+                            style={{
+                              height: fr.logoHeight || '64px',
+                              maxWidth: '230px',
+                              width: 'auto',
+                              objectFit: 'contain',
+                              filter: fr.invertLogo ? 'brightness(0) invert(1)' : 'none'
+                            }}
+                          />
+                        )}
                       </div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '14px', borderTop: '1px solid rgba(255,255,255,0.06)', fontSize: '0.82rem' }}>
-                        <span style={{ color: 'var(--gold-light)', fontWeight: 600 }}>
-                          {fr.brokerNames}
-                        </span>
-                        <span className="editorial-link" style={{ fontSize: '0.72rem' }}>
-                          {tr(lang, 'Dossier', 'Details', 'Detalles', '查看详情')} <ArrowRight size={13} />
-                        </span>
+                      <div style={{ fontSize: '0.72rem', color: 'var(--gold)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '6px' }}>
+                        {pickLang(fr, 'category', lang)}
                       </div>
+                      <h4 className="serif-title" style={{ fontSize: '1.45rem', fontWeight: 600, color: '#fff', margin: 0 }}>
+                        {pickLang(fr, 'name', lang)}
+                      </h4>
                     </div>
                   ))}
                 </div>

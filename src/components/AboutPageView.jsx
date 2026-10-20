@@ -862,146 +862,132 @@ export default function AboutPageView({
               </button>
             </div>
 
-            {/* LES 3 FRANCHISES AVEC LEURS LOGOS OFFICIELS : PACINI, ARABIAN OUD & GRILLADE TAURINO */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '36px' }}>
-              {HIMALAYA_FRANCHISES.map((fr, idx) => {
-                const assignedBrokers = directors.filter((d) => fr.brokerIds.includes(d.id));
-                return (
+            {/* GALERIE ÉPURÉE DES 6 ENSEIGNES FRANCHISES (LOGOS AGRANDIS & CENTRÉS, SANS TEXTE RÉPÉTITIF) */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))', gap: '36px' }}>
+              {HIMALAYA_FRANCHISES.map((fr) => (
+                <div
+                  key={fr.id}
+                  onClick={() => {
+                    setFranchiseBrand(fr.name);
+                    const el = document.getElementById('form-franchise-himalaya');
+                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }}
+                  style={{
+                    background: 'transparent',
+                    borderTop: '1px solid rgba(200, 164, 93, 0.38)',
+                    borderBottom: '1px solid var(--border-subtle)',
+                    padding: '34px 20px 28px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    textAlign: 'center',
+                    cursor: 'pointer',
+                    transition: 'border-color 0.25s ease, transform 0.25s ease'
+                  }}
+                >
+                  {/* Zone Logo Officiel Agrandi & Centré */}
                   <div
-                    key={fr.id}
                     style={{
-                      background: 'transparent',
-                      borderTop: '1px solid rgba(200, 164, 93, 0.38)',
-                      borderBottom: '1px solid var(--border-subtle)',
-                      padding: '28px 0 24px',
+                      height: '132px',
+                      width: '100%',
                       display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'space-between'
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      marginBottom: '20px'
                     }}
                   >
-                    <div>
-                      {/* Numérotation éditoriale + Zone Logo Officiel de la Franchise (#3, #14) */}
-                      <div
-                        style={{
-                          height: '96px',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'space-between',
-                          paddingBottom: '20px',
-                          marginBottom: '20px',
-                          borderBottom: '1px solid rgba(255,255,255,0.07)'
-                        }}
-                      >
-                        <span className="editorial-num">0{idx + 1}</span>
-                        <img
-                          src={fr.logo}
-                          alt={fr.name}
-                          style={{
-                            height: fr.logoHeight || '52px',
-                            maxWidth: '195px',
-                            width: 'auto',
-                            objectFit: 'contain',
-                            display: 'block',
-                            filter: fr.invertLogo ? 'brightness(0) invert(1)' : 'none'
-                          }}
-                        />
-                      </div>
-
-                      {/* Texte descriptif épuré */}
-                      <div style={{ paddingBottom: '20px' }}>
-                        <div className="badge-gold" style={{ marginBottom: '6px' }}>
-                          {pickLang(fr, 'category', lang)}
-                        </div>
-                        <h3 className="serif-title" style={{ fontSize: '1.75rem', fontWeight: 600, color: '#fff', marginBottom: '8px' }}>
-                          {pickLang(fr, 'name', lang)}
-                        </h3>
-                        <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.65 }}>
-                          {pickLang(fr, 'description', lang)}
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Courtiers attitrés — Présentation directe et épurée (zéro sous-boîte) */}
-                    <div>
-                      <div
-                        style={{
-                          paddingTop: '16px',
-                          borderTop: '1px solid var(--border-subtle)',
-                          marginBottom: '18px'
-                        }}
-                      >
-                        <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '12px' }}>
-                          {assignedBrokers.length > 1
-                            ? tr(lang, 'Courtiers Himalaya attitrés', 'Assigned Himalaya Brokers', 'Corredores Himalaya asignados', '负责该品牌的喜马拉雅经纪人')
-                            : tr(lang, 'Courtier Himalaya attitré', 'Assigned Himalaya Broker', 'Corredor Himalaya asignado', '负责该品牌的喜马拉雅经纪人')}
-                        </div>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                          {assignedBrokers.map((brk) => (
-                            <div
-                              key={brk.id}
-                              style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'space-between',
-                                gap: '10px'
-                              }}
-                            >
-                              <div
-                                onClick={() => onSelectBroker && onSelectBroker(brk)}
-                                style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }}
-                              >
-                                <img
-                                  src={brk.photo}
-                                  alt={brk.name}
-                                  style={{
-                                    width: '42px',
-                                    height: '42px',
-                                    borderRadius: '50%',
-                                    objectFit: 'cover',
-                                    objectPosition: 'top center',
-                                    border: '1px solid var(--gold)'
-                                  }}
-                                />
-                                <div>
-                                  <div style={{ fontWeight: 600, fontSize: '0.92rem', color: '#fff' }}>{brk.name}</div>
-                                  <div style={{ fontSize: '0.8rem', color: 'var(--gold-light)' }}>{brk.phone}</div>
-                                </div>
-                              </div>
-                              <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-                                <a
-                                  href={`tel:${brk.phone}`}
-                                  style={{ color: 'var(--gold-light)', display: 'inline-flex', alignItems: 'center' }}
-                                  title={brk.phone}
-                                >
-                                  <Phone size={15} />
-                                </a>
-                                <a
-                                  href={`mailto:${brk.email}?subject=${encodeURIComponent(`Franchise ${fr.name} — Immobilier Himalaya`)}`}
-                                  style={{ color: 'var(--text-secondary)', display: 'inline-flex', alignItems: 'center' }}
-                                  title={brk.email}
-                                >
-                                  <Mail size={15} />
-                                </a>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      <span
-                        onClick={() => {
-                          setFranchiseBrand(fr.name);
-                          const el = document.getElementById('form-franchise-himalaya');
-                          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        }}
-                        className="editorial-link"
-                      >
-                        {tr(lang, `Demande d’information — ${fr.name}`, `Inquire about ${fr.name}`, `Solicitar información — ${fr.name}`, `咨询 ${fr.name} 商业选址`)} <ArrowRight size={14} />
-                      </span>
-                    </div>
+                    <img
+                      src={fr.logo}
+                      alt={fr.name}
+                      style={{
+                        height: fr.logoHeight || '68px',
+                        maxWidth: '240px',
+                        width: 'auto',
+                        objectFit: 'contain',
+                        display: 'block',
+                        filter: fr.invertLogo ? 'brightness(0) invert(1)' : 'none'
+                      }}
+                    />
                   </div>
-                );
-              })}
+
+                  {/* Sous-titre épuré & Nom de la bannière centrés */}
+                  <div style={{ fontSize: '0.73rem', color: 'var(--gold)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '6px' }}>
+                    {pickLang(fr, 'category', lang)}
+                  </div>
+                  <h3 className="serif-title" style={{ fontSize: '1.45rem', fontWeight: 600, color: '#fff', margin: 0 }}>
+                    {pickLang(fr, 'name', lang)}
+                  </h3>
+                </div>
+              ))}
+            </div>
+
+            {/* BARRE UNIQUE DES COURTIERS ATTITRÉS À LA DIVISION FRANCHISE (ZÉRO RÉPÉTITION) */}
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                flexWrap: 'wrap',
+                gap: '24px',
+                padding: '24px 0',
+                borderTop: '1px solid rgba(200, 164, 93, 0.28)',
+                borderBottom: '1px solid var(--border-subtle)'
+              }}
+            >
+              <div>
+                <div className="badge-gold" style={{ marginBottom: '4px' }}>
+                  {tr(lang, 'Division Franchise & Emplacements Commerciaux', 'Franchise & Commercial Site Selection Division', 'División de Franquicias y Ubicaciones Comerciales', '特许经营与商业选址部')}
+                </div>
+                <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', margin: 0 }}>
+                  {tr(
+                    lang,
+                    'Accompagnement stratégique, sélection de sites et négociation de baux commerciaux assurés par nos courtiers attitrés :',
+                    'Strategic representation, site selection, and commercial lease negotiation led by our assigned brokers:',
+                    'Representación estratégica, selección de sitios y negociación de arrendamientos comerciales a cargo de nuestros corredores asignados:',
+                    '由我们的专属商业经纪人提供战略代理、门店选址与商业租约谈判：'
+                  )}
+                </p>
+              </div>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: '32px', flexWrap: 'wrap' }}>
+                {directors
+                  .filter((d) => ['roger_rheaume', 'mike_ainajian'].includes(d.id))
+                  .map((brk) => (
+                    <div key={brk.id} style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                      <img
+                        src={brk.photo}
+                        alt={brk.name}
+                        onClick={() => onSelectBroker && onSelectBroker(brk)}
+                        style={{
+                          width: '46px',
+                          height: '46px',
+                          borderRadius: '50%',
+                          objectFit: 'cover',
+                          objectPosition: 'top center',
+                          border: '1px solid var(--gold)',
+                          cursor: 'pointer'
+                        }}
+                      />
+                      <div>
+                        <div
+                          onClick={() => onSelectBroker && onSelectBroker(brk)}
+                          style={{ fontWeight: 600, fontSize: '0.95rem', color: '#fff', cursor: 'pointer' }}
+                        >
+                          {brk.name}
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '2px' }}>
+                          <a href={`tel:${brk.phone}`} style={{ fontSize: '0.82rem', color: 'var(--gold-light)', textDecoration: 'none' }}>
+                            {brk.phone}
+                          </a>
+                          <a href={`mailto:${brk.email}`} style={{ color: 'var(--text-secondary)', display: 'inline-flex', alignItems: 'center' }} title={brk.email}>
+                            <Mail size={14} />
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+              </div>
             </div>
 
             {/* Les 3 engagements réels d'Himalaya (CQF, Salon de Paris, Partenaires) — Numérotés 01, 02, 03 (#3) */}
