@@ -2493,25 +2493,7 @@ export default function App() {
               </div>
             </div>
 
-            {/* Colonne 3 : Bureau International Paris & Franchises */}
-            <div>
-              <div className="badge-gold" style={{ marginBottom: '12px' }}>
-                {tr(lang, 'International — Paris & CQF', 'International — Paris & CQF', 'Internacional — París y CQF', '国际业务 — 巴黎与 CQF')}
-              </div>
-              <div style={{ fontSize: '0.86rem', color: 'var(--text-secondary)', lineHeight: 1.7 }}>
-                <div style={{ color: '#fff', fontWeight: 600 }}>
-                  {tr(lang, 'Bureau de représentation — Paris', 'Paris Representative Office', 'Oficina de representación — París', '法国巴黎代表处')}
-                </div>
-                <div>14 Avenue de l’Opéra, 75001 Paris, France</div>
-                <div style={{ marginTop: '8px' }}>
-                  <span style={{ color: 'var(--gold-light)', fontSize: '0.8rem' }}>
-                    {tr(lang, 'Membre du Conseil québécois de la franchise (CQF)', 'Member of the Quebec Franchise Council (CQF)', 'Miembro del Consejo Quebequense de la Franquicia (CQF)', '魁北克特许经营理事会 (CQF) 成员')}
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Colonne 4 : Navigation Rapide */}
+            {/* Colonne 3 : Navigation Rapide */}
             <div>
               <div className="badge-gold" style={{ marginBottom: '12px' }}>
                 {tr(lang, 'Navigation', 'Navigation', 'Navegación', '快速导航')}
