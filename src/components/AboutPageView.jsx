@@ -14,7 +14,8 @@ import {
   Phone,
   Mail,
   ArrowRight,
-  Store
+  Store,
+  Search
 } from 'lucide-react';
 import { ABOUT_CONTENT } from '../data/aboutContent';
 import {
@@ -35,6 +36,9 @@ export default function AboutPageView({
   const c = ABOUT_CONTENT[lang] || ABOUT_CONTENT.FR;
   const [activeTab, setActiveTab] = useState(standaloneFranchisePage ? 'franchises' : (initialTab || 'qui-nous-sommes'));
   const [openFaqIndex, setOpenFaqIndex] = useState(0);
+  const [faqSearchQuery, setFaqSearchQuery] = useState('');
+  const [franchiseSectorFilter, setFranchiseSectorFilter] = useState('all');
+  const [franchiseFormMode, setFranchiseFormMode] = useState('tenant');
 
   useEffect(() => {
     if (standaloneFranchisePage) {
@@ -44,7 +48,52 @@ export default function AboutPageView({
     }
   }, [initialTab, standaloneFranchisePage]);
 
-  // États du formulaire Franchiseur / Recherche d'emplacement (#36)
+  // Superficie commerciale type recherchée par enseigne (Idée #6)
+  const getFranchiseSqftBadge = (fr) => {
+    const mapByNameOrId = {
+      Subway: '800 – 1 600 pi² (75 – 150 m²)',
+      Thaïzone: '1 400 – 2 400 pi² (130 – 225 m²)',
+      'Les Pères Nature': '6 000 – 15 000 pi² (550 – 1 400 m²)',
+      'Les Moulins La Fayette': '1 500 – 2 800 pi² (140 – 260 m²)',
+      'Chocolat Cotard': '800 – 1 800 pi² (75 – 170 m²)',
+      'Nettoyeur Daoust': '1 000 – 2 200 pi² (95 – 205 m²)',
+      pacini: '800 – 1 600 pi² (75 – 150 m²)',
+      grillade_torino: '1 400 – 2 400 pi² (130 – 225 m²)',
+      arabian_oud: '6 000 – 15 000 pi² (550 – 1 400 m²)',
+      moulin_lafayette: '1 500 – 2 800 pi² (140 – 260 m²)',
+      chocolat_cotard: '800 – 1 800 pi² (75 – 170 m²)',
+      nettoyeur_daoust: '1 000 – 2 200 pi² (95 – 205 m²)'
+    };
+    return mapByNameOrId[fr.name] || mapByNameOrId[fr.id] || '1 000 – 2 500 pi² (95 – 230 m²)';
+  };
+
+  const matchesFranchiseSector = (fr, sectorKey) => {
+    if (!sectorKey || sectorKey === 'all') return true;
+    const name = fr.name || '';
+    const id = fr.id || '';
+    if (sectorKey === 'restauration') {
+      return (
+        ['Subway', 'Thaïzone', 'Les Moulins La Fayette', 'Pacini', 'Grillade Torino'].includes(name) ||
+        ['pacini', 'grillade_torino', 'moulin_lafayette'].includes(id)
+      );
+    }
+    if (sectorKey === 'chocolaterie') {
+      return (
+        ['Chocolat Cotard', 'Les Pères Nature', 'Arabian Oud'].includes(name) ||
+        ['chocolat_cotard', 'arabian_oud'].includes(id)
+      );
+    }
+    if (sectorKey === 'services') {
+      return ['Nettoyeur Daoust'].includes(name) || ['nettoyeur_daoust'].includes(id);
+    }
+    return true;
+  };
+
+  const filteredFranchises = HIMALAYA_FRANCHISES.filter((fr) =>
+    matchesFranchiseSector(fr, franchiseSectorFilter)
+  );
+
+  // États du formulaire Franchiseur / Recherche d'emplacement (#36) & Propriétaire (#8)
   const [franchiseBrand, setFranchiseBrand] = useState('');
   const [franchiseSector, setFranchiseSector] = useState('Restauration & Alimentation');
   const [franchiseSqft, setFranchiseSqft] = useState('');
@@ -55,18 +104,38 @@ export default function AboutPageView({
   const [franchiseNotes, setFranchiseNotes] = useState('');
   const [franchiseSent, setFranchiseSent] = useState(false);
 
+  const scrollToFranchiseForm = (mode = 'tenant') => {
+    setFranchiseFormMode(mode);
+    setFranchiseSent(false);
+    const el = document.getElementById('franchise-contact-form') || document.getElementById('form-franchise-himalaya');
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   const handleFranchiseSubmit = async (e) => {
     e.preventDefault();
-    await submitLeadToProspection({
-      type: 'franchise_implantation',
-      source: 'Formulaire Franchises & Bannières (#36)',
-      subject: `Implantation Franchise : ${franchiseBrand} (${franchiseSector})`,
-      fullName: franchiseContactName,
-      email: franchiseEmail,
-      phone: franchisePhone,
-      city: franchiseRegions,
-      message: `Bannière: ${franchiseBrand} | Secteur: ${franchiseSector} | Superficie recherchée: ${franchiseSqft} | Régions cibles: ${franchiseRegions} | Détails: ${franchiseNotes}`
-    });
+    if (franchiseFormMode === 'landlord') {
+      await submitLeadToProspection({
+        type: 'franchise_local_proprietaire',
+        source: 'Formulaire Propriétaire — Proposer un local commercial (#8)',
+        subject: `Local commercial proposé aux bannières : ${franchiseRegions} (${franchiseSqft || franchiseBrand})`,
+        fullName: franchiseContactName,
+        email: franchiseEmail,
+        phone: franchisePhone,
+        city: franchiseRegions,
+        message: `Profil: Propriétaire d'immeuble | Adresse / Ville du local: ${franchiseRegions} | Superficie disponible: ${franchiseSqft} | Loyer net demandé / Détails: ${franchiseBrand} | Configuration / Vocation: ${franchiseSector} | Notes: ${franchiseNotes}`
+      });
+    } else {
+      await submitLeadToProspection({
+        type: 'franchise_implantation',
+        source: 'Formulaire Franchises & Bannières (#36)',
+        subject: `Implantation Franchise : ${franchiseBrand} (${franchiseSector})`,
+        fullName: franchiseContactName,
+        email: franchiseEmail,
+        phone: franchisePhone,
+        city: franchiseRegions,
+        message: `Bannière: ${franchiseBrand} | Secteur: ${franchiseSector} | Superficie recherchée: ${franchiseSqft} | Régions cibles: ${franchiseRegions} | Détails: ${franchiseNotes}`
+      });
+    }
     setFranchiseSent(true);
   };
 
@@ -892,25 +961,79 @@ export default function AboutPageView({
               </div>
               <button
                 type="button"
-                onClick={() => {
-                  const el = document.getElementById('form-franchise-himalaya');
-                  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }}
+                onClick={() => scrollToFranchiseForm('tenant')}
                 className="btn-gold"
               >
                 <Store size={15} /> {tr(lang, 'Contacter notre équipe Franchise', 'Contact Our Franchise Team', 'Contactar al equipo de Franquicias', '联系特许经营顾问团队')}
               </button>
             </div>
 
+            {/* BARRE DE FILTRAGE PAR SECTEUR MINIMALISTE (Idée #6) */}
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '24px',
+                flexWrap: 'wrap',
+                borderBottom: '1px solid var(--border-subtle)',
+                paddingBottom: '12px'
+              }}
+            >
+              {[
+                {
+                  id: 'all',
+                  label: tr(lang, 'Toutes les enseignes (6)', 'All Brands (6)', 'Todas las marcas (6)', '全部合作品牌 (6)')
+                },
+                {
+                  id: 'restauration',
+                  label: tr(lang, 'Restauration & Boulangerie', 'Restaurant & Bakery', 'Restauración y Panadería', '餐饮与烘焙连锁')
+                },
+                {
+                  id: 'chocolaterie',
+                  label: tr(lang, 'Chocolaterie & Café', 'Chocolate & Café', 'Chocolatería y Café', '巧克力与精品咖啡')
+                },
+                {
+                  id: 'services',
+                  label: tr(lang, 'Services & Entretien', 'Services & Dry Cleaning', 'Servicios y Tintorería', '生活服务与干洗')
+                }
+              ].map((tab) => {
+                const isSelected = franchiseSectorFilter === tab.id;
+                return (
+                  <button
+                    key={tab.id}
+                    type="button"
+                    onClick={() => setFranchiseSectorFilter(tab.id)}
+                    style={{
+                      background: 'transparent',
+                      border: 'none',
+                      borderBottom: isSelected ? '2px solid var(--gold)' : '2px solid transparent',
+                      padding: '6px 0 10px',
+                      marginBottom: '-13px',
+                      color: isSelected ? 'var(--gold-light)' : 'var(--text-secondary)',
+                      fontSize: '0.86rem',
+                      fontWeight: isSelected ? 700 : 500,
+                      letterSpacing: '0.02em',
+                      cursor: 'pointer',
+                      transition: 'color 0.2s ease, border-color 0.2s ease'
+                    }}
+                  >
+                    {tab.label}
+                  </button>
+                );
+              })}
+            </div>
+
             {/* GALERIE ÉPURÉE DES 6 ENSEIGNES FRANCHISES (LOGOS AGRANDIS & CENTRÉS, SANS TEXTE RÉPÉTITIF) */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))', gap: '36px' }}>
-              {HIMALAYA_FRANCHISES.map((fr) => (
+              {filteredFranchises.map((fr) => (
                 <div
                   key={fr.id}
                   onClick={() => {
+                    setFranchiseFormMode('tenant');
                     setFranchiseBrand(fr.name);
+                    setFranchiseSqft(getFranchiseSqftBadge(fr));
                     if (fr.sectorValue) setFranchiseSector(fr.sectorValue);
-                    const el = document.getElementById('form-franchise-himalaya');
+                    const el = document.getElementById('franchise-contact-form') || document.getElementById('form-franchise-himalaya');
                     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                   }}
                   style={{
@@ -956,9 +1079,23 @@ export default function AboutPageView({
                   <div style={{ fontSize: '0.73rem', color: 'var(--gold)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '6px' }}>
                     {pickLang(fr, 'category', lang)}
                   </div>
-                  <h3 className="serif-title" style={{ fontSize: '1.45rem', fontWeight: 600, color: '#fff', margin: '0 0 14px' }}>
+                  <h3 className="serif-title" style={{ fontSize: '1.45rem', fontWeight: 600, color: '#fff', margin: '0 0 8px' }}>
                     {pickLang(fr, 'name', lang)}
                   </h3>
+
+                  {/* Fine mention dorée de la superficie commerciale type recherchée (Idée #6) */}
+                  <div
+                    style={{
+                      fontSize: '0.76rem',
+                      color: 'var(--gold-light)',
+                      letterSpacing: '0.03em',
+                      marginBottom: '14px',
+                      opacity: 0.92
+                    }}
+                  >
+                    {tr(lang, 'Superficie recherchée :', 'Target Area:', 'Superficie buscada:', '目标选址面积：')}{' '}
+                    <span style={{ color: 'var(--gold)', fontWeight: 600 }}>{getFranchiseSqftBadge(fr)}</span>
+                  </div>
 
                   {/* Actions discrètes (#1 & #5 : Pré-remplir le formulaire + Site officiel) */}
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '18px', flexWrap: 'wrap' }}>
@@ -988,9 +1125,44 @@ export default function AboutPageView({
               ))}
             </div>
 
+            {/* APPEL À L'ACTION RAPIDE POUR LES PROPRIÉTAIRES DE LOCAUX COMMERCIAUX (Idée #8) */}
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                paddingTop: '4px'
+              }}
+            >
+              <button
+                type="button"
+                onClick={() => scrollToFranchiseForm('landlord')}
+                style={{
+                  background: 'transparent',
+                  border: 'none',
+                  borderBottom: '1px solid var(--gold)',
+                  padding: '8px 4px',
+                  color: 'var(--gold-light)',
+                  fontSize: '0.9rem',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  textAlign: 'center',
+                  letterSpacing: '0.01em',
+                  transition: 'color 0.2s ease'
+                }}
+              >
+                {tr(
+                  lang,
+                  "Vous êtes propriétaire d'un local commercial ? Proposer votre emplacement à nos bannières →",
+                  'Own a commercial space? Submit your location to our partner brands →',
+                  '¿Es propietario de un local comercial? Proponga su ubicación a nuestras marcas →',
+                  '拥有商业铺位？向我们的合作品牌推荐您的物业 →'
+                )}
+              </button>
+            </div>
+
             {/* SECTION BASSE ÉPURÉE EN 2 COLONNES SANS BOÎTE (Infos CQF/Paris + Courtiers à gauche, Formulaire minimaliste à droite) */}
             <div
-              id="form-franchise-himalaya"
+              id="franchise-contact-form"
               style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
@@ -1001,7 +1173,7 @@ export default function AboutPageView({
               }}
             >
               {/* COLONNE GAUCHE : Piliers CQF / Paris / Partenaires (en 3 lignes courtes) + Courtiers attitrés */}
-              <div>
+              <div id="form-franchise-himalaya">
                 <div className="gold-eyebrow" style={{ marginBottom: '8px' }}>
                   {tr(lang, 'DIVISION FRANCHISE', 'FRANCHISE DIVISION', 'DIVISIÓN FRANQUICIAS', '特许经营专部')}
                 </div>
@@ -1083,11 +1255,81 @@ export default function AboutPageView({
 
               {/* COLONNE DROITE : Formulaire architectural ouvert (zéro boîte grise, champs soulignés épurés) */}
               <div>
+                {/* SÉLECTEUR DE PROFIL EN 2 MODES SOULIGNÉS D'OR (Idée #8) */}
+                <div
+                  style={{
+                    display: 'flex',
+                    gap: '20px',
+                    flexWrap: 'wrap',
+                    borderBottom: '1px solid var(--border-subtle)',
+                    marginBottom: '20px'
+                  }}
+                >
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setFranchiseFormMode('tenant');
+                      setFranchiseSent(false);
+                    }}
+                    style={{
+                      background: 'transparent',
+                      border: 'none',
+                      borderBottom: franchiseFormMode === 'tenant' ? '2px solid var(--gold)' : '2px solid transparent',
+                      padding: '6px 0 10px',
+                      marginBottom: '-1px',
+                      color: franchiseFormMode === 'tenant' ? 'var(--gold-light)' : 'var(--text-secondary)',
+                      fontSize: '0.82rem',
+                      fontWeight: franchiseFormMode === 'tenant' ? 700 : 500,
+                      cursor: 'pointer',
+                      textAlign: 'left'
+                    }}
+                  >
+                    {tr(
+                      lang,
+                      'Franchiseur / Franchisé — Chercher un emplacement',
+                      'Franchisor / Franchisee — Find a Location',
+                      'Franquiciador / Franquiciado — Buscar local',
+                      '特许品牌 / 加盟商 — 寻找商业选址'
+                    )}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setFranchiseFormMode('landlord');
+                      setFranchiseSent(false);
+                    }}
+                    style={{
+                      background: 'transparent',
+                      border: 'none',
+                      borderBottom: franchiseFormMode === 'landlord' ? '2px solid var(--gold)' : '2px solid transparent',
+                      padding: '6px 0 10px',
+                      marginBottom: '-1px',
+                      color: franchiseFormMode === 'landlord' ? 'var(--gold-light)' : 'var(--text-secondary)',
+                      fontSize: '0.82rem',
+                      fontWeight: franchiseFormMode === 'landlord' ? 700 : 500,
+                      cursor: 'pointer',
+                      textAlign: 'left'
+                    }}
+                  >
+                    {tr(
+                      lang,
+                      "Propriétaire d'immeuble — Proposer un local commercial",
+                      'Property Owner — Submit a Commercial Space',
+                      'Propietario — Proponer un local comercial',
+                      '商业业主 — 推荐可用商铺/物业'
+                    )}
+                  </button>
+                </div>
+
                 <div className="gold-eyebrow" style={{ marginBottom: '8px' }}>
-                  {tr(lang, 'TROUVER UN EMPLACEMENT', 'FIND A COMMERCIAL LOCATION', 'BUSCAR UN LOCAL COMERCIAL', '寻找商业门店选址')}
+                  {franchiseFormMode === 'landlord'
+                    ? tr(lang, 'PROPOSER UN LOCAL À NOS CHAÎNES', 'SUBMIT A COMMERCIAL SPACE TO OUR BRANDS', 'PROPONER UN LOCAL A NUESTRAS MARCAS', '向合作品牌推荐商业铺位')
+                    : tr(lang, 'TROUVER UN EMPLACEMENT', 'FIND A COMMERCIAL LOCATION', 'BUSCAR UN LOCAL COMERCIAL', '寻找商业门店选址')}
                 </div>
                 <h3 className="serif-title" style={{ fontSize: '1.75rem', fontWeight: 600, color: '#fff', marginBottom: '22px' }}>
-                  {tr(lang, 'Transmettre vos critères d’emplacement', 'Submit Your Location Criteria', 'Enviar sus criterios de ubicación', '提交您的门店选址需求')}
+                  {franchiseFormMode === 'landlord'
+                    ? tr(lang, 'Soumettre votre emplacement commercial en 30 secondes', 'Submit Your Commercial Space in 30 Seconds', 'Presente su local comercial en 30 segundos', '30 秒快速提交您的商业物业信息')
+                    : tr(lang, 'Transmettre vos critères d’emplacement', 'Submit Your Location Criteria', 'Enviar sus criterios de ubicación', '提交您的门店选址需求')}
                 </h3>
 
                 {franchiseSent ? (
@@ -1125,101 +1367,201 @@ export default function AboutPageView({
                   </div>
                 ) : (
                   <form onSubmit={handleFranchiseSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '22px' }}>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '24px' }}>
-                      <div>
-                        <label style={{ display: 'block', fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--gold-light)', marginBottom: '6px' }}>
-                          {tr(lang, 'Franchise / Bannière *', 'Franchise / Banner *', 'Franquicia / Marca *', '连锁品牌名称 *')}
-                        </label>
-                        <input
-                          type="text"
-                          required
-                          value={franchiseBrand}
-                          onChange={(e) => setFranchiseBrand(e.target.value)}
-                          placeholder="Pacini, Arabian Oud, Torino..."
-                          style={{
-                            width: '100%',
-                            background: 'transparent',
-                            border: 'none',
-                            borderBottom: '1px solid rgba(255,255,255,0.2)',
-                            padding: '10px 0',
-                            color: '#fff',
-                            fontSize: '0.94rem',
-                            outline: 'none'
-                          }}
-                        />
-                      </div>
-                      <div>
-                        <label style={{ display: 'block', fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--gold-light)', marginBottom: '6px' }}>
-                          {tr(lang, 'Secteur d’activité', 'Business Sector', 'Sector de actividad', '行业类别')}
-                        </label>
-                        <select
-                          value={franchiseSector}
-                          onChange={(e) => setFranchiseSector(e.target.value)}
-                          style={{
-                            width: '100%',
-                            background: '#0a0a0c',
-                            border: 'none',
-                            borderBottom: '1px solid rgba(255,255,255,0.2)',
-                            padding: '10px 0',
-                            color: '#fff',
-                            fontSize: '0.94rem',
-                            outline: 'none'
-                          }}
-                        >
-                          <option value="Restauration & Alimentation">{tr(lang, 'Restauration & Alimentation', 'Food Service & Restaurants', 'Restauración y Alimentación', '餐饮与食品零售')}</option>
-                          <option value="Commerce de détail">{tr(lang, 'Commerce de détail & Boutique', 'Retail & Storefront', 'Comercio minorista y Boutique', '精品零售与商业门店')}</option>
-                          <option value="Services & Cliniques">{tr(lang, 'Services & Nettoyeurs', 'Services, Clinics & Dry Cleaning', 'Servicios, Clínicas y Tintorerías', '生活服务与连锁干洗')}</option>
-                          <option value="Hôtellerie & Villégiature">{tr(lang, 'Hôtellerie & Villégiature', 'Hospitality & Resort', 'Hotelería y Complejos turísticos', '酒店与旅游度假')}</option>
-                        </select>
-                      </div>
-                    </div>
+                    {franchiseFormMode === 'landlord' ? (
+                      <>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '24px' }}>
+                          <div>
+                            <label style={{ display: 'block', fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--gold-light)', marginBottom: '6px' }}>
+                              {tr(lang, 'Adresse / Ville du local *', 'Property Address / City *', 'Dirección / Ciudad del local *', '物业地址 / 所在城市 *')}
+                            </label>
+                            <input
+                              type="text"
+                              required
+                              value={franchiseRegions}
+                              onChange={(e) => setFranchiseRegions(e.target.value)}
+                              placeholder={tr(lang, 'Ex. : Boul. Taschereau, Brossard ou Centre-ville Montréal', 'Ex: Sainte-Catherine St., Montreal', 'Ej.: Calle Sainte-Catherine, Montreal', '例如：蒙特利尔市中心或拉瓦尔主干道')}
+                              style={{
+                                width: '100%',
+                                background: 'transparent',
+                                border: 'none',
+                                borderBottom: '1px solid rgba(255,255,255,0.2)',
+                                padding: '10px 0',
+                                color: '#fff',
+                                fontSize: '0.94rem',
+                                outline: 'none'
+                              }}
+                            />
+                          </div>
+                          <div>
+                            <label style={{ display: 'block', fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--gold-light)', marginBottom: '6px' }}>
+                              {tr(lang, 'Superficie disponible (en pi²) *', 'Available Area (sq.ft.) *', 'Superficie disponible (pies²) *', '可用面积（平方英尺）*')}
+                            </label>
+                            <input
+                              type="text"
+                              required
+                              value={franchiseSqft}
+                              onChange={(e) => setFranchiseSqft(e.target.value)}
+                              placeholder={tr(lang, 'Ex. : 1 800 pi² (divisible, coin de rue, drive-thru)', 'Ex: 1,800 sq.ft. (corner unit, drive-thru)', 'Ej.: 1 800 pies² (esquina, drive-thru)', '例如：1,800 平方英尺（街角铺位）')}
+                              style={{
+                                width: '100%',
+                                background: 'transparent',
+                                border: 'none',
+                                borderBottom: '1px solid rgba(255,255,255,0.2)',
+                                padding: '10px 0',
+                                color: '#fff',
+                                fontSize: '0.94rem',
+                                outline: 'none'
+                              }}
+                            />
+                          </div>
+                        </div>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '24px' }}>
-                      <div>
-                        <label style={{ display: 'block', fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--gold-light)', marginBottom: '6px' }}>
-                          {tr(lang, 'Régions ciblées & Superficie *', 'Target Regions & Area *', 'Regiones y Superficie *', '目标区域与面积需求 *')}
-                        </label>
-                        <input
-                          type="text"
-                          required
-                          value={franchiseRegions}
-                          onChange={(e) => setFranchiseRegions(e.target.value)}
-                          placeholder={tr(lang, 'Ex. : Montréal, Laval • 1 500 à 3 000 pi²', 'Ex: Montreal, Laval • 2,000 sq.ft.', 'Ej.: Montreal, Laval • 1 500 a 3 000 pies²', '例如：蒙特利尔、拉瓦尔 • 1,500 至 3,000 平方英尺')}
-                          style={{
-                            width: '100%',
-                            background: 'transparent',
-                            border: 'none',
-                            borderBottom: '1px solid rgba(255,255,255,0.2)',
-                            padding: '10px 0',
-                            color: '#fff',
-                            fontSize: '0.94rem',
-                            outline: 'none'
-                          }}
-                        />
-                      </div>
-                      <div>
-                        <label style={{ display: 'block', fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--gold-light)', marginBottom: '6px' }}>
-                          {tr(lang, 'Nom complet *', 'Full Name *', 'Nombre completo *', '您的姓名 *')}
-                        </label>
-                        <input
-                          type="text"
-                          required
-                          value={franchiseContactName}
-                          onChange={(e) => setFranchiseContactName(e.target.value)}
-                          placeholder={tr(lang, 'Votre nom complet', 'Your full name', 'Su nombre completo', '请输入您的姓名')}
-                          style={{
-                            width: '100%',
-                            background: 'transparent',
-                            border: 'none',
-                            borderBottom: '1px solid rgba(255,255,255,0.2)',
-                            padding: '10px 0',
-                            color: '#fff',
-                            fontSize: '0.94rem',
-                            outline: 'none'
-                          }}
-                        />
-                      </div>
-                    </div>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '24px' }}>
+                          <div>
+                            <label style={{ display: 'block', fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--gold-light)', marginBottom: '6px' }}>
+                              {tr(lang, 'Loyer net demandé ou détails du local *', 'Asking Net Rent or Space Details *', 'Alquiler neto solicitado o detalles *', '期望净租金或铺位详情 *')}
+                            </label>
+                            <input
+                              type="text"
+                              required
+                              value={franchiseBrand}
+                              onChange={(e) => setFranchiseBrand(e.target.value)}
+                              placeholder={tr(lang, 'Ex. : 32 $/pi² net • Ventilation restaurant en place', 'Ex: $32/sq.ft. net • Restaurant hood installed', 'Ej.: 32 $/pie² neto • Extracción instalada', '例如：$32/平方英尺净租 • 已配餐饮排风系统')}
+                              style={{
+                                width: '100%',
+                                background: 'transparent',
+                                border: 'none',
+                                borderBottom: '1px solid rgba(255,255,255,0.2)',
+                                padding: '10px 0',
+                                color: '#fff',
+                                fontSize: '0.94rem',
+                                outline: 'none'
+                              }}
+                            />
+                          </div>
+                          <div>
+                            <label style={{ display: 'block', fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--gold-light)', marginBottom: '6px' }}>
+                              {tr(lang, 'Nom complet (Propriétaire / Bailleur) *', 'Full Name (Landlord / Owner) *', 'Nombre completo (Propietario) *', '业主 / 出租方姓名 *')}
+                            </label>
+                            <input
+                              type="text"
+                              required
+                              value={franchiseContactName}
+                              onChange={(e) => setFranchiseContactName(e.target.value)}
+                              placeholder={tr(lang, 'Votre nom complet ou société immobilière', 'Your full name or property group', 'Su nombre completo o sociedad inmobiliaria', '您的姓名或地产公司名称')}
+                              style={{
+                                width: '100%',
+                                background: 'transparent',
+                                border: 'none',
+                                borderBottom: '1px solid rgba(255,255,255,0.2)',
+                                padding: '10px 0',
+                                color: '#fff',
+                                fontSize: '0.94rem',
+                                outline: 'none'
+                              }}
+                            />
+                          </div>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '24px' }}>
+                          <div>
+                            <label style={{ display: 'block', fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--gold-light)', marginBottom: '6px' }}>
+                              {tr(lang, 'Franchise / Bannière *', 'Franchise / Banner *', 'Franquicia / Marca *', '连锁品牌名称 *')}
+                            </label>
+                            <input
+                              type="text"
+                              required
+                              value={franchiseBrand}
+                              onChange={(e) => setFranchiseBrand(e.target.value)}
+                              placeholder="Subway, Thaïzone, Les Moulins La Fayette..."
+                              style={{
+                                width: '100%',
+                                background: 'transparent',
+                                border: 'none',
+                                borderBottom: '1px solid rgba(255,255,255,0.2)',
+                                padding: '10px 0',
+                                color: '#fff',
+                                fontSize: '0.94rem',
+                                outline: 'none'
+                              }}
+                            />
+                          </div>
+                          <div>
+                            <label style={{ display: 'block', fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--gold-light)', marginBottom: '6px' }}>
+                              {tr(lang, 'Secteur d’activité', 'Business Sector', 'Sector de actividad', '行业类别')}
+                            </label>
+                            <select
+                              value={franchiseSector}
+                              onChange={(e) => setFranchiseSector(e.target.value)}
+                              style={{
+                                width: '100%',
+                                background: '#0a0a0c',
+                                border: 'none',
+                                borderBottom: '1px solid rgba(255,255,255,0.2)',
+                                padding: '10px 0',
+                                color: '#fff',
+                                fontSize: '0.94rem',
+                                outline: 'none'
+                              }}
+                            >
+                              <option value="Restauration & Alimentation">{tr(lang, 'Restauration & Alimentation', 'Food Service & Restaurants', 'Restauración y Alimentación', '餐饮与食品零售')}</option>
+                              <option value="Commerce de détail">{tr(lang, 'Commerce de détail & Boutique', 'Retail & Storefront', 'Comercio minorista y Boutique', '精品零售与商业门店')}</option>
+                              <option value="Services & Cliniques">{tr(lang, 'Services & Nettoyeurs', 'Services, Clinics & Dry Cleaning', 'Servicios, Clínicas y Tintorerías', '生活服务与连锁干洗')}</option>
+                              <option value="Hôtellerie & Villégiature">{tr(lang, 'Hôtellerie & Villégiature', 'Hospitality & Resort', 'Hotelería y Complejos turísticos', '酒店与旅游度假')}</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '24px' }}>
+                          <div>
+                            <label style={{ display: 'block', fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--gold-light)', marginBottom: '6px' }}>
+                              {tr(lang, 'Régions ciblées & Superficie *', 'Target Regions & Area *', 'Regiones y Superficie *', '目标区域与面积需求 *')}
+                            </label>
+                            <input
+                              type="text"
+                              required
+                              value={franchiseRegions}
+                              onChange={(e) => setFranchiseRegions(e.target.value)}
+                              placeholder={tr(lang, 'Ex. : Montréal, Laval • 1 500 à 3 000 pi²', 'Ex: Montreal, Laval • 2,000 sq.ft.', 'Ej.: Montreal, Laval • 1 500 a 3 000 pies²', '例如：蒙特利尔、拉瓦尔 • 1,500 至 3,000 平方英尺')}
+                              style={{
+                                width: '100%',
+                                background: 'transparent',
+                                border: 'none',
+                                borderBottom: '1px solid rgba(255,255,255,0.2)',
+                                padding: '10px 0',
+                                color: '#fff',
+                                fontSize: '0.94rem',
+                                outline: 'none'
+                              }}
+                            />
+                          </div>
+                          <div>
+                            <label style={{ display: 'block', fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--gold-light)', marginBottom: '6px' }}>
+                              {tr(lang, 'Nom complet *', 'Full Name *', 'Nombre completo *', '您的姓名 *')}
+                            </label>
+                            <input
+                              type="text"
+                              required
+                              value={franchiseContactName}
+                              onChange={(e) => setFranchiseContactName(e.target.value)}
+                              placeholder={tr(lang, 'Votre nom complet', 'Your full name', 'Su nombre completo', '请输入您的姓名')}
+                              style={{
+                                width: '100%',
+                                background: 'transparent',
+                                border: 'none',
+                                borderBottom: '1px solid rgba(255,255,255,0.2)',
+                                padding: '10px 0',
+                                color: '#fff',
+                                fontSize: '0.94rem',
+                                outline: 'none'
+                              }}
+                            />
+                          </div>
+                        </div>
+                      </>
+                    )}
 
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '24px' }}>
                       <div>
@@ -1273,7 +1615,10 @@ export default function AboutPageView({
                         * {tr(lang, 'Traitement confidentiel — Roger Rhéaume & Mike Ainajian', 'Confidential handling — Roger Rhéaume & Mike Ainajian', 'Tratamiento confidencial — Roger Rhéaume & Mike Ainajian', '由 Roger Rhéaume 与 Mike Ainajian 保密跟进')}
                       </span>
                       <button type="submit" className="btn-gold" style={{ padding: '11px 24px' }}>
-                        {tr(lang, 'Envoyer ma demande', 'Submit Inquiry', 'Enviar solicitud', '提交选址咨询')} <ArrowRight size={15} />
+                        {franchiseFormMode === 'landlord'
+                          ? tr(lang, 'Proposer mon local', 'Submit My Space', 'Proponer mi local', '提交铺位推荐')
+                          : tr(lang, 'Envoyer ma demande', 'Submit Inquiry', 'Enviar solicitud', '提交选址咨询')}{' '}
+                        <ArrowRight size={15} />
                       </button>
                     </div>
                   </form>
@@ -1634,72 +1979,177 @@ export default function AboutPageView({
         {/* =================================================================
             ONGLET 5 : FOIRE AUX QUESTIONS — FAQ (faq.html — 12 Q&R officielles)
            ================================================================= */}
-        {activeTab === 'faq' && (
-          <div style={{ maxWidth: '900px' }}>
-            <div style={{ marginBottom: '22px' }}>
-              <h2 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '6px' }}>{c.faq.heading}</h2>
-              <p style={{ fontSize: '0.92rem', color: 'var(--text-secondary)' }}>{c.faq.subtitle}</p>
-            </div>
+        {activeTab === 'faq' && (() => {
+          const normalizeFaqText = (str = '') =>
+            String(str)
+              .normalize('NFD')
+              .replace(/[\u0300-\u036f]/g, '')
+              .toLowerCase();
+          const trimmedQuery = faqSearchQuery.trim();
+          const normalizedQuery = normalizeFaqText(trimmedQuery);
+          const isSearchActive = normalizedQuery.length > 0;
+          const filteredFaqItems = c.faq.items
+            .map((item, originalIdx) => ({ ...item, originalIdx }))
+            .filter((item) => {
+              if (!isSearchActive) return true;
+              return (
+                normalizeFaqText(item.q).includes(normalizedQuery) ||
+                normalizeFaqText(item.a).includes(normalizedQuery)
+              );
+            });
 
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-              {c.faq.items.map((item, idx) => {
-                const isOpen = openFaqIndex === idx;
-                return (
-                  <div
-                    key={idx}
+          return (
+            <div style={{ maxWidth: '900px' }}>
+              <div style={{ marginBottom: '22px' }}>
+                <h2 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '6px' }}>{c.faq.heading}</h2>
+                <p style={{ fontSize: '0.92rem', color: 'var(--text-secondary)' }}>{c.faq.subtitle}</p>
+              </div>
+
+              {/* Champ de recherche architectural souligné (Idée #15) */}
+              <div
+                style={{
+                  position: 'relative',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                  marginBottom: '28px',
+                  borderBottom: '1px solid rgba(200, 164, 93, 0.45)',
+                  paddingBottom: '8px'
+                }}
+              >
+                <Search size={16} style={{ color: 'var(--gold)', flexShrink: 0 }} />
+                <input
+                  type="text"
+                  value={faqSearchQuery}
+                  onChange={(e) => setFaqSearchQuery(e.target.value)}
+                  placeholder={tr(
+                    lang,
+                    'Rechercher un sujet dans la FAQ : OACIQ, mise de fonds, bail commercial, commission...',
+                    'Search a topic in the FAQ: OACIQ, down payment, commercial lease, commission...',
+                    'Buscar un tema en las FAQ: OACIQ, pago inicial, contrato comercial, comisión...',
+                    '在常见问题中搜索：OACIQ、首付、商业租约、佣金...'
+                  )}
+                  style={{
+                    width: '100%',
+                    background: 'transparent',
+                    border: 'none',
+                    padding: '6px 0',
+                    color: '#fff',
+                    fontSize: '0.92rem',
+                    outline: 'none'
+                  }}
+                />
+                {faqSearchQuery && (
+                  <button
+                    type="button"
+                    onClick={() => setFaqSearchQuery('')}
+                    aria-label={tr(lang, 'Effacer la recherche', 'Clear search', 'Borrar búsqueda', '清除搜索')}
                     style={{
                       background: 'transparent',
-                      borderTop: idx === 0 ? '1px solid rgba(200, 164, 93, 0.35)' : 'none',
-                      borderBottom: `1px solid ${isOpen ? 'var(--gold)' : 'var(--border-subtle)'}`
+                      border: 'none',
+                      color: 'var(--gold-light)',
+                      fontSize: '1.15rem',
+                      lineHeight: 1,
+                      padding: '2px 6px',
+                      cursor: 'pointer'
                     }}
                   >
-                    <button
-                      onClick={() => setOpenFaqIndex(isOpen ? -1 : idx)}
-                      style={{
-                        width: '100%',
-                        padding: '18px 0',
-                        background: 'transparent',
-                        border: 'none',
-                        color: 'var(--text-primary)',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        gap: '12px',
-                        textAlign: 'left',
-                        cursor: 'pointer',
-                        fontSize: '0.96rem',
-                        fontWeight: 600
-                      }}
-                    >
-                      <span>{item.q}</span>
-                      <ChevronDown
-                        size={18}
-                        style={{
-                          color: 'var(--gold)',
-                          flexShrink: 0,
-                          transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-                          transition: 'transform 0.2s ease'
-                        }}
-                      />
-                    </button>
-                    {isOpen && (
+                    ×
+                  </button>
+                )}
+              </div>
+
+              {filteredFaqItems.length === 0 ? (
+                <div
+                  style={{
+                    padding: '28px 0',
+                    borderTop: '1px solid rgba(200, 164, 93, 0.35)',
+                    borderBottom: '1px solid var(--border-subtle)',
+                    color: 'var(--text-secondary)',
+                    fontSize: '0.94rem',
+                    lineHeight: 1.7
+                  }}
+                >
+                  <p style={{ marginBottom: '12px', color: 'var(--text-primary)' }}>
+                    {tr(
+                      lang,
+                      'Aucune question de la FAQ ne correspond à votre recherche. N’hésitez pas à reformuler votre mot-clé ou à communiquer directement avec nos courtiers.',
+                      'No FAQ question matches your search. Please try another keyword or contact our brokers directly.',
+                      'Ninguna pregunta de las FAQ coincide con su búsqueda. Intente con otra palabra clave o contacte directamente a nuestros corredores.',
+                      '未找到与您搜索词匹配的常见问题。请尝试其他关键词或直接联系我们的专业经纪人。'
+                    )}
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setFaqSearchQuery('')}
+                    className="btn-outline"
+                    style={{ padding: '7px 14px', fontSize: '0.8rem' }}
+                  >
+                    {tr(lang, 'Réinitialiser la recherche', 'Reset search', 'Restablecer búsqueda', '重置搜索')}
+                  </button>
+                </div>
+              ) : (
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                  {filteredFaqItems.map((item, idx) => {
+                    const isOpen = isSearchActive ? true : openFaqIndex === item.originalIdx;
+                    return (
                       <div
+                        key={item.originalIdx}
                         style={{
-                          padding: '0 0 18px',
-                          fontSize: '0.92rem',
-                          color: 'var(--text-secondary)',
-                          lineHeight: 1.7
+                          background: 'transparent',
+                          borderTop: idx === 0 ? '1px solid rgba(200, 164, 93, 0.35)' : 'none',
+                          borderBottom: `1px solid ${isOpen ? 'var(--gold)' : 'var(--border-subtle)'}`
                         }}
                       >
-                        {item.a}
+                        <button
+                          onClick={() => setOpenFaqIndex(isOpen ? -1 : item.originalIdx)}
+                          style={{
+                            width: '100%',
+                            padding: '18px 0',
+                            background: 'transparent',
+                            border: 'none',
+                            color: 'var(--text-primary)',
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            gap: '12px',
+                            textAlign: 'left',
+                            cursor: 'pointer',
+                            fontSize: '0.96rem',
+                            fontWeight: 600
+                          }}
+                        >
+                          <span>{item.q}</span>
+                          <ChevronDown
+                            size={18}
+                            style={{
+                              color: 'var(--gold)',
+                              flexShrink: 0,
+                              transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                              transition: 'transform 0.2s ease'
+                            }}
+                          />
+                        </button>
+                        {isOpen && (
+                          <div
+                            style={{
+                              padding: '0 0 18px',
+                              fontSize: '0.92rem',
+                              color: 'var(--text-secondary)',
+                              lineHeight: 1.7
+                            }}
+                          >
+                            {item.a}
+                          </div>
+                        )}
                       </div>
-                    )}
-                  </div>
-                );
-              })}
+                    );
+                  })}
+                </div>
+              )}
             </div>
-          </div>
-        )}
+          );
+        })()}
 
         {/* =================================================================
             ONGLET 6 : LIENS IMMOBILIERS & PARTENAIRES (liens-immobiliers.html)

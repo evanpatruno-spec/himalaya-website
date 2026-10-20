@@ -156,13 +156,14 @@ export default function PropertyDetailModal({
   onOpenNDA,
   onFilterByBroker,
   onSimulateInTools,
+  onOpenCalculator,
   currency = 'CAD',
   onCurrencyChange,
   allDeals = liveDealsData,
   onSelectDeal
 }) {
-  const [photoIdx, setPhotoIdx] = useState(0);
-  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [activeImgIdx, setActiveImgIdx] = useState(0);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const [emailCopied, setEmailCopied] = useState(false);
 
@@ -188,15 +189,17 @@ export default function PropertyDetailModal({
   const [interestRate, setInterestRate] = useState(5.25);
 
   useEffect(() => {
-    setPhotoIdx(0);
-    setLightboxOpen(false);
+    setActiveImgIdx(0);
+    setIsLightboxOpen(false);
   }, [deal?.id, deal?.mls_number]);
 
-  const photos = useMemo(() => {
+  const gallery = useMemo(() => {
     return Array.isArray(deal?.photos) && deal.photos.length > 0 
       ? deal.photos 
       : [deal?.main_photo || FALLBACK_IMG];
   }, [deal]);
+  const photos = gallery;
+  const photoIdx = activeImgIdx;
 
   // Idée #5 : Jusqu'à 3 propriétés similaires actives (même catégorie ou même région en priorité)
   const similarDeals = useMemo(() => {
@@ -227,14 +230,14 @@ export default function PropertyDetailModal({
 
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') {
-        if (lightboxOpen) setLightboxOpen(false);
+        if (isLightboxOpen) setIsLightboxOpen(false);
         else onClose();
       }
-      if (e.key === 'ArrowLeft' && photos.length > 1) {
-        setPhotoIdx(prev => (prev === 0 ? photos.length - 1 : prev - 1));
+      if (e.key === 'ArrowRight' && gallery.length > 1) {
+        setActiveImgIdx(prev => (prev + 1) % gallery.length);
       }
-      if (e.key === 'ArrowRight' && photos.length > 1) {
-        setPhotoIdx(prev => (prev === photos.length - 1 ? 0 : prev + 1));
+      if (e.key === 'ArrowLeft' && gallery.length > 1) {
+        setActiveImgIdx(prev => (prev - 1 + gallery.length) % gallery.length);
       }
     };
 
@@ -243,12 +246,12 @@ export default function PropertyDetailModal({
       document.body.style.overflow = prevOverflow;
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [onClose, photos.length, lightboxOpen]);
+  }, [onClose, gallery.length, isLightboxOpen]);
 
   if (!deal) return null;
 
-  const handlePrev = () => setPhotoIdx(prev => (prev === 0 ? photos.length - 1 : prev - 1));
-  const handleNext = () => setPhotoIdx(prev => (prev === photos.length - 1 ? 0 : prev + 1));
+  const handlePrev = () => setActiveImgIdx(prev => (prev - 1 + gallery.length) % gallery.length);
+  const handleNext = () => setActiveImgIdx(prev => (prev + 1) % gallery.length);
 
   const rawSpecs = deal.specs || deal.specifications || {};
   const cleanSpecs = Object.entries(rawSpecs).filter(([k, v]) => {
@@ -286,8 +289,22 @@ export default function PropertyDetailModal({
     ? Math.round((loanAmount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -totalMonths)))
     : Math.round(loanAmount / totalMonths);
 
+  // Idée #1 — Simulateur de financement rapide intégré (20% mise de fonds, 4.79%, 25 ans = 300 mois)
+  const quickMortgageMonthlyCAD = useMemo(() => {
+    if (!(priceNum > 0)) return 0;
+    const principal = priceNum * 0.8;
+    const r = 0.0479 / 12;
+    const n = 300;
+    return Math.round((principal * (r * Math.pow(1 + r, n))) / (Math.pow(1 + r, n) - 1));
+  }, [priceNum]);
+
   const ndaUnlocked = isNdaSignedForDeal(deal.mls_number);
   const lang = t?.code || 'FR';
+  const numLocale = lang === 'EN' ? 'en-CA' : 'fr-CA';
+  const quickMortgageRate = CURRENCY_RATES[selectedCurrency] || 1;
+  const quickMortgageConverted = Math.round(quickMortgageMonthlyCAD * quickMortgageRate).toLocaleString(numLocale);
+  const quickMortgageCurrencySuffix =
+    selectedCurrency === 'EUR' ? '€ EUR' : selectedCurrency === 'USD' ? '$ USD' : 'CAD $';
   const displayCategory = pickLang(deal, 'category', lang) || tr(lang, 'Immobilier', 'Real Estate', 'Inmobiliaria', '房地产');
   const displayTitle = pickLang(deal, 'title', lang);
   const displayPrice = pickLang(deal, 'price_raw', lang);
@@ -378,7 +395,7 @@ export default function PropertyDetailModal({
 
         {/* Contenu principal */}
         <div style={{ padding: '24px' }}>
-          {/* Galerie photo haute résolution (#5) */}
+          {/* Galerie photo haute résolution (#5 & Idée #17) */}
           <div style={{
             position: 'relative',
             height: '430px',
@@ -389,28 +406,31 @@ export default function PropertyDetailModal({
             marginBottom: '12px'
           }}>
             <img 
-              src={photos[photoIdx]} 
+              src={gallery[activeImgIdx]} 
               alt={displayTitle}
-              onClick={() => setLightboxOpen(true)}
+              onClick={() => setIsLightboxOpen(true)}
               style={{ width: '100%', height: '100%', objectFit: 'cover', cursor: 'zoom-in' }}
               onError={e => { e.target.src = FALLBACK_IMG; }}
             />
             <button
-              onClick={() => setLightboxOpen(true)}
+              type="button"
+              onClick={() => setIsLightboxOpen(true)}
               title={tr(lang, 'Plein écran', 'View Fullscreen', 'Pantalla completa', '全屏查看')}
               style={{
-                position: 'absolute', top: '12px', right: '14px',
+                position: 'absolute', bottom: '12px', right: '14px',
                 background: 'rgba(9,9,11,0.82)', border: '1px solid var(--border-subtle)',
-                color: '#fff', padding: '6px 10px', borderRadius: '8px',
+                color: '#fff', padding: '6px 11px', borderRadius: '8px',
                 display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.74rem', cursor: 'pointer'
               }}
             >
-              <Maximize2 size={13} /> {tr(lang, 'Agrandir', 'Fullscreen', 'Ampliar', '全屏放大')}
+              <Maximize2 size={13} /> {tr(lang, 'Plein écran', 'Fullscreen', 'Pantalla completa', '全屏放大')}
             </button>
-            {photos.length > 1 && (
+            {gallery.length > 1 && (
               <>
                 <button 
+                  type="button"
                   onClick={handlePrev}
+                  aria-label={tr(lang, 'Photo précédente', 'Previous photo', 'Foto anterior', '上一张照片')}
                   style={{
                     position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)',
                     background: 'rgba(9,9,11,0.78)', border: '1px solid var(--border-gold)',
@@ -421,7 +441,9 @@ export default function PropertyDetailModal({
                   <ChevronLeft size={20} />
                 </button>
                 <button 
+                  type="button"
                   onClick={handleNext}
+                  aria-label={tr(lang, 'Photo suivante', 'Next photo', 'Foto siguiente', '下一张照片')}
                   style={{
                     position: 'absolute', right: '14px', top: '50%', transform: 'translateY(-50%)',
                     background: 'rgba(9,9,11,0.78)', border: '1px solid var(--border-gold)',
@@ -432,32 +454,33 @@ export default function PropertyDetailModal({
                   <ChevronRight size={20} />
                 </button>
                 <div style={{
-                  position: 'absolute', bottom: '12px', right: '14px',
+                  position: 'absolute', bottom: '12px', left: '14px',
                   background: 'rgba(9,9,11,0.85)', padding: '4px 11px',
-                  borderRadius: '999px', fontSize: '0.75rem', border: '1px solid var(--border-subtle)'
+                  borderRadius: '999px', fontSize: '0.75rem', border: '1px solid var(--border-subtle)',
+                  color: '#fff'
                 }}>
-                  {photoIdx + 1} / {photos.length} {tr(lang, 'photos', 'photos', 'fotos', '张照片')}
+                  {activeImgIdx + 1} / {gallery.length}
                 </div>
               </>
             )}
           </div>
 
           {/* Miniatures complètes (#5) */}
-          {photos.length > 1 && (
+          {gallery.length > 1 && (
             <div style={{
               display: 'flex', gap: '8px', overflowX: 'auto', paddingBottom: '8px', marginBottom: '22px'
             }}>
-              {photos.map((p, idx) => (
+              {gallery.map((p, idx) => (
                 <img 
                   key={idx}
                   src={p}
                   alt=""
-                  onClick={() => setPhotoIdx(idx)}
+                  onClick={() => setActiveImgIdx(idx)}
                   onError={e => { e.target.src = FALLBACK_IMG; }}
                   style={{
                     width: '76px', height: '54px', objectFit: 'cover', borderRadius: '6px', cursor: 'pointer',
-                    border: idx === photoIdx ? '2px solid var(--gold)' : '1px solid rgba(255,255,255,0.1)',
-                    opacity: idx === photoIdx ? 1 : 0.55,
+                    border: idx === activeImgIdx ? '2px solid var(--gold)' : '1px solid rgba(255,255,255,0.1)',
+                    opacity: idx === activeImgIdx ? 1 : 0.55,
                     flexShrink: 0
                   }}
                 />
@@ -714,6 +737,71 @@ export default function PropertyDetailModal({
                       );
                     })}
                   </div>
+                </div>
+              )}
+
+              {/* Idée #1 — Simulateur de financement rapide intégré dans la fiche propriété (Sans Boîte) */}
+              {deal.price > 0 && deal.status !== 'Vendu' && (
+                <div
+                  className="no-print"
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    gap: '16px',
+                    flexWrap: 'wrap',
+                    marginTop: cleanSpecs.length > 0 ? '22px' : '0',
+                    padding: '14px 0',
+                    borderTop: '1px solid rgba(200, 164, 93, 0.28)',
+                    borderBottom: '1px solid rgba(255,255,255,0.08)'
+                  }}
+                >
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                    <span style={{ fontSize: '0.76rem', color: 'var(--text-muted)', letterSpacing: '0.02em' }}>
+                      {tr(
+                        lang,
+                        'Estimation hypothécaire indicative (20 % mise de fonds • 4,79 % • 25 ans)',
+                        'Indicative Mortgage Estimate (20% down payment • 4.79% • 25 yrs)',
+                        'Estimación hipotecaria indicativa (20 % de enganche • 4,79 % • 25 años)',
+                        '按揭月供估算（首付 20% • 利率 4.79% • 25 年摊还期）'
+                      )}
+                    </span>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', flexWrap: 'wrap' }}>
+                      <strong className="serif-title gold-gradient-text" style={{ fontSize: '1.35rem', fontWeight: 600 }}>
+                        ≈ {quickMortgageConverted} {quickMortgageCurrencySuffix} / {tr(lang, 'mois', 'mo', 'mes', '月')}
+                      </strong>
+                      {(selectedCurrency === 'EUR' || selectedCurrency === 'USD') && (
+                        <span style={{ fontSize: '0.74rem', color: 'var(--text-muted)' }}>
+                          ({quickMortgageMonthlyCAD.toLocaleString(numLocale)} CAD $ / {tr(lang, 'mois', 'mo', 'mes', '月')})
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (onOpenCalculator) onOpenCalculator(deal.price);
+                      else if (onSimulateInTools) onSimulateInTools(deal);
+                    }}
+                    className="btn-outline"
+                    style={{
+                      padding: '8px 14px',
+                      fontSize: '0.78rem',
+                      borderColor: 'var(--border-gold)',
+                      color: 'var(--gold-light)',
+                      whiteSpace: 'nowrap'
+                    }}
+                  >
+                    <Calculator size={13} color="var(--gold)" />
+                    {tr(
+                      lang,
+                      'Simuler dans le calculateur →',
+                      'Simulate in Calculator →',
+                      'Simular en la calculadora →',
+                      '在金融计算器中模拟 →'
+                    )}
+                  </button>
                 </div>
               )}
             </div>
@@ -1045,32 +1133,57 @@ export default function PropertyDetailModal({
         </div>
       </div>
 
-      {/* Lightbox Plein Écran */}
-      {lightboxOpen && (
+      {/* Lightbox Plein Écran (Idée #17) */}
+      {isLightboxOpen && (
         <div
-          onClick={(e) => { e.stopPropagation(); setLightboxOpen(false); }}
+          onClick={(e) => { e.stopPropagation(); setIsLightboxOpen(false); }}
           style={{
-            position: 'fixed', inset: 0, zIndex: 2000,
-            background: 'rgba(5, 5, 7, 0.96)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            position: 'fixed', inset: 0, zIndex: 9999,
+            background: 'rgba(5,5,7,0.96)',
+            display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
             padding: '24px'
           }}
         >
+          {/* Compteur en haut à gauche */}
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              position: 'absolute', top: '22px', left: '28px',
+              background: 'rgba(9,9,11,0.85)',
+              border: '1px solid var(--border-gold)',
+              color: 'var(--gold-light)',
+              padding: '6px 14px',
+              borderRadius: '999px',
+              fontSize: '0.82rem',
+              fontWeight: 600,
+              letterSpacing: '0.06em'
+            }}
+          >
+            {activeImgIdx + 1} / {gallery.length}
+          </div>
+
+          {/* Bouton de fermeture × */}
           <button
-            onClick={() => setLightboxOpen(false)}
+            type="button"
+            onClick={() => setIsLightboxOpen(false)}
+            aria-label={tr(lang, 'Fermer le plein écran', 'Close fullscreen', 'Cerrar pantalla completa', '关闭全屏')}
             style={{
               position: 'absolute', top: '20px', right: '24px',
               background: 'rgba(255,255,255,0.1)', border: '1px solid var(--border-gold)',
               color: '#fff', width: '42px', height: '42px', borderRadius: '50%',
-              display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer'
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontSize: '1.35rem', lineHeight: 1, cursor: 'pointer'
             }}
           >
-            <X size={20} />
+            ×
           </button>
-          {photos.length > 1 && (
+
+          {gallery.length > 1 && (
             <>
               <button
+                type="button"
                 onClick={(e) => { e.stopPropagation(); handlePrev(); }}
+                aria-label={tr(lang, 'Photo précédente', 'Previous photo', 'Foto anterior', '上一张照片')}
                 style={{
                   position: 'absolute', left: '24px', top: '50%', transform: 'translateY(-50%)',
                   background: 'rgba(9,9,11,0.85)', border: '1px solid var(--border-gold)',
@@ -1081,7 +1194,9 @@ export default function PropertyDetailModal({
                 <ChevronLeft size={24} />
               </button>
               <button
+                type="button"
                 onClick={(e) => { e.stopPropagation(); handleNext(); }}
+                aria-label={tr(lang, 'Photo suivante', 'Next photo', 'Foto siguiente', '下一张照片')}
                 style={{
                   position: 'absolute', right: '24px', top: '50%', transform: 'translateY(-50%)',
                   background: 'rgba(9,9,11,0.85)', border: '1px solid var(--border-gold)',
@@ -1093,12 +1208,41 @@ export default function PropertyDetailModal({
               </button>
             </>
           )}
+
           <img
-            src={photos[photoIdx]}
+            src={gallery[activeImgIdx]}
             alt={displayTitle}
             onClick={(e) => e.stopPropagation()}
-            style={{ maxWidth: '92vw', maxHeight: '88vh', objectFit: 'contain', borderRadius: '8px', border: '1px solid var(--border-subtle)' }}
+            onError={e => { e.target.src = FALLBACK_IMG; }}
+            style={{
+              maxHeight: '86vh',
+              maxWidth: '92vw',
+              objectFit: 'contain',
+              borderRadius: '8px',
+              border: '1px solid var(--border-subtle)'
+            }}
           />
+
+          {/* Légende traduite de la propriété */}
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              marginTop: '14px',
+              textAlign: 'center',
+              color: 'var(--text-secondary)',
+              fontSize: '0.88rem',
+              maxWidth: '80vw'
+            }}
+          >
+            <span className="serif-title" style={{ color: '#fff', fontSize: '1.05rem', fontWeight: 600 }}>
+              {displayTitle}
+            </span>
+            {deal.city && (
+              <span style={{ color: 'var(--gold-light)', marginLeft: '10px', fontSize: '0.82rem' }}>
+                • {deal.city}{deal.region ? ` (${deal.region})` : ''}
+              </span>
+            )}
+          </div>
         </div>
       )}
     </div>

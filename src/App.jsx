@@ -55,11 +55,13 @@ export default function App() {
   const [rechercheBut, setRechercheBut] = useState('all');
   const [filtreRegion, setFiltreRegion] = useState('all');
   const [filtreCourtier, setFiltreCourtier] = useState('all');
+  const [filtreBudget, setFiltreBudget] = useState('all');
   const [sortBy, setSortBy] = useState('price_desc');
   const [propertiesViewMode, setPropertiesViewMode] = useState('grid'); // 'grid' | 'map' (Point 11)
 
   // Filtres courtiers
   const [brokerCategoryFilter, setBrokerCategoryFilter] = useState('all');
+  const [brokerLanguageFilter, setBrokerLanguageFilter] = useState('all');
   const [brokerSearch, setBrokerSearch] = useState('');
 
   // Modales & États additionnels (#3, #4, #6, #15, #16, #18)
@@ -70,6 +72,7 @@ export default function App() {
   const [toolInitialTab, setToolInitialTab] = useState('plex');
   const [aboutInitialTab, setAboutInitialTab] = useState('qui-nous-sommes');
   const [newsYearFilter, setNewsYearFilter] = useState('all');
+  const [selectedNewsArticle, setSelectedNewsArticle] = useState(null);
   const [legalModalType, setLegalModalType] = useState(null); // 'terms' | 'privacy' | null
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -203,6 +206,14 @@ export default function App() {
           if (!dealBelongsToBroker(d, filtreCourtier)) return false;
         }
 
+        if (filtreBudget !== 'all') {
+          const p = Number(d.price) || 0;
+          if (filtreBudget === 'under500k' && !(p > 0 && p < 500000)) return false;
+          if (filtreBudget === '500k_1500k' && !(p >= 500000 && p <= 1500000)) return false;
+          if (filtreBudget === '1500k_5000k' && !(p > 1500000 && p <= 5000000)) return false;
+          if (filtreBudget === 'over5000k' && !(p > 5000000 || p === 0)) return false;
+        }
+
         if (qNorm) {
           const haystack = normalizeText(
             `${d.title} ${d.city} ${d.region} ${d.mls_number} ${d.description} ${d.assigned_broker}`
@@ -217,9 +228,33 @@ export default function App() {
         if (sortBy === 'price_asc') return (a.price || 0) - (b.price || 0);
         return (a.title || '').localeCompare(b.title || '');
       });
-  }, [rechercheBut, filtrePropriete, filtreRegion, filtreCourtier, searchKeyword, sortBy]);
+  }, [rechercheBut, filtrePropriete, filtreRegion, filtreCourtier, filtreBudget, searchKeyword, sortBy]);
 
-  // Filtrage courtiers multi-rôles (Résidentiel & Commercial, Direction, International)
+  // Langues parlées par courtier (Idée #11)
+  const getBrokerLanguages = (b) => {
+    const id = b.id || '';
+    const codes = ['fr', 'en'];
+    if (['olivier_meunier', 'yun_zhang', 'pengbo_zhao'].includes(id)) codes.push('zh');
+    if (['roger_rheaume', 'sylvie_castonguay', 'eric_barelier'].includes(id)) codes.push('es');
+    if (['mike_ainajian', 'joseph_jacob'].includes(id)) codes.push('ar');
+    if (['mike_ainajian', 'taline_ovayan'].includes(id)) codes.push('hy');
+    return codes;
+  };
+
+  const getBrokerLanguageLabels = (b) => {
+    const codes = getBrokerLanguages(b);
+    const map = {
+      fr: 'FR',
+      en: 'EN',
+      zh: tr(lang, 'Mandarin (中文)', 'Mandarin (中文)', 'Mandarín (中文)', '普通话 (中文)'),
+      es: tr(lang, 'Espagnol', 'Spanish', 'Español', '西班牙语'),
+      ar: tr(lang, 'Arabe', 'Arabic', 'Árabe', '阿拉伯语'),
+      hy: tr(lang, 'Arménien', 'Armenian', 'Armenio', '亚美尼亚语')
+    };
+    return codes.map(c => map[c]).filter(Boolean);
+  };
+
+  // Filtrage courtiers multi-rôles + langue parlée (#11)
   const filteredBrokers = useMemo(() => {
     const q = normalizeText(brokerSearch);
     return INITIAL_HIMALAYA_BROKERS.filter(b => {
@@ -227,13 +262,21 @@ export default function App() {
         const cats = Array.isArray(b.categories) ? b.categories : [b.category];
         if (!cats.includes(brokerCategoryFilter)) return false;
       }
+      if (brokerLanguageFilter !== 'all') {
+        const spoken = getBrokerLanguages(b);
+        if (brokerLanguageFilter === 'ar_hy') {
+          if (!spoken.includes('ar') && !spoken.includes('hy')) return false;
+        } else if (!spoken.includes(brokerLanguageFilter)) {
+          return false;
+        }
+      }
       if (q) {
         const hay = normalizeText(`${b.name} ${b.title} ${b.shortTitle} ${b.city}`);
         return hay.includes(q);
       }
       return true;
     });
-  }, [brokerCategoryFilter, brokerSearch]);
+  }, [brokerCategoryFilter, brokerLanguageFilter, brokerSearch]);
 
   const navigateTo = (page, options = {}) => {
     if (options.filtrePropriete !== undefined) setFiltrePropriete(options.filtrePropriete);
@@ -1047,7 +1090,39 @@ export default function App() {
                   </span>
                   <h2 className="serif-title" style={{ fontSize: '2.35rem', fontWeight: 600 }}>{t.home.featuredTitle}</h2>
                 </div>
-                <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center' }}>
+                  {/* Sélecteur de devises rapide (Idée #2) */}
+                  <div style={{
+                    display: 'inline-flex',
+                    border: '1px solid rgba(200, 164, 93, 0.35)',
+                    borderRadius: '6px',
+                    padding: '2px',
+                    marginRight: '4px'
+                  }}>
+                    {[
+                      { id: 'CAD', label: 'CAD $' },
+                      { id: 'EUR', label: 'EUR €' },
+                      { id: 'USD', label: 'USD $' }
+                    ].map(curr => (
+                      <button
+                        key={curr.id}
+                        type="button"
+                        onClick={() => setCurrency(curr.id)}
+                        style={{
+                          padding: '5px 8px',
+                          borderRadius: '4px',
+                          border: 'none',
+                          cursor: 'pointer',
+                          fontSize: '0.73rem',
+                          fontWeight: 600,
+                          background: currency === curr.id ? 'var(--gold)' : 'transparent',
+                          color: currency === curr.id ? '#09090b' : 'var(--text-secondary)'
+                        }}
+                      >
+                        {curr.label}
+                      </button>
+                    ))}
+                  </div>
                   {[
                     { id: 'all', label: t.home.tabAll },
                     { id: 'pourvoirie', label: t.home.tabOutfitter },
@@ -1096,23 +1171,24 @@ export default function App() {
             <div className="container">
               <div style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(190px, 1fr))',
                 gap: '28px',
                 paddingBottom: '64px',
                 marginBottom: '64px',
                 borderBottom: '1px solid var(--border-subtle)'
               }}>
                 {[
-                  { num: `${liveDealsData.length}`, label: t.home.statMandates },
-                  { num: `${INITIAL_HIMALAYA_BROKERS.length}`, label: t.home.statBrokers },
-                  { num: t.home.statFoundedNum, label: t.home.statFounded },
-                  { num: t.home.statPolesNum, label: t.home.statPoles }
+                  { target: liveDealsData.length, suffix: '', label: t.home.statMandates },
+                  { target: INITIAL_HIMALAYA_BROKERS.length, suffix: '', label: t.home.statBrokers },
+                  { target: 35, suffix: '+', label: tr(lang, 'Années d’expertise cumulée', 'Years of Combined Expertise', 'Años de experiencia acumulada', '年累计行业经验') },
+                  { target: HIMALAYA_FRANCHISES.length, suffix: '+', label: tr(lang, 'Bannières nationales (CQF)', 'National Franchise Brands (CQF)', 'Marcas nacionales (CQF)', '全国连锁合作品牌 (CQF)') },
+                  { target: 2008, suffix: '', isYear: true, label: t.home.statFounded }
                 ].map((stat, i) => (
                   <div key={i} style={{ textAlign: 'center', padding: '6px 12px' }}>
                     <div className="serif-title gold-gradient-text" style={{ fontSize: '2.85rem', fontWeight: 600, lineHeight: 1.05 }}>
-                      {stat.num}
+                      <AnimatedStatValue target={stat.target} suffix={stat.suffix} isYear={stat.isYear} />
                     </div>
-                    <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', marginTop: '8px', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                    <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '8px', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                       {stat.label}
                     </div>
                   </div>
@@ -1408,6 +1484,14 @@ export default function App() {
                   <option value="Location">{t.properties.forRent}</option>
                 </select>
 
+                <select className="form-control" value={filtreBudget} onChange={e => setFiltreBudget(e.target.value)}>
+                  <option value="all">{tr(lang, 'Tous les budgets', 'All Budgets', 'Todos los presupuestos', '全部预算范围')}</option>
+                  <option value="under500k">{tr(lang, 'Moins de 500 000 $', 'Under $500,000', 'Menos de 500 000 $', '50 万加元以下')}</option>
+                  <option value="500k_1500k">{tr(lang, '500 000 $ – 1,5 M$', '$500,000 – $1.5M', '500 000 $ – 1,5 M$', '50 万 – 150 万加元')}</option>
+                  <option value="1500k_5000k">{tr(lang, '1,5 M$ – 5 M$', '$1.5M – $5M', '1,5 M$ – 5 M$', '150 万 – 500 万加元')}</option>
+                  <option value="over5000k">{tr(lang, '5 M$ et + / Sur demande', '$5M+ / Upon Request', '5 M$ y + / Bajo solicitud', '500 万加元以上 / 面议')}</option>
+                </select>
+
                 <select className="form-control" value={filtreRegion} onChange={e => setFiltreRegion(e.target.value)}>
                   <option value="all">{t.hero.allRegions}</option>
                   {availableRegions.map(r => (
@@ -1429,12 +1513,21 @@ export default function App() {
                 </select>
               </div>
 
-              {(filtrePropriete !== 'all' || rechercheBut !== 'all' || filtreRegion !== 'all' || filtreCourtier !== 'all' || searchKeyword) && (
+              {currency !== 'CAD' && (
+                <div style={{ marginTop: '10px', fontSize: '0.78rem', color: 'var(--gold-light)' }}>
+                  {currency === 'EUR'
+                    ? tr(lang, 'Affichage indicatif en Euros (1 CAD ≈ 0,68 EUR) • Prix contractuels en CAD $', 'Indicative display in Euros (1 CAD ≈ 0.68 EUR) • Official prices in CAD $', 'Conversión indicativa en Euros (1 CAD ≈ 0,68 EUR) • Precios oficiales en CAD $', '欧元参考折算（1 加元 ≈ 0.68 欧元）• 合同官方价格以加元 CAD $ 为准')
+                    : tr(lang, 'Affichage indicatif en Dollars US (1 CAD ≈ 0,73 USD) • Prix contractuels en CAD $', 'Indicative display in US Dollars (1 CAD ≈ 0.73 USD) • Official prices in CAD $', 'Conversión indicativa en Dólares US (1 CAD ≈ 0,73 USD) • Precios oficiales en CAD $', '美元参考折算（1 加元 ≈ 0.73 美元）• 合同官方价格以加元 CAD $ 为准')}
+                </div>
+              )}
+
+              {(filtrePropriete !== 'all' || rechercheBut !== 'all' || filtreBudget !== 'all' || filtreRegion !== 'all' || filtreCourtier !== 'all' || searchKeyword) && (
                 <div style={{ marginTop: '12px', textAlign: 'right' }}>
                   <button 
                     onClick={() => {
                       setFiltrePropriete('all');
                       setRechercheBut('all');
+                      setFiltreBudget('all');
                       setFiltreRegion('all');
                       setFiltreCourtier('all');
                       setSearchKeyword('');
@@ -1635,6 +1728,51 @@ export default function App() {
               </div>
             </div>
 
+            {/* Filtre par langue parlée (Idée #11) */}
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '14px',
+              flexWrap: 'wrap',
+              paddingBottom: '16px',
+              marginBottom: '28px',
+              borderBottom: '1px solid rgba(255,255,255,0.08)'
+            }}>
+              <span style={{ fontSize: '0.74rem', color: 'var(--gold)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.09em' }}>
+                {tr(lang, 'Langue parlée :', 'Spoken Language:', 'Idioma hablado:', '服务语言筛选：')}
+              </span>
+              {[
+                { id: 'all', label: tr(lang, 'Toutes (14)', 'All (14)', 'Todos (14)', '全部语言 (14)') },
+                { id: 'fr', label: tr(lang, 'Français', 'French', 'Francés', '法语 (FR)') },
+                { id: 'en', label: tr(lang, 'Anglais', 'English', 'Inglés', '英语 (EN)') },
+                { id: 'zh', label: tr(lang, 'Mandarin (中文)', 'Mandarin (中文)', 'Mandarín (中文)', '普通话 (中文)') },
+                { id: 'es', label: tr(lang, 'Espagnol', 'Spanish', 'Español', '西班牙语 (ES)') },
+                { id: 'ar_hy', label: tr(lang, 'Arabe & Arménien', 'Arabic & Armenian', 'Árabe y Armenio', '阿拉伯语 / 亚美尼亚语') }
+              ].map(lg => {
+                const active = brokerLanguageFilter === lg.id;
+                return (
+                  <button
+                    key={lg.id}
+                    type="button"
+                    onClick={() => setBrokerLanguageFilter(lg.id)}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      borderBottom: active ? '2px solid var(--gold)' : '2px solid transparent',
+                      padding: '4px 2px',
+                      cursor: 'pointer',
+                      fontSize: '0.82rem',
+                      fontWeight: active ? 700 : 400,
+                      color: active ? 'var(--gold-light)' : 'var(--text-secondary)',
+                      transition: 'all 0.2s ease'
+                    }}
+                  >
+                    {lg.label}
+                  </button>
+                );
+              })}
+            </div>
+
             <div className="brokers-grid">
               {filteredBrokers.map(broker => {
                 const brokerDeals = liveDealsData.filter(d => dealBelongsToBroker(d, broker.name));
@@ -1668,6 +1806,9 @@ export default function App() {
                               {brokerDeals.length} {t.brokers.activeMandates}
                             </span>
                           )}
+                        </div>
+                        <div style={{ fontSize: '0.73rem', color: 'var(--text-muted)', marginTop: '6px' }}>
+                          {getBrokerLanguageLabels(broker).join(' • ')}
                         </div>
                       </div>
 
@@ -1778,13 +1919,15 @@ export default function App() {
               {HIMALAYA_NEWS.filter(n => newsYearFilter === 'all' || n.year === newsYearFilter).map(news => (
                 <div
                   key={news.id}
+                  onClick={() => setSelectedNewsArticle(news)}
                   style={{
                     background: 'transparent',
                     borderBottom: '1px solid var(--border-subtle)',
                     paddingBottom: '22px',
                     display: 'flex',
                     flexDirection: 'column',
-                    justifyContent: 'space-between'
+                    justifyContent: 'space-between',
+                    cursor: 'pointer'
                   }}
                 >
                   <div>
@@ -1805,9 +1948,30 @@ export default function App() {
                       {pickLang(news, 'excerpt', lang)}
                     </p>
                   </div>
-                  <a href={news.url} target="_blank" rel="noreferrer" className="editorial-link" style={{ alignSelf: 'flex-start', fontSize: '0.74rem' }}>
-                    {t.news.readArticle} <ExternalLink size={12} />
-                  </a>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px', flexWrap: 'wrap' }}>
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedNewsArticle(news);
+                      }}
+                      className="editorial-link"
+                      style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, fontSize: '0.74rem' }}
+                    >
+                      {tr(lang, 'Lire l’analyse complète', 'Read Full Article', 'Leer análisis completo', '阅读完整专题分析')} <ArrowRight size={12} />
+                    </button>
+                    {news.url && (
+                      <a
+                        href={news.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        onClick={e => e.stopPropagation()}
+                        style={{ fontSize: '0.72rem', color: 'var(--text-muted)', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+                      >
+                        {tr(lang, 'Source', 'Source', 'Fuente', '官方来源')} <ExternalLink size={11} />
+                      </a>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
@@ -1854,23 +2018,24 @@ export default function App() {
                 </p>
               </div>
 
-              {/* SECTION VEDETTE : Lecteur YouTube intégré 16:9 — Immobilier Himalaya */}
+              {/* SECTION VEDETTE : Lecteur YouTube intégré 16:9 — Immobilier Himalaya (Sans boîte #14) */}
               <div style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-                gap: '36px',
+                gap: '42px',
                 alignItems: 'center',
-                paddingBottom: '40px',
+                paddingBottom: '44px',
                 marginBottom: '36px',
-                borderBottom: '1px solid rgba(255,255,255,0.1)'
+                borderBottom: '1px solid rgba(200, 164, 93, 0.28)'
               }}>
                 <div style={{
                   position: 'relative',
                   width: '100%',
                   paddingBottom: '56.25%',
                   background: '#000',
-                  border: '1px solid rgba(200, 164, 93, 0.35)',
-                  borderRadius: '4px',
+                  border: 'none',
+                  borderBottom: '2px solid var(--gold)',
+                  borderRadius: '2px',
                   overflow: 'hidden'
                 }}>
                   <iframe
@@ -2029,50 +2194,47 @@ export default function App() {
                 })}
               </div>
 
-              {/* RÉPERTOIRE ÉDITORIAL DES ÉPISODES (01 à 08) */}
+              {/* RÉPERTOIRE ÉDITORIAL SANS BOÎTE DES ÉPISODES (Idée #14) */}
               <div style={{ display: 'flex', flexDirection: 'column' }}>
-                {filteredPodcasts.map((pod, idx) => {
+                {filteredPodcasts.map((pod) => {
                   const isPlaying = playingPodcastId === pod.id;
-                  const numStr = String(idx + 1).padStart(2, '0');
                   return (
                     <div key={pod.id} style={{
-                      padding: '28px 0',
+                      padding: '30px 0',
+                      background: 'transparent',
                       borderBottom: '1px solid rgba(255,255,255,0.08)'
                     }}>
                       <div style={{
                         display: 'flex',
                         alignItems: 'flex-start',
                         justifyContent: 'space-between',
-                        gap: '24px',
+                        gap: '28px',
                         flexWrap: 'wrap'
                       }}>
-                        <div style={{ display: 'flex', gap: '20px', flex: 1, minWidth: '280px', alignItems: 'flex-start' }}>
-                          <span className="editorial-num" style={{ fontSize: '1.35rem', minWidth: '34px', paddingTop: '2px' }}>
-                            {numStr}
-                          </span>
-                          <div style={{ flex: 1 }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px', flexWrap: 'wrap' }}>
-                              <span className="badge-gold">{pickLang(pod, 'episode', lang)}</span>
-                              <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>{pod.duration}</span>
-                              <span style={{ fontSize: '0.78rem', color: 'var(--gold-light)' }}>• {pickLang(pod, 'hosts', lang)}</span>
-                            </div>
-                            <h3 className="serif-title" style={{ fontSize: '1.45rem', fontWeight: 600, marginBottom: '8px', lineHeight: 1.3 }}>
-                              {pickLang(pod, 'title', lang)}
-                            </h3>
-                            <p style={{ fontSize: '0.92rem', color: 'var(--text-secondary)', lineHeight: 1.65 }}>
-                              {pickLang(pod, 'description', lang)}
-                            </p>
+                        <div style={{ flex: 1, minWidth: '280px' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px', flexWrap: 'wrap' }}>
+                            <span style={{ fontSize: '0.73rem', color: 'var(--gold)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                              {pickLang(pod, 'episode', lang)}
+                            </span>
+                            <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>• {pod.duration}</span>
+                            <span style={{ fontSize: '0.78rem', color: 'var(--gold-light)' }}>• {pickLang(pod, 'hosts', lang)}</span>
                           </div>
+                          <h3 className="serif-title" style={{ fontSize: '1.5rem', fontWeight: 600, marginBottom: '8px', lineHeight: 1.3 }}>
+                            {pickLang(pod, 'title', lang)}
+                          </h3>
+                          <p style={{ fontSize: '0.92rem', color: 'var(--text-secondary)', lineHeight: 1.68, maxWidth: '820px' }}>
+                            {pickLang(pod, 'description', lang)}
+                          </p>
                         </div>
 
-                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '10px', minWidth: '210px' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '10px', minWidth: '210px', paddingTop: '4px' }}>
                           {pod.youtubeUrl && (
                             <a
                               href={pod.youtubeUrl}
                               target="_blank"
                               rel="noreferrer"
-                              className="btn-outline"
-                              style={{ padding: '8px 14px', fontSize: '0.76rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+                              className="editorial-link"
+                              style={{ fontSize: '0.78rem' }}
                             >
                               {tr(lang, 'Écouter sur YouTube', 'Watch on YouTube', 'Ver en YouTube', 'YouTube 观看/收听')} <ExternalLink size={12} />
                             </a>
@@ -2083,7 +2245,7 @@ export default function App() {
                               target="_blank"
                               rel="noreferrer"
                               className="editorial-link"
-                              style={{ fontSize: '0.76rem' }}
+                              style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}
                             >
                               {pod.series === 'apciq'
                                 ? tr(lang, 'Portail Balado APCIQ', 'QPAREB Podcast Portal', 'Portal Podcast APCIQ', 'APCIQ 播客门户')
@@ -2093,7 +2255,7 @@ export default function App() {
                           <button
                             onClick={() => setPlayingPodcastId(isPlaying ? null : pod.id)}
                             className="editorial-link"
-                            style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.76rem' }}
+                            style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.75rem', color: 'var(--text-secondary)' }}
                           >
                             {isPlaying
                               ? tr(lang, 'Masquer les notes', 'Hide Notes', 'Ocultar notas', '收起详情')
@@ -2104,17 +2266,16 @@ export default function App() {
 
                       {isPlaying && (
                         <div style={{
-                          marginTop: '16px',
-                          marginLeft: '54px',
-                          paddingTop: '14px',
-                          borderTop: '1px solid rgba(200, 164, 93, 0.25)',
+                          marginTop: '18px',
+                          paddingTop: '16px',
+                          borderTop: '1px solid rgba(200, 164, 93, 0.28)',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'space-between',
                           gap: '16px',
                           flexWrap: 'wrap'
                         }}>
-                          <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', maxWidth: '720px', lineHeight: 1.6 }}>
+                          <span style={{ fontSize: '0.86rem', color: 'var(--text-secondary)', maxWidth: '760px', lineHeight: 1.65 }}>
                             {tr(lang,
                               `Épisode animé par ${pickLang(pod, 'hosts', lang)}. Nos courtiers Immobilier Himalaya intègrent ces analyses économiques de l'APCIQ et les normes réglementaires de l'OACIQ dans chaque mandat d'achat ou de vente.`,
                               `Hosted by ${pickLang(pod, 'hosts', lang)}. Our Immobilier Himalaya brokers integrate these QPAREB economic insights and OACIQ regulatory standards into every buying or selling mandate.`,
@@ -2122,8 +2283,12 @@ export default function App() {
                               `主讲嘉宾：${pickLang(pod, 'hosts', lang)}。喜马拉雅地产经纪团队在每项买卖委托中均严格结合 APCIQ 市场洞察与 OACIQ 监管标准。`
                             )}
                           </span>
-                          <button onClick={() => navigateTo('nous-joindre')} className="btn-outline" style={{ padding: '7px 14px', fontSize: '0.76rem' }}>
-                            {tr(lang, 'Échanger avec nos courtiers', 'Discuss with our brokers', 'Hablar con nuestros corredores', '与我们的经纪人交流')}
+                          <button
+                            onClick={() => navigateTo('nous-joindre')}
+                            className="editorial-link"
+                            style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.78rem' }}
+                          >
+                            {tr(lang, 'Échanger avec nos courtiers', 'Discuss with our brokers', 'Hablar con nuestros corredores', '与我们的经纪人交流')} <ArrowRight size={12} />
                           </button>
                         </div>
                       )}
@@ -2572,6 +2737,12 @@ export default function App() {
             onClose={closeDealModal}
             onOpenNDA={deal => setNdaModalDeal(deal)}
             onFilterByBroker={brokerName => navigateTo('proprietes', { filtreCourtier: brokerName })}
+            onOpenCalculator={price => {
+              const dealWithPrice = { ...selectedDeal, price: price || selectedDeal.price };
+              closeDealModal();
+              setToolPreselectedDeal(dealWithPrice);
+              navigateTo('outils', { toolTab: 'mortgage' });
+            }}
             onSimulateInTools={deal => {
               closeDealModal();
               setToolPreselectedDeal(deal);
@@ -2598,6 +2769,111 @@ export default function App() {
           />
         )}
       </Suspense>
+
+      {/* Modale Lecture Article Complet — Événements & Actualités (Idée #16) */}
+      {selectedNewsArticle && (
+        <div className="modal-backdrop" onClick={() => setSelectedNewsArticle(null)}>
+          <div className="modal-panel" style={{ maxWidth: '780px' }} onClick={e => e.stopPropagation()}>
+            <div style={{
+              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+              padding: '16px 24px', borderBottom: '1px solid var(--border-subtle)',
+              background: 'rgba(18, 18, 21, 0.96)'
+            }}>
+              <span className="badge-gold">
+                {pickLang(selectedNewsArticle, 'date', lang)} • {pickLang(selectedNewsArticle, 'category', lang)}
+              </span>
+              <button
+                onClick={() => setSelectedNewsArticle(null)}
+                style={{
+                  background: 'rgba(255,255,255,0.06)', border: '1px solid var(--border-subtle)',
+                  color: '#fff', width: '34px', height: '34px', borderRadius: '8px',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer'
+                }}
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            <div style={{ padding: '28px 30px' }}>
+              <div style={{ height: '270px', borderRadius: '6px', overflow: 'hidden', marginBottom: '22px', background: '#09090b' }}>
+                <img
+                  src={selectedNewsArticle.image}
+                  alt={pickLang(selectedNewsArticle, 'title', lang)}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  onError={e => { e.target.src = 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=800&q=80'; }}
+                />
+              </div>
+
+              <h2 className="serif-title" style={{ fontSize: '1.85rem', fontWeight: 600, marginBottom: '14px', lineHeight: 1.25 }}>
+                {pickLang(selectedNewsArticle, 'title', lang)}
+              </h2>
+
+              <p style={{ fontSize: '0.96rem', color: 'var(--text-main)', lineHeight: 1.75, marginBottom: '22px' }}>
+                {pickLang(selectedNewsArticle, 'excerpt', lang)}
+              </p>
+
+              {/* Perspective & Points clés Immobilier Himalaya */}
+              <div style={{
+                paddingTop: '18px',
+                paddingBottom: '18px',
+                borderTop: '1px solid rgba(200, 164, 93, 0.35)',
+                borderBottom: '1px solid var(--border-subtle)',
+                marginBottom: '22px'
+              }}>
+                <div style={{ fontSize: '0.74rem', color: 'var(--gold)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>
+                  {tr(lang, 'Perspective & Accompagnement Immobilier Himalaya', 'Immobilier Himalaya Perspective & Advisory', 'Perspectiva y Acompañamiento Immobilier Himalaya', '喜马拉雅地产专业洞察与顾问服务')}
+                </div>
+                <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', lineHeight: 1.7 }}>
+                  {tr(
+                    lang,
+                    'Nos courtiers agréés OACIQ et notre équipe de direction suivent de près ces évolutions réglementaires, économiques et commerciales afin de sécuriser chaque transaction — qu’il s’agisse d’expansion de franchises (membre CQF), d’acquisitions commerciales, de pourvoiries ou d’immobilier résidentiel au Québec et à l’international.',
+                    'Our OACIQ certified brokers and executive team closely track these regulatory, economic, and commercial developments to safeguard every transaction — whether for franchise expansion (CQF member), commercial acquisitions, outfitters, or residential real estate across Quebec and internationally.',
+                    'Nuestros corredores certificados por la OACIQ y nuestro equipo directivo siguen de cerca estas evoluciones regulatorias, económicas y comerciales para asegurar cada transacción, ya sea en expansión de franquicias (miembro CQF), adquisiciones comerciales, pourvoiries o bienes raíces residenciales en Quebec y a nivel internacional.',
+                    '我们的 OACIQ 持牌经纪人与管理团队密切跟踪上述监管、经济与商业趋势，全方位保障每一笔交易的安全与价值——涵盖连锁特许经营拓展（CQF 成员）、商业地产并购、度假庄园及魁北克与国际住宅交易。'
+                  )}
+                </p>
+              </div>
+
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px', flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                  <button
+                    type="button"
+                    className="btn-gold"
+                    onClick={() => {
+                      setSelectedNewsArticle(null);
+                      navigateTo('nous-joindre');
+                    }}
+                  >
+                    {tr(lang, 'Discuter avec un courtier', 'Speak with a Broker', 'Hablar con un corredor', '联系专业经纪人')} <ArrowRight size={14} />
+                  </button>
+                  <button
+                    type="button"
+                    className="btn-outline"
+                    onClick={() => {
+                      setSelectedNewsArticle(null);
+                      navigateTo('proprietes');
+                    }}
+                  >
+                    {tr(lang, 'Voir nos propriétés', 'View Properties', 'Ver propiedades', '浏览在售物业')}
+                  </button>
+                </div>
+
+                {selectedNewsArticle.url && (
+                  <a
+                    href={selectedNewsArticle.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="editorial-link"
+                    style={{ fontSize: '0.78rem' }}
+                  >
+                    {tr(lang, 'Consulter la source officielle', 'View Official Source', 'Ver fuente oficial', '查看官方原文来源')} <ExternalLink size={13} />
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Modale Conditions d'utilisation & Politique de confidentialité (#4) */}
       {legalModalType && LEGAL_DOCUMENTS[legalModalType] && (
@@ -2641,6 +2917,38 @@ export default function App() {
         </div>
       )}
 
+      {/* Barre d'action flottante mobile (< 720px — Idée #13) */}
+      <nav className="mobile-bottom-bar" aria-label="Navigation rapide mobile">
+        <a href="tel:5143791788" className="mobile-bottom-bar-item">
+          <Phone size={16} color="var(--gold)" />
+          <span>{tr(lang, 'Appeler', 'Call', 'Llamar', '致电')}</span>
+        </a>
+        <button
+          type="button"
+          onClick={() => navigateTo('proprietes')}
+          className={`mobile-bottom-bar-item ${activePage === 'proprietes' ? 'active' : ''}`}
+        >
+          <LayoutGrid size={16} color="var(--gold)" />
+          <span>{tr(lang, 'Propriétés', 'Properties', 'Propiedades', '房源')}</span>
+        </button>
+        <button
+          type="button"
+          onClick={() => navigateTo('courtiers')}
+          className={`mobile-bottom-bar-item ${activePage === 'courtiers' ? 'active' : ''}`}
+        >
+          <Sparkles size={16} color="var(--gold)" />
+          <span>{tr(lang, 'Courtiers', 'Brokers', 'Corredores', '经纪人')}</span>
+        </button>
+        <button
+          type="button"
+          onClick={() => navigateTo('nous-joindre')}
+          className={`mobile-bottom-bar-item ${activePage === 'nous-joindre' ? 'active' : ''}`}
+        >
+          <Mail size={16} color="var(--gold)" />
+          <span>{tr(lang, 'Écrire', 'Contact', 'Contacto', '联系')}</span>
+        </button>
+      </nav>
+
       {/* Bouton minimaliste Retour en haut ↑ (Audit #9) */}
       {isScrolled && (
         <button
@@ -2654,6 +2962,65 @@ export default function App() {
         </button>
       )}
     </div>
+  );
+}
+
+/* Compteur animé des chiffres clés au défilement (Idée #12) */
+function AnimatedStatValue({ target, suffix = '', isYear = false }) {
+  const [val, setVal] = useState(isYear ? 2000 : 0);
+  const ref = React.useRef(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    let frameId;
+    let started = false;
+
+    const runAnimation = () => {
+      if (started) return;
+      started = true;
+      const startVal = isYear ? 1995 : 0;
+      const duration = 1100;
+      const startTime = performance.now();
+
+      const step = (now) => {
+        const progress = Math.min((now - startTime) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = Math.round(startVal + (target - startVal) * eased);
+        setVal(current);
+        if (progress < 1) {
+          frameId = requestAnimationFrame(step);
+        }
+      };
+      frameId = requestAnimationFrame(step);
+    };
+
+    if (typeof IntersectionObserver === 'undefined') {
+      setVal(target);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          runAnimation();
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.25 }
+    );
+    observer.observe(el);
+
+    return () => {
+      observer.disconnect();
+      if (frameId) cancelAnimationFrame(frameId);
+    };
+  }, [target, isYear]);
+
+  return (
+    <span ref={ref}>
+      {val}{suffix}
+    </span>
   );
 }
 
