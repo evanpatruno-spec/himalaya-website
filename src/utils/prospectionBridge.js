@@ -1,9 +1,10 @@
-const PROSPECTION_API_BASE = 'http://localhost:8000';
+const PROSPECTION_API_BASE = 'http://127.0.0.1:8003';
+const PROSPECTION_CLOUD_SYNC_URL = 'https://himalaya-prospection.vercel.app/api/cloud-sync';
 const LEADS_STORAGE_KEY = 'himalaya_website_synced_leads';
 const NDA_STORAGE_KEY = 'himalaya_website_signed_ndas';
 const BROKER_TOKEN_KEY = 'himalaya_website_broker_jwt';
 
-export { PROSPECTION_API_BASE };
+export { PROSPECTION_API_BASE, PROSPECTION_CLOUD_SYNC_URL };
 
 /**
  * Normalise un texte pour une recherche insensible aux accents et à la casse
@@ -128,40 +129,61 @@ export async function submitLeadToProspection(leadData) {
     // ignore
   }
 
-  // 2. Envoi vers la passerelle Serverless Vercel (/api/leads) pour notification courriel & webhook cloud
+  // 2. Envoi vers la passerelle Serverless Vercel (/api/leads) + Pont Cloud CRM (himalaya-prospection.vercel.app)
   try {
-    const cloudRes = await fetch('/api/leads', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(entry)
-    });
-    if (cloudRes.ok) {
-      const cloudData = await cloudRes.json().catch(() => ({}));
+    const [cloudRes, crmCloudRes] = await Promise.allSettled([
+      fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(entry)
+      }),
+      fetch(PROSPECTION_CLOUD_SYNC_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'ingest_web_lead', lead: entry })
+      })
+    ]);
+
+    if (cloudRes.status === 'fulfilled' && cloudRes.value.ok) {
+      const cloudData = await cloudRes.value.json().catch(() => ({}));
       entry.cloud_dispatched = true;
       entry.email_sent = Boolean(cloudData.email_sent);
-      localStorage.setItem(LEADS_STORAGE_KEY, JSON.stringify(existing.slice(0, 150)));
     }
+    if (crmCloudRes.status === 'fulfilled' && crmCloudRes.value.ok) {
+      entry.synced_to_crm = true;
+    }
+    localStorage.setItem(LEADS_STORAGE_KEY, JSON.stringify(existing.slice(0, 150)));
   } catch {
-    // En mode dev local pur sans Vercel CLI, on continue vers le backend FastAPI
+    // Continue si hors-ligne
   }
 
-  // 3. Synchronisation directe avec le serveur Himalaya Prospection (/api/public/web-lead)
-  try {
-    const res = await fetch(`${PROSPECTION_API_BASE}/api/public/web-lead`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(entry)
-    });
+  // 3. Synchronisation directe avec le serveur local Himalaya Prospection uniquement si exécuté en local
+  const isLocalhost =
+    typeof window !== 'undefined' &&
+    (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
 
-    if (res.ok) {
-      const data = await res.json();
-      entry.synced_to_crm = true;
-      entry.crm_contact_id = data.contact_id || null;
-      entry.crm_buyer_lead_id = data.buyer_lead_id || null;
-      localStorage.setItem(LEADS_STORAGE_KEY, JSON.stringify(existing.slice(0, 150)));
+  if (isLocalhost) {
+    try {
+      const controller = new AbortController();
+      const t = setTimeout(() => controller.abort(), 900);
+      const res = await fetch(`${PROSPECTION_API_BASE}/api/public/web-lead`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(entry),
+        signal: controller.signal
+      });
+      clearTimeout(t);
+
+      if (res.ok) {
+        const data = await res.json();
+        entry.synced_to_crm = true;
+        entry.crm_contact_id = data.contact_id || null;
+        entry.crm_buyer_lead_id = data.buyer_lead_id || null;
+        localStorage.setItem(LEADS_STORAGE_KEY, JSON.stringify(existing.slice(0, 150)));
+      }
+    } catch {
+      // Serveur local non démarré
     }
-  } catch {
-    // Si le backend local n'est pas lancé, la sauvegarde locale reste en file d'attente
   }
 
   return entry;

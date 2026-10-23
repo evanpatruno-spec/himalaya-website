@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect, Suspense, lazy } from 'react';
-import liveDealsData from './data/himalayaLiveDeals.json';
+import initialLiveDealsData from './data/himalayaLiveDeals.json';
 import { INITIAL_HIMALAYA_BROKERS } from './data/brokersData';
 import { TRANSLATIONS, tr } from './data/translations';
 import {
@@ -36,7 +36,29 @@ const BuyerNDAModal = lazy(() => import('./components/BuyerNDAModal'));
 const BrokerDetailModal = lazy(() => import('./components/BrokerDetailModal'));
 
 export default function App() {
+  const [liveDealsData, setLiveDealsData] = useState(initialLiveDealsData);
   const [activePage, setActivePage] = useState('home');
+
+  // Synchronisation automatique en arrière-plan avec la passerelle Centris / MLS (/api/centris-sync)
+  useEffect(() => {
+    fetch('/api/centris-sync')
+      .then(res => (res.ok ? res.json() : null))
+      .then(data => {
+        if (data && Array.isArray(data.deals) && data.deals.length > 0) {
+          setLiveDealsData(prev => {
+            const byMls = new Map(prev.map(d => [String(d.mls_number), d]));
+            data.deals.forEach(item => {
+              if (item && item.mls_number) {
+                const existing = byMls.get(String(item.mls_number)) || {};
+                byMls.set(String(item.mls_number), { ...existing, ...item });
+              }
+            });
+            return Array.from(byMls.values());
+          });
+        }
+      })
+      .catch(() => {});
+  }, []);
   const [lang, setLang] = useState(() => {
     try {
       const saved = localStorage.getItem('himalaya_site_lang');
@@ -153,7 +175,7 @@ export default function App() {
       if (d.region) s.add(d.region);
     });
     return Array.from(s).sort();
-  }, []);
+  }, [liveDealsData]);
 
   // Filtrage des propriétés (#14 : distinction stricte Actif vs Vendu)
   const filteredProperties = useMemo(() => {
@@ -225,7 +247,7 @@ export default function App() {
         if (sortBy === 'price_asc') return (a.price || 0) - (b.price || 0);
         return (a.title || '').localeCompare(b.title || '');
       });
-  }, [rechercheBut, filtrePropriete, filtreRegion, filtreCourtier, filtreBudget, searchKeyword, sortBy]);
+  }, [liveDealsData, rechercheBut, filtrePropriete, filtreRegion, filtreCourtier, filtreBudget, searchKeyword, sortBy]);
 
   // Langues parlées par courtier
   const getBrokerLanguages = (b) => {

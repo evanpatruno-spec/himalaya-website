@@ -1,15 +1,16 @@
 /**
- * Vercel Serverless Function — Réception & Notification en temps réel des prospects Himalaya
- * Route : POST /api/leads
+ * Vercel Serverless Function — Réception, Persistance Cloud & Notification en temps réel des prospects Himalaya
+ * Route : GET / POST /api/leads
  *
  * Variables d'environnement supportées sur Vercel (optionnelles) :
  * - RESEND_API_KEY          : Clé API Resend (https://resend.com) pour envoi courriel transactionnel HTML
  * - LEAD_NOTIFICATION_EMAIL : Courriel de réception principal (défaut : info@himalayacorp.com)
- * - CRM_WEBHOOK_URL         : URL Webhook externe (Himalaya Prospection Cloud, Zoho, Make, Zapier)
+ * - CRM_WEBHOOK_URL         : URL Webhook CRM (défaut : https://himalaya-prospection.vercel.app/api/cloud-sync)
  */
 
+const edgeLeadsStore = (globalThis.__himalayaEdgeLeads = globalThis.__himalayaEdgeLeads || []);
+
 export default async function handler(req, res) {
-  // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
@@ -21,11 +22,13 @@ export default async function handler(req, res) {
   if (req.method === 'GET') {
     return res.status(200).json({
       status: 'ok',
-      service: 'Himalaya Website 2.0 — Lead Dispatch Gateway',
+      service: 'Himalaya Website 2.0 — Lead Dispatch & Cloud Sync Gateway',
       channels: {
         resend_email: Boolean(process.env.RESEND_API_KEY),
-        crm_webhook: Boolean(process.env.CRM_WEBHOOK_URL)
-      }
+        crm_cloud_bridge: true,
+        stored_leads_count: edgeLeadsStore.length
+      },
+      leads: edgeLeadsStore.slice(0, 100)
     });
   }
 
@@ -47,6 +50,30 @@ export default async function handler(req, res) {
     const mlsNumber = lead.mls_number || lead.centris_number || null;
     const message = lead.message || lead.notes || '';
 
+    const normalizedLead = {
+      ...lead,
+      id: leadId,
+      created_at: timestamp,
+      source: sourceLabel,
+      name: fullName,
+      email,
+      phone,
+      assigned_broker: broker,
+      property_title: propertyTitle,
+      mls_number: mlsNumber,
+      message,
+      origin: 'himalaya-website-vercel'
+    };
+
+    // Stocker en mémoire Edge (sans doublon d'ID) pour que le CRM puisse les récupérer à tout moment
+    const existingIdx = edgeLeadsStore.findIndex((l) => l.id === leadId);
+    if (existingIdx !== -1) {
+      edgeLeadsStore[existingIdx] = normalizedLead;
+    } else {
+      edgeLeadsStore.unshift(normalizedLead);
+      if (edgeLeadsStore.length > 200) edgeLeadsStore.length = 200;
+    }
+
     const deliveryResults = {
       lead_id: leadId,
       timestamp,
@@ -54,27 +81,27 @@ export default async function handler(req, res) {
       webhook_forwarded: false
     };
 
-    // 1. Envoi vers Webhook CRM externe (Himalaya Prospection Cloud / Zoho / Make / Zapier)
-    const webhookUrl = process.env.CRM_WEBHOOK_URL || process.env.PROSPECTION_REMOTE_URL;
-    if (webhookUrl) {
-      try {
-        const whRes = await fetch(webhookUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            ...lead,
-            id: leadId,
-            created_at: timestamp,
-            origin: 'himalaya-website-vercel'
-          })
-        });
-        deliveryResults.webhook_forwarded = whRes.ok;
-      } catch {
-        deliveryResults.webhook_forwarded = false;
-      }
+    // 1. Pont automatique vers Himalaya Prospection Cloud (et tout webhook configuré)
+    const webhookUrl =
+      process.env.CRM_WEBHOOK_URL ||
+      process.env.PROSPECTION_REMOTE_URL ||
+      'https://himalaya-prospection.vercel.app/api/cloud-sync';
+
+    try {
+      const whRes = await fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'ingest_web_lead',
+          lead: normalizedLead
+        })
+      });
+      deliveryResults.webhook_forwarded = whRes.ok;
+    } catch {
+      deliveryResults.webhook_forwarded = false;
     }
 
-    // 2. Envoi de notification courriel HTML via Resend API (si RESEND_API_KEY configurée)
+    // 2. Notification courriel HTML via Resend API (si RESEND_API_KEY configurée)
     const resendKey = process.env.RESEND_API_KEY;
     const targetEmail = process.env.LEAD_NOTIFICATION_EMAIL || 'info@himalayacorp.com';
 
@@ -148,10 +175,10 @@ export default async function handler(req, res) {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            from: process.env.RESEND_FROM_EMAIL || 'Immobilier Himalaya <onboarding@resend.dev>',
+            from: process.env.RESEND_FROM_EMAIL || 'Portail Himalaya <notifications@himalayacorp.com>',
             to: recipients,
-            reply_to: email && email.includes('@') ? email : undefined,
-            subject: `[Himalaya Web] ${sourceLabel} — ${fullName}${mlsNumber ? ` (#${mlsNumber})` : ''}`,
+            reply_to: email.includes('@') ? email : undefined,
+            subject: `[Prospect Himalaya] ${sourceLabel} — ${fullName}${mlsNumber ? ` (#${mlsNumber})` : ''}`,
             html: htmlBody
           })
         });
@@ -168,7 +195,7 @@ export default async function handler(req, res) {
   } catch (err) {
     return res.status(400).json({
       ok: false,
-      error: err?.message || 'Invalid lead payload'
+      error: err.message || 'Invalid payload'
     });
   }
 }
