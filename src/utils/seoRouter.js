@@ -12,8 +12,7 @@ export const VALID_SITE_PAGES = [
   'investisseurs-internationaux',
   'evenements',
   'balados',
-  'nous-joindre',
-  'zone-equipe'
+  'nous-joindre'
 ];
 
 export function slugifySegment(text) {

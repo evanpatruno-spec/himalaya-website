@@ -678,7 +678,7 @@ export default function ChiffrierDealSimulator({
             {leadSaved ? (
               <>
                 <CheckCircle2 size={13} color="var(--gold)" />
-                {tr(lang, 'Transmis au CRM Courtier !', 'Sent to Broker CRM!', '¡Enviado al CRM!', '已同步至经纪人 CRM！')}
+                {tr(lang, 'Transmis au courtier !', 'Sent to Broker!', '¡Enviado al corredor!', '已发送给经纪人！')}
               </>
             ) : (
               <>

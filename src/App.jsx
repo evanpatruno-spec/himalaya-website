@@ -30,7 +30,6 @@ const ContactView = lazy(() => import('./components/ContactView'));
 const AboutPageView = lazy(() => import('./components/AboutPageView'));
 const ToolsHubView = lazy(() => import('./components/ToolsHubView'));
 const InternationalInvestorsView = lazy(() => import('./components/InternationalInvestorsView'));
-const TeamZoneView = lazy(() => import('./components/TeamZoneView'));
 
 const PropertyDetailModal = lazy(() => import('./components/PropertyDetailModal'));
 const BuyerNDAModal = lazy(() => import('./components/BuyerNDAModal'));
@@ -342,7 +341,6 @@ export default function App() {
       case 'evenements': return t.nav.news;
       case 'balados': return t.nav.podcasts;
       case 'nous-joindre': return t.nav.contact;
-      case 'zone-equipe': return t.nav.team;
       default: return '';
     }
   }, [activePage, t, lang]);
@@ -545,15 +543,6 @@ export default function App() {
             contactForm={contactForm}
             setContactForm={setContactForm}
             handleContactSubmit={handleContactSubmit}
-          />
-        )}
-
-        {activePage === 'zone-equipe' && (
-          <TeamZoneView
-            lang={lang}
-            t={t}
-            webLeads={webLeads}
-            onLeadsUpdated={(updated) => setWebLeads(updated)}
           />
         )}
       </Suspense>

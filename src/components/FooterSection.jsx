@@ -162,25 +162,6 @@ export default function FooterSection({
                 >
                   {t.nav.contact}
                 </button>
-                <button
-                  onClick={() => navigateTo('zone-equipe')}
-                  style={{
-                    background: 'none',
-                    border: 'none',
-                    color: 'var(--text-muted)',
-                    fontSize: '0.76rem',
-                    gridColumn: '1 / -1',
-                    marginTop: '4px',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '5px',
-                    cursor: 'pointer',
-                    padding: 0
-                  }}
-                >
-                  <Lock size={11} color="var(--gold)" />{' '}
-                  {tr(lang, 'Portail Zone Équipe & CRM', 'Broker Team Zone & CRM', 'Portal Zona Equipo y CRM', '经纪人内部系统与 CRM')}
-                </button>
               </div>
             </div>
           </div>

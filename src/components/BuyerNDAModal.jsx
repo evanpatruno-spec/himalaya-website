@@ -82,15 +82,15 @@ export default function BuyerNDAModal({ deal, t, onClose }) {
             <div style={{ textAlign: 'center', padding: '16px 8px' }}>
               <CheckCircle2 size={44} color="#e3c485" style={{ margin: '0 auto 14px' }} />
               <h3 style={{ fontSize: '1.4rem', fontWeight: 700, marginBottom: '8px' }}>
-                {t?.nda?.successTitle || tr(lang, 'NDA enregistré et synchronisé', 'NDA Registered & Synchronized', 'NDA registrado y sincronizado', '保密协议 (NDA) 已签署并同步')}
+                {t?.nda?.successTitle || tr(lang, 'NDA enregistré', 'NDA Registered', 'NDA registrado', '保密协议 (NDA) 已签署')}
               </h3>
               <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', maxWidth: '480px', margin: '0 auto 20px' }}>
                 {t?.nda?.successDesc || tr(
                   lang,
-                  'Votre profil d’acquéreur qualifié a été transmis au courtier inscripteur et synchronisé dans Himalaya Prospection.',
-                  'Your qualified buyer profile has been forwarded to the listing broker and synchronized with Himalaya Prospection.',
-                  'Su perfil de comprador calificado ha sido enviado al corredor responsable y sincronizado con Himalaya Prospection.',
-                  '您的合格买家资料已转发给负责经纪人，并同步至喜马拉雅客户管理系统。'
+                  'Votre profil d’acquéreur qualifié a été transmis directement au courtier inscripteur.',
+                  'Your qualified buyer profile has been forwarded directly to the listing broker.',
+                  'Su perfil de comprador calificado ha sido enviado directamente al corredor responsable.',
+                  '您的合格买家资料已直接转发给负责经纪人。'
                 )}
               </p>
               <button onClick={onClose} className="btn-gold">

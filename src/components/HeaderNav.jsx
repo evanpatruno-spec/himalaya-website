@@ -490,16 +490,6 @@ export default function HeaderNav({
                     {tr(lang, 'Devenir courtier / affilié', 'Become a Broker / Affiliate', 'Ser corredor / afiliado', '成为经纪人 / 合作伙伴')}
                   </span>
                 </button>
-                <div className="nav-dropdown-divider" />
-                <button
-                  type="button"
-                  className="nav-dropdown-link"
-                  onClick={() => navigateTo('zone-equipe')}
-                >
-                  <span className="nav-dropdown-link-title">
-                    {tr(lang, 'Portail Zone Équipe (CRM)', 'Team Zone Portal (CRM)', 'Portal Zona Equipo (CRM)', '经纪人团队门户 (CRM)')}
-                  </span>
-                </button>
               </div>
             </li>
           </ul>
@@ -638,9 +628,7 @@ export default function HeaderNav({
                 },
                 {
                   id: 'nous-joindre',
-                  label: t.nav.contact,
-                  subId: 'zone-equipe',
-                  subLabel: tr(lang, 'Zone Équipe CRM', 'Team CRM', 'Zona Equipo CRM', '团队 CRM')
+                  label: t.nav.contact
                 }
               ].map(item => (
                 <div
