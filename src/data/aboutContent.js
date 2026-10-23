@@ -317,10 +317,11 @@ export const ABOUT_CONTENT = {
               contact: '819-538-7696 • lbourbeau@notarius.net'
             },
             {
-              name: 'Stéphan Roy, Arpenteur-géomètre',
+              name: 'Stéphan Roy, Arpenteur-géomètre (Groupe SR)',
               specialty: 'Certificats de localisation, piquetage et arpentage foncier',
-              address: '262, boul. Sainte-Rose, Laval (Sainte-Rose), QC H7L 1M2',
-              contact: '514-990-2333 • sroy@stephanroy.ca'
+              address: '255, boul. Curé-Labelle, bureau 100, Laval, QC H7L 2Z9',
+              contact: '514-990-2333 • info@groupesr.ca',
+              website: 'https://www.groupesr.ca'
             }
           ]
         },
@@ -331,14 +332,15 @@ export const ABOUT_CONTENT = {
               name: 'André Leblanc et Ass. — Marc-André Leblanc, CMA, É.A.',
               specialty: 'Évaluateur agréé — Pourvoiries et propriétés commerciales',
               address: '2965, rue de Boischatel, Trois-Rivières, QC G8Z 3Z8',
-              contact: '819-373-6579 • maleblanc@groupeleblanc.ca',
-              website: 'https://www.groupeleblanc.ca'
+              contact: '819-373-6579 • maleblanc@aleblanc-ea.com',
+              website: 'https://www.aleblanc-ea.com'
             },
             {
-              name: 'Jean Philippe Baril, B.A.A., É.A., AACI, P.App.',
+              name: 'Jean Philippe Baril, B.A.A., É.A., AACI, P.App. (Baril Évaluation)',
               specialty: 'Évaluateur agréé — Pourvoiries et propriétés commerciales',
               address: '141, rue Bonaventure, Trois-Rivières, QC G9A 2A9',
-              contact: '819-373-1401 / 1-866-373-1401 • info1401@qc.aira.com'
+              contact: '819-373-1401 / 1-866-373-1401 • info@barilevaluation.com',
+              website: 'https://barilevaluation.com'
             }
           ]
         },
@@ -729,10 +731,11 @@ export const ABOUT_CONTENT = {
               contact: '819-538-7696 • lbourbeau@notarius.net'
             },
             {
-              name: 'Stéphan Roy, Land Surveyor (Arpenteur-géomètre)',
+              name: 'Stéphan Roy, Land Surveyor (Groupe SR)',
               specialty: 'Certificates of location, staking, and land surveying',
-              address: '262 Sainte-Rose Blvd., Laval (Sainte-Rose), QC H7L 1M2',
-              contact: '514-990-2333 • sroy@stephanroy.ca'
+              address: '255 Curé-Labelle Blvd., Suite 100, Laval, QC H7L 2Z9',
+              contact: '514-990-2333 • info@groupesr.ca',
+              website: 'https://www.groupesr.ca'
             }
           ]
         },
@@ -743,14 +746,15 @@ export const ABOUT_CONTENT = {
               name: 'André Leblanc et Ass. — Marc-André Leblanc, CMA, É.A.',
               specialty: 'Chartered Appraiser — Outfitters and commercial properties',
               address: '2965 Boischatel, Trois-Rivières, QC G8Z 3Z8',
-              contact: '819-373-6579 • maleblanc@groupeleblanc.ca',
-              website: 'https://www.groupeleblanc.ca'
+              contact: '819-373-6579 • maleblanc@aleblanc-ea.com',
+              website: 'https://www.aleblanc-ea.com'
             },
             {
-              name: 'Jean Philippe Baril, B.A.A., É.A., AACI, P.App.',
+              name: 'Jean Philippe Baril, B.A.A., É.A., AACI, P.App. (Baril Évaluation)',
               specialty: 'Chartered Appraiser — Outfitters and commercial properties',
               address: '141 Bonaventure St., Trois-Rivières, QC G9A 2A9',
-              contact: '819-373-1401 / 1-866-373-1401 • info1401@qc.aira.com'
+              contact: '819-373-1401 / 1-866-373-1401 • info@barilevaluation.com',
+              website: 'https://barilevaluation.com'
             }
           ]
         },
@@ -1154,10 +1158,11 @@ ABOUT_CONTENT.ES = {
             contact: '819-538-7696 • lbourbeau@notarius.net'
           },
           {
-            name: 'Stéphan Roy, Agrimensor (Arpenteur-géomètre)',
+            name: 'Stéphan Roy, Agrimensor (Groupe SR)',
             specialty: 'Certificados de localización, amojonamiento y topografía legal',
-            address: '262, boul. Sainte-Rose, Laval (Sainte-Rose), QC H7L 1M2',
-            contact: '514-990-2333 • sroy@stephanroy.ca'
+            address: '255, boul. Curé-Labelle, oficina 100, Laval, QC H7L 2Z9',
+            contact: '514-990-2333 • info@groupesr.ca',
+            website: 'https://www.groupesr.ca'
           }
         ]
       },
@@ -1168,14 +1173,15 @@ ABOUT_CONTENT.ES = {
             name: 'André Leblanc et Ass. — Marc-André Leblanc, CMA, É.A.',
             specialty: 'Tasador certificado — Cotos turísticos (pourvoiries) y propiedades comerciales',
             address: '2965, rue de Boischatel, Trois-Rivières, QC G8Z 3Z8',
-            contact: '819-373-6579 • maleblanc@groupeleblanc.ca',
-            website: 'https://www.groupeleblanc.ca'
+            contact: '819-373-6579 • maleblanc@aleblanc-ea.com',
+            website: 'https://www.aleblanc-ea.com'
           },
           {
-            name: 'Jean Philippe Baril, B.A.A., É.A., AACI, P.App.',
+            name: 'Jean Philippe Baril, B.A.A., É.A., AACI, P.App. (Baril Évaluation)',
             specialty: 'Tasador certificado — Cotos turísticos y propiedades comerciales',
             address: '141, rue Bonaventure, Trois-Rivières, QC G9A 2A9',
-            contact: '819-373-1401 / 1-866-373-1401 • info1401@qc.aira.com'
+            contact: '819-373-1401 / 1-866-373-1401 • info@barilevaluation.com',
+            website: 'https://barilevaluation.com'
           }
         ]
       },
@@ -1578,10 +1584,11 @@ ABOUT_CONTENT.ZH = {
             contact: '819-538-7696 • lbourbeau@notarius.net'
           },
           {
-            name: 'Stéphan Roy 土地测量师 (Arpenteur-géomètre)',
+            name: 'Stéphan Roy 土地测量师 (Groupe SR)',
             specialty: '物业位置证明书 (Certificat de localisation)、界桩测绘与土地勘测',
-            address: '262, boul. Sainte-Rose, Laval (Sainte-Rose), QC H7L 1M2',
-            contact: '514-990-2333 • sroy@stephanroy.ca'
+            address: '255, boul. Curé-Labelle, bureau 100, Laval, QC H7L 2Z9',
+            contact: '514-990-2333 • info@groupesr.ca',
+            website: 'https://www.groupesr.ca'
           }
         ]
       },
@@ -1592,14 +1599,15 @@ ABOUT_CONTENT.ZH = {
             name: 'André Leblanc et Ass. — Marc-André Leblanc, CMA, É.A.',
             specialty: '特许评估师 — 狩猎垂钓度假庄园 (Pourvoiries) 及商业物业估值',
             address: '2965, rue de Boischatel, Trois-Rivières, QC G8Z 3Z8',
-            contact: '819-373-6579 • maleblanc@groupeleblanc.ca',
-            website: 'https://www.groupeleblanc.ca'
+            contact: '819-373-6579 • maleblanc@aleblanc-ea.com',
+            website: 'https://www.aleblanc-ea.com'
           },
           {
-            name: 'Jean Philippe Baril, B.A.A., É.A., AACI, P.App.',
+            name: 'Jean Philippe Baril, B.A.A., É.A., AACI, P.App. (Baril Évaluation)',
             specialty: '特许评估师 — 度假庄园及商业地产评估',
             address: '141, rue Bonaventure, Trois-Rivières, QC G9A 2A9',
-            contact: '819-373-1401 / 1-866-373-1401 • info1401@qc.aira.com'
+            contact: '819-373-1401 / 1-866-373-1401 • info@barilevaluation.com',
+            website: 'https://barilevaluation.com'
           }
         ]
       },
