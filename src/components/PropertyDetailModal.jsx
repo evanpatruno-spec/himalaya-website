@@ -520,10 +520,10 @@ export default function PropertyDetailModal({
               }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
-                    <div className="serif-title gold-gradient-text" style={{
-                      fontSize: '2.1rem',
-                      fontWeight: 600,
-                      lineHeight: 1.1
+                    <div className="num-metric gold-gradient-text" style={{
+                      fontSize: '1.85rem',
+                      fontWeight: 700,
+                      lineHeight: 1.15
                     }}>
                       {displayPrice}
                     </div>
@@ -581,7 +581,7 @@ export default function PropertyDetailModal({
                       fontSize: '0.84rem',
                       color: 'var(--gold-light)'
                     }}>
-                      <strong className="serif-title" style={{ fontSize: '1.18rem', fontWeight: 600 }}>
+                      <strong className="num-metric" style={{ fontSize: '1.08rem', fontWeight: 700 }}>
                         ≈ {Math.round(priceNum * (activeRates[selectedCurrency] || 1)).toLocaleString(lang === 'EN' ? 'en-CA' : 'fr-CA')}{' '}
                         {selectedCurrency === 'EUR' ? '€ EUR' : selectedCurrency === 'USD' ? '$ USD' : '¥ CNY (RMB)'}
                       </strong>
@@ -1052,9 +1052,9 @@ export default function PropertyDetailModal({
                         <span>{sim.city}{sim.region ? ` (${sim.region})` : ''}</span>
                       </div>
 
-                      <div className="serif-title gold-gradient-text" style={{
-                        fontSize: '1.15rem',
-                        fontWeight: 600,
+                      <div className="num-metric gold-gradient-text" style={{
+                        fontSize: '1.08rem',
+                        fontWeight: 700,
                         marginTop: '2px'
                       }}>
                         {simPrice}

@@ -582,7 +582,7 @@ export default function ChiffrierDealSimulator({
           <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>
             {tr(lang, 'RNE (NOI Annuel)', 'Annual NOI', 'NOI Anual', '年净营业收入 (NOI)')}
           </div>
-          <div className="serif-title" style={{ fontSize: '1.25rem', fontWeight: 600, color: '#fff' }}>
+          <div className="num-metric" style={{ fontSize: '1.18rem', fontWeight: 700, color: '#fff' }}>
             {fmt(metrics.rne)}
           </div>
           <div style={{ fontSize: '0.68rem', color: 'var(--gold-light)' }}>
@@ -594,7 +594,7 @@ export default function ChiffrierDealSimulator({
           <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>
             {tr(lang, 'Prêt Max Autorisé', 'Max Approved Loan', 'Préstamo Máximo', '最高可贷金额')}
           </div>
-          <div className="serif-title" style={{ fontSize: '1.25rem', fontWeight: 600, color: '#fff' }}>
+          <div className="num-metric" style={{ fontSize: '1.18rem', fontWeight: 700, color: '#fff' }}>
             {fmt(metrics.baseLoan)}
           </div>
           <div style={{ fontSize: '0.68rem', color: 'var(--text-secondary)' }}>
@@ -606,7 +606,7 @@ export default function ChiffrierDealSimulator({
           <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>
             {tr(lang, 'Mise de fonds + Mutation', 'Down Payment + Duties', 'Enganche + Impuestos', '首付 + 欢迎税总计')}
           </div>
-          <div className="serif-title" style={{ fontSize: '1.25rem', fontWeight: 600, color: '#fff' }}>
+          <div className="num-metric" style={{ fontSize: '1.18rem', fontWeight: 700, color: '#fff' }}>
             {fmt(metrics.totalCashRequired)}
           </div>
           <div style={{ fontSize: '0.68rem', color: 'var(--text-secondary)' }}>
@@ -619,10 +619,10 @@ export default function ChiffrierDealSimulator({
             {tr(lang, 'Cashflow Net (An 1)', 'Net Cashflow (Yr 1)', 'Flujo de Caja (Año 1)', '第一年净现金流')}
           </div>
           <div
-            className="serif-title"
+            className="num-metric"
             style={{
-              fontSize: '1.25rem',
-              fontWeight: 600,
+              fontSize: '1.18rem',
+              fontWeight: 700,
               color: metrics.cashflowAnnuel >= 0 ? 'var(--gold-light)' : '#f87171'
             }}
           >
@@ -637,7 +637,7 @@ export default function ChiffrierDealSimulator({
           <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>
             {tr(lang, 'TRI 5 Ans & Multiples', '5-Yr IRR & Multiples', 'TIR 5 Años y Múltiplos', '5年内部收益率 (IRR)')}
           </div>
-          <div className="serif-title gold-gradient-text" style={{ fontSize: '1.25rem', fontWeight: 600 }}>
+          <div className="num-metric gold-gradient-text" style={{ fontSize: '1.18rem', fontWeight: 700 }}>
             {metrics.irr5Yr.toFixed(1)} % {tr(lang, 'TRI', 'IRR', 'TIR', 'IRR')}
           </div>
           <div style={{ fontSize: '0.68rem', color: 'var(--text-secondary)' }}>

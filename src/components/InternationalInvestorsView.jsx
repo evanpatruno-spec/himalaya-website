@@ -400,7 +400,7 @@ export default function InternationalInvestorsView({
               <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>
                 {tr(lang, 'Mise de fonds convertie en CAD $', 'Converted Equity in CAD $', 'Capital convertido en CAD $', '折合加元首付本金 (CAD $)')}
               </div>
-              <div className="serif-title" style={{ fontSize: '2rem', fontWeight: 600, color: '#fff' }}>
+              <div className="num-metric" style={{ fontSize: '1.75rem', fontWeight: 700, color: '#fff', marginTop: '4px' }}>
                 {purchasingPower.cadEquity.toLocaleString(locale)} CAD $
               </div>
             </div>
@@ -409,7 +409,7 @@ export default function InternationalInvestorsView({
               <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>
                 {tr(lang, 'Financement canadien estimé', 'Estimated Canadian Financing', 'Financiamiento canadiense estimado', '预计可获加元融资贷款')}
               </div>
-              <div className="serif-title" style={{ fontSize: '2rem', fontWeight: 600, color: 'var(--text-secondary)' }}>
+              <div className="num-metric" style={{ fontSize: '1.75rem', fontWeight: 700, color: 'var(--text-secondary)', marginTop: '4px' }}>
                 + {purchasingPower.estimatedLoanCad.toLocaleString(locale)} CAD $
               </div>
             </div>
@@ -418,7 +418,7 @@ export default function InternationalInvestorsView({
               <div style={{ fontSize: '0.72rem', color: 'var(--gold)', textTransform: 'uppercase', fontWeight: 700 }}>
                 {tr(lang, 'Capacité d’acquisition totale au Québec', 'Total Quebec Acquisition Capacity', 'Capacidad total de adquisición en Quebec', '在魁北克最高可收购资产总值')}
               </div>
-              <div className="serif-title gold-gradient-text" style={{ fontSize: '2.25rem', fontWeight: 600 }}>
+              <div className="num-metric gold-gradient-text" style={{ fontSize: '1.95rem', fontWeight: 700, marginTop: '4px' }}>
                 {purchasingPower.maxAcquisitionCad.toLocaleString(locale)} CAD $
               </div>
             </div>

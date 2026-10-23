@@ -1,3 +1,22 @@
+/* Uniformisation de 100 % des chiffres (0-9, $, %, €, ¥, +, -) avec la police sans-serif Inter tabulaire */
+@font-face {
+  font-family: 'HimalayaDigits';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: local('Inter'), url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2) format('woff2');
+  unicode-range: U+0030-0039, U+0024, U+0025, U+002B, U+002D, U+20AC, U+00A5;
+}
+
+@font-face {
+  font-family: 'HimalayaDigits';
+  font-style: italic;
+  font-weight: 400 800;
+  font-display: swap;
+  src: local('Inter'), url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2) format('woff2');
+  unicode-range: U+0030-0039, U+0024, U+0025, U+002B, U+002D, U+20AC, U+00A5;
+}
+
 :root {
   --bg-dark: #09090b;
   --bg-darker: #050506;
@@ -5,16 +24,18 @@
   --bg-card-hover: #18181c;
   --bg-surface: #151519;
   --gold: #c8a45d;
+  --gold-primary: #c8a45d;
   --gold-light: #e3c485;
   --gold-dark: #9c7a38;
   --text-main: #ffffff;
+  --text-primary: #ffffff;
   --text-secondary: #c4c4cc;
   --text-muted: #8a8a94;
   --border-subtle: rgba(255, 255, 255, 0.09);
   --border-gold: rgba(200, 164, 93, 0.34);
   --success: #e3c485;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-serif: 'HimalayaDigits', 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
   --shadow-lg: 0 18px 44px rgba(0, 0, 0, 0.65);
   --shadow-gold: 0 8px 26px rgba(200, 164, 93, 0.18);
 }
@@ -33,6 +54,7 @@ body {
   background-color: var(--bg-dark);
   color: var(--text-main);
   font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums lining-nums;
   line-height: 1.5;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
@@ -45,6 +67,7 @@ a {
 
 button, select, input, textarea {
   font-family: inherit;
+  font-variant-numeric: tabular-nums lining-nums;
 }
 
 /* Custom Scrollbar */
@@ -73,8 +96,16 @@ button, select, input, textarea {
 .serif-title,
 .editorial-heading {
   font-family: var(--font-serif);
+  font-variant-numeric: tabular-nums lining-nums;
   font-weight: 600;
   letter-spacing: 0.01em;
+}
+
+.num-metric {
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums lining-nums;
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 /* Filet d'or architectural ultra-fin en dégradé (#2) */
@@ -87,10 +118,11 @@ button, select, input, textarea {
 
 /* Numérotation éditoriale discrète 01, 02, 03 (#3) */
 .editorial-num {
-  font-family: var(--font-serif);
-  font-size: 1.55rem;
-  font-weight: 600;
-  font-style: italic;
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums lining-nums;
+  font-size: 1.15rem;
+  font-weight: 700;
+  font-style: normal;
   color: var(--gold);
   opacity: 0.88;
   letter-spacing: 0.06em;

@@ -374,7 +374,7 @@ export default function HomeView({
               { target: 2008, suffix: '', isYear: true, label: t.home.statFounded }
             ].map((stat, i) => (
               <div key={i} style={{ textAlign: 'center', padding: '6px 12px' }}>
-                <div className="serif-title gold-gradient-text" style={{ fontSize: '2.85rem', fontWeight: 600, lineHeight: 1.05 }}>
+                <div className="num-metric gold-gradient-text" style={{ fontSize: '2.35rem', fontWeight: 700, lineHeight: 1.05 }}>
                   <AnimatedStatValue target={stat.target} suffix={stat.suffix} isYear={stat.isYear} />
                 </div>
                 <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '8px', textTransform: 'uppercase', letterSpacing: '0.08em' }}>

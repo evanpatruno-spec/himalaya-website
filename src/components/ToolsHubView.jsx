@@ -679,7 +679,7 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
                 <div style={{ fontSize: '0.73rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                   {tr(lang, 'MRB (Multiplicateur Brut)', 'GIM (Gross Multiplier)', 'MRB (Multiplicador Bruto)', 'GIM (总收入乘数)')}
                 </div>
-                <div className="serif-title gold-gradient-text" style={{ fontSize: '2.5rem', fontWeight: 600, margin: '6px 0' }}>
+                <div className="num-metric gold-gradient-text" style={{ fontSize: '2.15rem', fontWeight: 700, margin: '6px 0' }}>
                   {plexResult.mrb}x
                 </div>
                 <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
@@ -691,7 +691,7 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
                 <div style={{ fontSize: '0.73rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                   {tr(lang, 'Taux de capitalisation (TGA)', 'Cap Rate (TGA)', 'Tasa de Capitalización (Cap Rate)', '资本化率 (Cap Rate)')}
                 </div>
-                <div className="serif-title gold-gradient-text" style={{ fontSize: '2.5rem', fontWeight: 600, margin: '6px 0' }}>
+                <div className="num-metric gold-gradient-text" style={{ fontSize: '2.15rem', fontWeight: 700, margin: '6px 0' }}>
                   {plexResult.capRate} %
                 </div>
                 <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
@@ -704,10 +704,10 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
                   {tr(lang, 'Cashflow net mensuel', 'Net Monthly Cashflow', 'Flujo de caja neto mensual', '每月净现金流')}
                 </div>
                 <div
-                  className="serif-title"
+                  className="num-metric"
                   style={{
-                    fontSize: '2.5rem',
-                    fontWeight: 600,
+                    fontSize: '2.15rem',
+                    fontWeight: 700,
                     margin: '6px 0',
                     color: plexResult.monthlyCashflow >= 0 ? 'var(--gold-light)' : '#f87171'
                   }}
@@ -723,7 +723,7 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
                 <div style={{ fontSize: '0.73rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                   {tr(lang, 'Rendement sur mise de fonds', 'Cash-on-Cash ROI', 'Retorno sobre capital (ROI)', '首付现金回报率 (ROI)')}
                 </div>
-                <div className="serif-title" style={{ fontSize: '2.5rem', fontWeight: 600, margin: '6px 0', color: 'var(--text-main)' }}>
+                <div className="num-metric" style={{ fontSize: '2.15rem', fontWeight: 700, margin: '6px 0', color: 'var(--text-main)' }}>
                   {plexResult.roi} %
                 </div>
                 <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
@@ -981,7 +981,7 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
                       }}
                     >
                       <span>{tr(lang, 'Cashflow net annuel réel', 'Real Net Annual Cashflow', 'Flujo de caja neto anual real', '实际年度净现金流')}</span>
-                      <span className="serif-title" style={{ fontSize: '1.35rem', color: plexResult.annualCashflow >= 0 ? 'var(--gold-light)' : '#f87171' }}>
+                      <span className="num-metric" style={{ fontSize: '1.22rem', color: plexResult.annualCashflow >= 0 ? 'var(--gold-light)' : '#f87171' }}>
                         {(plexResult.annualCashflow >= 0 ? '+ ' : '') + fmtCAD(plexResult.annualCashflow)}
                       </span>
                     </div>
@@ -1140,7 +1140,7 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
                   <div style={{ fontSize: '0.84rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '6px' }}>
                     {tr(lang, 'Prix d’achat maximal estimé', 'Maximum Estimated Purchase Price', 'Precio máximo de compra estimado', '预估最高可购房价')}
                   </div>
-                  <div className="serif-title gold-gradient-text" style={{ fontSize: '3rem', fontWeight: 700, marginBottom: '24px', paddingBottom: '20px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                  <div className="num-metric gold-gradient-text" style={{ fontSize: '2.45rem', fontWeight: 700, marginBottom: '24px', paddingBottom: '20px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
                     {fmtCAD(affResult.maxPrice)}
                   </div>
 
@@ -1149,7 +1149,7 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
                       <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                         {tr(lang, 'Prêt hypothécaire net', 'Net Mortgage Loan', 'Préstamo hipotecario neto', '净按揭贷款额')}
                       </div>
-                      <div className="serif-title" style={{ fontSize: '1.45rem', fontWeight: 600, marginTop: '4px' }}>
+                      <div className="num-metric" style={{ fontSize: '1.3rem', fontWeight: 700, marginTop: '4px' }}>
                         {fmtCAD(affResult.netLoan)}
                       </div>
                     </div>
@@ -1157,7 +1157,7 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
                       <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                         {tr(lang, 'Mise de fonds appliquée', 'Down Payment Applied', 'Pago inicial aplicado', '已投入首付款')}
                       </div>
-                      <div className="serif-title" style={{ fontSize: '1.45rem', fontWeight: 600, marginTop: '4px', color: 'var(--gold-light)' }}>
+                      <div className="num-metric" style={{ fontSize: '1.3rem', fontWeight: 700, marginTop: '4px', color: 'var(--gold-light)' }}>
                         {fmtCAD(affDown)}
                       </div>
                     </div>
@@ -1267,7 +1267,7 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
                   <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '4px' }}>
                     {tr(lang, 'Versement hypothécaire estimé', 'Estimated Mortgage Payment', 'Pago hipotecario estimado', '预估每期按揭还款额')}
                   </div>
-                  <div className="serif-title gold-gradient-text" style={{ fontSize: '2.9rem', fontWeight: 700, marginBottom: '20px', paddingBottom: '18px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                  <div className="num-metric gold-gradient-text" style={{ fontSize: '2.4rem', fontWeight: 700, marginBottom: '20px', paddingBottom: '18px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
                     {fmtCAD(mcResult.payment)}
                   </div>
 
@@ -1276,7 +1276,7 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
                       <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                         {tr(lang, 'Total des intérêts', 'Total Interest Over Term', 'Interés total acumulado', '贷款期总利息')}
                       </div>
-                      <div className="serif-title" style={{ fontSize: '1.35rem', fontWeight: 600, marginTop: '3px' }}>
+                      <div className="num-metric" style={{ fontSize: '1.25rem', fontWeight: 700, marginTop: '3px' }}>
                         {fmtCAD(mcResult.totalInterest)}
                       </div>
                     </div>
@@ -1284,7 +1284,7 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
                       <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                         {tr(lang, 'Total versé (Capital + Int.)', 'Total Paid (Principal + Int.)', 'Total pagado (Capital + Int.)', '还款总额 (本金 + 利息)')}
                       </div>
-                      <div className="serif-title" style={{ fontSize: '1.35rem', fontWeight: 600, marginTop: '3px' }}>
+                      <div className="num-metric" style={{ fontSize: '1.25rem', fontWeight: 700, marginTop: '3px' }}>
                         {fmtCAD(mcResult.totalPaid)}
                       </div>
                     </div>
@@ -1380,7 +1380,7 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
                   <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                     {tr(lang, 'Total de la taxe de bienvenue estimée', 'Total Transfer Duties Payable', 'Total estimado del impuesto de transferencia', '预估欢迎税 (土地转让税) 总额')}
                   </div>
-                  <div className="serif-title gold-gradient-text" style={{ fontSize: '2.8rem', fontWeight: 700, marginTop: '4px' }}>
+                  <div className="num-metric gold-gradient-text" style={{ fontSize: '2.35rem', fontWeight: 700, marginTop: '4px' }}>
                     {fmtCAD(wtResult.total)}
                   </div>
                 </div>
@@ -1513,7 +1513,7 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
                   <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                     {tr(lang, 'Total des liquidités requises à la signature', 'Total Liquid Cash Required at Closing', 'Total de liquidez requerida al cierre', '过户交割所需流动资金总额')}
                   </div>
-                  <div className="serif-title gold-gradient-text" style={{ fontSize: '2.8rem', fontWeight: 700, marginTop: '4px' }}>
+                  <div className="num-metric gold-gradient-text" style={{ fontSize: '2.35rem', fontWeight: 700, marginTop: '4px' }}>
                     {fmtCAD(ccResult.totalCash)}
                   </div>
                 </div>
@@ -1659,7 +1659,7 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
                       <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                         {tr(lang, `Loyers perdus (${rvbYears} ans)`, `Rent Lost (${rvbYears} yrs)`, `Alquileres perdidos (${rvbYears} años)`, `累计纯租金支出 (${rvbYears} 年)`)}
                       </div>
-                      <div className="serif-title" style={{ fontSize: '1.75rem', fontWeight: 700, color: '#f87171', marginTop: '4px' }}>
+                      <div className="num-metric" style={{ fontSize: '1.55rem', fontWeight: 700, color: '#f87171', marginTop: '4px' }}>
                         - {fmtCAD(rvbResult.totalRent)}
                       </div>
                     </div>
@@ -1667,7 +1667,7 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
                       <div style={{ fontSize: '0.75rem', color: 'var(--gold)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                         {tr(lang, `Équité totale (${rvbYears} ans)`, `Total Equity (${rvbYears} yrs)`, `Patrimonio total (${rvbYears} años)`, `累计房产净值 (${rvbYears} 年)`)}
                       </div>
-                      <div className="serif-title gold-gradient-text" style={{ fontSize: '1.75rem', fontWeight: 700, marginTop: '4px' }}>
+                      <div className="num-metric gold-gradient-text" style={{ fontSize: '1.55rem', fontWeight: 700, marginTop: '4px' }}>
                         + {fmtCAD(rvbResult.totalEquity)}
                       </div>
                     </div>
@@ -1683,7 +1683,7 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
                         '新增净财富积累 (已还本金 + 每年 3% 房产增值)'
                       )}
                     </div>
-                    <div className="serif-title gold-gradient-text" style={{ fontSize: '2.4rem', fontWeight: 700, marginTop: '4px' }}>
+                    <div className="num-metric gold-gradient-text" style={{ fontSize: '2.1rem', fontWeight: 700, marginTop: '4px' }}>
                       + {fmtCAD(rvbResult.netWealthCreated)}
                     </div>
                   </div>
@@ -1805,7 +1805,7 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
                       <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                         {tr(lang, `Prix futur estimé (+${waitMonths} mois)`, `Future Property Price (+${waitMonths}m)`, `Precio futuro estimado (+${waitMonths} meses)`, `预估未来房价 (+${waitMonths} 个月)`)}
                       </div>
-                      <div className="serif-title" style={{ fontSize: '1.6rem', fontWeight: 700, marginTop: '4px' }}>
+                      <div className="num-metric" style={{ fontSize: '1.45rem', fontWeight: 700, marginTop: '4px' }}>
                         {fmtCAD(waitResult.priceFuture)}
                       </div>
                       <div style={{ fontSize: '0.8rem', color: '#f87171', marginTop: '2px' }}>
@@ -1816,7 +1816,7 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
                       <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                         {tr(lang, 'Plus-value manquée en attendant', 'Equity Missed While Waiting', 'Plusvalía perdida por esperar', '等待期间错失的房产增值')}
                       </div>
-                      <div className="serif-title gold-gradient-text" style={{ fontSize: '1.6rem', fontWeight: 700, marginTop: '4px' }}>
+                      <div className="num-metric gold-gradient-text" style={{ fontSize: '1.45rem', fontWeight: 700, marginTop: '4px' }}>
                         {fmtCAD(waitResult.appreciationAmt)}
                       </div>
                     </div>
@@ -1984,7 +1984,7 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
                       '第一年每月总毛租金 (税前 GST/QST)'
                     )}
                   </div>
-                  <div className="serif-title gold-gradient-text" style={{ fontSize: '2.9rem', fontWeight: 700, marginBottom: '20px', paddingBottom: '16px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                  <div className="num-metric gold-gradient-text" style={{ fontSize: '2.4rem', fontWeight: 700, marginBottom: '20px', paddingBottom: '16px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
                     {fmtCAD(clResult.monthlyGrossYear1)} <span style={{ fontSize: '1.05rem', fontWeight: 500, color: 'var(--text-secondary)' }}>{tr(lang, '/ mois', '/ month', '/ mes', '/ 月')}</span>
                   </div>
 
@@ -2045,7 +2045,7 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
                           `租约期总承诺金额 (${clResult.years} 年，基本租金年递增 ${clEscalation}%)`
                         )}
                       </span>
-                      <span className="serif-title" style={{ fontSize: '1.35rem', color: 'var(--gold-light)' }}>
+                      <span className="num-metric" style={{ fontSize: '1.22rem', color: 'var(--gold-light)' }}>
                         {fmtCAD(clResult.totalLeaseCommitment)}
                       </span>
                     </div>
