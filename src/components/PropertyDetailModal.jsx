@@ -6,14 +6,16 @@ import {
 import { isNdaSignedForDeal } from '../utils/prospectionBridge';
 import { tr, pickLang } from '../data/translations';
 import liveDealsData from '../data/himalayaLiveDeals.json';
+import {
+  useExchangeRates,
+  CURRENCY_OPTIONS,
+  FALLBACK_CURRENCY_RATES,
+  getCurrencyDisclaimerText
+} from '../utils/currencyService';
+import { getPropertyUrlPath } from '../utils/seoRouter';
+import ChiffrierDealSimulator from './ChiffrierDealSimulator';
 
 const FALLBACK_IMG = 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=80';
-
-const CURRENCY_RATES = {
-  CAD: 1,
-  EUR: 0.68,
-  USD: 0.73
-};
 
 function parseLocaleNumber(raw) {
   if (!raw) return NaN;
@@ -167,7 +169,9 @@ export default function PropertyDetailModal({
   const [copied, setCopied] = useState(false);
   const [emailCopied, setEmailCopied] = useState(false);
 
-  // Idée #1 : Sélecteur de devises instantané (CAD $ | EUR € | USD $)
+  // Idée #11 : Sélecteur de devises dynamique Banque du Canada (CAD $ | EUR € | USD $ | CNY ¥)
+  const exchangeRateInfo = useExchangeRates();
+  const activeRates = exchangeRateInfo?.rates || FALLBACK_CURRENCY_RATES;
   const [selectedCurrency, setSelectedCurrency] = useState(currency || 'CAD');
   useEffect(() => {
     if (currency) setSelectedCurrency(currency);
@@ -269,9 +273,9 @@ export default function PropertyDetailModal({
     photo: 'https://www.himalayacorp.com/gx/00/defaut_courtier.jpg'
   };
 
-  // Partage avec lien direct ?propriete=... (#16 & #18)
+  // Partage avec URL dédiée SEO /proprietes/22685883-... (#15)
   const handleShare = () => {
-    const shareUrl = `${window.location.origin}${window.location.pathname}?propriete=${encodeURIComponent(deal.mls_number)}#proprietes`;
+    const shareUrl = `${window.location.origin}${getPropertyUrlPath(deal)}`;
     if (navigator.clipboard) {
       navigator.clipboard.writeText(shareUrl);
       setCopied(true);
@@ -289,7 +293,7 @@ export default function PropertyDetailModal({
     ? Math.round((loanAmount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -totalMonths)))
     : Math.round(loanAmount / totalMonths);
 
-  // Idée #1 — Simulateur de financement rapide intégré (20% mise de fonds, 4.79%, 25 ans = 300 mois)
+  // Simulateur de financement rapide intégré (20% mise de fonds, 4.79%, 25 ans = 300 mois)
   const quickMortgageMonthlyCAD = useMemo(() => {
     if (!(priceNum > 0)) return 0;
     const principal = priceNum * 0.8;
@@ -301,10 +305,10 @@ export default function PropertyDetailModal({
   const ndaUnlocked = isNdaSignedForDeal(deal.mls_number);
   const lang = t?.code || 'FR';
   const numLocale = lang === 'EN' ? 'en-CA' : 'fr-CA';
-  const quickMortgageRate = CURRENCY_RATES[selectedCurrency] || 1;
+  const quickMortgageRate = activeRates[selectedCurrency] || 1;
   const quickMortgageConverted = Math.round(quickMortgageMonthlyCAD * quickMortgageRate).toLocaleString(numLocale);
   const quickMortgageCurrencySuffix =
-    selectedCurrency === 'EUR' ? '€ EUR' : selectedCurrency === 'USD' ? '$ USD' : 'CAD $';
+    selectedCurrency === 'EUR' ? '€ EUR' : selectedCurrency === 'USD' ? '$ USD' : selectedCurrency === 'CNY' ? '¥ CNY' : 'CAD $';
   const displayCategory = pickLang(deal, 'category', lang) || tr(lang, 'Immobilier', 'Real Estate', 'Inmobiliaria', '房地产');
   const displayTitle = pickLang(deal, 'title', lang);
   const displayPrice = pickLang(deal, 'price_raw', lang);
@@ -524,7 +528,7 @@ export default function PropertyDetailModal({
                       {displayPrice}
                     </div>
 
-                    {/* Idée #1 : Sélecteur de devises instantané (CAD $ | EUR € | USD $) */}
+                    {/* Idée #11 : Sélecteur de devises Banque du Canada (CAD $ | EUR € | USD $ | CNY ¥) */}
                     {priceNum > 0 && (
                       <div
                         className="no-print"
@@ -540,11 +544,7 @@ export default function PropertyDetailModal({
                           gap: '2px'
                         }}
                       >
-                        {[
-                          { code: 'CAD', label: 'CAD $' },
-                          { code: 'EUR', label: 'EUR €' },
-                          { code: 'USD', label: 'USD $' }
-                        ].map(curr => {
+                        {CURRENCY_OPTIONS.map(curr => {
                           const active = selectedCurrency === curr.code;
                           return (
                             <button
@@ -572,7 +572,7 @@ export default function PropertyDetailModal({
                     )}
                   </div>
 
-                  {priceNum > 0 && (selectedCurrency === 'EUR' || selectedCurrency === 'USD') && (
+                  {priceNum > 0 && selectedCurrency !== 'CAD' && (
                     <div style={{
                       display: 'flex',
                       alignItems: 'baseline',
@@ -582,25 +582,11 @@ export default function PropertyDetailModal({
                       color: 'var(--gold-light)'
                     }}>
                       <strong className="serif-title" style={{ fontSize: '1.18rem', fontWeight: 600 }}>
-                        ≈ {Math.round(priceNum * CURRENCY_RATES[selectedCurrency]).toLocaleString(lang === 'EN' ? 'en-CA' : 'fr-CA')}{' '}
-                        {selectedCurrency === 'EUR' ? '€ EUR' : '$ USD'}
+                        ≈ {Math.round(priceNum * (activeRates[selectedCurrency] || 1)).toLocaleString(lang === 'EN' ? 'en-CA' : 'fr-CA')}{' '}
+                        {selectedCurrency === 'EUR' ? '€ EUR' : selectedCurrency === 'USD' ? '$ USD' : '¥ CNY (RMB)'}
                       </strong>
                       <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
-                        {selectedCurrency === 'EUR'
-                          ? tr(
-                              lang,
-                              '(équivalent indicatif • taux 1 CAD = 0,68 EUR • prix officiel en CAD $)',
-                              '(indicative equivalent • rate 1 CAD = 0.68 EUR • official price in CAD $)',
-                              '(equivalente indicativo • tasa 1 CAD = 0,68 EUR • precio oficial en CAD $)',
-                              '（参考折算价 • 汇率 1 CAD = 0.68 EUR • 官方标价以加元 CAD $ 为准）'
-                            )
-                          : tr(
-                              lang,
-                              '(équivalent indicatif • taux 1 CAD = 0,73 USD • prix officiel en CAD $)',
-                              '(indicative equivalent • rate 1 CAD = 0.73 USD • official price in CAD $)',
-                              '(equivalente indicativo • tasa 1 CAD = 0,73 USD • precio oficial en CAD $)',
-                              '（参考折算价 • 汇率 1 CAD = 0.73 USD • 官方标价以加元 CAD $ 为准）'
-                            )}
+                        ({getCurrencyDisclaimerText(selectedCurrency, exchangeRateInfo, lang)})
                       </span>
                     </div>
                   )}
@@ -740,68 +726,17 @@ export default function PropertyDetailModal({
                 </div>
               )}
 
-              {/* Idée #1 — Simulateur de financement rapide intégré dans la fiche propriété (Sans Boîte) */}
+              {/* Idée #5 — Intégration directe du « Himalaya Chiffrier » (MREX & SCHL APH Select) dans la fiche propriété */}
               {deal.price > 0 && deal.status !== 'Vendu' && (
-                <div
-                  className="no-print"
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    gap: '16px',
-                    flexWrap: 'wrap',
-                    marginTop: cleanSpecs.length > 0 ? '22px' : '0',
-                    padding: '14px 0',
-                    borderTop: '1px solid rgba(200, 164, 93, 0.28)',
-                    borderBottom: '1px solid rgba(255,255,255,0.08)'
-                  }}
-                >
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                    <span style={{ fontSize: '0.76rem', color: 'var(--text-muted)', letterSpacing: '0.02em' }}>
-                      {tr(
-                        lang,
-                        'Estimation hypothécaire indicative (20 % mise de fonds • 4,79 % • 25 ans)',
-                        'Indicative Mortgage Estimate (20% down payment • 4.79% • 25 yrs)',
-                        'Estimación hipotecaria indicativa (20 % de enganche • 4,79 % • 25 años)',
-                        '按揭月供估算（首付 20% • 利率 4.79% • 25 年摊还期）'
-                      )}
-                    </span>
-                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', flexWrap: 'wrap' }}>
-                      <strong className="serif-title gold-gradient-text" style={{ fontSize: '1.35rem', fontWeight: 600 }}>
-                        ≈ {quickMortgageConverted} {quickMortgageCurrencySuffix} / {tr(lang, 'mois', 'mo', 'mes', '月')}
-                      </strong>
-                      {(selectedCurrency === 'EUR' || selectedCurrency === 'USD') && (
-                        <span style={{ fontSize: '0.74rem', color: 'var(--text-muted)' }}>
-                          ({quickMortgageMonthlyCAD.toLocaleString(numLocale)} CAD $ / {tr(lang, 'mois', 'mo', 'mes', '月')})
-                        </span>
-                      )}
-                    </div>
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={() => {
-                      if (onOpenCalculator) onOpenCalculator(deal.price);
-                      else if (onSimulateInTools) onSimulateInTools(deal);
+                <div className="no-print" style={{ marginTop: cleanSpecs.length > 0 ? '26px' : '8px' }}>
+                  <ChiffrierDealSimulator
+                    deal={deal}
+                    lang={lang}
+                    compact={true}
+                    onOpenFullChiffrier={(d) => {
+                      if (onSimulateInTools) onSimulateInTools(d);
                     }}
-                    className="btn-outline"
-                    style={{
-                      padding: '8px 14px',
-                      fontSize: '0.78rem',
-                      borderColor: 'var(--border-gold)',
-                      color: 'var(--gold-light)',
-                      whiteSpace: 'nowrap'
-                    }}
-                  >
-                    <Calculator size={13} color="var(--gold)" />
-                    {tr(
-                      lang,
-                      'Simuler dans le calculateur →',
-                      'Simulate in Calculator →',
-                      'Simular en la calculadora →',
-                      '在金融计算器中模拟 →'
-                    )}
-                  </button>
+                  />
                 </div>
               )}
             </div>

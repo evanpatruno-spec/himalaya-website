@@ -242,7 +242,7 @@ export const ABOUT_CONTENT = {
         {
           name: 'Registraire des entreprises du Québec',
           desc: 'Identité des personnes morales, administrateurs et immatriculation',
-          url: 'https://www.registreentreprises.gouv.qc.ca'
+          url: 'https://www.quebec.ca/entreprises-et-travailleurs-autonomes/obtenir-renseignements-entreprise/recherche-registre-entreprises/acceder-registre-entreprises'
         },
         {
           name: 'Registre foncier du Québec',
@@ -252,12 +252,12 @@ export const ABOUT_CONTENT = {
         {
           name: 'Corporations Canada',
           desc: 'Sociétés de régime fédéral et répertoire corporatif canadien',
-          url: 'https://ic.gc.ca/eic/site/cd-dgc.nsf/fra/accueil'
+          url: 'https://ised-isde.canada.ca/site/corporations-canada/fr'
         },
         {
           name: 'Répertoire des municipalités du Québec (MAMH)',
           desc: 'Évaluation et taxes municipales, règlements municipaux de zonage',
-          url: 'https://www.quebec.ca/gouvernement/portrait-quebec/organisation-municipale/repertoire-municipalites'
+          url: 'https://www.quebec.ca/gouvernement/portrait-quebec/repertoire-municipalites'
         },
         {
           name: 'Commission de protection du territoire agricole du Québec (CPTAQ)',
@@ -265,9 +265,9 @@ export const ABOUT_CONTENT = {
           url: 'https://www.cptaq.gouv.qc.ca'
         },
         {
-          name: 'Cartographie des zones inondables (CEHQ)',
+          name: 'Cartographie des zones inondables (Géo-Inondations Québec)',
           desc: 'Atlas et cartes officielles des zones d’inondation au Québec',
-          url: 'https://www.cehq.gouv.qc.ca/zones-inond/cartographie/index.htm'
+          url: 'https://zonesinondables.mrnf.gouv.qc.ca/'
         },
         {
           name: 'Fédération des centres de services scolaires / Taxes scolaires',
@@ -289,13 +289,15 @@ export const ABOUT_CONTENT = {
               name: 'FASKEN Avocats — Me Frédéric P. Gilbert, B.A., LL.B.',
               specialty: 'Agents de brevets et de marques de commerce, Franchise',
               address: 'Tour de la Bourse, 800 rue du Square-Victoria, bureau 3700, Montréal, QC H2Z 1E9',
-              contact: '514-397-5232 • fgilbert@fasken.com'
+              contact: '514-397-5232 • fgilbert@fasken.com',
+              website: 'https://www.fasken.com/fr'
             },
             {
               name: 'Tutino Joseph Grégoire Avocats — Me Isabelle Grégoire',
               specialty: 'Vices cachés, franchises et bail commercial',
               address: '1080, Côte du Beaver Hall, bureau 600, Montréal, QC H2Z 1S8',
-              contact: '514-878-3878 • igregoire@tutinolex.com • www.tutinolex.com'
+              contact: '514-878-3878 • igregoire@tutinolex.com',
+              website: 'https://tutinolex.com'
             },
             {
               name: 'GAO Avocat inc. — Me Yuan Znan Gao, LL.B., J.D., TEP',
@@ -318,7 +320,7 @@ export const ABOUT_CONTENT = {
               name: 'Stéphan Roy, Arpenteur-géomètre',
               specialty: 'Certificats de localisation, piquetage et arpentage foncier',
               address: '262, boul. Sainte-Rose, Laval (Sainte-Rose), QC H7L 1M2',
-              contact: '514-990-2333 • sroy@stephanroy.ca • www.stephanroy.ca'
+              contact: '514-990-2333 • sroy@stephanroy.ca'
             }
           ]
         },
@@ -329,7 +331,8 @@ export const ABOUT_CONTENT = {
               name: 'André Leblanc et Ass. — Marc-André Leblanc, CMA, É.A.',
               specialty: 'Évaluateur agréé — Pourvoiries et propriétés commerciales',
               address: '2965, rue de Boischatel, Trois-Rivières, QC G8Z 3Z8',
-              contact: '819-373-6579 • maleblanc@groupeleblanc.ca • www.groupeleblanc.ca'
+              contact: '819-373-6579 • maleblanc@groupeleblanc.ca',
+              website: 'https://www.groupeleblanc.ca'
             },
             {
               name: 'Jean Philippe Baril, B.A.A., É.A., AACI, P.App.',
@@ -346,13 +349,15 @@ export const ABOUT_CONTENT = {
               name: 'Physis Environnement Inc. — François Munger, Chimiste',
               specialty: 'Analyse environnementale de sol et équipement',
               address: 'Montréal, Québec',
-              contact: '514-516-2255 • fmunger@physisenvironnement.com • www.physisenvironnement.com'
+              contact: '514-516-2255 • fmunger@physisenvironnement.com',
+              website: 'https://www.physis.ca'
             },
             {
               name: 'MultiTEST — Nicolas Forest, LL.B., Vice-président',
               specialty: 'Services environnementaux et caractérisation de sites',
               address: '464, boul. Roland-Therrien, Longueuil, QC J4H 3V9',
-              contact: '514-990-2063 • info@multitest.ca • www.multitest.ca'
+              contact: '514-990-2063 • info@multitest.ca',
+              website: 'https://www.multitest.ca'
             }
           ]
         },
@@ -363,25 +368,29 @@ export const ABOUT_CONTENT = {
               name: 'Imagine Franchise Consultant — Stéphane Breault, Président',
               specialty: 'Développement et conseil en franchise',
               address: '1751, rue Richardson, bureau 4.509, Montréal, QC H3K 1G6',
-              contact: '514-935-5686 poste 229 • sbreault@imagine-fl.com • www.imaginefranchise.com'
+              contact: '514-935-5686 poste 229 • sbreault@imagine-fl.com',
+              website: 'https://www.imaginefranchise.com'
             },
             {
               name: 'Indicia Géomarketing — Daniel Lemire, Président',
               specialty: 'Études de marché et géomarketing commercial',
               address: '3467, boul. des Entreprises, suite 103, Terrebonne, QC J6X 4J9',
-              contact: '450-477-3330 • daniel.lemire@indicia.ca • www.indicia-geomarketing.com'
+              contact: '450-477-3330 • daniel.lemire@indicia.ca',
+              website: 'https://indicia.ca'
             },
             {
               name: 'FLAGFRANCHISE — Sylvie Grégoire, MBA, CRHA, Présidente',
               specialty: 'Consultation internationale en franchise (Amérique du Nord & Europe)',
               address: 'Québec & Europe',
-              contact: '1-819-347-7633 / 1-844-347-7633 • info@flagfranchise.com • www.flagfranchise.com'
+              contact: '1-819-347-7633 / 1-844-347-7633 • info@flagfranchise.com',
+              website: 'https://flagfranchise.com'
             },
             {
               name: 'DSD Groupe Design — Dimitri Smolens, APDIQ, DIC',
               specialty: 'Services d’aménagement commercial et design intérieur',
               address: '2197, rue Sherbrooke Est, suite 010, Montréal, QC H2K 1C8',
-              contact: '514-985-5320 • dsmolens@groupedesign.com'
+              contact: '514-985-5320 • dsmolens@groupedesign.com',
+              website: 'https://groupedesign.com'
             }
           ]
         },
@@ -392,19 +401,21 @@ export const ABOUT_CONTENT = {
               name: 'France — HGV Conseil (Vuthy Hang) & Maison Pregevole-1968 (Sylvie Prégevole)',
               specialty: 'Courtage en assurance, gestion privée et retraite de l’expatrié',
               address: 'Rueil-Malmaison (92500) & France',
-              contact: 'vuthy.hang@hgv-conseil.fr • sylviepregevole@maisonpregevole1968.com'
+              contact: 'vuthy.hang@hgv-conseil.fr • sylviepregevole@maisonpregevole1968.com',
+              website: 'https://hgv-conseil.fr',
+              website2: 'https://maisonpregevole1968.com'
             },
             {
               name: 'République Dominicaine — Wilfredo Mena & Asocs. / Revart',
               specialty: 'Architecture, construction et supervision de projets immobiliers',
               address: 'République Dominicaine',
-              contact: '809-788-0121 / 829-601-6745 • www.revartdr.org'
+              contact: '809-788-0121 / 829-601-6745'
             },
             {
               name: 'Costa Rica — ICS Consultores (Marco Aguilar)',
               specialty: 'Consultation fiscale et accompagnement corporatif',
               address: 'Costa Rica',
-              contact: 'maguilar@icsconsultores.com • www.icsconsultores.com'
+              contact: 'maguilar@icsconsultores.com'
             }
           ]
         }
@@ -643,7 +654,7 @@ export const ABOUT_CONTENT = {
         {
           name: 'Registraire des entreprises du Québec',
           desc: 'Corporate registry, legal entities, and directors in Quebec',
-          url: 'https://www.registreentreprises.gouv.qc.ca'
+          url: 'https://www.quebec.ca/entreprises-et-travailleurs-autonomes/obtenir-renseignements-entreprise/recherche-registre-entreprises/acceder-registre-entreprises'
         },
         {
           name: 'Registre foncier du Québec (Land Register)',
@@ -653,12 +664,12 @@ export const ABOUT_CONTENT = {
         {
           name: 'Corporations Canada',
           desc: 'Federal corporate registry and business directory',
-          url: 'https://ic.gc.ca/eic/site/cd-dgc.nsf/eng/home'
+          url: 'https://ised-isde.canada.ca/site/corporations-canada/en'
         },
         {
           name: 'Quebec Municipalities Directory (MAMH)',
           desc: 'Municipal assessments, property taxes, and zoning by-laws',
-          url: 'https://www.quebec.ca/en/government/quebec-at-a-glance/municipal-organization/municipal-directory'
+          url: 'https://www.quebec.ca/gouvernement/portrait-quebec/repertoire-municipalites'
         },
         {
           name: 'Agricultural Land Protection Commission (CPTAQ)',
@@ -666,9 +677,9 @@ export const ABOUT_CONTENT = {
           url: 'https://www.cptaq.gouv.qc.ca'
         },
         {
-          name: 'Flood Zone Mapping (CEHQ)',
+          name: 'Flood Zone Mapping (Géo-Inondations Québec)',
           desc: 'Official flood zone maps and hydrological atlas of Quebec',
-          url: 'https://www.cehq.gouv.qc.ca/zones-inond/cartographie/index.htm'
+          url: 'https://zonesinondables.mrnf.gouv.qc.ca/'
         },
         {
           name: 'Quebec School Service Centres / School Taxes',
@@ -676,7 +687,7 @@ export const ABOUT_CONTENT = {
           url: 'https://www.fcssq.quebec'
         },
         {
-          name: ' Cultural Heritage Directory of Quebec',
+          name: 'Cultural Heritage Directory of Quebec',
           desc: 'Heritage properties, classified sites, and protection areas',
           url: 'https://www.patrimoine-culturel.gouv.qc.ca'
         }
@@ -690,13 +701,15 @@ export const ABOUT_CONTENT = {
               name: 'FASKEN Lawyers — Frédéric P. Gilbert, B.A., LL.B.',
               specialty: 'Patent & Trademark Agents, Commercial & Franchise Law',
               address: 'Stock Exchange Tower, 800 Square-Victoria St., Suite 3700, Montreal, QC H2Z 1E9',
-              contact: '514-397-5232 • fgilbert@fasken.com'
+              contact: '514-397-5232 • fgilbert@fasken.com',
+              website: 'https://www.fasken.com/en'
             },
             {
               name: 'Tutino Joseph Grégoire Lawyers — Isabelle Grégoire, Partner',
               specialty: 'Latent defects, franchises, and commercial leases',
               address: '1080 Côte du Beaver Hall, Suite 600, Montreal, QC H2Z 1S8',
-              contact: '514-878-3878 • igregoire@tutinolex.com • www.tutinolex.com'
+              contact: '514-878-3878 • igregoire@tutinolex.com',
+              website: 'https://tutinolex.com'
             },
             {
               name: 'GAO Avocat inc. — Yuan Znan Gao, LL.B., J.D., TEP',
@@ -719,7 +732,7 @@ export const ABOUT_CONTENT = {
               name: 'Stéphan Roy, Land Surveyor (Arpenteur-géomètre)',
               specialty: 'Certificates of location, staking, and land surveying',
               address: '262 Sainte-Rose Blvd., Laval (Sainte-Rose), QC H7L 1M2',
-              contact: '514-990-2333 • sroy@stephanroy.ca • www.stephanroy.ca'
+              contact: '514-990-2333 • sroy@stephanroy.ca'
             }
           ]
         },
@@ -730,7 +743,8 @@ export const ABOUT_CONTENT = {
               name: 'André Leblanc et Ass. — Marc-André Leblanc, CMA, É.A.',
               specialty: 'Chartered Appraiser — Outfitters and commercial properties',
               address: '2965 Boischatel, Trois-Rivières, QC G8Z 3Z8',
-              contact: '819-373-6579 • maleblanc@groupeleblanc.ca • www.groupeleblanc.ca'
+              contact: '819-373-6579 • maleblanc@groupeleblanc.ca',
+              website: 'https://www.groupeleblanc.ca'
             },
             {
               name: 'Jean Philippe Baril, B.A.A., É.A., AACI, P.App.',
@@ -747,13 +761,15 @@ export const ABOUT_CONTENT = {
               name: 'Physis Environnement Inc. — François Munger, Chemist',
               specialty: 'Environmental soil and equipment analysis',
               address: 'Montreal, Quebec',
-              contact: '514-516-2255 • fmunger@physisenvironnement.com • www.physisenvironnement.com'
+              contact: '514-516-2255 • fmunger@physisenvironnement.com',
+              website: 'https://www.physis.ca'
             },
             {
               name: 'MultiTEST — Nicolas Forest, LL.B., Vice-President',
               specialty: 'Environmental site assessments and characterization',
               address: '464 Roland-Therrien Blvd., Longueuil, QC J4H 3V9',
-              contact: '514-990-2063 • info@multitest.ca • www.multitest.ca'
+              contact: '514-990-2063 • info@multitest.ca',
+              website: 'https://www.multitest.ca'
             }
           ]
         },
@@ -764,25 +780,29 @@ export const ABOUT_CONTENT = {
               name: 'Imagine Franchise Consultant — Stéphane Breault, President',
               specialty: 'Franchise consulting and network development',
               address: '1751 Richardson St., Suite 4.509, Montreal, QC H3K 1G6',
-              contact: '514-935-5686 ext. 229 • sbreault@imagine-fl.com • www.imaginefranchise.com'
+              contact: '514-935-5686 ext. 229 • sbreault@imagine-fl.com',
+              website: 'https://www.imaginefranchise.com'
             },
             {
               name: 'Indicia Geomarketing — Daniel Lemire, President',
               specialty: 'Market studies and commercial geomarketing',
               address: '3467 des Entreprises Blvd., Suite 103, Terrebonne, QC J6X 4J9',
-              contact: '450-477-3330 • daniel.lemire@indicia.ca • www.indicia-geomarketing.com'
+              contact: '450-477-3330 • daniel.lemire@indicia.ca',
+              website: 'https://indicia.ca'
             },
             {
               name: 'FLAGFRANCHISE — Sylvie Grégoire, MBA, CRHA, President',
               specialty: 'International franchise consulting (North America & Europe)',
               address: 'Quebec & Europe',
-              contact: '1-819-347-7633 / 1-844-347-7633 • info@flagfranchise.com • www.flagfranchise.com'
+              contact: '1-819-347-7633 / 1-844-347-7633 • info@flagfranchise.com',
+              website: 'https://flagfranchise.com'
             },
             {
               name: 'DSD Groupe Design — Dimitri Smolens, APDIQ, DIC',
               specialty: 'Commercial space planning and interior design',
               address: '2197 Sherbrooke St. East, Suite 010, Montreal, QC H2K 1C8',
-              contact: '514-985-5320 • dsmolens@groupedesign.com'
+              contact: '514-985-5320 • dsmolens@groupedesign.com',
+              website: 'https://groupedesign.com'
             }
           ]
         },
@@ -793,19 +813,21 @@ export const ABOUT_CONTENT = {
               name: 'France — HGV Conseil (Vuthy Hang) & Maison Pregevole-1968 (Sylvie Prégevole)',
               specialty: 'Insurance brokerage, private wealth management & expatriate retirement',
               address: 'Rueil-Malmaison (92500) & France',
-              contact: 'vuthy.hang@hgv-conseil.fr • sylviepregevole@maisonpregevole1968.com'
+              contact: 'vuthy.hang@hgv-conseil.fr • sylviepregevole@maisonpregevole1968.com',
+              website: 'https://hgv-conseil.fr',
+              website2: 'https://maisonpregevole1968.com'
             },
             {
               name: 'Dominican Republic — Wilfredo Mena & Asocs. / Revart',
               specialty: 'Architecture, construction, and project supervision',
               address: 'Dominican Republic',
-              contact: '809-788-0121 / 829-601-6745 • www.revartdr.org'
+              contact: '809-788-0121 / 829-601-6745'
             },
             {
               name: 'Costa Rica — ICS Consultores (Marco Aguilar)',
               specialty: 'Tax-risk consulting and corporate outsourcing',
               address: 'Costa Rica',
-              contact: 'maguilar@icsconsultores.com • www.icsconsultores.com'
+              contact: 'maguilar@icsconsultores.com'
             }
           ]
         }
@@ -1057,7 +1079,7 @@ ABOUT_CONTENT.ES = {
       {
         name: 'Registraire des entreprises du Québec (Registro de Empresas)',
         desc: 'Identidad de personas jurídicas, administradores y matrícula corporativa en Quebec',
-        url: 'https://www.registreentreprises.gouv.qc.ca'
+        url: 'https://www.quebec.ca/entreprises-et-travailleurs-autonomes/obtenir-renseignements-entreprise/recherche-registre-entreprises/acceder-registre-entreprises'
       },
       {
         name: 'Registre foncier du Québec (Registro de la Propiedad)',
@@ -1067,12 +1089,12 @@ ABOUT_CONTENT.ES = {
       {
         name: 'Corporations Canada',
         desc: 'Sociedades de régimen federal y directorio corporativo canadiense',
-        url: 'https://ic.gc.ca/eic/site/cd-dgc.nsf/eng/home'
+        url: 'https://ised-isde.canada.ca/site/corporations-canada/fr'
       },
       {
         name: 'Directorio de Municipalidades de Quebec (MAMH)',
         desc: 'Avalúos e impuestos municipales, reglamentos municipales de zonificación',
-        url: 'https://www.quebec.ca/gouvernement/portrait-quebec/organisation-municipale/repertoire-municipalites'
+        url: 'https://www.quebec.ca/gouvernement/portrait-quebec/repertoire-municipalites'
       },
       {
         name: 'Comisión de Protección del Territorio Agrícola de Quebec (CPTAQ)',
@@ -1080,9 +1102,9 @@ ABOUT_CONTENT.ES = {
         url: 'https://www.cptaq.gouv.qc.ca'
       },
       {
-        name: 'Cartografía de zonas inundables (CEHQ)',
+        name: 'Cartografía de zonas inundables (Géo-Inondations Québec)',
         desc: 'Atlas y mapas oficiales de zonas de inundación en Quebec',
-        url: 'https://www.cehq.gouv.qc.ca/zones-inond/cartographie/index.htm'
+        url: 'https://zonesinondables.mrnf.gouv.qc.ca/'
       },
       {
         name: 'Federación de Centros de Servicios Escolares / Impuestos escolares',
@@ -1104,13 +1126,15 @@ ABOUT_CONTENT.ES = {
             name: 'FASKEN Abogados — Lic. Frédéric P. Gilbert, B.A., LL.B.',
             specialty: 'Agentes de patentes y marcas comerciales, Derecho de franquicias',
             address: 'Tour de la Bourse, 800 rue du Square-Victoria, oficina 3700, Montreal, QC H2Z 1E9',
-            contact: '514-397-5232 • fgilbert@fasken.com'
+            contact: '514-397-5232 • fgilbert@fasken.com',
+            website: 'https://www.fasken.com/fr'
           },
           {
             name: 'Tutino Joseph Grégoire Abogados — Lic. Isabelle Grégoire',
             specialty: 'Vicios ocultos, franquicias y arrendamiento comercial',
             address: '1080, Côte du Beaver Hall, oficina 600, Montreal, QC H2Z 1S8',
-            contact: '514-878-3878 • igregoire@tutinolex.com • www.tutinolex.com'
+            contact: '514-878-3878 • igregoire@tutinolex.com',
+            website: 'https://tutinolex.com'
           },
           {
             name: 'GAO Avocat inc. — Lic. Yuan Znan Gao, LL.B., J.D., TEP',
@@ -1133,7 +1157,7 @@ ABOUT_CONTENT.ES = {
             name: 'Stéphan Roy, Agrimensor (Arpenteur-géomètre)',
             specialty: 'Certificados de localización, amojonamiento y topografía legal',
             address: '262, boul. Sainte-Rose, Laval (Sainte-Rose), QC H7L 1M2',
-            contact: '514-990-2333 • sroy@stephanroy.ca • www.stephanroy.ca'
+            contact: '514-990-2333 • sroy@stephanroy.ca'
           }
         ]
       },
@@ -1144,7 +1168,8 @@ ABOUT_CONTENT.ES = {
             name: 'André Leblanc et Ass. — Marc-André Leblanc, CMA, É.A.',
             specialty: 'Tasador certificado — Cotos turísticos (pourvoiries) y propiedades comerciales',
             address: '2965, rue de Boischatel, Trois-Rivières, QC G8Z 3Z8',
-            contact: '819-373-6579 • maleblanc@groupeleblanc.ca • www.groupeleblanc.ca'
+            contact: '819-373-6579 • maleblanc@groupeleblanc.ca',
+            website: 'https://www.groupeleblanc.ca'
           },
           {
             name: 'Jean Philippe Baril, B.A.A., É.A., AACI, P.App.',
@@ -1161,13 +1186,15 @@ ABOUT_CONTENT.ES = {
             name: 'Physis Environnement Inc. — François Munger, Químico',
             specialty: 'Análisis ambiental de suelos y equipamiento',
             address: 'Montreal, Quebec',
-            contact: '514-516-2255 • fmunger@physisenvironnement.com • www.physisenvironnement.com'
+            contact: '514-516-2255 • fmunger@physisenvironnement.com',
+            website: 'https://www.physis.ca'
           },
           {
             name: 'MultiTEST — Nicolas Forest, LL.B., Vicepresidente',
             specialty: 'Servicios ambientales y caracterización de terrenos',
             address: '464, boul. Roland-Therrien, Longueuil, QC J4H 3V9',
-            contact: '514-990-2063 • info@multitest.ca • www.multitest.ca'
+            contact: '514-990-2063 • info@multitest.ca',
+            website: 'https://www.multitest.ca'
           }
         ]
       },
@@ -1178,25 +1205,29 @@ ABOUT_CONTENT.ES = {
             name: 'Imagine Franchise Consultant — Stéphane Breault, Presidente',
             specialty: 'Desarrollo y consultoría en franquicias',
             address: '1751, rue Richardson, oficina 4.509, Montreal, QC H3K 1G6',
-            contact: '514-935-5686 ext. 229 • sbreault@imagine-fl.com • www.imaginefranchise.com'
+            contact: '514-935-5686 ext. 229 • sbreault@imagine-fl.com',
+            website: 'https://www.imaginefranchise.com'
           },
           {
             name: 'Indicia Géomarketing — Daniel Lemire, Presidente',
             specialty: 'Estudios de mercado y geomarketing comercial',
             address: '3467, boul. des Entreprises, suite 103, Terrebonne, QC J6X 4J9',
-            contact: '450-477-3330 • daniel.lemire@indicia.ca • www.indicia-geomarketing.com'
+            contact: '450-477-3330 • daniel.lemire@indicia.ca',
+            website: 'https://indicia.ca'
           },
           {
             name: 'FLAGFRANCHISE — Sylvie Grégoire, MBA, CRHA, Presidenta',
             specialty: 'Consultoría internacional en franquicias (América del Norte y Europa)',
             address: 'Quebec y Europa',
-            contact: '1-819-347-7633 / 1-844-347-7633 • info@flagfranchise.com • www.flagfranchise.com'
+            contact: '1-819-347-7633 / 1-844-347-7633 • info@flagfranchise.com',
+            website: 'https://flagfranchise.com'
           },
           {
             name: 'DSD Groupe Design — Dimitri Smolens, APDIQ, DIC',
             specialty: 'Planificación de espacios comerciales y diseño de interiores',
             address: '2197, rue Sherbrooke Est, suite 010, Montreal, QC H2K 1C8',
-            contact: '514-985-5320 • dsmolens@groupedesign.com'
+            contact: '514-985-5320 • dsmolens@groupedesign.com',
+            website: 'https://groupedesign.com'
           }
         ]
       },
@@ -1207,19 +1238,21 @@ ABOUT_CONTENT.ES = {
             name: 'Francia — HGV Conseil (Vuthy Hang) & Maison Pregevole-1968 (Sylvie Prégevole)',
             specialty: 'Corretaje de seguros, gestión patrimonial privada y jubilación para expatriados',
             address: 'Rueil-Malmaison (92500) y Francia',
-            contact: 'vuthy.hang@hgv-conseil.fr • sylviepregevole@maisonpregevole1968.com'
+            contact: 'vuthy.hang@hgv-conseil.fr • sylviepregevole@maisonpregevole1968.com',
+            website: 'https://hgv-conseil.fr',
+            website2: 'https://maisonpregevole1968.com'
           },
           {
             name: 'República Dominicana — Wilfredo Mena & Asocs. / Revart',
             specialty: 'Arquitectura, construcción y supervisión de proyectos inmobiliarios',
             address: 'República Dominicana',
-            contact: '809-788-0121 / 829-601-6745 • www.revartdr.org'
+            contact: '809-788-0121 / 829-601-6745'
           },
           {
             name: 'Costa Rica — ICS Consultores (Marco Aguilar)',
             specialty: 'Consultoría fiscal y acompañamiento corporativo',
             address: 'Costa Rica',
-            contact: 'maguilar@icsconsultores.com • www.icsconsultores.com'
+            contact: 'maguilar@icsconsultores.com'
           }
         ]
       }
@@ -1470,7 +1503,7 @@ ABOUT_CONTENT.ZH = {
       {
         name: '魁北克企业注册处 (Registraire des entreprises du Québec)',
         desc: '查询魁北克法人实体身份、公司董事及企业注册登记信息',
-        url: 'https://www.registreentreprises.gouv.qc.ca'
+        url: 'https://www.quebec.ca/entreprises-et-travailleurs-autonomes/obtenir-renseignements-entreprise/recherche-registre-entreprises/acceder-registre-entreprises'
       },
       {
         name: '魁北克土地注册处 (Registre foncier du Québec)',
@@ -1480,12 +1513,12 @@ ABOUT_CONTENT.ZH = {
       {
         name: '加拿大联邦企业局 (Corporations Canada)',
         desc: '加拿大联邦注册公司查询及全国企业名录',
-        url: 'https://ic.gc.ca/eic/site/cd-dgc.nsf/eng/home'
+        url: 'https://ised-isde.canada.ca/site/corporations-canada/en'
       },
       {
         name: '魁北克市政名录 (MAMH)',
         desc: '市政物业估值、市政地产税及各市分区规划法规查询',
-        url: 'https://www.quebec.ca/gouvernement/portrait-quebec/organisation-municipale/repertoire-municipalites'
+        url: 'https://www.quebec.ca/gouvernement/portrait-quebec/repertoire-municipalites'
       },
       {
         name: '魁北克农业用地保护委员会 (CPTAQ)',
@@ -1493,9 +1526,9 @@ ABOUT_CONTENT.ZH = {
         url: 'https://www.cptaq.gouv.qc.ca'
       },
       {
-        name: '洪水风险区官方地图 (CEHQ)',
+        name: '洪水风险区官方地图 (Géo-Inondations Québec)',
         desc: '魁北克省水文图集及洪泛区官方测绘地图',
-        url: 'https://www.cehq.gouv.qc.ca/zones-inond/cartographie/index.htm'
+        url: 'https://zonesinondables.mrnf.gouv.qc.ca/'
       },
       {
         name: '魁北克学校服务中心联合会 / 学校税查询',
@@ -1517,13 +1550,15 @@ ABOUT_CONTENT.ZH = {
             name: 'FASKEN 律师事务所 — Frédéric P. Gilbert 律师, B.A., LL.B.',
             specialty: '专利与商标代理人、特许经营法与商业法专家',
             address: 'Tour de la Bourse, 800 rue du Square-Victoria, bureau 3700, Montréal, QC H2Z 1E9',
-            contact: '514-397-5232 • fgilbert@fasken.com'
+            contact: '514-397-5232 • fgilbert@fasken.com',
+            website: 'https://www.fasken.com/en'
           },
           {
             name: 'Tutino Joseph Grégoire 律师事务所 — Isabelle Grégoire 律师',
             specialty: '隐蔽瑕疵诉讼、连锁特许经营及商业租约法律事务',
             address: '1080, Côte du Beaver Hall, bureau 600, Montréal, QC H2Z 1S8',
-            contact: '514-878-3878 • igregoire@tutinolex.com • www.tutinolex.com'
+            contact: '514-878-3878 • igregoire@tutinolex.com',
+            website: 'https://tutinolex.com'
           },
           {
             name: 'GAO Avocat inc. — 高远瞻律师 (Me Yuan Znan Gao, LL.B., J.D., TEP)',
@@ -1546,7 +1581,7 @@ ABOUT_CONTENT.ZH = {
             name: 'Stéphan Roy 土地测量师 (Arpenteur-géomètre)',
             specialty: '物业位置证明书 (Certificat de localisation)、界桩测绘与土地勘测',
             address: '262, boul. Sainte-Rose, Laval (Sainte-Rose), QC H7L 1M2',
-            contact: '514-990-2333 • sroy@stephanroy.ca • www.stephanroy.ca'
+            contact: '514-990-2333 • sroy@stephanroy.ca'
           }
         ]
       },
@@ -1557,7 +1592,8 @@ ABOUT_CONTENT.ZH = {
             name: 'André Leblanc et Ass. — Marc-André Leblanc, CMA, É.A.',
             specialty: '特许评估师 — 狩猎垂钓度假庄园 (Pourvoiries) 及商业物业估值',
             address: '2965, rue de Boischatel, Trois-Rivières, QC G8Z 3Z8',
-            contact: '819-373-6579 • maleblanc@groupeleblanc.ca • www.groupeleblanc.ca'
+            contact: '819-373-6579 • maleblanc@groupeleblanc.ca',
+            website: 'https://www.groupeleblanc.ca'
           },
           {
             name: 'Jean Philippe Baril, B.A.A., É.A., AACI, P.App.',
@@ -1574,13 +1610,15 @@ ABOUT_CONTENT.ZH = {
             name: 'Physis Environnement Inc. — François Munger, 化学师',
             specialty: '土壤环境分析与场地检测设备',
             address: 'Montréal, Québec',
-            contact: '514-516-2255 • fmunger@physisenvironnement.com • www.physisenvironnement.com'
+            contact: '514-516-2255 • fmunger@physisenvironnement.com',
+            website: 'https://www.physis.ca'
           },
           {
             name: 'MultiTEST — Nicolas Forest, LL.B., 副总裁',
             specialty: '场地环境评估与土壤特性表征服务',
             address: '464, boul. Roland-Therrien, Longueuil, QC J4H 3V9',
-            contact: '514-990-2063 • info@multitest.ca • www.multitest.ca'
+            contact: '514-990-2063 • info@multitest.ca',
+            website: 'https://www.multitest.ca'
           }
         ]
       },
@@ -1591,25 +1629,29 @@ ABOUT_CONTENT.ZH = {
             name: 'Imagine Franchise Consultant — Stéphane Breault, 总裁',
             specialty: '连锁特许经营网络开发与战略咨询',
             address: '1751, rue Richardson, bureau 4.509, Montréal, QC H3K 1G6',
-            contact: '514-935-5686 poste 229 • sbreault@imagine-fl.com • www.imaginefranchise.com'
+            contact: '514-935-5686 poste 229 • sbreault@imagine-fl.com',
+            website: 'https://www.imaginefranchise.com'
           },
           {
             name: 'Indicia Géomarketing — Daniel Lemire, 总裁',
             specialty: '商业市场调研与地理营销分析 (Géomarketing)',
             address: '3467, boul. des Entreprises, suite 103, Terrebonne, QC J6X 4J9',
-            contact: '450-477-3330 • daniel.lemire@indicia.ca • www.indicia-geomarketing.com'
+            contact: '450-477-3330 • daniel.lemire@indicia.ca',
+            website: 'https://indicia.ca'
           },
           {
             name: 'FLAGFRANCHISE — Sylvie Grégoire, MBA, CRHA, 总裁',
             specialty: '国际特许经营咨询（北美与欧洲市场）',
             address: 'Québec & Europe',
-            contact: '1-819-347-7633 / 1-844-347-7633 • info@flagfranchise.com • www.flagfranchise.com'
+            contact: '1-819-347-7633 / 1-844-347-7633 • info@flagfranchise.com',
+            website: 'https://flagfranchise.com'
           },
           {
             name: 'DSD Groupe Design — Dimitri Smolens, APDIQ, DIC',
             specialty: '商业空间规划与室内设计服务',
             address: '2197, rue Sherbrooke Est, suite 010, Montréal, QC H2K 1C8',
-            contact: '514-985-5320 • dsmolens@groupedesign.com'
+            contact: '514-985-5320 • dsmolens@groupedesign.com',
+            website: 'https://groupedesign.com'
           }
         ]
       },
@@ -1620,19 +1662,21 @@ ABOUT_CONTENT.ZH = {
             name: '法国 — HGV Conseil (Vuthy Hang) & Maison Pregevole-1968 (Sylvie Prégevole)',
             specialty: '保险经纪、私人财富管理与外派人士退休规划',
             address: 'Rueil-Malmaison (92500) & France',
-            contact: 'vuthy.hang@hgv-conseil.fr • sylviepregevole@maisonpregevole1968.com'
+            contact: 'vuthy.hang@hgv-conseil.fr • sylviepregevole@maisonpregevole1968.com',
+            website: 'https://hgv-conseil.fr',
+            website2: 'https://maisonpregevole1968.com'
           },
           {
             name: '多米尼加共和国 — Wilfredo Mena & Asocs. / Revart',
             specialty: '建筑设计、工程施工与房地产项目监理',
             address: 'République Dominicaine',
-            contact: '809-788-0121 / 829-601-6745 • www.revartdr.org'
+            contact: '809-788-0121 / 829-601-6745'
           },
           {
             name: '哥斯达黎加 — ICS Consultores (Marco Aguilar)',
             specialty: '税务咨询与企业商务配套服务',
             address: 'Costa Rica',
-            contact: 'maguilar@icsconsultores.com • www.icsconsultores.com'
+            contact: 'maguilar@icsconsultores.com'
           }
         ]
       }

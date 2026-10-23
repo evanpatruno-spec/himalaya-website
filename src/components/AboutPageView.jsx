@@ -2216,21 +2216,197 @@ export default function AboutPageView({
                     >
                       {group.category}
                     </h4>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                      {group.items.map((partner, pIdx) => (
-                        <div key={pIdx} style={{ fontSize: '0.85rem' }}>
-                          <div style={{ fontWeight: 700, color: 'var(--text-primary)', marginBottom: '2px' }}>
-                            {partner.name}
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                      {group.items.map((partner, pIdx) => {
+                        const contactParts = (partner.contact || '')
+                          .split('•')
+                          .map((s) => s.trim())
+                          .filter(Boolean);
+
+                        const websites = [partner.website, partner.website2].filter(Boolean);
+
+                        return (
+                          <div key={pIdx} style={{ fontSize: '0.85rem' }}>
+                            <div
+                              style={{
+                                fontWeight: 700,
+                                color: 'var(--text-primary)',
+                                marginBottom: '3px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+                                gap: '8px',
+                                flexWrap: 'wrap'
+                              }}
+                            >
+                              {partner.website ? (
+                                <a
+                                  href={partner.website}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  style={{
+                                    color: 'var(--text-primary)',
+                                    textDecoration: 'none',
+                                    transition: 'color 0.2s'
+                                  }}
+                                  onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--gold-primary)')}
+                                  onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-primary)')}
+                                >
+                                  {partner.name}
+                                </a>
+                              ) : (
+                                <span>{partner.name}</span>
+                              )}
+
+                              {websites.length > 0 && (
+                                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                                  {websites.map((siteUrl, wIdx) => (
+                                    <a
+                                      key={wIdx}
+                                      href={siteUrl}
+                                      target="_blank"
+                                      rel="noreferrer"
+                                      style={{
+                                        display: 'inline-flex',
+                                        alignItems: 'center',
+                                        gap: '4px',
+                                        color: 'var(--gold-primary)',
+                                        fontSize: '0.75rem',
+                                        fontWeight: 600,
+                                        textDecoration: 'none',
+                                        padding: '2px 7px',
+                                        border: '1px solid rgba(200, 164, 93, 0.35)',
+                                        background: 'rgba(200, 164, 93, 0.06)'
+                                      }}
+                                    >
+                                      <Globe size={11} />
+                                      {siteUrl.replace(/^https?:\/\/(www\.)?/, '').replace(/\/(fr|en)$/, '').replace(/\/$/, '')}
+                                      <ExternalLink size={11} />
+                                    </a>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+
+                            <div style={{ color: 'var(--gold-light)', fontSize: '0.8rem', marginBottom: '3px' }}>
+                              {partner.specialty}
+                            </div>
+
+                            {partner.address && (
+                              <div style={{ fontSize: '0.8rem', marginBottom: '4px' }}>
+                                <a
+                                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                                    `${partner.name.split('—')[0].trim()} ${partner.address}`
+                                  )}`}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  style={{
+                                    color: 'var(--text-secondary)',
+                                    textDecoration: 'none',
+                                    borderBottom: '1px dotted rgba(255,255,255,0.22)',
+                                    transition: 'color 0.2s'
+                                  }}
+                                  onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--gold-light)')}
+                                  onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-secondary)')}
+                                >
+                                  {partner.address}
+                                </a>
+                              </div>
+                            )}
+
+                            <div
+                              style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                flexWrap: 'wrap',
+                                gap: '10px',
+                                marginTop: '4px',
+                                fontSize: '0.78rem'
+                              }}
+                            >
+                              {contactParts.map((part, cIdx) => {
+                                if (part.includes('@')) {
+                                  return (
+                                    <a
+                                      key={cIdx}
+                                      href={`mailto:${part}`}
+                                      style={{
+                                        display: 'inline-flex',
+                                        alignItems: 'center',
+                                        gap: '5px',
+                                        color: 'var(--gold-light)',
+                                        textDecoration: 'none',
+                                        borderBottom: '1px solid rgba(200, 164, 93, 0.35)'
+                                      }}
+                                    >
+                                      <Mail size={12} style={{ color: 'var(--gold-primary)' }} />
+                                      {part}
+                                    </a>
+                                  );
+                                }
+
+                                if (/^www\.|^https?:\/\//i.test(part)) {
+                                  const href = part.startsWith('http') ? part : `https://${part}`;
+                                  return (
+                                    <a
+                                      key={cIdx}
+                                      href={href}
+                                      target="_blank"
+                                      rel="noreferrer"
+                                      style={{
+                                        display: 'inline-flex',
+                                        alignItems: 'center',
+                                        gap: '5px',
+                                        color: 'var(--gold-primary)',
+                                        textDecoration: 'none'
+                                      }}
+                                    >
+                                      <Globe size={12} />
+                                      {part}
+                                      <ExternalLink size={11} />
+                                    </a>
+                                  );
+                                }
+
+                                // Phone number(s) possibly separated by '/'
+                                const subPhones = part
+                                  .split('/')
+                                  .map((p) => p.trim())
+                                  .filter(Boolean);
+
+                                return subPhones.map((phoneStr, sIdx) => {
+                                  const mainNumber = phoneStr.split(/poste|ext\.?/i)[0];
+                                  const dialDigits = mainNumber.replace(/[^\d+]/g, '');
+                                  if (dialDigits.length >= 7) {
+                                    return (
+                                      <a
+                                        key={`${cIdx}-${sIdx}`}
+                                        href={`tel:${dialDigits}`}
+                                        style={{
+                                          display: 'inline-flex',
+                                          alignItems: 'center',
+                                          gap: '5px',
+                                          color: 'var(--text-primary)',
+                                          textDecoration: 'none',
+                                          borderBottom: '1px dotted rgba(255,255,255,0.3)'
+                                        }}
+                                      >
+                                        <Phone size={12} style={{ color: 'var(--gold-primary)' }} />
+                                        {phoneStr}
+                                      </a>
+                                    );
+                                  }
+                                  return (
+                                    <span key={`${cIdx}-${sIdx}`} style={{ color: 'var(--text-secondary)' }}>
+                                      {phoneStr}
+                                    </span>
+                                  );
+                                });
+                              })}
+                            </div>
                           </div>
-                          <div style={{ color: 'var(--gold-light)', fontSize: '0.8rem', marginBottom: '2px' }}>
-                            {partner.specialty}
-                          </div>
-                          <div style={{ color: 'var(--text-secondary)', fontSize: '0.8rem' }}>{partner.address}</div>
-                          <div style={{ color: 'var(--text-secondary)', fontSize: '0.78rem', marginTop: '2px' }}>
-                            {partner.contact}
-                          </div>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   </div>
                 ))}

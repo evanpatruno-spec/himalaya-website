@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { submitLeadToProspection } from '../utils/prospectionBridge';
 import { tr, pickLang } from '../data/translations';
+import ChiffrierDealSimulator from './ChiffrierDealSimulator';
 
 // Capitalisation semi-annuelle canadienne (Loi sur l'intérêt au Canada)
 function getEffectiveMonthlyRate(annualPct) {
@@ -650,6 +651,19 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
            ================================================================= */}
         {activeTool === 'plex' && (
           <div style={{ paddingTop: '4px' }}>
+            {/* Module Chiffrier MREX & SCHL APH Select (50 / 70 / 100 pts) intégré (#5) */}
+            <div style={{
+              marginBottom: '44px',
+              paddingBottom: '36px',
+              borderBottom: '1px solid rgba(200, 164, 93, 0.35)'
+            }}>
+              <ChiffrierDealSimulator
+                deal={preselectedDeal || { price: plexPrice, specs: { 'Taxes municipales': plexTaxMun, 'Taxes scolaires': plexTaxScol } }}
+                lang={lang}
+                compact={false}
+              />
+            </div>
+
             {/* 4 KPIs principaux en bandeau éditorial épuré (zéro cadre dans un cadre #17) */}
             <div
               style={{

@@ -1,4 +1,5 @@
 @echo off
+cd /d "%~dp0"
 chcp 65001 > nul
 TITLE PUBLICATION GITHUB & VERCEL - HIMALAYA WEBSITE
 COLOR 0B

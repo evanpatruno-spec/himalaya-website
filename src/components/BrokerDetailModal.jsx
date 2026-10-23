@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { X, Phone, Mail, MapPin, Globe, ChevronRight, Share2 } from 'lucide-react';
 import { HIMALAYA_FRANCHISES } from '../data/siteContent';
 import { tr, pickLang } from '../data/translations';
+import { getBrokerUrlPath } from '../utils/seoRouter';
 
 export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSelectDeal }) {
   const [copied, setCopied] = useState(false);
@@ -32,7 +33,7 @@ export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSe
   const brokerFranchises = HIMALAYA_FRANCHISES.filter(f => f.brokerIds && f.brokerIds.includes(broker.id));
 
   const handleShareProfile = () => {
-    const shareUrl = `${window.location.origin}${window.location.pathname}?courtier=${encodeURIComponent(broker.id)}#courtiers`;
+    const shareUrl = `${window.location.origin}${getBrokerUrlPath(broker)}`;
     if (navigator.clipboard) {
       navigator.clipboard.writeText(shareUrl);
       setCopied(true);
