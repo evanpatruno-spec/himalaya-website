@@ -100,8 +100,8 @@ export default function HomeView({
           preload="metadata"
           poster="/gx/partage.jpg"
         >
-          <source src="https://www.himalayacorp.com/gx/video/Himalaya.mp4" type="video/mp4" />
-          <source src="https://www.himalayacorp.com/gx/video/Himalaya.webm" type="video/webm" />
+          <source src="/gx/video/Himalaya.mp4" type="video/mp4" />
+          <source src="/gx/video/Himalaya.webm" type="video/webm" />
         </video>
         <div className="hero-overlay" />
 
