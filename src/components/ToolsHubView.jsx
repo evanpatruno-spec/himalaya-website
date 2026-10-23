@@ -592,7 +592,7 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
               title={tr(lang, 'Prendre rendez-vous hypothécaire avec Multi-Prêts', 'Book a mortgage consultation with Multi-Prêts', 'Reservar consulta hipotecaria con Multi-Prêts', '预约 Multi-Prêts 按揭顾问')}
             >
               <img
-                src="https://www.himalayacorp.com/gx/m/Multi_Prets.png"
+                src="/gx/m/Multi_Prets.png"
                 alt="Multi-Prêts Hypothèques"
                 style={{ height: '22px', objectFit: 'contain' }}
               />

@@ -128,7 +128,24 @@ export async function submitLeadToProspection(leadData) {
     // ignore
   }
 
-  // 2. Synchronisation directe avec le serveur Himalaya Prospection (/api/public/web-lead)
+  // 2. Envoi vers la passerelle Serverless Vercel (/api/leads) pour notification courriel & webhook cloud
+  try {
+    const cloudRes = await fetch('/api/leads', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(entry)
+    });
+    if (cloudRes.ok) {
+      const cloudData = await cloudRes.json().catch(() => ({}));
+      entry.cloud_dispatched = true;
+      entry.email_sent = Boolean(cloudData.email_sent);
+      localStorage.setItem(LEADS_STORAGE_KEY, JSON.stringify(existing.slice(0, 150)));
+    }
+  } catch {
+    // En mode dev local pur sans Vercel CLI, on continue vers le backend FastAPI
+  }
+
+  // 3. Synchronisation directe avec le serveur Himalaya Prospection (/api/public/web-lead)
   try {
     const res = await fetch(`${PROSPECTION_API_BASE}/api/public/web-lead`, {
       method: 'POST',
@@ -148,6 +165,70 @@ export async function submitLeadToProspection(leadData) {
   }
 
   return entry;
+}
+
+/**
+ * Génère un lien mailto: pré-rempli pour transférer ou répondre à un prospect en 1 clic
+ */
+export function buildLeadMailtoUrl(lead, targetEmail = 'info@himalayacorp.com') {
+  if (!lead) return `mailto:${targetEmail}`;
+  const subject = `[Prospect Himalaya] ${lead.source || 'Portail Web'} — ${lead.name || 'Client'}${lead.mls_number ? ` (Centris #${lead.mls_number})` : ''}`;
+  const bodyLines = [
+    `Identifiant : ${lead.id || ''}`,
+    `Date : ${lead.created_at ? new Date(lead.created_at).toLocaleString('fr-CA') : ''}`,
+    `Source : ${lead.source || 'Portail Web'}`,
+    `Nom : ${lead.name || ''}`,
+    `Courriel : ${lead.email || ''}`,
+    `Téléphone : ${lead.phone || ''}`,
+    `Courtier assigné : ${lead.assigned_broker || 'Direction Himalaya'}`,
+    lead.property_title ? `Propriété : ${lead.property_title} (${lead.mls_number || ''})` : '',
+    '',
+    'Détails / Message :',
+    lead.message || lead.notes || ''
+  ].filter(Boolean);
+
+  return `mailto:${targetEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyLines.join('\n'))}`;
+}
+
+/**
+ * Exporte la liste des prospects capturés en fichier CSV téléchargeable
+ */
+export function exportStoredLeadsToCsv() {
+  const leads = getStoredWebLeads();
+  if (!leads.length) return false;
+
+  const headers = ['ID', 'Date', 'Source', 'Nom', 'Courriel', 'Telephone', 'Courtier', 'MLS_Centris', 'Propriete', 'Synced_CRM', 'Message'];
+  const escapeCsv = (val) => `"${String(val ?? '').replace(/"/g, '""').replace(/\r?\n/g, ' ')}"`;
+
+  const rows = leads.map((l) =>
+    [
+      l.id,
+      l.created_at,
+      l.source || l.type || '',
+      l.name || '',
+      l.email || '',
+      l.phone || '',
+      l.assigned_broker || '',
+      l.mls_number || '',
+      l.property_title || '',
+      l.synced_to_crm ? 'OUI' : 'EN_ATTENTE',
+      l.message || l.notes || ''
+    ]
+      .map(escapeCsv)
+      .join(',')
+  );
+
+  const csvContent = '\uFEFF' + [headers.join(','), ...rows].join('\r\n');
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `Himalaya_Prospects_Web_${new Date().toISOString().slice(0, 10)}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  return true;
 }
 
 /**

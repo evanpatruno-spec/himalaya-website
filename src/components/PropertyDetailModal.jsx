@@ -270,7 +270,7 @@ export default function PropertyDetailModal({
     name: deal.assigned_broker || 'Direction Himalaya',
     phone: '514-898-4898',
     email: 'r.rheaume@himalayacorp.com',
-    photo: 'https://www.himalayacorp.com/gx/00/defaut_courtier.jpg'
+    photo: '/gx/00/defaut_courtier.jpg'
   };
 
   // Partage avec URL dédiée SEO /proprietes/22685883-... (#15)
@@ -758,7 +758,7 @@ export default function PropertyDetailModal({
                     src={broker.photo} 
                     alt={broker.name}
                     style={{ width: '58px', aspectRatio: '314 / 460', borderRadius: '6px', objectFit: 'cover', objectPosition: 'top center', border: '1px solid var(--border-gold)', flexShrink: 0, display: 'block' }}
-                    onError={e => { e.target.src = 'https://www.himalayacorp.com/gx/00/defaut_courtier.jpg'; }}
+                    onError={e => { e.target.src = '/gx/00/defaut_courtier.jpg'; }}
                   />
                   <div>
                     <h4 className="serif-title" style={{ fontSize: '1.35rem', fontWeight: 600 }}>{broker.name}</h4>
@@ -921,7 +921,7 @@ export default function PropertyDetailModal({
                   >
                     <span>{t?.modal?.multiPretsLink || tr(lang, 'Préqualification Multi-Prêts →', 'Multi-Prêts Pre-Qualification →', 'Precalificación Multi-Prêts →', 'Multi-Prêts 按揭预审 →')}</span>
                     <img
-                      src="https://www.himalayacorp.com/gx/m/Multi_Prets.png"
+                      src="/gx/m/Multi_Prets.png"
                       alt="Multi-Prêts Hypothèques"
                       style={{ height: '18px', objectFit: 'contain' }}
                     />

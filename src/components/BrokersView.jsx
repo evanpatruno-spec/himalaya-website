@@ -117,7 +117,7 @@ export default function BrokersView({
                     alt={broker.name}
                     loading="lazy"
                     decoding="async"
-                    onError={e => { e.target.src = 'https://www.himalayacorp.com/gx/00/defaut_courtier.jpg'; }}
+                    onError={e => { e.target.src = '/gx/00/defaut_courtier.jpg'; }}
                   />
                 </div>
 

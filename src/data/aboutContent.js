@@ -59,8 +59,8 @@ export const ABOUT_CONTENT = {
           credentials: 'CPA, MBA • Co-fondateur & Directeur d’agence',
           portrait: 'https://www.himalayacorp.com/DATA/COURTIERINFOSUP/11_courtierGrand.JPG',
           photos: [
-            'https://www.himalayacorp.com/data/CMSIMAGE//721.jpg',
-            'https://www.himalayacorp.com/data/CMSIMAGE//722.jpg'
+            '/DATA/CMSIMAGE/721.jpg',
+            '/DATA/CMSIMAGE/722.jpg'
           ],
           paragraphs: [
             'Homme de famille plaçant l’intégrité et le respect avant toute chose, Geniev Mondoux est comptable professionnel agréé (CPA), détenteur d’une maîtrise en administration (MBA), entrepreneur et créateur d’opportunités. C’est son amour du contact humain et des relations durables qui l’entraîne vers une carrière en immobilier, à compter de 2008. Passionné par son métier et motivé chaque jour par les rencontres qu’il multiplie, Geniev met tout en œuvre afin d’offrir un service irréprochable à ses clients. Sa plus grande force est d’innover, de trouver des solutions concrètes afin de mener à terme toute transaction immobilière. Également, sa grande capacité d’écoute, sa facilité d’approche et sa convivialité, combinées à sa compétence et à sa grande expérience font de lui un partenaire recherché dans le cadre de nombreux projets immobiliers.',
@@ -73,11 +73,11 @@ export const ABOUT_CONTENT = {
           name: 'Roger Rhéaume',
           role: 'Président — Courtier immobilier agréé, DA',
           credentials: 'Co-fondateur • Membre du CA de l’OACIQ',
-          portrait: 'https://www.himalayacorp.com/DATA/COURTIERINFOSUP/99_courtierGrand.jpg',
+          portrait: '/DATA/COURTIERINFOSUP/99_courtierGrand.jpg',
           photos: [
-            'https://www.himalayacorp.com/data/CMSIMAGE//200.jpg',
-            'https://www.himalayacorp.com/data/CMSIMAGE//201.jpg',
-            'https://www.himalayacorp.com/data/CMSIMAGE//202.jpg'
+            '/DATA/CMSIMAGE/200.jpg',
+            '/DATA/CMSIMAGE/201.jpg',
+            '/DATA/CMSIMAGE/202.jpg'
           ],
           sections: [
             {
@@ -473,8 +473,8 @@ export const ABOUT_CONTENT = {
           credentials: 'CPA, MBA • Co-Founder & Agency Executive Officer',
           portrait: 'https://www.himalayacorp.com/DATA/COURTIERINFOSUP/11_courtierGrand.JPG',
           photos: [
-            'https://www.himalayacorp.com/data/CMSIMAGE//721.jpg',
-            'https://www.himalayacorp.com/data/CMSIMAGE//722.jpg'
+            '/DATA/CMSIMAGE/721.jpg',
+            '/DATA/CMSIMAGE/722.jpg'
           ],
           paragraphs: [
             'A family man who places integrity and respect above all else, Geniev Mondoux is a Chartered Professional Accountant (CPA), holds a Master of Business Administration (MBA), and is an entrepreneur and creator of opportunities. It is his love of human contact and lasting relationships that drove him toward a career in real estate beginning in 2008. Passionate about his profession and motivated every day, Geniev is dedicated to accomplishing the missions entrusted to him by his clients. His greatest strength is his ability to innovate and find concrete solutions in order to complete any real estate transaction. His ability to listen, approachability, and warmth—combined with his skills and extensive experience—make him a sought-after partner in many real estate projects.',
@@ -487,11 +487,11 @@ export const ABOUT_CONTENT = {
           name: 'Roger Rhéaume',
           role: 'President — Chartered Real Estate Broker, DA',
           credentials: 'Co-Founder • Member of the OACIQ Board of Directors',
-          portrait: 'https://www.himalayacorp.com/DATA/COURTIERINFOSUP/99_courtierGrand.jpg',
+          portrait: '/DATA/COURTIERINFOSUP/99_courtierGrand.jpg',
           photos: [
-            'https://www.himalayacorp.com/data/CMSIMAGE//200.jpg',
-            'https://www.himalayacorp.com/data/CMSIMAGE//201.jpg',
-            'https://www.himalayacorp.com/data/CMSIMAGE//202.jpg'
+            '/DATA/CMSIMAGE/200.jpg',
+            '/DATA/CMSIMAGE/201.jpg',
+            '/DATA/CMSIMAGE/202.jpg'
           ],
           sections: [
             {
@@ -886,8 +886,8 @@ ABOUT_CONTENT.ES = {
         credentials: 'CPA, MBA • Cofundador y Director de agencia',
         portrait: 'https://www.himalayacorp.com/DATA/COURTIERINFOSUP/11_courtierGrand.JPG',
         photos: [
-          'https://www.himalayacorp.com/data/CMSIMAGE//721.jpg',
-          'https://www.himalayacorp.com/data/CMSIMAGE//722.jpg'
+          '/DATA/CMSIMAGE/721.jpg',
+          '/DATA/CMSIMAGE/722.jpg'
         ],
         paragraphs: [
           'Hombre de familia que sitúa la integridad y el respeto por encima de todo, Geniev Mondoux es Contador Profesional Certificado (CPA), posee una Maestría en Administración de Empresas (MBA), y es emprendedor y creador de oportunidades. Su vocación por el trato humano y las relaciones duraderas lo llevó a iniciar su carrera inmobiliaria en 2008. Apasionado por su profesión y motivado cada día por los vínculos que construye, Geniev dedica todo su esfuerzo a brindar un servicio impecable a sus clientes. Su mayor fortaleza es innovar y encontrar soluciones concretas para llevar a buen término cualquier transacción inmobiliaria. Su gran capacidad de escucha, cercanía y cordialidad, combinadas con su competencia y amplia experiencia, lo convierten en un socio muy solicitado en numerosos proyectos inmobiliarios.',
@@ -900,11 +900,11 @@ ABOUT_CONTENT.ES = {
         name: 'Roger Rhéaume',
         role: 'Presidente — Corredor inmobiliario certificado, DA',
         credentials: 'Cofundador • Miembro del Consejo de Administración de la OACIQ',
-        portrait: 'https://www.himalayacorp.com/DATA/COURTIERINFOSUP/99_courtierGrand.jpg',
+        portrait: '/DATA/COURTIERINFOSUP/99_courtierGrand.jpg',
         photos: [
-          'https://www.himalayacorp.com/data/CMSIMAGE//200.jpg',
-          'https://www.himalayacorp.com/data/CMSIMAGE//201.jpg',
-          'https://www.himalayacorp.com/data/CMSIMAGE//202.jpg'
+          '/DATA/CMSIMAGE/200.jpg',
+          '/DATA/CMSIMAGE/201.jpg',
+          '/DATA/CMSIMAGE/202.jpg'
         ],
         sections: [
           {
@@ -1312,8 +1312,8 @@ ABOUT_CONTENT.ZH = {
         credentials: 'CPA, MBA • 联合创始人兼机构行政总监',
         portrait: 'https://www.himalayacorp.com/DATA/COURTIERINFOSUP/11_courtierGrand.JPG',
         photos: [
-          'https://www.himalayacorp.com/data/CMSIMAGE//721.jpg',
-          'https://www.himalayacorp.com/data/CMSIMAGE//722.jpg'
+          '/DATA/CMSIMAGE/721.jpg',
+          '/DATA/CMSIMAGE/722.jpg'
         ],
         paragraphs: [
           'Geniev Mondoux 重视家庭，将诚信与尊重奉为立身之本。他是特许专业会计师（CPA），拥有工商管理硕士学位（MBA），同时也是一位富有远见的企业家与机遇创造者。正是出于对人际交流与长久合作关系的热爱，他于 2008 年投身房地产行业。Geniev 对事业充满热忱，每天都从与客户的深入交流中汲取动力，全力以赴为客户提供无微不至的专业服务。他最大的优势在于敢于创新、善于提出切实可行的解决方案，从而推动各类复杂房地产交易顺利达成。此外，他出色的倾听能力、平易近人的亲和力，结合深厚的财务与地产专业经验，使他成为众多大型房地产项目中备受青睐的合作伙伴。',
@@ -1326,11 +1326,11 @@ ABOUT_CONTENT.ZH = {
         name: 'Roger Rhéaume',
         role: '总裁 — 特许房地产经纪人, DA',
         credentials: '联合创始人 • 魁北克房地产经纪自律监管机构 (OACIQ) 董事会成员',
-        portrait: 'https://www.himalayacorp.com/DATA/COURTIERINFOSUP/99_courtierGrand.jpg',
+        portrait: '/DATA/COURTIERINFOSUP/99_courtierGrand.jpg',
         photos: [
-          'https://www.himalayacorp.com/data/CMSIMAGE//200.jpg',
-          'https://www.himalayacorp.com/data/CMSIMAGE//201.jpg',
-          'https://www.himalayacorp.com/data/CMSIMAGE//202.jpg'
+          '/DATA/CMSIMAGE/200.jpg',
+          '/DATA/CMSIMAGE/201.jpg',
+          '/DATA/CMSIMAGE/202.jpg'
         ],
         sections: [
           {

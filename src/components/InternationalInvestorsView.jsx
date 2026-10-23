@@ -478,7 +478,7 @@ export default function InternationalInvestorsView({
                       src={broker.photo}
                       alt={broker.name}
                       loading="lazy"
-                      onError={e => { e.target.src = 'https://www.himalayacorp.com/gx/00/defaut_courtier.jpg'; }}
+                      onError={e => { e.target.src = '/gx/00/defaut_courtier.jpg'; }}
                     />
                   </div>
                   <div style={{ padding: '16px 2px 0', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>

@@ -8,7 +8,7 @@ export default function PropertyCard({ deal, t, currency = 'CAD', rates = FALLBA
   const isSold = deal.status === 'Vendu';
   const broker = (deal.brokers_details && deal.brokers_details[0]) || {
     name: deal.assigned_broker || 'Équipe Himalaya',
-    photo: 'https://www.himalayacorp.com/gx/00/defaut_courtier.jpg'
+    photo: '/gx/00/defaut_courtier.jpg'
   };
 
   const locationLabel =
@@ -165,7 +165,7 @@ export default function PropertyCard({ deal, t, currency = 'CAD', rates = FALLBA
                 flexShrink: 0
               }}
               onError={e => {
-                e.target.src = 'https://www.himalayacorp.com/gx/00/defaut_courtier.jpg';
+                e.target.src = '/gx/00/defaut_courtier.jpg';
               }}
             />
             <span

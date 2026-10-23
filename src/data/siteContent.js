@@ -28,7 +28,7 @@ export const HIMALAYA_AGENCIES = [
     director_en: 'Roger Rhéaume (President), Geniev Mondoux (Vice-President) & Mike Ainajian (Agency Director)',
     director_es: 'Roger Rhéaume (Presidente), Geniev Mondoux (Vicepresidente) y Mike Ainajian (Director de Agencia)',
     director_zh: 'Roger Rhéaume（总裁）、Geniev Mondoux（副总裁）与 Mike Ainajian（机构总监）',
-    image: 'https://www.himalayacorp.com/DATA/AGENCE/34_logo~v~immobilier-himalaya.jpg',
+    image: '/DATA/AGENCE/34_logo~v~immobilier-himalaya.jpg',
     fallbackImage: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=80',
     badge: 'Siège Social (Fondée en 2008)',
     badge_en: 'Head Office (Founded in 2008)',
@@ -127,7 +127,7 @@ export const HIMALAYA_NEWS = [
     excerpt_en: 'Participation by the Himalaya Real Estate team at the Quebec Franchise Council (CQF) Cocktail.',
     excerpt_es: 'Participación del equipo de Immobilier Himalaya en el Cóctel del Consejo Quebequense de la Franquicia (CQF).',
     excerpt_zh: '喜马拉雅地产团队出席魁北克特许经营理事会（CQF）官方交流酒会。',
-    image: 'https://www.himalayacorp.com/DATA/NOUVELLE/537_liste~v~20260528_193714.jpg',
+    image: '/DATA/NOUVELLE/537_liste~v~20260528_193714.jpg',
     url: 'https://www.himalayacorp.com/fr/actualites/86-cocktail-cqf-mai-2026.html'
   },
   {
@@ -149,7 +149,7 @@ export const HIMALAYA_NEWS = [
     excerpt_en: 'Gathering of Himalaya Real Estate brokers to share best practices across commercial, residential, and resort property markets.',
     excerpt_es: 'Encuentro de los corredores de Immobilier Himalaya para compartir las mejores prácticas de los mercados comercial, residencial y turístico.',
     excerpt_zh: '喜马拉雅地产全体经纪人齐聚一堂，分享商业、住宅及旅游度假地产市场的最佳实践经验。',
-    image: 'https://www.himalayacorp.com/DATA/NOUVELLE/530_liste~v~received_983929167914260.jpeg',
+    image: '/DATA/NOUVELLE/530_liste~v~received_983929167914260.jpeg',
     url: 'https://www.himalayacorp.com/fr/actualites/93-reunion-semi-annuel-et-formation-chocolat.html'
   },
   {
@@ -171,7 +171,7 @@ export const HIMALAYA_NEWS = [
     excerpt_en: 'Himalaya Real Estate attended the global convention of shopping center and commercial real estate professionals in Las Vegas.',
     excerpt_es: 'Presencia de Immobilier Himalaya en el congreso mundial de centros comerciales y bienes raíces comerciales en Las Vegas.',
     excerpt_zh: '喜马拉雅地产出席在拉斯维加斯举办的全球购物中心与商业地产行业大会（ICSC）。',
-    image: 'https://www.himalayacorp.com/DATA/NOUVELLE/526_liste~v~20250520_121149.jpg',
+    image: '/DATA/NOUVELLE/526_liste~v~20250520_121149.jpg',
     url: 'https://www.himalayacorp.com/fr/actualites/92-icsc-las-vegas-2025.html'
   },
   {
@@ -193,7 +193,7 @@ export const HIMALAYA_NEWS = [
     excerpt_en: 'Analysis of key economic trends, interest rates, and commercial real estate investment outlooks in Quebec.',
     excerpt_es: 'Análisis de las principales tendencias económicas, tasas de interés y perspectivas de inversión inmobiliaria comercial en Quebec.',
     excerpt_zh: '深度剖析魁北克宏观经济趋势、利率走向及商业地产投资前景。',
-    image: 'https://www.himalayacorp.com/DATA/NOUVELLE/523_liste~v~dsc07209-calibremedias.jpg',
+    image: '/DATA/NOUVELLE/523_liste~v~dsc07209-calibremedias.jpg',
     url: 'https://www.himalayacorp.com/fr/actualites/91-forum-immobilier-commercial-apciq-2024.html'
   },
   {
@@ -215,7 +215,7 @@ export const HIMALAYA_NEWS = [
     excerpt_en: 'A united, multicultural brokerage team moving mountains to deliver outstanding service across Quebec and internationally.',
     excerpt_es: 'Un equipo multicultural y unido que mueve montañas para ofrecer un servicio excepcional en todo Quebec y a nivel internacional.',
     excerpt_zh: '多元文化交融的精英团队携手并进，在魁北克及国际市场为客户提供卓越的地产经纪服务。',
-    image: 'https://www.himalayacorp.com/DATA/NOUVELLE/521_liste~v~20240912_132926.jpg',
+    image: '/DATA/NOUVELLE/521_liste~v~20240912_132926.jpg',
     url: 'https://www.himalayacorp.com/fr/actualites/90-activite-d-equipe-himalaya-automne-2024.html'
   },
   {
@@ -237,7 +237,7 @@ export const HIMALAYA_NEWS = [
     excerpt_en: 'Building pan-Canadian relationships with commercial and resort real estate decision-makers in Whistler.',
     excerpt_es: 'Desarrollo de relaciones pancanadienses con los líderes del sector inmobiliario comercial y turístico en Whistler.',
     excerpt_zh: '在惠斯勒与全加拿大商业及旅游度假地产领域的决策者建立深度合作关系。',
-    image: 'https://www.himalayacorp.com/DATA/NOUVELLE/520_liste~v~20240122_144101.jpg',
+    image: '/DATA/NOUVELLE/520_liste~v~20240122_144101.jpg',
     url: 'https://www.himalayacorp.com/fr/actualites/89-icsc-whistler-2024.html'
   },
   {
@@ -259,7 +259,7 @@ export const HIMALAYA_NEWS = [
     excerpt_en: 'Meeting with key leaders of the Quebec franchise network during the CQF summer cocktail.',
     excerpt_es: 'Encuentro con los principales actores de la red de franquicias de Quebec durante el cóctel de verano del CQF.',
     excerpt_zh: '在 CQF 夏季酒会上与魁北克特许经营网络的领军人物深入交流。',
-    image: 'https://www.himalayacorp.com/DATA/NOUVELLE/514_liste~v~img_3136-cocktail-cqf.jpeg',
+    image: '/DATA/NOUVELLE/514_liste~v~img_3136-cocktail-cqf.jpeg',
     url: 'https://www.himalayacorp.com/fr/actualites/88-cocktail-cqf-juin-2023.html'
   },
   {
@@ -281,7 +281,7 @@ export const HIMALAYA_NEWS = [
     excerpt_en: 'Synergy and annual strategic planning with Himalaya’s residential, commercial, and international brokers.',
     excerpt_es: 'Sinergia y planificación estratégica anual con los corredores residenciales, comerciales e internacionales de Himalaya.',
     excerpt_zh: '与喜马拉雅住宅、商业及国际业务部的全体经纪人开展年度战略规划与协同合作。',
-    image: 'https://www.himalayacorp.com/DATA/NOUVELLE/511_liste~v~l-equipe-d-himalaya.png',
+    image: '/DATA/NOUVELLE/511_liste~v~l-equipe-d-himalaya.png',
     url: 'https://www.himalayacorp.com/fr/actualites/87-rencontre-d-equipe-himalaya-fevrier-2023.html'
   },
   {
@@ -303,7 +303,7 @@ export const HIMALAYA_NEWS = [
     excerpt_en: 'Exchanges between specialized brokers and institutional partners at the Commercial Group networking cocktail.',
     excerpt_es: 'Intercambios entre corredores especializados y socios institucionales en el cóctel del Grupo Comercial.',
     excerpt_zh: '专业商业地产经纪人与机构合作伙伴在商业联盟酒会上展开深度对话。',
-    image: 'https://www.himalayacorp.com/DATA/NOUVELLE/508_liste~v~jean-philippe-vachon-et-sylvie-castonguay.png',
+    image: '/DATA/NOUVELLE/508_liste~v~jean-philippe-vachon-et-sylvie-castonguay.png',
     url: 'https://www.himalayacorp.com/fr/actualites/85-cocktail-regroupement-commercial-janvier-2023.html'
   },
   {
@@ -325,7 +325,7 @@ export const HIMALAYA_NEWS = [
     excerpt_en: 'Commercial real estate advisory by Himalaya for the opening of a new retail location.',
     excerpt_es: 'Asesoramiento inmobiliario comercial por parte de Himalaya para la apertura de una nueva sucursal comercial.',
     excerpt_zh: '喜马拉雅地产提供全程商业选址与经纪顾问服务，助力全新零售门店盛大开业。',
-    image: 'https://www.himalayacorp.com/DATA/NOUVELLE/501_liste~v~facade-de-la-succursale.jpg',
+    image: '/DATA/NOUVELLE/501_liste~v~facade-de-la-succursale.jpg',
     url: 'https://www.himalayacorp.com/fr/actualites/84-ouverture-jour-apres-jour-le-grand-marche-en-vrac.html'
   },
   {
@@ -347,7 +347,7 @@ export const HIMALAYA_NEWS = [
     excerpt_en: 'Year-end celebration with the Quebec Professional Association of Real Estate Brokers (QPAREB).',
     excerpt_es: 'Celebración de fin de año con la Asociación Profesional de Corredores Inmobiliarios de Quebec (APCIQ).',
     excerpt_zh: '与魁北克职业房地产经纪人协会（APCIQ）共庆岁末盛典。',
-    image: 'https://www.himalayacorp.com/DATA/NOUVELLE/475_liste~v~regr-est-14-dec.jpg',
+    image: '/DATA/NOUVELLE/475_liste~v~regr-est-14-dec.jpg',
     url: 'https://www.himalayacorp.com/fr/actualites/81-cocktail-des-fetes-apciq-2022.html'
   },
   {
@@ -369,7 +369,7 @@ export const HIMALAYA_NEWS = [
     excerpt_en: 'Official Himalaya Real Estate booth at the Quebec Outfitters Federation (FPQ) Annual Convention.',
     excerpt_es: 'Stand oficial de Immobilier Himalaya en el Congreso Anual de la Federación de Cotos de Caza y Pesca de Quebec (FPQ).',
     excerpt_zh: '喜马拉雅地产在魁北克狩猎与垂钓领地联合会（FPQ）年度大会设立官方展位。',
-    image: 'https://www.himalayacorp.com/DATA/NOUVELLE/464_liste~v~kiosque-himalaya.jpg',
+    image: '/DATA/NOUVELLE/464_liste~v~kiosque-himalaya.jpg',
     url: 'https://www.himalayacorp.com/fr/actualites/79-congres-annuel-de-la-fpq-2022.html'
   },
   {
@@ -391,7 +391,7 @@ export const HIMALAYA_NEWS = [
     excerpt_en: 'Active engagement by Himalaya’s leadership with public decision-makers on the future of real estate brokerage.',
     excerpt_es: 'Compromiso activo de la dirección de Himalaya ante los responsables públicos por el futuro del corretaje inmobiliario.',
     excerpt_zh: '喜马拉雅管理层积极与公共政策决策者对话，共同推动房地产经纪行业的稳健发展。',
-    image: 'https://www.himalayacorp.com/DATA/NOUVELLE/462_liste~v~jean-philippe-vachon-roger-rheaume-alain-therrien-et-christian-parent-.jpg',
+    image: '/DATA/NOUVELLE/462_liste~v~jean-philippe-vachon-roger-rheaume-alain-therrien-et-christian-parent-.jpg',
     url: 'https://www.himalayacorp.com/fr/actualites/78-action-politique.html'
   },
   {
@@ -413,7 +413,7 @@ export const HIMALAYA_NEWS = [
     excerpt_en: 'Development and strategic site selection for restaurant franchise expansion across Quebec.',
     excerpt_es: 'Desarrollo y selección de ubicaciones estratégicas para la expansión de franquicias de restauración en Quebec.',
     excerpt_zh: '为魁北克餐饮连锁品牌的扩张提供战略选址与商业地产开发支持。',
-    image: 'https://www.himalayacorp.com/DATA/NOUVELLE/416_liste~v~resto-krood.jpg',
+    image: '/DATA/NOUVELLE/416_liste~v~resto-krood.jpg',
     url: 'https://www.himalayacorp.com/fr/actualites/64-franchise-krood-bar-tartare-et-poke-bowl.html'
   },
   {
@@ -435,7 +435,7 @@ export const HIMALAYA_NEWS = [
     excerpt_en: 'Growing presence of our brokers across all major economic regions of Quebec.',
     excerpt_es: 'Alcance pancanadiense y mayor presencia de nuestros corredores en todas las regiones económicas de Quebec.',
     excerpt_zh: '辐射全加拿大，我们的经纪人团队在魁北克各大经济区持续扩大业务版图。',
-    image: 'https://www.himalayacorp.com/DATA/NOUVELLE/395_liste~v~20210330_172033.jpg',
+    image: '/DATA/NOUVELLE/395_liste~v~20210330_172033.jpg',
     url: 'https://www.himalayacorp.com/fr/actualites/61-immobilier-himalaya-partout-au-quebec.html'
   },
   {
@@ -457,7 +457,7 @@ export const HIMALAYA_NEWS = [
     excerpt_en: 'Summer gathering of Himalaya Real Estate’s brokers and partners.',
     excerpt_es: 'Encuentro de verano del equipo de corredores y socios de Immobilier Himalaya.',
     excerpt_zh: '喜马拉雅地产经纪人团队与合作伙伴夏日欢聚盛会。',
-    image: 'https://www.himalayacorp.com/DATA/NOUVELLE/385_liste~v~20200916_185937.jpg',
+    image: '/DATA/NOUVELLE/385_liste~v~20200916_185937.jpg',
     url: 'https://www.himalayacorp.com/fr/actualites/59-cocktail-d-ete-himalaya.html'
   },
   {
@@ -479,7 +479,7 @@ export const HIMALAYA_NEWS = [
     excerpt_en: 'Strong presence by the Himalaya team at the Real Estate Forum and the Annual Convention of Campground Owners of Quebec.',
     excerpt_es: 'Destacada presencia del equipo Himalaya en el Foro Inmobiliario y en el Congreso Anual de Propietarios de Campings de Quebec.',
     excerpt_zh: '喜马拉雅团队亮相房地产高峰论坛及魁北克露营地业主年度大会。',
-    image: 'https://www.himalayacorp.com/DATA/NOUVELLE/349_liste~v~equipe.jpg',
+    image: '/DATA/NOUVELLE/349_liste~v~equipe.jpg',
     url: 'https://www.himalayacorp.com/fr/actualites/55-forum-immobilier-2019.html'
   },
   {
@@ -501,7 +501,7 @@ export const HIMALAYA_NEWS = [
     excerpt_en: 'Representing major Quebec commercial real estate mandates at the ICSC Canadian Convention in Toronto.',
     excerpt_es: 'Representación de importantes proyectos comerciales de Quebec durante la convención canadiense de ICSC en Toronto.',
     excerpt_zh: '在多伦多 ICSC 加拿大大会上代表并推介魁北克重点商业地产项目。',
-    image: 'https://www.himalayacorp.com/DATA/NOUVELLE/271_liste~v~20181002_113806.jpg',
+    image: '/DATA/NOUVELLE/271_liste~v~20181002_113806.jpg',
     url: 'https://www.himalayacorp.com/fr/actualites/41-icsc-convention-canadienne-toronto.html'
   }
 ];

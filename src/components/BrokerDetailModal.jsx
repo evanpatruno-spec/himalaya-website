@@ -106,7 +106,7 @@ export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSe
                   flexShrink: 0,
                   display: 'block'
                 }}
-                onError={e => { e.target.src = 'https://www.himalayacorp.com/gx/00/defaut_courtier.jpg'; }}
+                onError={e => { e.target.src = '/gx/00/defaut_courtier.jpg'; }}
               />
               <div>
                 <h2 className="serif-title" style={{ fontSize: '1.85rem', fontWeight: 600, marginBottom: '4px' }}>{broker.name}</h2>

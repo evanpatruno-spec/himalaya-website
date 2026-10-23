@@ -21,7 +21,9 @@ import {
   getSavedBrokerSession,
   clearBrokerSession,
   fetchCrmLiveDashboard,
-  getStoredWebLeads
+  getStoredWebLeads,
+  buildLeadMailtoUrl,
+  exportStoredLeadsToCsv
 } from '../utils/prospectionBridge';
 
 export default function TeamZoneView({
@@ -286,7 +288,7 @@ export default function TeamZoneView({
                 {t?.team?.leadsTitle || tr(lang, 'Prospects & NDA capturés sur le site', 'Captured Website Leads & NDAs', 'Prospectos y NDA capturados', '网站实时捕获客户与保密协议')} ({filteredLeads.length})
               </h2>
 
-              <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', alignItems: 'center' }}>
                 {[
                   { id: 'all', label: tr(lang, 'Tous', 'All', 'Todos', '全部') },
                   { id: 'nda', label: 'NDA' },
@@ -304,6 +306,16 @@ export default function TeamZoneView({
                     {tab.label}
                   </button>
                 ))}
+                {filteredLeads.length > 0 && (
+                  <button
+                    type="button"
+                    onClick={() => exportStoredLeadsToCsv()}
+                    className="btn-outline"
+                    style={{ padding: '4px 10px', fontSize: '0.74rem' }}
+                  >
+                    {tr(lang, 'Exporter CSV', 'Export CSV', 'Exportar CSV', '导出 CSV')}
+                  </button>
+                )}
               </div>
             </div>
 
@@ -370,24 +382,46 @@ export default function TeamZoneView({
                       {lead.mls ? ` • MLS ${lead.mls}` : ''}
                     </div>
 
-                    <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', fontSize: '0.78rem', color: 'var(--text-secondary)' }}>
+                    <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', alignItems: 'center', fontSize: '0.78rem', color: 'var(--text-secondary)' }}>
                       {lead.phone && (
-                        <span>
-                          <Phone size={11} style={{ display: 'inline', marginRight: '4px' }} />
+                        <a
+                          href={`tel:${String(lead.phone).replace(/[^\d+]/g, '')}`}
+                          style={{ color: 'var(--text-primary)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+                        >
+                          <Phone size={11} style={{ color: 'var(--gold)' }} />
                           {lead.phone}
-                        </span>
+                        </a>
                       )}
                       {lead.email && (
-                        <span>
-                          <Mail size={11} style={{ display: 'inline', marginRight: '4px' }} />
+                        <a
+                          href={`mailto:${lead.email}`}
+                          style={{ color: 'var(--gold-light)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+                        >
+                          <Mail size={11} style={{ color: 'var(--gold)' }} />
                           {lead.email}
-                        </span>
+                        </a>
                       )}
                       {lead.assigned_broker && (
                         <span>
                           Courtier : <strong style={{ color: '#fff' }}>{lead.assigned_broker}</strong>
                         </span>
                       )}
+                      <a
+                        href={buildLeadMailtoUrl(lead)}
+                        style={{
+                          marginLeft: 'auto',
+                          color: 'var(--gold)',
+                          fontSize: '0.74rem',
+                          fontWeight: 600,
+                          textDecoration: 'none',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '4px'
+                        }}
+                      >
+                        <Mail size={11} />
+                        {tr(lang, 'Transférer par courriel', 'Forward by Email', 'Reenviar por correo', '通过邮件转发')}
+                      </a>
                     </div>
                   </div>
                 ))}
