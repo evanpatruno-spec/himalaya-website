@@ -37,6 +37,8 @@ export default function AboutPageView({
   const [activeTab, setActiveTab] = useState(standaloneFranchisePage ? 'franchises' : (initialTab || 'qui-nous-sommes'));
   const [openFaqIndex, setOpenFaqIndex] = useState(0);
   const [faqSearchQuery, setFaqSearchQuery] = useState('');
+  const [linksSection, setLinksSection] = useState('partenaires');
+  const [expandedFounders, setExpandedFounders] = useState({});
   const [franchiseSectorFilter, setFranchiseSectorFilter] = useState('all');
   const [franchiseFormMode, setFranchiseFormMode] = useState('tenant');
 
@@ -163,51 +165,50 @@ export default function AboutPageView({
   };
 
   return (
-    <main style={{ flex: 1, padding: '44px 0 80px' }}>
+    <main style={{ flex: 1, padding: '24px 0 80px' }}>
       <div className="container">
         {!standaloneFranchisePage && (
           <>
-            {/* En-tête de la page À propos */}
-            <div style={{ marginBottom: '28px' }}>
-              <span className="badge-gold" style={{ marginBottom: '10px' }}>
-                {tr(lang, 'Fondée en 2008', 'Founded in 2008', 'Fundada en 2008', '创立于 2008 年')}
-              </span>
-              <h1 style={{ fontSize: '2.25rem', fontWeight: 700, lineHeight: 1.2, marginBottom: '8px' }}>
-                {c.pageTitle} <span className="gold-gradient-text">Himalaya</span>
-              </h1>
-              <p style={{ color: 'var(--text-secondary)', fontSize: '0.96rem', maxWidth: '760px' }}>
-                {c.pageSubtitle}
-              </p>
-            </div>
-
-            {/* Barre de sous-navigation officielle (comme le menu latéral de himalayacorp.com/fr/a-propos.html) */}
+            {/* Barre de sous-navigation éditoriale épurée sur 1 seule ligne */}
             <div
+              className="hide-scrollbar"
               style={{
                 display: 'flex',
-                gap: '8px',
-                flexWrap: 'wrap',
-                marginBottom: '32px',
-                paddingBottom: '16px',
-                borderBottom: '1px solid var(--border-subtle)'
+                alignItems: 'center',
+                gap: '4px',
+                flexWrap: 'nowrap',
+                overflowX: 'auto',
+                marginBottom: '36px',
+                borderBottom: '1px solid var(--border-subtle)',
+                scrollbarWidth: 'none'
               }}
             >
-              {c.tabs.map((tab) => {
-                const isActive = activeTab === tab.id;
-                return (
-                  <button
-                    key={tab.id}
-                    onClick={() => switchTab(tab.id)}
-                    className={isActive ? 'btn-gold' : 'btn-outline'}
-                    style={{
-                      padding: '9px 16px',
-                      fontSize: '0.84rem',
-                      fontWeight: 600
-                    }}
-                  >
-                    {tab.label}
-                  </button>
-                );
-              })}
+              {c.tabs
+                .filter((tab) => tab.id !== 'franchises')
+                .map((tab) => {
+                  const isActive = activeTab === tab.id;
+                  return (
+                    <button
+                      key={tab.id}
+                      onClick={() => switchTab(tab.id)}
+                      style={{
+                        padding: '10px 14px',
+                        fontSize: '0.82rem',
+                        fontWeight: isActive ? 700 : 500,
+                        color: isActive ? 'var(--gold-light)' : 'var(--text-secondary)',
+                        background: 'transparent',
+                        border: 'none',
+                        borderBottom: isActive ? '2px solid var(--gold)' : '2px solid transparent',
+                        cursor: 'pointer',
+                        whiteSpace: 'nowrap',
+                        flexShrink: 0,
+                        transition: 'all 0.2s ease'
+                      }}
+                    >
+                      {tab.label}
+                    </button>
+                  );
+                })}
             </div>
           </>
         )}
@@ -442,159 +443,6 @@ export default function AboutPageView({
                 ))}
               </div>
             </div>
-
-            {/* Blocs éditoriaux ouverts d'accès rapide aux autres rubriques officielles d'À propos */}
-            <div>
-              <h2 style={{ fontSize: '1.35rem', fontWeight: 700, marginBottom: '20px' }}>
-                {tr(lang, 'Toutes les rubriques À propos d’Himalaya', 'Explore All About Himalaya Sections', 'Todas las secciones sobre Himalaya', '探索喜马拉雅地产全部专栏')}
-              </h2>
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-                  gap: '28px'
-                }}
-              >
-                <div
-                  onClick={() => switchTab('services')}
-                  style={{
-                    background: 'transparent',
-                    borderTop: '1px solid rgba(200, 164, 93, 0.3)',
-                    borderBottom: '1px solid var(--border-subtle)',
-                    padding: '22px 0',
-                    cursor: 'pointer'
-                  }}
-                >
-                  <Briefcase size={20} style={{ color: 'var(--gold)', marginBottom: '10px' }} />
-                  <h3 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '6px' }}>
-                    {tr(lang, 'Services & Associations', 'Services & Associations', 'Servicios y Asociaciones', '专业服务与行业协会')}
-                  </h3>
-                  <p style={{ fontSize: '0.84rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '12px' }}>
-                    {tr(
-                      lang,
-                      'Courtage commercial et industriel, consultation immobilière, réseau international et adhésions CQF & FPQ.',
-                      'Commercial & industrial brokerage, real estate consulting, international network, and CQF / FPQ memberships.',
-                      'Corretaje comercial e industrial, consultoría inmobiliaria, red internacional y membresías CQF y FPQ.',
-                      '商业与工业地产经纪、房地产咨询顾问、国际资源网络以及 CQF 与 FPQ 行业协会认证。'
-                    )}
-                  </p>
-                  <span style={{ fontSize: '0.8rem', color: 'var(--gold-light)', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                    {tr(lang, 'Voir les services', 'View services', 'Ver servicios', '查看服务详情')} <ChevronRight size={14} />
-                  </span>
-                </div>
-
-                <div
-                  onClick={() => switchTab('franchises')}
-                  style={{
-                    background: 'transparent',
-                    borderTop: '1px solid rgba(200, 164, 93, 0.3)',
-                    borderBottom: '1px solid var(--border-subtle)',
-                    padding: '22px 0',
-                    cursor: 'pointer'
-                  }}
-                >
-                  <Store size={20} style={{ color: 'var(--gold)', marginBottom: '10px' }} />
-                  <h3 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '6px' }}>
-                    {tr(lang, 'Franchises', 'Franchises', 'Franquicias', '连锁特许经营')}
-                  </h3>
-                  <p style={{ fontSize: '0.84rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '12px' }}>
-                    {tr(lang,
-                      'Franchises accompagnées par Himalaya : Pacini, Arabian Oud, Grillades Torino, Les Moulins La Fayette, Chocolat Cotard et Nettoyeur Daoust.',
-                      'Franchises supported by Himalaya: Pacini, Arabian Oud, Grillades Torino, Les Moulins La Fayette, Chocolat Cotard, and Nettoyeur Daoust.',
-                      'Franquicias acompañadas por Himalaya: Pacini, Arabian Oud, Grillades Torino, Les Moulins La Fayette, Chocolat Cotard y Nettoyeur Daoust.',
-                      '喜马拉雅地产服务的连锁品牌：Pacini、Arabian Oud、Grillades Torino、Les Moulins La Fayette、Chocolat Cotard 及 Nettoyeur Daoust。'
-                    )}
-                  </p>
-                  <span style={{ fontSize: '0.8rem', color: 'var(--gold-light)', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                    {tr(lang, 'Voir les franchises', 'View franchises', 'Ver franquicias', '查看特许经营品牌')} <ChevronRight size={14} />
-                  </span>
-                </div>
-
-                <div
-                  onClick={() => switchTab('carrieres')}
-                  style={{
-                    background: 'transparent',
-                    borderTop: '1px solid rgba(200, 164, 93, 0.3)',
-                    borderBottom: '1px solid var(--border-subtle)',
-                    padding: '22px 0',
-                    cursor: 'pointer'
-                  }}
-                >
-                  <Users size={20} style={{ color: 'var(--gold)', marginBottom: '10px' }} />
-                  <h3 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '6px' }}>
-                    {tr(lang, 'Devenir courtier ou affilié', 'Become a Broker or Affiliate', 'Ser corredor o agencia afiliada', '成为经纪人或合作机构')}
-                  </h3>
-                  <p style={{ fontSize: '0.84rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '12px' }}>
-                    {tr(
-                      lang,
-                      'Découvrez les avantages de joindre notre équipe de courtiers ou de devenir une agence affiliée.',
-                      'Discover the 8 benefits of joining Himalaya as a broker or becoming an international affiliated agency.',
-                      'Descubra las ventajas de unirse a nuestro equipo de corredores o convertirse en agencia afiliada.',
-                      '了解加入喜马拉雅地产经纪人团队或成为国际合作加盟机构的专属优势。'
-                    )}
-                  </p>
-                  <span style={{ fontSize: '0.8rem', color: 'var(--gold-light)', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                    {tr(lang, 'Carrières & Affiliés', 'Careers & Affiliates', 'Carreras y Afiliados', '招贤纳士与合作机构')} <ChevronRight size={14} />
-                  </span>
-                </div>
-
-                <div
-                  onClick={() => switchTab('faq')}
-                  style={{
-                    background: 'transparent',
-                    borderTop: '1px solid rgba(200, 164, 93, 0.3)',
-                    borderBottom: '1px solid var(--border-subtle)',
-                    padding: '22px 0',
-                    cursor: 'pointer'
-                  }}
-                >
-                  <HelpCircle size={20} style={{ color: 'var(--gold)', marginBottom: '10px' }} />
-                  <h3 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '6px' }}>
-                    {tr(lang, 'Foire aux questions (FAQ)', 'Commercial Real Estate FAQ', 'Preguntas frecuentes (FAQ)', '商业地产常见问题 (FAQ)')}
-                  </h3>
-                  <p style={{ fontSize: '0.84rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '12px' }}>
-                    {tr(
-                      lang,
-                      '12 réponses pratiques sur le loyer de base, loyer additionnel, négociation de bail et options.',
-                      '12 practical answers on base rent, additional rent, commercial lease negotiation, and renewal options.',
-                      '12 respuestas prácticas sobre alquiler base, alquiler adicional, negociación de arrendamientos y opciones.',
-                      '关于基本租金、附加租金、商业租约谈判及续租选择权的 12 个实用解答。'
-                    )}
-                  </p>
-                  <span style={{ fontSize: '0.8rem', color: 'var(--gold-light)', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                    {tr(lang, 'Consulter les 12 Q&R', 'Read the 12 Q&As', 'Consultar las 12 preguntas', '查看 12 个问答')} <ChevronRight size={14} />
-                  </span>
-                </div>
-
-                <div
-                  onClick={() => switchTab('liens')}
-                  style={{
-                    background: 'transparent',
-                    borderTop: '1px solid rgba(200, 164, 93, 0.3)',
-                    borderBottom: '1px solid var(--border-subtle)',
-                    padding: '22px 0',
-                    cursor: 'pointer'
-                  }}
-                >
-                  <Link2 size={20} style={{ color: 'var(--gold)', marginBottom: '10px' }} />
-                  <h3 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '6px' }}>
-                    {tr(lang, 'Liens immobiliers & Partenaires', 'Real Estate Links & Partners', 'Enlaces inmobiliarios y Socios', '房地产资源与合作伙伴')}
-                  </h3>
-                  <p style={{ fontSize: '0.84rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '12px' }}>
-                    {tr(
-                      lang,
-                      'Sites gouvernementaux (Registre foncier, CPTAQ) et partenaires (avocats, notaires, évaluateurs, environnement).',
-                      'Official government registries (Land Register, CPTAQ, MAMH) and vetted legal, notary, and appraisal partners.',
-                      'Portales gubernamentales (Registro de la Propiedad, CPTAQ) y socios (abogados, notarios, tasadores, medio ambiente).',
-                      '政府官方登记处（土地注册处、农业用地委员会）及律所、公证人、评估师与环评合作伙伴。'
-                    )}
-                  </p>
-                  <span style={{ fontSize: '0.8rem', color: 'var(--gold-light)', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                    {tr(lang, 'Voir le répertoire', 'Open directory', 'Ver el directorio', '查看合作名录')} <ChevronRight size={14} />
-                  </span>
-                </div>
-              </div>
-            </div>
           </div>
         )}
 
@@ -718,51 +566,105 @@ export default function AboutPageView({
                         {founder.role}
                       </div>
 
-                      {founder.paragraphs && (
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                          {founder.paragraphs.map((p, idx) => (
-                            <p
-                              key={idx}
-                              style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', lineHeight: 1.75 }}
-                            >
-                              {p}
-                            </p>
-                          ))}
-                        </div>
-                      )}
-
-                      {founder.sections && (
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                          {founder.sections.map((sec, idx) => (
-                            <div key={idx}>
-                              <h4
+                      {founder.paragraphs && (() => {
+                        const isExpanded = !!expandedFounders[founder.id];
+                        const visibleParas = isExpanded ? founder.paragraphs : founder.paragraphs.slice(0, 2);
+                        return (
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                            {visibleParas.map((p, idx) => (
+                              <p
+                                key={idx}
+                                style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', lineHeight: 1.75 }}
+                              >
+                                {p}
+                              </p>
+                            ))}
+                            {founder.paragraphs.length > 2 && (
+                              <button
+                                type="button"
+                                onClick={() => setExpandedFounders((prev) => ({ ...prev, [founder.id]: !prev[founder.id] }))}
                                 style={{
-                                  fontSize: '1.05rem',
-                                  fontWeight: 700,
-                                  color: 'var(--text-primary)',
-                                  marginBottom: '10px'
+                                  alignSelf: 'flex-start',
+                                  background: 'transparent',
+                                  border: 'none',
+                                  color: 'var(--gold-light)',
+                                  fontSize: '0.84rem',
+                                  fontWeight: 600,
+                                  cursor: 'pointer',
+                                  padding: '4px 0',
+                                  display: 'inline-flex',
+                                  alignItems: 'center',
+                                  gap: '6px'
                                 }}
                               >
-                                {sec.subtitle}
-                              </h4>
-                              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                                {sec.paragraphs.map((p, pIdx) => (
-                                  <p
-                                    key={pIdx}
-                                    style={{
-                                      fontSize: '0.95rem',
-                                      color: 'var(--text-secondary)',
-                                      lineHeight: 1.75
-                                    }}
-                                  >
-                                    {p}
-                                  </p>
-                                ))}
+                                {isExpanded
+                                  ? tr(lang, 'Réduire la biographie ↑', 'Show less ↑', 'Mostrar menos ↑', '收起简介 ↑')
+                                  : tr(lang, 'Lire le parcours complet ↓', 'Read full biography ↓', 'Leer biografía completa ↓', '阅读完整履历 ↓')}
+                              </button>
+                            )}
+                          </div>
+                        );
+                      })()}
+
+                      {founder.sections && (() => {
+                        const isExpanded = !!expandedFounders[founder.id];
+                        const visibleSections = isExpanded ? founder.sections : founder.sections.slice(0, 1);
+                        return (
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                            {visibleSections.map((sec, idx) => (
+                              <div key={idx}>
+                                <h4
+                                  style={{
+                                    fontSize: '1.05rem',
+                                    fontWeight: 700,
+                                    color: 'var(--text-primary)',
+                                    marginBottom: '10px'
+                                  }}
+                                >
+                                  {sec.subtitle}
+                                </h4>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                                  {(isExpanded ? sec.paragraphs : sec.paragraphs.slice(0, 2)).map((p, pIdx) => (
+                                    <p
+                                      key={pIdx}
+                                      style={{
+                                        fontSize: '0.95rem',
+                                        color: 'var(--text-secondary)',
+                                        lineHeight: 1.75
+                                      }}
+                                    >
+                                      {p}
+                                    </p>
+                                  ))}
+                                </div>
                               </div>
-                            </div>
-                          ))}
-                        </div>
-                      )}
+                            ))}
+                            {(founder.sections.length > 1 || (founder.sections[0]?.paragraphs?.length || 0) > 2) && (
+                              <button
+                                type="button"
+                                onClick={() => setExpandedFounders((prev) => ({ ...prev, [founder.id]: !prev[founder.id] }))}
+                                style={{
+                                  alignSelf: 'flex-start',
+                                  background: 'transparent',
+                                  border: 'none',
+                                  color: 'var(--gold-light)',
+                                  fontSize: '0.84rem',
+                                  fontWeight: 600,
+                                  cursor: 'pointer',
+                                  padding: '4px 0',
+                                  display: 'inline-flex',
+                                  alignItems: 'center',
+                                  gap: '6px'
+                                }}
+                              >
+                                {isExpanded
+                                  ? tr(lang, 'Réduire la biographie ↑', 'Show less ↑', 'Mostrar menos ↑', '收起简介 ↑')
+                                  : tr(lang, 'Lire le parcours complet ↓', 'Read full biography ↓', 'Leer biografía completa ↓', '阅读完整履历 ↓')}
+                              </button>
+                            )}
+                          </div>
+                        );
+                      })()}
                     </div>
                   </div>
                 </div>
@@ -2128,297 +2030,264 @@ export default function AboutPageView({
             ONGLET 6 : LIENS IMMOBILIERS & PARTENAIRES (liens-immobiliers.html)
            ================================================================= */}
         {activeTab === 'liens' && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '36px' }}>
-            <div>
-              <h2 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '6px' }}>{c.links.heading}</h2>
-              <p style={{ fontSize: '0.92rem', color: 'var(--text-secondary)' }}>{c.links.subtitle}</p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'flex-end',
+                flexWrap: 'wrap',
+                gap: '16px',
+                paddingBottom: '20px',
+                borderBottom: '1px solid var(--border-subtle)'
+              }}
+            >
+              <div>
+                <h2 style={{ fontSize: '1.45rem', fontWeight: 700, marginBottom: '4px' }}>{c.links.heading}</h2>
+                <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)' }}>{c.links.subtitle}</p>
+              </div>
+
+              <div style={{ display: 'flex', gap: '18px', alignItems: 'center' }}>
+                {[
+                  {
+                    id: 'partenaires',
+                    label: tr(lang, 'Partenaires multidisciplinaires', 'Multidisciplinary Partners', 'Socios multidisciplinarios', '多学科专业合作伙伴')
+                  },
+                  {
+                    id: 'gouvernement',
+                    label: tr(lang, 'Sites gouvernementaux officiels', 'Official Government Links', 'Portales gubernamentales', '官方政府机构名录')
+                  }
+                ].map((sec) => {
+                  const isCurrent = linksSection === sec.id;
+                  return (
+                    <button
+                      key={sec.id}
+                      type="button"
+                      onClick={() => setLinksSection(sec.id)}
+                      style={{
+                        background: 'transparent',
+                        border: 'none',
+                        borderBottom: isCurrent ? '2px solid var(--gold)' : '2px solid transparent',
+                        padding: '6px 2px',
+                        color: isCurrent ? 'var(--gold-light)' : 'var(--text-secondary)',
+                        fontSize: '0.82rem',
+                        fontWeight: isCurrent ? 700 : 500,
+                        cursor: 'pointer',
+                        transition: 'all 0.2s ease'
+                      }}
+                    >
+                      {sec.label}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
             {/* Sites gouvernementaux officiels */}
-            <div>
-              <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--gold-light)', marginBottom: '18px' }}>
-                {c.links.govTitle}
-              </h3>
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-                  gap: '24px'
-                }}
-              >
-                {c.links.govLinks.map((gov, idx) => (
-                  <a
-                    key={idx}
-                    href={gov.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    style={{
-                      background: 'transparent',
-                      borderTop: '1px solid rgba(200, 164, 93, 0.35)',
-                      borderBottom: '1px solid var(--border-subtle)',
-                      padding: '18px 0',
-                      textDecoration: 'none',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'space-between',
-                      gap: '8px'
-                    }}
-                  >
-                    <div>
+            {linksSection === 'gouvernement' && (
+              <div>
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                    gap: '20px 32px'
+                  }}
+                >
+                  {c.links.govLinks.map((gov, idx) => (
+                    <a
+                      key={idx}
+                      href={gov.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      style={{
+                        background: 'transparent',
+                        borderBottom: '1px solid var(--border-subtle)',
+                        padding: '14px 0',
+                        textDecoration: 'none',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                        gap: '4px'
+                      }}
+                    >
                       <div
                         style={{
-                          fontSize: '0.95rem',
-                          fontWeight: 700,
+                          fontSize: '0.92rem',
+                          fontWeight: 600,
                           color: 'var(--text-primary)',
-                          marginBottom: '4px',
                           display: 'flex',
                           justifyContent: 'space-between',
-                          alignItems: 'flex-start',
+                          alignItems: 'center',
                           gap: '8px'
                         }}
                       >
                         <span>{gov.name}</span>
-                        <ExternalLink size={14} style={{ color: 'var(--gold)', flexShrink: 0, marginTop: '3px' }} />
+                        <ExternalLink size={13} style={{ color: 'var(--gold)', flexShrink: 0 }} />
                       </div>
-                      <p style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
+                      <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', lineHeight: 1.45 }}>
                         {gov.desc}
                       </p>
-                    </div>
-                  </a>
-                ))}
+                    </a>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
-            {/* Répertoire des partenaires professionnels d'Himalaya */}
-            <div>
-              <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--gold-light)', marginBottom: '18px' }}>
-                {c.links.partnersTitle}
-              </h3>
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
-                  gap: '32px'
-                }}
-              >
-                {c.links.partnerGroups.map((group, idx) => (
-                  <div
-                    key={idx}
-                    style={{
-                      background: 'transparent',
-                      borderTop: '1px solid rgba(200, 164, 93, 0.35)',
-                      borderBottom: '1px solid var(--border-subtle)',
-                      padding: '22px 0'
-                    }}
-                  >
-                    <h4
+            {/* Répertoire des partenaires professionnels d'Himalaya — Version épurée sans surcharge visuelle */}
+            {linksSection === 'partenaires' && (
+              <div>
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+                    gap: '28px 36px'
+                  }}
+                >
+                  {c.links.partnerGroups.map((group, idx) => (
+                    <div
+                      key={idx}
                       style={{
-                        fontSize: '0.96rem',
-                        fontWeight: 700,
-                        color: 'var(--gold)',
-                        marginBottom: '14px',
-                        paddingBottom: '10px',
-                        borderBottom: '1px solid var(--border-subtle)'
+                        background: 'transparent',
+                        padding: '4px 0 18px'
                       }}
                     >
-                      {group.category}
-                    </h4>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                      {group.items.map((partner, pIdx) => {
-                        const contactParts = (partner.contact || '')
-                          .split('•')
-                          .map((s) => s.trim())
-                          .filter(Boolean);
+                      <h4
+                        style={{
+                          fontSize: '0.86rem',
+                          fontWeight: 700,
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.06em',
+                          color: 'var(--gold)',
+                          marginBottom: '14px',
+                          paddingBottom: '8px',
+                          borderBottom: '1px solid rgba(200, 164, 93, 0.3)'
+                        }}
+                      >
+                        {group.category}
+                      </h4>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                        {group.items.map((partner, pIdx) => {
+                          const contactParts = (partner.contact || '')
+                            .split('•')
+                            .map((s) => s.trim())
+                            .filter(Boolean);
 
-                        const websites = [partner.website, partner.website2].filter(Boolean);
-
-                        return (
-                          <div key={pIdx} style={{ fontSize: '0.85rem' }}>
+                          return (
                             <div
+                              key={pIdx}
                               style={{
-                                fontWeight: 700,
-                                color: 'var(--text-primary)',
-                                marginBottom: '3px',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'space-between',
-                                gap: '8px',
-                                flexWrap: 'wrap'
+                                fontSize: '0.84rem',
+                                paddingBottom: '12px',
+                                borderBottom: pIdx < group.items.length - 1 ? '1px solid rgba(255,255,255,0.05)' : 'none'
                               }}
                             >
-                              {partner.website ? (
-                                <a
-                                  href={partner.website}
-                                  target="_blank"
-                                  rel="noreferrer"
-                                  style={{
-                                    color: 'var(--text-primary)',
-                                    textDecoration: 'none',
-                                    transition: 'color 0.2s'
-                                  }}
-                                  onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--gold-primary)')}
-                                  onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-primary)')}
-                                >
-                                  {partner.name}
-                                </a>
-                              ) : (
-                                <span>{partner.name}</span>
-                              )}
-
-                              {websites.length > 0 && (
-                                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-                                  {websites.map((siteUrl, wIdx) => (
-                                    <a
-                                      key={wIdx}
-                                      href={siteUrl}
-                                      target="_blank"
-                                      rel="noreferrer"
-                                      style={{
-                                        display: 'inline-flex',
-                                        alignItems: 'center',
-                                        gap: '4px',
-                                        color: 'var(--gold-primary)',
-                                        fontSize: '0.75rem',
-                                        fontWeight: 600,
-                                        textDecoration: 'none',
-                                        padding: '2px 7px',
-                                        border: '1px solid rgba(200, 164, 93, 0.35)',
-                                        background: 'rgba(200, 164, 93, 0.06)'
-                                      }}
-                                    >
-                                      <Globe size={11} />
-                                      {siteUrl.replace(/^https?:\/\/(www\.)?/, '').replace(/\/(fr|en)$/, '').replace(/\/$/, '')}
-                                      <ExternalLink size={11} />
-                                    </a>
-                                  ))}
-                                </div>
-                              )}
-                            </div>
-
-                            <div style={{ color: 'var(--gold-light)', fontSize: '0.8rem', marginBottom: '3px' }}>
-                              {partner.specialty}
-                            </div>
-
-                            {partner.address && (
-                              <div style={{ fontSize: '0.8rem', marginBottom: '4px' }}>
-                                <a
-                                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-                                    `${partner.name.split('—')[0].trim()} ${partner.address}`
-                                  )}`}
-                                  target="_blank"
-                                  rel="noreferrer"
-                                  style={{
-                                    color: 'var(--text-secondary)',
-                                    textDecoration: 'none',
-                                    borderBottom: '1px dotted rgba(255,255,255,0.22)',
-                                    transition: 'color 0.2s'
-                                  }}
-                                  onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--gold-light)')}
-                                  onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-secondary)')}
-                                >
-                                  {partner.address}
-                                </a>
+                              <div
+                                style={{
+                                  fontWeight: 600,
+                                  color: 'var(--text-primary)',
+                                  marginBottom: '2px',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'space-between',
+                                  gap: '8px'
+                                }}
+                              >
+                                {partner.website ? (
+                                  <a
+                                    href={partner.website}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    style={{
+                                      color: 'var(--text-primary)',
+                                      textDecoration: 'none',
+                                      display: 'inline-flex',
+                                      alignItems: 'center',
+                                      gap: '6px',
+                                      transition: 'color 0.2s'
+                                    }}
+                                    onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--gold-light)')}
+                                    onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-primary)')}
+                                  >
+                                    <span>{partner.name}</span>
+                                    <ExternalLink size={12} style={{ color: 'var(--gold)', flexShrink: 0 }} />
+                                  </a>
+                                ) : (
+                                  <span>{partner.name}</span>
+                                )}
                               </div>
-                            )}
 
-                            <div
-                              style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                flexWrap: 'wrap',
-                                gap: '10px',
-                                marginTop: '4px',
-                                fontSize: '0.78rem'
-                              }}
-                            >
-                              {contactParts.map((part, cIdx) => {
-                                if (part.includes('@')) {
-                                  return (
-                                    <a
-                                      key={cIdx}
-                                      href={`mailto:${part}`}
-                                      style={{
-                                        display: 'inline-flex',
-                                        alignItems: 'center',
-                                        gap: '5px',
-                                        color: 'var(--gold-light)',
-                                        textDecoration: 'none',
-                                        borderBottom: '1px solid rgba(200, 164, 93, 0.35)'
-                                      }}
-                                    >
-                                      <Mail size={12} style={{ color: 'var(--gold-primary)' }} />
-                                      {part}
-                                    </a>
-                                  );
-                                }
+                              <div style={{ color: 'var(--text-secondary)', fontSize: '0.78rem', marginBottom: '5px' }}>
+                                {partner.specialty}
+                              </div>
 
-                                if (/^www\.|^https?:\/\//i.test(part)) {
-                                  const href = part.startsWith('http') ? part : `https://${part}`;
-                                  return (
-                                    <a
-                                      key={cIdx}
-                                      href={href}
-                                      target="_blank"
-                                      rel="noreferrer"
-                                      style={{
-                                        display: 'inline-flex',
-                                        alignItems: 'center',
-                                        gap: '5px',
-                                        color: 'var(--gold-primary)',
-                                        textDecoration: 'none'
-                                      }}
-                                    >
-                                      <Globe size={12} />
-                                      {part}
-                                      <ExternalLink size={11} />
-                                    </a>
-                                  );
-                                }
+                              <div
+                                style={{
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  flexWrap: 'wrap',
+                                  gap: '12px',
+                                  fontSize: '0.76rem'
+                                }}
+                              >
+                                {contactParts.map((part, cIdx) => {
+                                  if (part.includes('@')) {
+                                    return (
+                                      <a
+                                        key={cIdx}
+                                        href={`mailto:${part}`}
+                                        style={{
+                                          display: 'inline-flex',
+                                          alignItems: 'center',
+                                          gap: '4px',
+                                          color: 'var(--gold-light)',
+                                          textDecoration: 'none'
+                                        }}
+                                      >
+                                        <Mail size={11} style={{ color: 'var(--gold)' }} />
+                                        {part}
+                                      </a>
+                                    );
+                                  }
 
-                                // Phone number(s) possibly separated by '/'
-                                const subPhones = part
-                                  .split('/')
-                                  .map((p) => p.trim())
-                                  .filter(Boolean);
+                                  if (/^www\.|^https?:\/\//i.test(part)) {
+                                    return null;
+                                  }
 
-                                return subPhones.map((phoneStr, sIdx) => {
-                                  const mainNumber = phoneStr.split(/poste|ext\.?/i)[0];
+                                  const firstPhone = part
+                                    .split('/')[0]
+                                    .trim();
+                                  const mainNumber = firstPhone.split(/poste|ext\.?/i)[0];
                                   const dialDigits = mainNumber.replace(/[^\d+]/g, '');
                                   if (dialDigits.length >= 7) {
                                     return (
                                       <a
-                                        key={`${cIdx}-${sIdx}`}
+                                        key={cIdx}
                                         href={`tel:${dialDigits}`}
                                         style={{
                                           display: 'inline-flex',
                                           alignItems: 'center',
-                                          gap: '5px',
-                                          color: 'var(--text-primary)',
-                                          textDecoration: 'none',
-                                          borderBottom: '1px dotted rgba(255,255,255,0.3)'
+                                          gap: '4px',
+                                          color: 'var(--text-secondary)',
+                                          textDecoration: 'none'
                                         }}
                                       >
-                                        <Phone size={12} style={{ color: 'var(--gold-primary)' }} />
-                                        {phoneStr}
+                                        <Phone size={11} style={{ color: 'var(--gold)' }} />
+                                        {firstPhone}
                                       </a>
                                     );
                                   }
-                                  return (
-                                    <span key={`${cIdx}-${sIdx}`} style={{ color: 'var(--text-secondary)' }}>
-                                      {phoneStr}
-                                    </span>
-                                  );
-                                });
-                              })}
+                                  return null;
+                                })}
+                              </div>
                             </div>
-                          </div>
-                        );
-                      })}
+                          );
+                        })}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
           </div>
         )}
       </div>
