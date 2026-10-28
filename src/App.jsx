@@ -319,6 +319,10 @@ export default function App() {
             if (!cat.includes('camping') && !cat.includes('pourvoirie') && !cat.includes('hotellerie') && !desc.includes('camping') && !desc.includes('pourvoirie') && !desc.includes('chalet') && !desc.includes('villegiature')) {
               return false;
             }
+          } else if (f === 'camping') {
+            if (!cat.includes('camping') && !title.includes('camping') && !desc.includes('camping')) {
+              return false;
+            }
           } else if (f === 'commercial') {
             if (!cat.includes('commercial') && !cat.includes('industriel') && !cat.includes('entreprise') && !cat.includes('investissement')) {
               return false;

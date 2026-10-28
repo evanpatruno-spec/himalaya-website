@@ -136,6 +136,7 @@ export default function HomeView({
                 <option value="all">{t.hero.allCategories}</option>
                 <option value="commercial">{t.hero.catCommercial}</option>
                 <option value="pourvoirie">{t.hero.catOutfitter}</option>
+                <option value="camping">{tr(lang, 'Camping', 'Campgrounds', 'Camping', '露营地')}</option>
                 <option value="terrain">{t.hero.catLand}</option>
                 <option value="residentiel">{t.hero.catResidential}</option>
               </select>

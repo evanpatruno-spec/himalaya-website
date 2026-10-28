@@ -418,6 +418,15 @@ export default function HeaderNav({
                 <button
                   type="button"
                   className="nav-dropdown-link"
+                  onClick={() => navigateTo('proprietes', { filtrePropriete: 'camping', propertiesViewMode: 'grid' })}
+                >
+                  <span className="nav-dropdown-link-title">
+                    {tr(lang, 'Camping', 'Campgrounds', 'Camping', '露营地')}
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  className="nav-dropdown-link"
                   onClick={() => navigateTo('proprietes', { filtrePropriete: 'terrain', propertiesViewMode: 'grid' })}
                 >
                   <span className="nav-dropdown-link-title">
