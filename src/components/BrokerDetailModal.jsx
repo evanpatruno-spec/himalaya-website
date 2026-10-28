@@ -220,7 +220,7 @@ export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSe
           {deals.length > 0 && (
             <div>
               <div className="badge-gold" style={{ marginBottom: '14px' }}>
-                {deals.length} {t?.brokers?.activeMandates || tr(lang, 'inscription(s)', 'listing(s)', 'propiedad(es) activa(s)', '个在售房源')}
+                {tr(lang, 'Inscriptions actives', 'Active Listings', 'Propiedades activas', '在售房源')}
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '20px' }}>
                 {deals.map(d => (

@@ -130,11 +130,6 @@ export default function BrokersView({
                     <div className="broker-name-line" />
                     <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px' }}>
                       <span>{pickLang(broker, 'city', lang)}</span>
-                      {brokerDeals.length > 0 && (
-                        <span style={{ color: 'var(--gold-light)', fontWeight: 600, fontSize: '0.76rem' }}>
-                          {brokerDeals.length} {t.brokers.activeMandates}
-                        </span>
-                      )}
                     </div>
                     <div style={{ fontSize: '0.73rem', color: 'var(--text-muted)', marginTop: '6px' }}>
                       {getBrokerLanguageLabels(broker).join(' • ')}
