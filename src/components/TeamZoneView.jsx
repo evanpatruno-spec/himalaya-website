@@ -172,10 +172,10 @@ export default function TeamZoneView({
               <p style={{ color: 'var(--text-secondary)', fontSize: '0.94rem', marginTop: '6px', maxWidth: '760px' }}>
                 {tr(
                   lang,
-                  'Tous les prospects capturés sur le site web (ententes de confidentialité NDA, demandes d’évaluation vendeur, simulations Chiffrier MREX et investisseurs internationaux) sont acheminés vers le pipeline Kanban des courtiers.',
-                  'All leads captured on the website (signed NDAs, property valuation requests, MREX Chiffrier simulations, and international investor inquiries) are routed directly to the brokers’ Kanban pipeline.',
-                  'Todos los prospectos capturados en el sitio web (NDA firmados, solicitudes de valuación, simulaciones MREX e inversores internacionales) se envían directamente al pipeline CRM.',
-                  '网站捕获的所有客户线索（已签署 NDA 保密协议、卖方估价申请、MREX 财务测算及国际买家咨询）均实时路由至经纪人 CRM 看板系统。'
+                  'Tous les prospects capturés sur le site web (ententes de confidentialité NDA, demandes d’évaluation vendeur, simulations Chiffrier et investisseurs internationaux) sont acheminés vers le pipeline Kanban des courtiers.',
+                  'All leads captured on the website (signed NDAs, property valuation requests, Chiffrier simulations, and international investor inquiries) are routed directly to the brokers’ Kanban pipeline.',
+                  'Todos los prospectos capturados en el sitio web (NDA firmados, solicitudes de valuación, simulaciones financieras e inversores internacionales) se envían directamente al pipeline CRM.',
+                  '网站捕获的所有客户线索（已签署 NDA 保密协议、卖方估价申请、财务测算及国际买家咨询）均实时路由至经纪人 CRM 看板系统。'
                 )}
               </p>
             </div>
@@ -199,7 +199,7 @@ export default function TeamZoneView({
                 className="btn-outline"
               >
                 <Calculator size={14} color="var(--gold)" />
-                {tr(lang, 'Ouvrir Chiffrier MREX', 'Open MREX Simulator', 'Abrir Simulador MREX', '打开 MREX 精算模型')}
+                {tr(lang, 'Ouvrir le Chiffrier', 'Open Financial Simulator', 'Abrir Simulador Financiero', '打开财务精算模型')}
               </button>
 
               <a
@@ -328,10 +328,10 @@ export default function TeamZoneView({
               }}>
                 {tr(
                   lang,
-                  'Aucun prospect enregistré dans cette catégorie pour le moment. Testez le formulaire NDA, l’évaluation vendeur ou le Chiffrier MREX pour voir la synchronisation en direct.',
-                  'No leads recorded in this category yet. Submit an NDA, property valuation, or MREX simulation to test live CRM sync.',
+                  'Aucun prospect enregistré dans cette catégorie pour le moment. Testez le formulaire NDA, l’évaluation vendeur ou le Chiffrier pour voir la synchronisation en direct.',
+                  'No leads recorded in this category yet. Submit an NDA, property valuation, or financial simulation to test live CRM sync.',
                   'Aún no hay prospectos registrados en esta categoría.',
-                  '该类别下暂无客户记录。您可以提交 NDA、估价申请或 MREX 模拟来测试实时同步。'
+                  '该类别下暂无客户记录。您可以提交 NDA、估价申请或财务模拟来测试实时同步。'
                 )}
               </div>
             ) : (
@@ -357,7 +357,7 @@ export default function TeamZoneView({
                             : lead.type === 'international'
                             ? 'INTERNATIONAL'
                             : lead.type === 'chiffrier'
-                            ? 'CHIFFRIER MREX'
+                            ? 'CHIFFRIER HIMALAYA'
                             : 'CONTACT WEB'}
                         </span>
                         <strong style={{ fontSize: '0.95rem', color: '#fff' }}>

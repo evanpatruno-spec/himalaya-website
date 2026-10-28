@@ -268,10 +268,10 @@ export function updateDynamicSEO({ activePage, selectedDeal, selectedBroker, lan
       ),
       outils: tr(
         lang,
-        'Chiffrier MREX, APH Select & Calculateurs immobiliers | Immobilier Himalaya',
-        'MREX Financial Simulator, APH Select & Real Estate Calculators | Immobilier Himalaya',
-        'Simulador financiero MREX, APH Select y Calculadoras | Immobilier Himalaya',
-        'MREX 商业多户财务模型、APH Select 与按揭计算器 | 喜马拉雅地产'
+        'Chiffrier financier, APH Select & Calculateurs immobiliers | Immobilier Himalaya',
+        'Financial Simulator, APH Select & Real Estate Calculators | Immobilier Himalaya',
+        'Simulador financiero, APH Select y Calculadoras | Immobilier Himalaya',
+        '商业多户财务模型、APH Select 与按揭计算器 | 喜马拉雅地产'
       ),
       'investisseurs-internationaux': tr(
         lang,

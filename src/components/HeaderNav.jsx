@@ -483,10 +483,10 @@ export default function HeaderNav({
                   <span className="nav-dropdown-link-title">
                     {tr(
                       lang,
-                      'Chiffrier MREX & APH Select',
-                      'MREX & MLI Select Simulator',
-                      'Simulador MREX y APH Select',
-                      'MREX 与 APH Select 精算模型'
+                      'Chiffrier financier & APH Select',
+                      'Financial & MLI Select Simulator',
+                      'Simulador financiero y APH Select',
+                      '商业多户与 APH Select 精算模型'
                     )}
                   </span>
                 </button>

@@ -672,7 +672,7 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
            ================================================================= */}
         {activeTool === 'plex' && (
           <div style={{ paddingTop: '4px' }}>
-            {/* Module Chiffrier MREX & SCHL APH Select (50 / 70 / 100 pts) intégré (#5) */}
+            {/* Module Chiffrier financier & SCHL APH Select (50 / 70 / 100 pts) intégré (#5) */}
             <div style={{
               marginBottom: '44px',
               paddingBottom: '36px',

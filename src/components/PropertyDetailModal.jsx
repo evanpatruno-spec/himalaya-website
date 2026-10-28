@@ -726,7 +726,7 @@ export default function PropertyDetailModal({
                 </div>
               )}
 
-              {/* Idée #5 — Intégration directe du « Himalaya Chiffrier » (MREX & SCHL APH Select) dans la fiche propriété */}
+              {/* Idée #5 — Intégration directe du « Himalaya Chiffrier » (SCHL APH Select) dans la fiche propriété */}
               {deal.price > 0 && deal.status !== 'Vendu' && (
                 <div className="no-print" style={{ marginTop: cleanSpecs.length > 0 ? '26px' : '8px' }}>
                   <ChiffrierDealSimulator

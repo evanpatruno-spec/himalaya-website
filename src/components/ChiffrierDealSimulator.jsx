@@ -3,7 +3,7 @@ import { Calculator, Sliders, CheckCircle2, ArrowRight, Sparkles, TrendingUp, Bu
 import { tr, pickLang } from '../data/translations';
 import { submitLeadToProspection } from '../utils/prospectionBridge';
 
-// Programmes institutionnels du Chiffrier Himalaya (MREX & SCHL APH Select)
+// Programmes institutionnels du Chiffrier Himalaya (Conventionnel & SCHL APH Select)
 export const HIMALAYA_CHIFRIER_PROGRAMS = [
   {
     key: 'conv_75',
@@ -223,7 +223,7 @@ export default function ChiffrierDealSimulator({
     return /montr[eé]al/i.test(loc);
   }, [deal]);
 
-  // Moteur de calcul institutionnel MREX & SCHL APH Select
+  // Moteur de calcul financier & SCHL APH Select
   const metrics = useMemo(() => {
     const revEffectif = revenuBrut * (1 - tauxInoccupation / 100);
     const totalDepenses = Number(taxesMun) + Number(taxesScol) + Number(autresDepenses);
@@ -345,7 +345,7 @@ export default function ChiffrierDealSimulator({
     await submitLeadToProspection({
       type: 'chiffrier',
       fullName: 'Investisseur Chiffrier Web',
-      subject: `Simulation Chiffrier MREX (${activeProgram.label}) — ${deal?.title || 'Immeuble'}`,
+      subject: `Simulation Chiffrier Himalaya (${activeProgram.label}) — ${deal?.title || 'Immeuble'}`,
       mls: deal?.mls_number || 'Sim-Chiffrier',
       dealTitle: deal?.title || 'Analyse Chiffrier',
       city: deal?.city || '',
@@ -376,10 +376,10 @@ export default function ChiffrierDealSimulator({
             <Calculator size={13} color="var(--gold)" />{' '}
             {tr(
               lang,
-              'HIMALAYA CHIFFRIER — INGÉNIERIE MREX & SCHL APH SELECT',
-              'HIMALAYA CHIFFRIER — MREX & CMHC MLI SELECT ENGINE',
-              'HIMALAYA CHIFFRIER — MOTOR MREX Y SCHL APH SELECT',
-              '喜马拉雅财务模型 — MREX 与 CMHC APH Select 精算引擎'
+              'HIMALAYA CHIFFRIER — ANALYSE FINANCIÈRE & SCHL APH SELECT',
+              'HIMALAYA CHIFFRIER — FINANCIAL ANALYSIS & CMHC MLI SELECT',
+              'HIMALAYA CHIFFRIER — ANÁLISIS FINANCIERO Y SCHL APH SELECT',
+              '喜马拉雅财务模型 — 财务分析与 CMHC APH Select 精算引擎'
             )}
           </div>
           <h4 className="serif-title" style={{ fontSize: compact ? '1.35rem' : '1.75rem', fontWeight: 600 }}>
@@ -568,7 +568,7 @@ export default function ChiffrierDealSimulator({
         </div>
       )}
 
-      {/* Tableau des indicateurs clés MREX & APH Select */}
+      {/* Tableau des indicateurs clés & APH Select */}
       <div style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(135px, 1fr))',
@@ -659,10 +659,10 @@ export default function ChiffrierDealSimulator({
           <span>
             {tr(
               lang,
-              `Solveur MREX (TRI cible ${targetIrr} %) : Prix max suggéré = `,
-              `MREX Solver (Target IRR ${targetIrr}%): Suggested max price = `,
-              `Solucionador MREX (TIR objetivo ${targetIrr} %): Precio máx. = `,
-              `MREX 逆向求解器 (目标 IRR ${targetIrr}%)：建议最高出价 = `
+              `Solveur financier (TRI cible ${targetIrr} %) : Prix max suggéré = `,
+              `Financial Solver (Target IRR ${targetIrr}%): Suggested max price = `,
+              `Solucionador financiero (TIR objetivo ${targetIrr} %): Precio máx. = `,
+              `财务逆向求解器 (目标 IRR ${targetIrr}%)：建议最高出价 = `
             )}
             <strong style={{ color: 'var(--gold-light)' }}>{fmt(metrics.suggestedMaxPrice)}</strong>
           </span>
