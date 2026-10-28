@@ -607,11 +607,17 @@ export default function HeaderNav({
                 { id: 'courtiers', label: t.nav.brokers },
                 {
                   id: 'franchises',
-                  label: tr(lang, 'Franchises', 'Franchises', 'Franquicias', '特许经营')
+                  label: tr(
+                    lang,
+                    'Franchises (Pacini, Arabian Oud, Grillades Torino, La Fayette, Cotard, Daoust)',
+                    'Franchises (Pacini, Arabian Oud, Grillades Torino, La Fayette, Cotard, Daoust)',
+                    'Franquicias (Pacini, Arabian Oud, Grillades Torino, La Fayette, Cotard, Daoust)',
+                    '连锁特许经营 (Pacini, Arabian Oud, Grillades Torino, La Fayette, Cotard, Daoust)'
+                  )
                 },
                 {
                   id: 'proprietes',
-                  label: dealsCount > 0 ? `${t.nav.properties} (${dealsCount})` : t.nav.properties
+                  label: `${t.nav.properties} (${dealsCount || 59})`
                 },
                 {
                   id: 'investisseurs-internationaux',

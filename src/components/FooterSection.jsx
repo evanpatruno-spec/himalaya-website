@@ -75,10 +75,7 @@ export default function FooterSection({
                 <div style={{ color: '#fff', fontWeight: 600 }}>Immobilier Himalaya Real Estate Corp.</div>
                 <div>{t.contact.hqAddress}</div>
                 <div style={{ marginTop: '8px', display: 'flex', flexDirection: 'column', gap: '3px' }}>
-                  <a href="tel:5143791788" style={{ color: 'var(--gold-light)', fontWeight: 600 }}>
-                    (514) 379-1788
-                  </a>
-                  <a href="tel:18008204828" style={{ color: 'var(--text-secondary)' }}>
+                  <a href="tel:18008204828" style={{ color: 'var(--gold-light)', fontWeight: 600 }}>
                     1 800 820-4828
                   </a>
                   <a href="mailto:info@himalayacorp.com" style={{ color: 'var(--gold-light)' }}>

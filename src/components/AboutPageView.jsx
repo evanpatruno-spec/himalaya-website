@@ -56,7 +56,7 @@ export default function AboutPageView({
     if (sectorKey === 'restauration') {
       return (
         sectorVal === 'Restauration & Alimentation' ||
-        ['Subway', 'Thaïzone', 'Les Moulins La Fayette', 'Pacini', 'Grillade Torino', 'Chocolat Cotard'].includes(name) ||
+        ['Subway', 'Thaïzone', 'Les Moulins La Fayette', 'Pacini', 'Grillades Torino', 'Grillade Torino', 'Chocolat Cotard'].includes(name) ||
         ['pacini', 'grillade_torino', 'moulin_lafayette', 'chocolat_cotard'].includes(id)
       );
     }
@@ -499,10 +499,10 @@ export default function AboutPageView({
                   </h3>
                   <p style={{ fontSize: '0.84rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '12px' }}>
                     {tr(lang,
-                      'Franchises accompagnées par Himalaya : Pacini, Arabian Oud, Grillade Torino, Les Moulins La Fayette, Chocolat Cotard et Nettoyeur Daoust.',
-                      'Franchises supported by Himalaya: Pacini, Arabian Oud, Grillade Torino, Les Moulins La Fayette, Chocolat Cotard, and Nettoyeur Daoust.',
-                      'Franquicias acompañadas por Himalaya: Pacini, Arabian Oud, Grillade Torino, Les Moulins La Fayette, Chocolat Cotard y Nettoyeur Daoust.',
-                      '喜马拉雅地产服务的连锁品牌：Pacini、Arabian Oud、Grillade Torino、Les Moulins La Fayette、Chocolat Cotard 及 Nettoyeur Daoust。'
+                      'Franchises accompagnées par Himalaya : Pacini, Arabian Oud, Grillades Torino, Les Moulins La Fayette, Chocolat Cotard et Nettoyeur Daoust.',
+                      'Franchises supported by Himalaya: Pacini, Arabian Oud, Grillades Torino, Les Moulins La Fayette, Chocolat Cotard, and Nettoyeur Daoust.',
+                      'Franquicias acompañadas por Himalaya: Pacini, Arabian Oud, Grillades Torino, Les Moulins La Fayette, Chocolat Cotard y Nettoyeur Daoust.',
+                      '喜马拉雅地产服务的连锁品牌：Pacini、Arabian Oud、Grillades Torino、Les Moulins La Fayette、Chocolat Cotard 及 Nettoyeur Daoust。'
                     )}
                   </p>
                   <span style={{ fontSize: '0.8rem', color: 'var(--gold-light)', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>

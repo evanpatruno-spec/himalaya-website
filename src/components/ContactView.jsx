@@ -30,7 +30,6 @@ export default function ContactView({
                 <div style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginTop: '4px' }}>{t.contact.hqAddress}</div>
                 <div style={{ display: 'flex', gap: '18px', marginTop: '12px', fontSize: '0.88rem', flexWrap: 'wrap' }}>
                   <a href="tel:18008204828" style={{ color: 'var(--gold-light)', fontWeight: 600 }}>1 800 820-4828</a>
-                  <a href="tel:5148984898" style={{ color: 'var(--gold-light)', fontWeight: 600 }}>(514) 898-4898</a>
                   <a href="mailto:info@himalayacorp.com" style={{ color: 'var(--gold-light)', fontWeight: 600 }}>info@himalayacorp.com</a>
                 </div>
               </div>
