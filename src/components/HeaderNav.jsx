@@ -471,7 +471,7 @@ export default function HeaderNav({
                   onClick={() => navigateTo('outils', { toolTab: 'valuation' })}
                 >
                   <span className="nav-dropdown-link-title" style={{ color: 'var(--gold-light)' }}>
-                    {tr(lang, 'Évalue ma propriété (Vendre / Louer)', 'Value My Property (Sell / Lease)', 'Evalúa mi propiedad (Vender / Alquilar)', '评估我的物业（出售/出租）')}
+                    {tr(lang, 'Vendre ou louer avec nous', 'Sell or Lease With Us', 'Vender o alquilar con nosotros', '与我们携手出售或出租')}
                   </span>
                 </button>
                 <div className="nav-dropdown-divider" />
@@ -613,7 +613,7 @@ export default function HeaderNav({
                   onClick={() => navigateTo('nous-joindre', { contactTab: 'valuation' })}
                 >
                   <span className="nav-dropdown-link-title" style={{ color: 'var(--gold-light)' }}>
-                    {tr(lang, 'Évaluer ma propriété', 'Evaluate My Property', 'Evaluar mi propiedad', '评估我的物业')}
+                    {tr(lang, 'Vendre ou louer avec nous', 'Sell or Lease With Us', 'Vender o alquilar con nosotros', '与我们携手出售或出租')}
                   </span>
                 </button>
                 <button

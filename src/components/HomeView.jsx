@@ -557,20 +557,20 @@ export default function HomeView({
                   01 • {tr(lang, 'Espace Clients', 'Clients Portal', 'Espacio Clientes', '客户专区')}
                 </span>
                 <h4 className="serif-title" style={{ fontSize: '1.35rem', fontWeight: 600, color: '#ffffff', marginBottom: '8px' }}>
-                  {tr(lang, '« Évalue ma propriété »', '“Value My Property”', '« Evalúa mi propiedad »', '“评估我的物业”')}
+                  {tr(lang, '« Vendre ou louer avec nous »', '“Sell or Lease With Us”', '« Venda o alquile con nosotros »', '“与我们携手出售或出租”')}
                 </h4>
                 <p style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', lineHeight: 1.6, margin: 0 }}>
                   {tr(
                     lang,
-                    'Obtenez une évaluation professionnelle et confidentielle de votre propriété commerciale, récréotouristique ou résidentielle pour vendre ou louer.',
-                    'Request a confidential professional valuation of your commercial, resort, or residential property to sell or lease.',
-                    'Obtenga una evaluación profesional y confidencial de su propiedad comercial, turística o residencial para vender o alquilar.',
-                    '获取商业、度假或住宅物业的专业保密估值，助您顺利出售或出租。'
+                    'Faites équipe avec nos courtiers d’expérience et profitez de notre réseau d’investisseurs locaux et internationaux pour vendre, louer ou acquérir votre propriété.',
+                    'Partner with our experienced brokers and leverage our network of local and international investors to sell, lease, or acquire your property.',
+                    'Asóciese con nuestros corredores experimentados y aproveche nuestra red de inversores locales e internacionales para vender, alquilar o adquirir su propiedad.',
+                    '与我们的资深经纪团队携手合作，依托本地及国际买家网络，助您高效出售、出租或收购商业、度假与住宅物业。'
                   )}
                 </p>
               </div>
               <span className="editorial-link" style={{ marginTop: '4px' }}>
-                {tr(lang, 'Évaluer pour vendre ou louer', 'Evaluate to Sell or Lease', 'Evaluar para vender o alquilar', '评估出售或出租')} <ArrowRight size={14} />
+                {tr(lang, 'Nous confier votre projet', 'Discuss Your Project With Us', 'Confiarnos su proyecto', '与我们洽谈您的项目')} <ArrowRight size={14} />
               </span>
             </div>
 

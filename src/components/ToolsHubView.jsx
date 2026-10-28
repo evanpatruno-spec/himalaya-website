@@ -205,8 +205,8 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
     {
       id: 'valuation',
       icon: Building2,
-      title: tr(lang, 'Évalue ma propriété', 'Value My Property', 'Evalúa mi propiedad', '评估我的物业'),
-      sub: tr(lang, 'Évaluation pour vendre ou louer', 'Valuation to Sell or Lease', 'Evaluación para vender o alquilar', '出售或出租物业评估')
+      title: tr(lang, 'Vendre ou louer avec nous', 'Sell or Lease With Us', 'Vender o alquilar con nosotros', '与我们携手出售或出租'),
+      sub: tr(lang, 'Confier votre projet à notre équipe', 'Partner With Our Team', 'Confiar su proyecto a nuestro equipo', '委托我们的专业团队')
     },
     {
       id: 'plex',
@@ -1688,7 +1688,7 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
 
 
         {/* =================================================================
-            OUTIL 9 : ÉVALUE MA PROPRIÉTÉ (POUR VENDRE OU LOUER)
+            OUTIL 9 : VENDRE OU LOUER AVEC NOUS
            ================================================================= */}
         {activeTool === 'valuation' && (
           <div style={{ paddingTop: '4px' }}>
@@ -1702,26 +1702,26 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
             >
               <div>
                 <span className="badge-gold" style={{ marginBottom: '8px' }}>
-                  {tr(lang, 'Service Clients • Vente & Location', 'Client Service • Sale & Lease', 'Servicio al Cliente • Venta y Alquiler', '客户服务 • 出售与出租')}
+                  {tr(lang, 'Espace Clients • Vente & Location', 'Clients Portal • Sale & Lease', 'Espacio Clientes • Venta y Alquiler', '客户专区 • 出售与出租')}
                 </span>
                 <h3 className="serif-title" style={{ fontSize: '2.1rem', fontWeight: 600, marginBottom: '12px' }}>
-                  {tr(lang, 'Évalue ma propriété', 'Value My Property', 'Evalúa mi propiedad', '评估我的物业')}
+                  {tr(lang, 'Vendre ou louer avec nous', 'Sell or Lease With Us', 'Vender o alquilar con nosotros', '与我们携手出售或出租')}
                 </h3>
                 <p style={{ color: 'var(--text-secondary)', fontSize: '0.94rem', lineHeight: 1.65, marginBottom: '24px' }}>
                   {tr(
                     lang,
-                    'Vous souhaitez vendre ou louer un immeuble commercial, industriel, un terrain, une entreprise récréotouristique (pourvoirie, camping, auberge) ou une propriété résidentielle ? Nos courtiers réalisent une analyse de valeur marchande rigoureuse et confidentielle.',
-                    'Looking to sell or lease a commercial, industrial, land, resort (outfitter, campground, inn) or residential property? Our brokers provide a rigorous, confidential market valuation.',
-                    '¿Desea vender o alquilar una propiedad comercial, industrial, turística o residencial? Nuestros corredores realizan un análisis de valor de mercado riguroso y confidencial.',
-                    '想要出售或出租商业、工业、度假村或住宅物业？我们的资深经纪人为您提供严谨保密的市场价值评估。'
+                    'Faites équipe avec Immobilier Himalaya pour la vente ou la location de votre immeuble commercial, industriel, terrain, entreprise récréotouristique (pourvoirie, camping, auberge) ou propriété résidentielle. Nos courtiers d’expérience mettent leur réseau local et international au service de vos résultats.',
+                    'Partner with Immobilier Himalaya to sell or lease your commercial, industrial, land, resort (outfitter, campground, inn) or residential property. Our experienced brokers put their local and international network to work for your results.',
+                    'Asóciese con Immobilier Himalaya para la venta o el alquiler de su propiedad comercial, industrial, turística o residencial. Nuestros corredores ponen su red local e internacional al servicio de sus resultados.',
+                    '与喜马拉雅地产携手合作，委托出售或出租您的商业、工业、度假村或住宅物业。我们的资深经纪团队将依托本地与国际资源网络助您达成理想交易。'
                   )}
                 </p>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', borderTop: '1px solid var(--border-subtle)', paddingTop: '20px' }}>
                   {[
-                    tr(lang, 'Analyse comparative des transactions récentes (Centris / MLS & hors-marché)', 'Comparative analysis of recent transactions (Centris / MLS & off-market)', 'Análisis comparativo de transacciones recientes (Centris / MLS)', '近期成交案例对比分析 (Centris / MLS 及非公开市场)'),
-                    tr(lang, 'Évaluation du taux de capitalisation (TGA / Cap Rate) et normalisation du RNO', 'Cap Rate valuation and NOI normalization for income properties', 'Evaluación de tasa de capitalización (Cap Rate) y NOI', '收益型物业资本化率 (Cap Rate) 与净营业收入评估'),
-                    tr(lang, 'Mise en marché stratégique locale et internationale (réseau CQF & acheteurs qualifiés)', 'Strategic local and international marketing (CQF network & qualified buyers)', 'Comercialización estratégica local e internacional', '本地及国际战略营销推广（CQF 网络与合格买家库）')
+                    tr(lang, 'Accompagnement stratégique personnalisé du mandat jusqu’à la clôture chez le notaire', 'Personalized strategic representation from mandate to closing', 'Acompañamiento estratégico personalizado hasta el cierre', '从委托到公证交割的全程定制化战略陪伴'),
+                    tr(lang, 'Accès direct à notre base d’investisseurs, d’opérateurs et de bannières qualifiés (NDA)', 'Direct access to our database of qualified investors, operators, and franchise banners (NDA)', 'Acceso directo a nuestra base de inversores y operadores calificados (NDA)', '直通经认证的投资者、运营商及连锁品牌买家库 (NDA)'),
+                    tr(lang, 'Mise en marché locale et internationale (réseau CQF, Centris / MLS & rayonnement hors-marché)', 'Local and international marketing reach (CQF network, Centris / MLS & off-market)', 'Comercialización local e internacional (red CQF, Centris / MLS y fuera de mercado)', '本地及国际全方位推广（CQF 协会网络、Centris / MLS 及保密渠道）')
                   ].map((pt, i) => (
                     <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '0.88rem', color: 'var(--text-main)' }}>
                       <CheckCircle2 size={16} style={{ color: 'var(--gold)', flexShrink: 0, marginTop: '2px' }} />
@@ -1743,19 +1743,19 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
                   <div style={{ textAlign: 'center', padding: '24px 8px' }}>
                     <CheckCircle2 size={44} style={{ color: 'var(--gold)', margin: '0 auto 12px' }} />
                     <h4 className="serif-title" style={{ fontSize: '1.4rem', fontWeight: 600, marginBottom: '8px' }}>
-                      {tr(lang, 'Demande d’évaluation transmise', 'Valuation Request Sent', 'Solicitud de evaluación enviada', '评估申请已提交')}
+                      {tr(lang, 'Demande transmise à notre équipe', 'Project Inquiry Sent', 'Solicitud enviada a nuestro equipo', '项目委托已提交')}
                     </h4>
                     <p style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', marginBottom: '20px' }}>
                       {tr(
                         lang,
-                        'Votre demande d’évaluation a été acheminée avec succès. Votre courtier communiquera avec vous rapidement.',
-                        'Your valuation request has been routed successfully. Your broker will contact you shortly.',
-                        'Su solicitud de evaluación ha sido enviada con éxito.',
-                        '您的物业评估申请已成功分派，经纪人将尽快与您联系。'
+                        'Merci de votre confiance ! Votre courtier Himalaya communiquera avec vous rapidement pour discuter de votre projet.',
+                        'Thank you for your trust! Your Himalaya broker will contact you shortly to discuss your project.',
+                        '¡Gracias por su confianza! Su corredor se pondrá en contacto con usted en breve.',
+                        '感谢您的信任！您的专属经纪人将尽快与您联系洽谈项目详情。'
                       )}
                     </p>
                     <button type="button" onClick={() => setValSubmitted(false)} className="btn-gold">
-                      {tr(lang, 'Nouvelle demande d’évaluation', 'New Valuation Request', 'Nueva solicitud', '提交新的评估申请')}
+                      {tr(lang, 'Nouvelle demande', 'New Inquiry', 'Nueva solicitud', '提交新咨询')}
                     </button>
                   </div>
                 ) : (
@@ -1765,7 +1765,7 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
                       const chosenBroker = INITIAL_HIMALAYA_BROKERS.find(b => b.id === valBrokerId) || null;
                       await submitLeadToProspection({
                         type: 'valuation',
-                        source: `Outil Évalue ma propriété (${valPurpose})`,
+                        source: `Espace Clients — Vendre ou louer avec nous (${valPurpose})`,
                         name: valFullName,
                         fullName: valFullName,
                         phone: valPhone,
@@ -1784,7 +1784,7 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
                     {/* Objectif : Vendre ou Louer */}
                     <div>
                       <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--gold-light)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '6px' }}>
-                        {tr(lang, 'Objectif de la démarche', 'Objective', 'Objetivo', '委托目标')}
+                        {tr(lang, 'Votre projet avec nous', 'Your Project With Us', 'Su proyecto con nosotros', '合作意向')}
                       </label>
                       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
                         {[
@@ -1909,13 +1909,13 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
                     <textarea
                       rows={3}
                       className="form-control"
-                      placeholder={tr(lang, 'Précisions sur la propriété (rénovations, bail, équipements, échéancier)...', 'Property details (renovations, lease, equipment, timeline)...', 'Detalles de la propiedad...', '物业补充说明...')}
+                      placeholder={tr(lang, 'Précisions sur votre projet (caractéristiques, échéancier, objectifs)...', 'Project details (features, timeline, goals)...', 'Detalles de su proyecto...', '项目补充说明...')}
                       value={valNotes}
                       onChange={e => setValNotes(e.target.value)}
                     />
 
                     <button type="submit" className="btn-gold" style={{ width: '100%' }}>
-                      {tr(lang, 'Demander mon évaluation confidentielle', 'Request My Confidential Valuation', 'Solicitar mi evaluación confidencial', '申请保密物业估值')} <ArrowRight size={15} />
+                      {tr(lang, 'Discuter de mon projet avec un courtier', 'Discuss My Project With a Broker', 'Hablar de mi proyecto con un corredor', '与经纪人洽谈我的项目')} <ArrowRight size={15} />
                     </button>
                   </form>
                 )}
