@@ -32,28 +32,15 @@ export default function FooterSection({
               borderBottom: '1px solid rgba(255,255,255,0.06)'
             }}
           >
-            {/* Colonne 1 : Identité Himalaya & Multi-Prêts */}
+            {/* Colonne 1 : Identité Himalaya */}
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '18px', flexWrap: 'wrap', marginBottom: '16px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', marginBottom: '18px' }}>
                 <img
                   src="/gx/himalaya-immobilier-logo.svg"
                   alt="Himalaya"
-                  style={{ height: '46px', display: 'block', cursor: 'pointer' }}
+                  style={{ height: '76px', width: 'auto', display: 'block', cursor: 'pointer' }}
                   onClick={() => navigateTo('home')}
                 />
-                <a
-                  href="https://equipeimpact-multi-prets.zohobookings.ca/#/Himalaya"
-                  target="_blank"
-                  rel="noreferrer"
-                  style={{ opacity: 0.9, display: 'inline-flex', alignItems: 'center' }}
-                  title="Multi-Prêts Hypothèques"
-                >
-                  <img
-                    src="/gx/m/Multi_Prets.png"
-                    alt="Multi-Prêts Hypothèques"
-                    style={{ height: '30px', objectFit: 'contain' }}
-                  />
-                </a>
               </div>
               <p style={{ fontSize: '0.84rem', color: 'var(--text-secondary)', lineHeight: 1.65 }}>
                 {tr(
