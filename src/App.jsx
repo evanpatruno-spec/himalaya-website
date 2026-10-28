@@ -478,7 +478,7 @@ export default function App() {
       case 'investisseurs-internationaux': return tr(lang, 'Portail Investisseurs Internationaux', 'International Investors Desk', 'Portal de Inversores Internacionales', '国际买家与投资专区');
       case 'courtiers': return t.nav.brokers;
       case 'agences': return t.nav.agencies;
-      case 'outils': return tr(lang, 'Outils, Calculateurs & Évaluation Immobilière', 'Tools, Calculators & Property Valuation', 'Herramientas, Calculadoras y Evaluación', '金融计算器、物业估值与资源');
+      case 'outils': return t.nav.tools;
       case 'evenements': return t.nav.news;
       case 'balados': return t.nav.podcasts;
       case 'nous-joindre': return t.nav.contact;

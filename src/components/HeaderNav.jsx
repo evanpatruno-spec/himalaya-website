@@ -677,21 +677,20 @@ export default function HeaderNav({
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '4px',
-                background: translateMenuOpen || activeAutoTranslate ? 'rgba(200, 164, 93, 0.16)' : 'rgba(255, 255, 255, 0.04)',
-                border: '1px solid rgba(200, 164, 93, 0.42)',
-                borderRadius: '5px',
-                padding: '2px 7px',
+                background: 'transparent',
+                border: 'none',
+                padding: '1px 4px',
                 fontSize: '0.62rem',
-                fontWeight: 600,
-                color: 'var(--gold-light)',
+                fontWeight: 500,
+                color: translateMenuOpen || activeAutoTranslate ? 'var(--gold)' : 'rgba(255,255,255,0.68)',
                 cursor: 'pointer',
                 whiteSpace: 'nowrap',
                 letterSpacing: '0.01em',
-                transition: 'all 0.2s ease'
+                transition: 'color 0.2s ease'
               }}
             >
               <Globe size={10} style={{ color: 'var(--gold)' }} />
-              <span>Translate this page into your language</span>
+              <span>Translate this page into your language ▾</span>
             </button>
 
             {translateMenuOpen && (

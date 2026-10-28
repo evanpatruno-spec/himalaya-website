@@ -211,50 +211,50 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
     {
       id: 'plex',
       icon: Building2,
-      title: tr(lang, 'Rentabilité Plex & Commercial', 'Commercial & Multi-Family ROI', 'Rentabilidad Comercial y Plex', '商业与多户公寓收益分析'),
+      title: tr(lang, 'Chiffrier & APH Select', 'Commercial & MLI Select', 'Simulador y APH Select', '商业与 APH Select 精算'),
       sub: tr(lang, 'TGA (Cap Rate), MRB, RNO & Cashflow', 'Cap Rate, GIM, NOI & Cashflow', 'Cap Rate, MRB, NOI y Flujo de Caja', '资本化率、净营业收入与现金流')
-    },
-    {
-      id: 'affordability',
-      icon: Calculator,
-      title: tr(lang, 'Capacité d’emprunt', 'Borrowing Capacity', 'Capacidad de Endeudamiento', '贷款能力评估 (B-20)'),
-      sub: tr(lang, 'Test B-20 & Ratios ABD/ATD', 'B-20 Stress Test & GDS/TDS', 'Prueba B-20 y Ratios', 'B-20 压力测试与负债率')
     },
     {
       id: 'mortgage',
       icon: Home,
-      title: tr(lang, 'Calculatrice hypothécaire', 'Mortgage Calculator', 'Calculadora Hipotecaria', '按揭贷款计算器'),
+      title: tr(lang, 'Hypothèque', 'Mortgage', 'Hipoteca', '按揭贷款'),
       sub: tr(lang, 'Versements & Amortissement', 'Payments & Amortization', 'Pagos y Amortización', '月供与摊销计算')
+    },
+    {
+      id: 'affordability',
+      icon: Calculator,
+      title: tr(lang, 'Capacité d’emprunt', 'Borrowing Capacity', 'Capacidad de Préstamo', '贷款能力 (B-20)'),
+      sub: tr(lang, 'Test B-20 & Ratios ABD/ATD', 'B-20 Stress Test & GDS/TDS', 'Prueba B-20 y Ratios', 'B-20 压力测试与负债率')
     },
     {
       id: 'welcome',
       icon: Landmark,
-      title: tr(lang, 'Taxe de bienvenue', 'Welcome Tax (Transfer Duties)', 'Impuesto de Transferencia', '魁北克欢迎税 (土地转让税)'),
+      title: tr(lang, 'Taxe de bienvenue', 'Welcome Tax', 'Impuesto de Transferencia', '魁北克欢迎税'),
       sub: tr(lang, 'Barèmes Québec & Montréal 2026', 'Quebec & Montreal 2026 Brackets', 'Tarifas Quebec y Montreal 2026', '魁北克与蒙特利尔 2026 税率')
     },
     {
       id: 'closing',
       icon: FileText,
-      title: tr(lang, 'Frais de clôture', 'Closing Costs', 'Costos de Cierre', '交割费用与公证预算'),
+      title: tr(lang, 'Frais de clôture', 'Closing Costs', 'Costos de Cierre', '交割费用'),
       sub: tr(lang, 'Liquidités requises & Notaire', 'Required Cash & Notary', 'Liquidez requerida y Notario', '过户所需流动资金与公证费')
+    },
+    {
+      id: 'commercialLease',
+      icon: Building2,
+      title: tr(lang, 'Loyer commercial', 'Commercial Lease', 'Alquiler Comercial', '商业租约'),
+      sub: tr(lang, 'Commercial & Franchises', 'Commercial & Franchises', 'Comercial y Franquicias', '商业地产与连锁选址')
     },
     {
       id: 'rvb',
       icon: Scale,
-      title: tr(lang, 'Louer vs Acheter', 'Rent vs. Buy', 'Alquilar vs. Comprar', '租房 vs 买房对比'),
+      title: tr(lang, 'Louer vs Acheter', 'Rent vs. Buy', 'Alquilar vs. Comprar', '租房 vs 买房'),
       sub: tr(lang, 'Équité bâtie vs Loyers perdus', 'Net Equity vs. Lost Rent', 'Capital acumulado vs. Alquiler', '净资产积累与租金成本对比')
     },
     {
       id: 'wait',
       icon: Clock,
-      title: tr(lang, 'Attendre vs Acheter', 'Wait vs. Buy Now', 'Esperar vs. Comprar Ahora', '等待降息 vs 立即购买'),
+      title: tr(lang, 'Attendre vs Acheter', 'Wait vs. Buy', 'Esperar vs. Comprar', '等待 vs 立即购买'),
       sub: tr(lang, 'Impact baisse de taux vs prix', 'Rate Drop vs. Price Growth', 'Baja de tasas vs. Aumento de precio', '利率下降与房价上涨成本对比')
-    },
-    {
-      id: 'commercialLease',
-      icon: Building2,
-      title: tr(lang, 'Loyer Commercial (Net / Brut)', 'Commercial Lease (Net / Gross)', 'Alquiler Comercial (Neto / Bruto)', '商业租约计算器 (净租/毛租)'),
-      sub: tr(lang, 'Commercial & Franchises', 'Commercial & Franchises', 'Comercial y Franquicias', '商业地产与连锁选址')
     }
   ];
 
@@ -567,474 +567,56 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
           </div>
         )}
 
-        {/* En-tête Outils Immobiliers + Partenaire Multi-Prêts (#2) */}
+        {/* Barre d'onglets épurée sur 1 seule ligne (sans titre redondant ni icônes lourdes) */}
         <div
           style={{
             display: 'flex',
+            alignItems: 'center',
             justifyContent: 'space-between',
-            alignItems: 'flex-end',
             flexWrap: 'wrap',
-            gap: '16px',
-            marginBottom: '28px'
-          }}
-        >
-          <div>
-            <span className="badge-gold" style={{ marginBottom: '8px' }}>
-              {tr(lang, 'Centre de calcul & Simulateurs 2026', 'Financial & Real Estate Simulators 2026', 'Centro de Cálculo y Simuladores 2026', '2026 房地产与金融模拟计算中心')}
-            </span>
-            <h2 className="serif-title" style={{ fontSize: '2.4rem', fontWeight: 600, lineHeight: 1.15, marginBottom: '6px' }}>
-              {tr(lang, 'Outils Immobiliers ', 'Real Estate & Financial ', 'Herramientas Inmobiliarias ', '房地产与金融 ')}
-              <span className="gold-gradient-text">{tr(lang, '& Financiers', 'Tools', 'y Financieras', '分析工具')}</span>
-            </h2>
-            <p style={{ color: 'var(--text-secondary)', fontSize: '0.94rem', maxWidth: '720px' }}>
-              {tr(
-                lang,
-                'Outils d’analyse stratégique et financière basés sur les barèmes canadiens (test B-20, SCHL) et les droits de mutation du Québec et de Montréal.',
-                'Strategic analysis calculators based on Canadian banking rules (B-20), CMHC, and Quebec/Montreal transfer duty brackets.',
-                'Herramientas de análisis estratégico y financiero basadas en las normas bancarias canadienses (B-20, SCHL) y los impuestos de transferencia de Quebec y Montreal.',
-                '基于加拿大银行规范（B-20 压力测试、CMHC）及魁北克与蒙特利尔土地转让税率的房地产财务分析工具。'
-              )}
-            </p>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
-            <a
-              href="https://equipeimpact-multi-prets.zohobookings.ca/#/Himalaya"
-              target="_blank"
-              rel="noreferrer"
-              className="btn-outline"
-              style={{
-                borderColor: 'var(--border-gold)',
-                padding: '8px 14px',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '10px',
-                fontSize: '0.8rem'
-              }}
-              title={tr(lang, 'Prendre rendez-vous hypothécaire avec Multi-Prêts', 'Book a mortgage consultation with Multi-Prêts', 'Reservar consulta hipotecaria con Multi-Prêts', '预约 Multi-Prêts 按揭顾问')}
-            >
-              <img
-                src="/gx/m/Multi_Prets.png"
-                alt="Multi-Prêts Hypothèques"
-                style={{ height: '22px', objectFit: 'contain' }}
-              />
-              <span style={{ color: 'var(--gold-light)', fontWeight: 600 }}>
-                {tr(lang, 'Préqualification Multi-Prêts →', 'Multi-Prêts Pre-Approval →', 'Precalificación Multi-Prêts →', 'Multi-Prêts 按揭预审 →')}
-              </span>
-            </a>
-            <button onClick={() => window.print()} className="btn-outline" style={{ fontSize: '0.82rem' }}>
-              <Printer size={15} /> {tr(lang, 'Imprimer / Exporter PDF', 'Print / Save PDF', 'Imprimir / Exportar PDF', '打印 / 导出 PDF')}
-            </button>
-          </div>
-        </div>
-
-        {/* Navigation des 7 outils — Barre d'onglets éditoriale sans boîtes imbriquées (#17) */}
-        <div
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            gap: '6px',
+            gap: '8px',
             borderBottom: '1px solid var(--border-subtle)',
-            marginBottom: '40px'
+            marginBottom: '36px'
           }}
         >
-          {toolsList.map((tool) => {
-            const Icon = tool.icon;
-            const isActive = activeTool === tool.id;
-            return (
-              <button
-                key={tool.id}
-                onClick={() => setActiveTool(tool.id)}
-                style={{
-                  background: 'transparent',
-                  border: 'none',
-                  borderBottom: isActive ? '2px solid var(--gold)' : '2px solid transparent',
-                  padding: '12px 16px',
-                  textAlign: 'left',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s ease',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  color: isActive ? 'var(--gold-light)' : 'var(--text-secondary)',
-                  fontWeight: isActive ? 700 : 500,
-                  fontSize: '0.84rem'
-                }}
-              >
-                <Icon size={15} style={{ color: isActive ? 'var(--gold)' : 'var(--text-muted)' }} />
-                <span>{tool.title}</span>
-              </button>
-            );
-          })}
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
+            {toolsList.map((tool) => {
+              const isActive = activeTool === tool.id;
+              return (
+                <button
+                  key={tool.id}
+                  onClick={() => setActiveTool(tool.id)}
+                  style={{
+                    background: 'transparent',
+                    border: 'none',
+                    borderBottom: isActive ? '2px solid var(--gold)' : '2px solid transparent',
+                    padding: '11px 13px',
+                    textAlign: 'left',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease',
+                    color: isActive ? 'var(--gold-light)' : 'var(--text-secondary)',
+                    fontWeight: isActive ? 700 : 500,
+                    fontSize: '0.82rem',
+                    whiteSpace: 'nowrap'
+                  }}
+                >
+                  {tool.title}
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         {/* =================================================================
-            OUTIL 1 : RENTABILITÉ PLEX & COMMERCIAL (TGA / CAP RATE, MRB, RNO)
+            OUTIL 1 : CHIFFRIER FINANCIER & SCHL APH SELECT (SANS DOUBLON)
            ================================================================= */}
         {activeTool === 'plex' && (
           <div style={{ paddingTop: '4px' }}>
-            {/* Module Chiffrier financier & SCHL APH Select (50 / 70 / 100 pts) intégré (#5) */}
-            <div style={{
-              marginBottom: '44px',
-              paddingBottom: '36px',
-              borderBottom: '1px solid rgba(200, 164, 93, 0.35)'
-            }}>
-              <ChiffrierDealSimulator
-                deal={preselectedDeal || { price: plexPrice, specs: { 'Taxes municipales': plexTaxMun, 'Taxes scolaires': plexTaxScol } }}
-                lang={lang}
-                compact={false}
-              />
-            </div>
-
-            {/* 4 KPIs principaux en bandeau éditorial épuré (zéro cadre dans un cadre #17) */}
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                gap: '24px',
-                paddingBottom: '32px',
-                marginBottom: '36px',
-                borderBottom: '1px solid var(--border-subtle)'
-              }}
-            >
-              <div style={{ textAlign: 'center', padding: '8px 12px' }}>
-                <div style={{ fontSize: '0.73rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-                  {tr(lang, 'MRB (Multiplicateur Brut)', 'GIM (Gross Multiplier)', 'MRB (Multiplicador Bruto)', 'GIM (总收入乘数)')}
-                </div>
-                <div className="num-metric gold-gradient-text" style={{ fontSize: '2.15rem', fontWeight: 700, margin: '6px 0' }}>
-                  {plexResult.mrb}x
-                </div>
-                <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
-                  {tr(lang, 'Prix / Revenus bruts', 'Price / Gross Income', 'Precio / Ingresos brutos', '购买价 / 年度总收入')}
-                </div>
-              </div>
-
-              <div style={{ textAlign: 'center', padding: '8px 12px' }}>
-                <div style={{ fontSize: '0.73rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-                  {tr(lang, 'Taux de capitalisation (TGA)', 'Cap Rate (TGA)', 'Tasa de Capitalización (Cap Rate)', '资本化率 (Cap Rate)')}
-                </div>
-                <div className="num-metric gold-gradient-text" style={{ fontSize: '2.15rem', fontWeight: 700, margin: '6px 0' }}>
-                  {plexResult.capRate} %
-                </div>
-                <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
-                  {tr(lang, 'RNO / Prix d’achat', 'NOI / Purchase Price', 'NOI / Precio de compra', '净营业收入 / 购买价')}
-                </div>
-              </div>
-
-              <div style={{ textAlign: 'center', padding: '8px 12px' }}>
-                <div style={{ fontSize: '0.73rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-                  {tr(lang, 'Cashflow net mensuel', 'Net Monthly Cashflow', 'Flujo de caja neto mensual', '每月净现金流')}
-                </div>
-                <div
-                  className="num-metric"
-                  style={{
-                    fontSize: '2.15rem',
-                    fontWeight: 700,
-                    margin: '6px 0',
-                    color: plexResult.monthlyCashflow >= 0 ? 'var(--gold-light)' : '#f87171'
-                  }}
-                >
-                  {(plexResult.monthlyCashflow >= 0 ? '+' : '') + fmtCAD(plexResult.monthlyCashflow)}
-                </div>
-                <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
-                  {tr(lang, 'Après hypothèque & dépenses', 'After debt & expenses', 'Después de hipoteca y gastos', '扣除按揭与运营开支后')}
-                </div>
-              </div>
-
-              <div style={{ textAlign: 'center', padding: '8px 12px' }}>
-                <div style={{ fontSize: '0.73rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-                  {tr(lang, 'Rendement sur mise de fonds', 'Cash-on-Cash ROI', 'Retorno sobre capital (ROI)', '首付现金回报率 (ROI)')}
-                </div>
-                <div className="num-metric" style={{ fontSize: '2.15rem', fontWeight: 700, margin: '6px 0', color: 'var(--text-main)' }}>
-                  {plexResult.roi} %
-                </div>
-                <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
-                  {tr(lang, 'Cashflow annuel / Mise de fonds', 'Annual Cashflow / Down Payment', 'Flujo anual / Pago inicial', '年度现金流 / 首付款')}
-                </div>
-              </div>
-            </div>
-
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-                gap: '26px'
-              }}
-            >
-              {/* Colonne 1 : Acquisition & Financement */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                <h3 style={{ fontSize: '1.05rem', fontWeight: 700, color: 'var(--gold-light)' }}>
-                  {tr(
-                    lang,
-                    '1. Acquisition, Revenus bruts & Financement',
-                    '1. Acquisition, Gross Income & Financing',
-                    '1. Adquisición, Ingresos Brutos y Financiamiento',
-                    '1. 收购价格、总收入与融资方案'
-                  )}
-                </h3>
-
-                <div>
-                  <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                    {tr(lang, 'Prix d’achat de l’immeuble ($)', 'Purchase Price ($)', 'Precio de compra del inmueble ($)', '物业购买价格 ($)')}
-                  </label>
-                  <input
-                    type="number"
-                    className="form-control"
-                    value={plexPrice}
-                    step="10000"
-                    onChange={(e) => setPlexPrice(Number(e.target.value))}
-                  />
-                </div>
-
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-                  <div>
-                    <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {tr(lang, 'Revenus bruts annuels ($)', 'Annual Gross Income ($)', 'Ingresos brutos anuales ($)', '年度总租金收入 ($)')}
-                    </label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      value={plexGrossIncome}
-                      step="1000"
-                      onChange={(e) => setPlexGrossIncome(Number(e.target.value))}
-                    />
-                  </div>
-                  <div>
-                    <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {tr(lang, 'Taux d’inoccupation (%)', 'Vacancy Rate (%)', 'Tasa de vacancia (%)', '空置率 (%)')}
-                    </label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      value={plexVacancy}
-                      step="0.5"
-                      onChange={(e) => setPlexVacancy(Number(e.target.value))}
-                    />
-                  </div>
-                </div>
-
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px' }}>
-                  <div>
-                    <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {tr(lang, 'Mise de fonds (%)', 'Down Payment (%)', 'Pago inicial (%)', '首付比例 (%)')}
-                    </label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      value={plexDownPct}
-                      step="1"
-                      onChange={(e) => setPlexDownPct(Number(e.target.value))}
-                    />
-                  </div>
-                  <div>
-                    <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {tr(lang, 'Taux d’intérêt (%)', 'Interest Rate (%)', 'Tasa de interés (%)', '贷款利率 (%)')}
-                    </label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      value={plexRate}
-                      step="0.05"
-                      onChange={(e) => setPlexRate(Number(e.target.value))}
-                    />
-                  </div>
-                  <div>
-                    <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {tr(lang, 'Amortissement', 'Amortization', 'Amortización', '摊销年限')}
-                    </label>
-                    <select
-                      className="form-control"
-                      value={plexAmort}
-                      onChange={(e) => setPlexAmort(Number(e.target.value))}
-                    >
-                      <option value={20}>20 {tr(lang, 'ans', 'years', 'años', '年')}</option>
-                      <option value={25}>25 {tr(lang, 'ans', 'years', 'años', '年')}</option>
-                      <option value={30}>30 {tr(lang, 'ans', 'years', 'años', '年')}</option>
-                    </select>
-                  </div>
-                </div>
-
-                <h3 style={{ fontSize: '1.05rem', fontWeight: 700, color: 'var(--gold-light)', marginTop: '8px' }}>
-                  {tr(lang, '2. Dépenses d’exploitation annuelles', '2. Annual Operating Expenses', '2. Gastos Operativos Anuales', '2. 年度运营开支')}
-                </h3>
-
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-                  <div>
-                    <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {tr(lang, 'Taxes municipales ($/an)', 'Municipal Taxes ($/yr)', 'Impuestos municipales ($/año)', '市政税 ($/年)')}
-                    </label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      value={plexTaxMun}
-                      step="100"
-                      onChange={(e) => setPlexTaxMun(Number(e.target.value))}
-                    />
-                  </div>
-                  <div>
-                    <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {tr(lang, 'Taxes scolaires ($/an)', 'School Taxes ($/yr)', 'Impuestos escolares ($/año)', '学校税 ($/年)')}
-                    </label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      value={plexTaxScol}
-                      step="50"
-                      onChange={(e) => setPlexTaxScol(Number(e.target.value))}
-                    />
-                  </div>
-                  <div>
-                    <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {tr(lang, 'Assurance immeuble ($/an)', 'Building Insurance ($/yr)', 'Seguro del edificio ($/año)', '建筑保险 ($/年)')}
-                    </label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      value={plexInsurance}
-                      step="100"
-                      onChange={(e) => setPlexInsurance(Number(e.target.value))}
-                    />
-                  </div>
-                  <div>
-                    <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {tr(lang, 'Énergie / Chauffage ($/an)', 'Energy / Heating ($/yr)', 'Energía / Calefacción ($/año)', '能源 / 供暖 ($/年)')}
-                    </label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      value={plexEnergy}
-                      step="100"
-                      onChange={(e) => setPlexEnergy(Number(e.target.value))}
-                    />
-                  </div>
-                  <div>
-                    <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {tr(lang, 'Entretien & réserve (%)', 'Maintenance Reserve (%)', 'Mantenimiento y reserva (%)', '维护与准备金 (%)')}
-                    </label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      value={plexMaintPct}
-                      step="0.5"
-                      onChange={(e) => setPlexMaintPct(Number(e.target.value))}
-                    />
-                  </div>
-                  <div>
-                    <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {tr(lang, 'Gestion / Conciergerie ($/an)', 'Management ($/yr)', 'Gestión / Conserjería ($/año)', '物业管理费 ($/年)')}
-                    </label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      value={plexMgmt}
-                      step="100"
-                      onChange={(e) => setPlexMgmt(Number(e.target.value))}
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* Colonne 2 : Bilan Financier Complet (Épuré sans boîte) */}
-              <div
-                style={{
-                  padding: '4px 0',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between'
-                }}
-              >
-                <div>
-                  <h3 className="serif-title" style={{ fontSize: '1.35rem', fontWeight: 600, color: 'var(--gold-light)', marginBottom: '16px', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-                    {tr(lang, 'Sommaire financier d’exploitation', 'Financial Operating Summary', 'Resumen Financiero Operativo', '年度财务运营汇总')}
-                  </h3>
-
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '0.9rem' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-                      <span style={{ color: 'var(--text-secondary)' }}>
-                        {tr(lang, 'Mise de fonds injectée', 'Down Payment Injected', 'Pago inicial inyectado', '投入首付款')} ({plexDownPct}%)
-                      </span>
-                      <strong>{fmtCAD(plexResult.downAmount)}</strong>
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-                      <span style={{ color: 'var(--text-secondary)' }}>
-                        {tr(lang, 'Revenus effectifs nets de vacance', 'Effective Gross Income (Net of Vacancy)', 'Ingresos efectivos netos de vacancia', '扣除空置后的有效总收入')}
-                      </span>
-                      <strong>{fmtCAD(plexResult.effectiveIncome)}</strong>
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-                      <span style={{ color: 'var(--text-secondary)' }}>
-                        {tr(lang, 'Total des dépenses d’exploitation', 'Total Operating Expenses', 'Total de gastos operativos', '运营总开支')}
-                      </span>
-                      <strong style={{ color: '#f87171' }}>- {fmtCAD(plexResult.totalExpenses)}</strong>
-                    </div>
-                    <div
-                      style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        padding: '10px 0',
-                        borderBottom: '1px solid rgba(200, 164, 93, 0.35)',
-                        color: 'var(--gold-light)',
-                        fontWeight: 700
-                      }}
-                    >
-                      <span>{tr(lang, 'Revenu Net d’Opération (RNO / NOI)', 'Net Operating Income (NOI / RNO)', 'Ingreso Operativo Neto (NOI)', '净营业收入 (NOI)')}</span>
-                      <span>{fmtCAD(plexResult.noi)}</span>
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-                      <span style={{ color: 'var(--text-secondary)' }}>
-                        {tr(lang, 'Service de la dette hypothécaire (annuel)', 'Annual Mortgage Debt Service', 'Servicio de deuda hipotecaria (anual)', '年度按揭还本付息总额')}
-                      </span>
-                      <strong style={{ color: '#f87171' }}>- {fmtCAD(plexResult.annualDebtService)}</strong>
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-                      <span style={{ color: 'var(--text-secondary)' }}>
-                        {tr(lang, 'Capital remboursé la 1re année (Équité)', '1st Year Principal Repaid (Equity)', 'Capital amortizado el 1.er año (Patrimonio)', '第一年偿还本金 (净资产积累)')}
-                      </span>
-                      <strong style={{ color: 'var(--gold-light)' }}>+ {fmtCAD(plexResult.firstYearPrincipal)}</strong>
-                    </div>
-                    <div
-                      style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        padding: '14px 0 4px',
-                        borderTop: '1px solid var(--border-gold)',
-                        fontSize: '1.05rem',
-                        fontWeight: 700
-                      }}
-                    >
-                      <span>{tr(lang, 'Cashflow net annuel réel', 'Real Net Annual Cashflow', 'Flujo de caja neto anual real', '实际年度净现金流')}</span>
-                      <span className="num-metric" style={{ fontSize: '1.22rem', color: plexResult.annualCashflow >= 0 ? 'var(--gold-light)' : '#f87171' }}>
-                        {(plexResult.annualCashflow >= 0 ? '+ ' : '') + fmtCAD(plexResult.annualCashflow)}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginTop: '26px' }}>
-                  <button
-                    onClick={() => {
-                      setLeadSent(false);
-                      setLeadModalOpen(true);
-                    }}
-                    className="btn-gold"
-                    style={{ flex: 1 }}
-                  >
-                    {tr(lang, 'Recevoir le bilan détaillé par courriel', 'Receive Full Analysis Report', 'Recibir informe detallado por correo', '通过电子邮件接收完整分析报告')}
-                  </button>
-                  <button
-                    onClick={() => window.print()}
-                    className="btn-outline"
-                  >
-                    <Printer size={15} /> {tr(lang, 'Imprimer / Exporter ce bilan (PDF)', 'Print / Export Summary (PDF)', 'Imprimir / Exportar resumen (PDF)', '打印 / 导出计算报告 (PDF)')}
-                  </button>
-                  <button
-                    onClick={() => onNavigate && onNavigate('courtiers')}
-                    className="btn-outline"
-                  >
-                    {tr(lang, 'Parler à un courtier', 'Speak with a Broker', 'Hablar con un corredor', '联系经纪人咨询')}
-                  </button>
-                </div>
-              </div>
-            </div>
+            <ChiffrierDealSimulator
+              deal={preselectedDeal || { price: plexPrice, specs: { 'Taxes municipales': plexTaxMun, 'Taxes scolaires': plexTaxScol } }}
+              lang={lang}
+              compact={false}
+            />
           </div>
         )}
 

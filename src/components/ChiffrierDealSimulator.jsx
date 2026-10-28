@@ -192,7 +192,7 @@ export default function ChiffrierDealSimulator({
   const [interestRate, setInterestRate] = useState(4.89);
   const [bpvAmount, setBpvAmount] = useState(0);
   const [bpvRate, setBpvRate] = useState(5.5);
-  const [showAdvanced, setShowAdvanced] = useState(!compact);
+  const [showAdvanced, setShowAdvanced] = useState(false);
   const [targetIrr, setTargetIrr] = useState(15);
   const [leadSaved, setLeadSaved] = useState(false);
 
