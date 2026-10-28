@@ -16,7 +16,7 @@ export default function FooterSection({
     <>
       <footer
         style={{
-          background: '#050506',
+          background: 'var(--bg-darker)',
           marginTop: 'auto',
           position: 'relative'
         }}
@@ -58,10 +58,10 @@ export default function FooterSection({
               <p style={{ fontSize: '0.84rem', color: 'var(--text-secondary)', lineHeight: 1.65 }}>
                 {tr(
                   lang,
-                  'Agence immobilière (OACIQ) spécialisée en immobilier commercial, résidentiel, pourvoiries, franchises et international depuis 2008.',
-                  'Real Estate Agency (OACIQ) specializing in commercial, residential, outfitter, franchise & international properties since 2008.',
-                  'Agencia inmobiliaria (OACIQ) especializada en propiedades comerciales, residenciales, turísticas, franquicias e internacional desde 2008.',
-                  '自 2008 年创立的魁北克持牌房地产经纪机构（OACIQ），专注于商业地产、住宅、度假庄园、连锁特许经营及国际地产。'
+                  'Agence immobilière (OACIQ) active en immobilier commercial, résidentiel, pourvoiries, franchises et international depuis 2008.',
+                  'Real Estate Agency (OACIQ) active in commercial, residential, outfitter, franchise & international properties since 2008.',
+                  'Agencia inmobiliaria (OACIQ) activa en propiedades comerciales, residenciales, turísticas, franquicias e internacional desde 2008.',
+                  '自 2008 年创立的魁北克持牌房地产经纪机构（OACIQ），深耕商业地产、住宅、度假庄园、连锁特许经营及国际地产。'
                 )}
               </p>
             </div>

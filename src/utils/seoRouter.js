@@ -148,7 +148,7 @@ export function updateDynamicSEO({ activePage, selectedDeal, selectedBroker, lan
   const baseUrl = window.location.origin || 'https://www.himalayacorp.com';
   let title = 'Immobilier Himalaya Real Estate Corp | Commercial, Villégiature, Franchises & International';
   let description =
-    'Immobilier Himalaya Real Estate Corp (OACIQ) : agence immobilière spécialisée en immobilier commercial, pourvoiries, campings, franchises, résidentiel et international.';
+    'Immobilier Himalaya Real Estate Corp (OACIQ) : agence immobilière active en immobilier commercial, pourvoiries, campings, franchises, résidentiel et international.';
   let image = `${baseUrl}/gx/partage.jpg`;
   let canonicalUrl = `${baseUrl}${getPageUrlPath(activePage)}`;
   let jsonLd = null;

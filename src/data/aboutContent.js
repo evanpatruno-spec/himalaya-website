@@ -30,7 +30,7 @@ export const ABOUT_CONTENT = {
         'Depuis sa fondation en 2008, l’agence immobilière Himalaya a su se hisser au rang de leader en immobilier au Québec, au Canada et partout dans le monde. Nos clients, issus de milieux variés, nous choisissent, entre autres, pour notre réseau de contacts international, notre connaissance approfondie des transactions immobilières, notre intégrité et pour notre sens aigu du service à la clientèle. Chaque membre de notre équipe mettra tout en œuvre afin de servir adéquatement nos clients, en proposant un vaste choix de propriétés de qualité, à vendre ou à louer, destinées tant au secteur commercial, résidentiel qu’industriel.',
       profileTitle: 'NOTRE PROFIL',
       profileParagraphs: [
-        'Immobilier Himalaya Real Estate Corp. est une agence immobilière internationale, spécialisée dans le domaine du courtage immobilier commercial, industriel et de l’investissement résidentiel. Son siège social est situé au Québec (Canada).',
+        'Immobilier Himalaya Real Estate Corp. est une agence immobilière internationale, active dans le domaine du courtage immobilier commercial, industriel et de l’investissement résidentiel. Son siège social est situé au Québec (Canada).',
         'Nous rassemblons une équipe multiculturelle de courtiers immobiliers professionnels et intègres, qui travaille sans relâche à satisfaire les besoins de nos clients d’une manière optimale. Nos courtiers choisissent Himalaya parce qu’ils désirent gravir de nouveaux sommets d’excellence et se joindre à une équipe performante et dévouée qui cherche continuellement à se dépasser.',
         'Nous ne choisissons pas seulement nos courtiers pour leur compétence et leur expérience mais également pour leur sens éthique, leur intégrité et leur désir de sans cesse trouver de meilleurs moyens d’effectuer leur travail auprès de nos clients.',
         'Pour nous, il est essentiel de créer et maintenir des liens durables avec les différents acteurs de notre industrie. Nous entretenons d’ailleurs de très bonnes relations de travail avec les utilisateurs et les gestionnaires d’espaces, les promoteurs immobiliers, les agences immobilières ainsi que les firmes de gestion immobilière et les institutions financières.'
@@ -181,7 +181,7 @@ export const ABOUT_CONTENT = {
 
     faq: {
       heading: 'Foire aux questions — Immobilier commercial & industriel',
-      subtitle: 'Réponses aux 12 questions clés sur les baux commerciaux, industriels et le courtage spécialisé au Québec.',
+      subtitle: 'Réponses aux 12 questions clés sur les baux commerciaux, industriels et le courtage commercial au Québec.',
       items: [
         {
           q: '1. Qu’est-ce qu’un loyer de base ?',
@@ -444,7 +444,7 @@ export const ABOUT_CONTENT = {
         'Since our foundation in 2008, Himalaya Real Estate has grown to become a leader in real estate in Quebec, in Canada, and throughout the world. Our clients, from many diverse backgrounds, choose Himalaya due to our numerous international contacts, our vast knowledge in real estate transactions, our integrity, and our renowned customer service. The members of our team are dedicated to best serving our clients and offering a vast selection of quality properties to either rent or buy in the commercial, residential, and industrial real estate sectors.',
       profileTitle: 'OUR PROFILE',
       profileParagraphs: [
-        'Himalaya Real Estate Corp. is an international real estate agency specializing in the commercial and industrial real estate sectors, as well as the residential investment market. Its headquarters are located in Quebec, Canada.',
+        'Himalaya Real Estate Corp. is an international real estate agency active in the commercial and industrial real estate sectors, as well as the residential investment market. Its headquarters are located in Quebec, Canada.',
         'Our team is made up of a diverse group of brokers with multicultural backgrounds who value honesty and professionalism, working relentlessly to satisfy our clients’ every request. Our brokers choose to work with Himalaya Corp. due to their desire to reach a higher level of excellence and be part of a committed, high-performing team that continually seeks to excel.',
         'With the same mindset, we choose our brokers not only for their competence and experience, but also for their work ethic, honesty, and relentless efforts to find better solutions for the clients they represent.',
         'For us, it is essential to create and maintain lasting relationships with the key players in our industry. We have established strong working relationships with space users and managers, real estate developers, brokerage agencies, property management firms, and financial institutions.'
@@ -595,7 +595,7 @@ export const ABOUT_CONTENT = {
 
     faq: {
       heading: 'Frequently Asked Questions — Commercial & Industrial Real Estate',
-      subtitle: 'Answers to the 12 key questions regarding commercial leases, industrial spaces, and specialized brokerage in Quebec.',
+      subtitle: 'Answers to the 12 key questions regarding commercial leases, industrial spaces, and commercial brokerage in Quebec.',
       items: [
         {
           q: '1. What is "Base Rent"?',
@@ -638,8 +638,8 @@ export const ABOUT_CONTENT = {
           a: 'The services of a skilled commercial real estate broker are highly valuable for your business. Make sure your broker has experience and expertise in commercial leases, as a commercial lease commits both landlord and tenant for a long period of time.'
         },
         {
-          q: '11. How many brokers specialize in commercial and industrial real estate?',
-          a: 'Among the roughly 17,000 real estate brokers in Quebec, fewer than 6% specialize in commercial and industrial real estate. This field differs significantly from residential brokerage, addressing complex business requirements.'
+          q: '11. How many brokers are commercial and industrial real estate professionals?',
+          a: 'Among the roughly 17,000 real estate brokers in Quebec, fewer than 6% practice in commercial and industrial real estate. This field differs significantly from residential brokerage, addressing complex business requirements.'
         },
         {
           q: '12. Are commercial and industrial contracts the same as residential contracts?',
@@ -858,7 +858,7 @@ ABOUT_CONTENT.ES = {
       'Desde su fundación en 2008, la agencia inmobiliaria Himalaya se ha consolidado como líder en bienes raíces en Quebec, en Canadá y en todo el mundo. Nuestros clientes, provenientes de diversos sectores, nos eligen por nuestra red internacional de contactos, nuestro profundo conocimiento de las transacciones inmobiliarias, nuestra integridad y nuestro destacado servicio al cliente. Cada miembro de nuestro equipo se compromete a atender adecuadamente a nuestros clientes, ofreciendo una amplia selección de propiedades de calidad en venta o alquiler en los sectores comercial, residencial e industrial.',
     profileTitle: 'NUESTRO PERFIL',
     profileParagraphs: [
-      'Immobilier Himalaya Real Estate Corp. es una agencia inmobiliaria internacional especializada en el corretaje inmobiliario comercial, industrial y de inversión residencial. Su sede central está ubicada en Quebec (Canadá).',
+      'Immobilier Himalaya Real Estate Corp. es una agencia inmobiliaria internacional activa en el corretaje inmobiliario comercial, industrial y de inversión residencial. Su sede central está ubicada en Quebec (Canadá).',
       'Reunimos a un equipo multicultural de corredores inmobiliarios profesionales e íntegros que trabajan incansablemente para satisfacer las necesidades de nuestros clientes de manera óptima. Nuestros corredores eligen Himalaya porque desean alcanzar nuevos niveles de excelencia y formar parte de un equipo comprometido y de alto rendimiento.',
       'No solo seleccionamos a nuestros corredores por su competencia y experiencia, sino también por su sentido ético, su integridad y su constante búsqueda de mejores soluciones para nuestros clientes.',
       'Para nosotros es esencial crear y mantener vínculos duraderos con los distintos actores de nuestra industria. Mantenemos excelentes relaciones de trabajo con usuarios y gestores de espacios comerciales, promotores inmobiliarios, agencias de corretaje, firmas de administración inmobiliaria e instituciones financieras.'
@@ -1023,7 +1023,7 @@ ABOUT_CONTENT.ES = {
   },
   faq: {
     heading: 'Preguntas frecuentes — Bienes raíces comerciales e industriales',
-    subtitle: 'Respuestas a las 12 preguntas clave sobre arrendamientos comerciales, espacios industriales y corretaje especializado en Quebec.',
+    subtitle: 'Respuestas a las 12 preguntas clave sobre arrendamientos comerciales, espacios industriales y corretaje comercial en Quebec.',
     items: [
       {
         q: '1. ¿Qué es el alquiler base (renta base)?',
@@ -1067,7 +1067,7 @@ ABOUT_CONTENT.ES = {
       },
       {
         q: '11. ¿Cuántos corredores son profesionales del sector inmobiliario comercial e industrial?',
-        a: 'De los aproximadamente 17 000 corredores inmobiliarios en Quebec, menos del 6 % son especialistas en el sector comercial e industrial. Este ámbito difiere considerablemente del residencial: no se trata de responder a necesidades personales, sino a exigencias empresariales complejas.'
+        a: 'De los aproximadamente 17 000 corredores inmobiliarios en Quebec, menos del 6 % son profesionales del sector comercial e industrial. Este ámbito difiere considerablemente del residencial: no se trata de responder a necesidades personales, sino a exigencias empresariales complejas.'
       },
       {
         q: '12. ¿Los contratos comerciales e industriales son iguales a los contratos residenciales?',

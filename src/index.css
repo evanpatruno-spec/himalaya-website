@@ -18,26 +18,26 @@
 }
 
 :root {
-  --bg-dark: #09090b;
-  --bg-darker: #050506;
-  --bg-card: #121215;
-  --bg-card-hover: #18181c;
-  --bg-surface: #151519;
-  --gold: #c8a45d;
-  --gold-primary: #c8a45d;
-  --gold-light: #e3c485;
-  --gold-dark: #9c7a38;
+  --bg-dark: #161b26;
+  --bg-darker: #11151f;
+  --bg-card: #1e2534;
+  --bg-card-hover: #262f42;
+  --bg-surface: #212838;
+  --gold: #d4af5f;
+  --gold-primary: #d4af5f;
+  --gold-light: #f0d596;
+  --gold-dark: #a88438;
   --text-main: #ffffff;
   --text-primary: #ffffff;
-  --text-secondary: #c4c4cc;
-  --text-muted: #8a8a94;
-  --border-subtle: rgba(255, 255, 255, 0.09);
-  --border-gold: rgba(200, 164, 93, 0.34);
-  --success: #e3c485;
+  --text-secondary: #dce2ee;
+  --text-muted: #a8b3c7;
+  --border-subtle: rgba(255, 255, 255, 0.14);
+  --border-gold: rgba(212, 175, 95, 0.44);
+  --success: #f0d596;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-serif: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --shadow-lg: 0 18px 44px rgba(0, 0, 0, 0.65);
-  --shadow-gold: 0 8px 26px rgba(200, 164, 93, 0.18);
+  --shadow-lg: 0 18px 44px rgba(6, 9, 15, 0.45);
+  --shadow-gold: 0 10px 28px rgba(212, 175, 95, 0.24);
 }
 
 * {
@@ -52,6 +52,7 @@ html {
 
 body {
   background-color: var(--bg-dark);
+  background-image: radial-gradient(ellipse 90% 45% at 50% 0%, rgba(212, 175, 95, 0.08) 0%, transparent 70%);
   color: var(--text-main);
   font-family: var(--font-sans);
   font-variant-numeric: tabular-nums lining-nums;
@@ -246,16 +247,17 @@ button, select, input, textarea {
   position: sticky;
   top: 0;
   z-index: 120;
-  background: #000000;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(15, 19, 28, 0.94);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   transition: background 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
 }
 
 .main-header.is-scrolled {
-  background: rgba(5, 5, 7, 0.96);
-  backdrop-filter: blur(14px);
+  background: rgba(17, 21, 31, 0.96);
+  backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border-gold);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.75);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
 }
 
 /* Hauteur constante de 88px : aucun décalage de mise en page (zéro clignotement au scroll) */
@@ -388,7 +390,7 @@ button, select, input, textarea {
   pointer-events: auto;
 }
 
-/* Bandeau panoramique Montagne Enneigée Noir & Blanc sous le losange (#1) */
+/* Bandeau panoramique Montagne Enneigée sous le losange (#1) */
 .internal-mountain-banner {
   position: relative;
   min-height: 235px;
@@ -399,7 +401,7 @@ button, select, input, textarea {
   justify-content: flex-end;
   text-align: center;
   overflow: hidden;
-  background: #141519;
+  background: #1c2331;
   border-bottom: 1px solid var(--border-subtle);
 }
 
@@ -409,7 +411,7 @@ button, select, input, textarea {
   inset: 0;
   background: url('/gx/m/bg-gen.jpg') 50% 0 no-repeat;
   background-size: cover;
-  filter: grayscale(100%) contrast(1.08) brightness(0.88);
+  filter: grayscale(20%) contrast(1.04) brightness(1.16);
   z-index: 0;
 }
 
@@ -417,7 +419,7 @@ button, select, input, textarea {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(9, 9, 11, 0.15) 0%, rgba(9, 9, 11, 0.35) 65%, rgba(9, 9, 11, 0.92) 100%);
+  background: linear-gradient(180deg, rgba(22, 27, 38, 0.05) 0%, rgba(22, 27, 38, 0.22) 65%, var(--bg-dark) 100%);
   z-index: 1;
 }
 
@@ -618,8 +620,8 @@ body {
   height: 100%;
   object-fit: cover;
   z-index: 0;
-  opacity: 0.92;
-  filter: brightness(1.08) saturate(1.05);
+  opacity: 1;
+  filter: brightness(1.24) contrast(1.04) saturate(1.12);
 }
 
 .hero-overlay {
@@ -627,10 +629,10 @@ body {
   inset: 0;
   background: linear-gradient(
     180deg,
-    rgba(9, 9, 11, 0.25) 0%,
-    rgba(9, 9, 11, 0.14) 45%,
-    rgba(9, 9, 11, 0.72) 82%,
-    #09090b 100%
+    rgba(17, 21, 31, 0.10) 0%,
+    rgba(17, 21, 31, 0.04) 48%,
+    rgba(22, 27, 38, 0.50) 84%,
+    var(--bg-dark) 100%
   );
   z-index: 1;
 }
@@ -760,17 +762,19 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 1.35s cubic-bezier(0.19, 1, 0.22, 1);
+  filter: brightness(1.12) saturate(1.06);
+  transition: transform 1.35s cubic-bezier(0.19, 1, 0.22, 1), filter 0.5s ease;
 }
 
 .specialty-card:hover img {
   transform: scale(1.07);
+  filter: brightness(1.18) saturate(1.1);
 }
 
 .specialty-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(9, 9, 11, 0.05) 0%, rgba(9, 9, 11, 0.45) 55%, rgba(9, 9, 11, 0.94) 100%);
+  background: linear-gradient(180deg, rgba(15, 19, 28, 0) 0%, rgba(15, 19, 28, 0.22) 55%, rgba(15, 19, 28, 0.82) 100%);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -807,7 +811,7 @@ body {
   height: auto;
   border-radius: 6px;
   overflow: hidden;
-  background: #09090b;
+  background: var(--bg-card);
 }
 
 .property-img-wrap::after {
@@ -816,9 +820,9 @@ body {
   inset: 0;
   background: linear-gradient(
     180deg,
-    rgba(9, 9, 11, 0.18) 0%,
-    rgba(9, 9, 11, 0) 42%,
-    rgba(9, 9, 11, 0.86) 100%
+    rgba(15, 19, 28, 0.06) 0%,
+    rgba(15, 19, 28, 0) 48%,
+    rgba(15, 19, 28, 0.65) 100%
   );
   pointer-events: none;
   z-index: 1;
@@ -828,12 +832,13 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  filter: brightness(1.06);
   transition: transform 1.35s cubic-bezier(0.19, 1, 0.22, 1), filter 0.8s ease;
 }
 
 .property-card:hover .property-img-wrap img {
   transform: scale(1.065);
-  filter: brightness(1.05);
+  filter: brightness(1.12);
 }
 
 /* Portraits des courtiers avec fondu studio & ligne dorée animée (#10, #11, #12) */
@@ -864,7 +869,7 @@ body {
   position: relative;
   width: 100%;
   aspect-ratio: 314 / 460;
-  background: #09090b;
+  background: var(--bg-card);
   border-radius: 6px;
   overflow: hidden;
   cursor: pointer;
@@ -876,8 +881,8 @@ body {
   inset: 0;
   background: linear-gradient(
     180deg,
-    rgba(9, 9, 11, 0) 55%,
-    rgba(9, 9, 11, 0.92) 100%
+    rgba(15, 19, 28, 0) 64%,
+    rgba(15, 19, 28, 0.72) 100%
   );
   pointer-events: none;
 }
@@ -923,14 +928,14 @@ body {
 }
 
 .modal-panel {
-  background: #0e0e11;
+  background: var(--bg-card);
   border: 1px solid var(--border-gold);
   border-radius: 10px;
   max-width: 1040px;
   width: 100%;
   max-height: 90vh;
   overflow-y: auto;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.92);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.75);
   animation: modalFadeUp 0.28s cubic-bezier(0.22, 1, 0.36, 1);
 }
 

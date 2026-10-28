@@ -39,7 +39,7 @@ export const TRANSLATIONS = {
     hero: {
       titleStart: 'Nous déplaçons des montagnes',
       titleHighlight: 'pour vous',
-      subtitle: 'Agence immobilière spécialisée dans le courtage commercial, industriel, la villégiature (auberge, camping, pourvoirie) et l’investissement résidentiel.',
+      subtitle: 'Agence immobilière active dans le courtage commercial, industriel, la villégiature (auberge, camping, pourvoirie) et l’investissement résidentiel.',
       searchPlaceholder: 'Ville, mot-clé ou No Centris/MLS...',
       allCategories: 'Toutes les catégories',
       catCommercial: 'Commercial & Industriel',
@@ -112,7 +112,7 @@ export const TRANSLATIONS = {
     about: {
       title: 'À propos d’Immobilier',
       p1: 'Depuis sa fondation en 2008 par Roger Rhéaume et Geniev Mondoux, l’agence immobilière Himalaya a su se hisser au rang de leader en immobilier au Québec, au Canada et à l’international. Nos clients nous choisissent pour notre réseau de contacts, notre connaissance approfondie des transactions immobilières, notre intégrité et notre sens aigu du service à la clientèle.',
-      p2: 'Immobilier Himalaya Real Estate Corp. rassemble une équipe multiculturelle de courtiers immobiliers professionnels et intègres, spécialisée dans le courtage immobilier commercial, industriel, récréotouristique (auberges, campings, pourvoiries) et l’investissement résidentiel.',
+      p2: 'Immobilier Himalaya Real Estate Corp. rassemble une équipe multiculturelle de courtiers immobiliers professionnels et intègres, active dans le courtage immobilier commercial, industriel, récréotouristique (auberges, campings, pourvoiries) et l’investissement résidentiel.',
       missionTitle: 'Notre mission & nos valeurs',
       missionText: 'Favoriser la conclusion de transactions justes et honnêtes, cultiver les relations professionnelles à long terme et offrir un réseau local et international fondé sur la collaboration, la communication, l’écoute, le respect et l’éthique.',
       leadershipTitle: 'Direction de l’agence',
@@ -233,7 +233,7 @@ export const TRANSLATIONS = {
     hero: {
       titleStart: 'We move mountains',
       titleHighlight: 'for you',
-      subtitle: 'International real estate agency specialized in commercial, industrial, resort (inn, campground, outfitter) and residential investment brokerage.',
+      subtitle: 'International real estate agency active in commercial, industrial, resort (inn, campground, outfitter) and residential investment brokerage.',
       searchPlaceholder: 'City, keyword or Centris/MLS No...',
       allCategories: 'All categories',
       catCommercial: 'Commercial & Industrial',
@@ -306,7 +306,7 @@ export const TRANSLATIONS = {
     about: {
       title: 'About Himalaya',
       p1: 'Since its founding in 2008 by Roger Rhéaume and Geniev Mondoux, Himalaya Real Estate has risen to become a leader in real estate in Quebec, across Canada and internationally. Our clients choose us for our international network of contacts, our in-depth knowledge of real estate transactions, our integrity and our strong commitment to customer service.',
-      p2: 'Immobilier Himalaya Real Estate Corp. brings together a multicultural team of professional real estate brokers specialized in commercial, industrial, resort (inns, campgrounds, outfitters) and residential investment brokerage.',
+      p2: 'Immobilier Himalaya Real Estate Corp. brings together a multicultural team of professional real estate brokers active in commercial, industrial, resort (inns, campgrounds, outfitters) and residential investment brokerage.',
       missionTitle: 'Our mission & values',
       missionText: 'Promote fair and honest transactions, cultivate long-term professional relationships, and provide a local and international network built on collaboration, communication, active listening, respect and ethics.',
       leadershipTitle: 'Agency Leadership',
@@ -427,7 +427,7 @@ export const TRANSLATIONS = {
     hero: {
       titleStart: 'Movemos montañas',
       titleHighlight: 'por usted',
-      subtitle: 'Agencia inmobiliaria internacional especializada en corretaje comercial, industrial, turístico (posadas, campings, cotos de caza y pesca) e inversión residencial.',
+      subtitle: 'Agencia inmobiliaria internacional activa en corretaje comercial, industrial, turístico (posadas, campings, cotos de caza y pesca) e inversión residencial.',
       searchPlaceholder: 'Ciudad, palabra clave o Nº Centris/MLS...',
       allCategories: 'Todas las categorías',
       catCommercial: 'Comercial e Industrial',
@@ -500,7 +500,7 @@ export const TRANSLATIONS = {
     about: {
       title: 'Acerca de Himalaya',
       p1: 'Desde su fundación en 2008 por Roger Rhéaume y Geniev Mondoux, la agencia inmobiliaria Himalaya se ha consolidado como líder inmobiliario en Quebec, Canadá y a nivel internacional.',
-      p2: 'Immobilier Himalaya Real Estate Corp. reúne un equipo multicultural de corredores inmobiliarios profesionales especializados en corretaje comercial, industrial, turístico y residencial.',
+      p2: 'Immobilier Himalaya Real Estate Corp. reúne un equipo multicultural de corredores inmobiliarios profesionales activos en corretaje comercial, industrial, turístico y residencial.',
       missionTitle: 'Nuestra misión y valores',
       missionText: 'Fomentar transacciones justas y honestas, cultivar relaciones profesionales a largo plazo y ofrecer una red local e internacional basada en la colaboración, la comunicación, la escucha, el respeto y la ética.',
       leadershipTitle: 'Dirección de la agencia',
