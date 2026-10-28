@@ -191,10 +191,10 @@ export default function InternationalInvestorsView({
       ),
       desc: tr(
         lang,
-        'Présente au Salon de la Franchise de Paris et aux congrès mondiaux ICSC, Immobilier Himalaya accompagne les entrepreneurs et investisseurs étrangers dans l’acquisition de franchises établies (restauration, commerce, hôtellerie) et de bâtisses commerciales au Québec.',
-        'Active at Franchise Expo Paris and global ICSC conventions, Immobilier Himalaya guides international entrepreneurs and investors in acquiring established franchises (dining, retail, hospitality) and commercial properties across Quebec.',
-        'Presente en el Salón de la Franquicia de París y en las convenciones mundiales ICSC, Immobilier Himalaya acompaña a empresarios e inversores extranjeros en la adquisición de franquicias consolidadas e inmuebles comerciales en Quebec.',
-        '喜马拉雅地产常年参展巴黎国际特许经营展与全球 ICSC 峰会，协助国际企业家与投资人收购魁北克成熟连锁品牌门店（餐饮、零售、酒店）及高收益商业物业。'
+        'Présente au Salon de la Franchise de Paris et aux congrès nord-américains ICSC, Immobilier Himalaya accompagne les entrepreneurs et investisseurs étrangers dans l’acquisition de franchises établies (restauration, commerce, hôtellerie) et de bâtisses commerciales au Québec.',
+        'Active at Franchise Expo Paris and North American ICSC conventions, Immobilier Himalaya guides international entrepreneurs and investors in acquiring established franchises (dining, retail, hospitality) and commercial properties across Quebec.',
+        'Presente en el Salón de la Franquicia de París y en los congresos norteamericanos ICSC, Immobilier Himalaya acompaña a empresarios e inversores extranjeros en la adquisición de franquicias consolidadas e inmuebles comerciales en Quebec.',
+        '喜马拉雅地产常年参展巴黎国际特许经营展与北美 ICSC 峰会，协助国际企业家与投资人收购魁北克成熟连锁品牌门店（餐饮、零售、酒店）及高收益商业物业。'
       )
     },
     {
