@@ -13,8 +13,10 @@ export default function HeaderNav({
   navigateTo,
   setContactForm,
   setNdaModalDeal,
+  liveDealsCount = 0,
   totalDealsCount = 0
 }) {
+  const dealsCount = liveDealsCount || totalDealsCount;
   return (
     <header className={`main-header ${isScrolled ? 'is-scrolled' : ''}`}>
       <div className="container header-inner">
@@ -593,36 +595,37 @@ export default function HeaderNav({
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               {[
                 {
+                  id: 'home',
+                  label: tr(lang, 'Accueil', 'Home', 'Inicio', '首页')
+                },
+                {
                   id: 'a-propos',
-                  label: tr(lang, 'L’Agence (Montréal & International)', 'The Agency (Montreal & International)', 'La Agencia (Montreal e Internacional)', '关于本行（蒙特利尔与国际）'),
+                  label: tr(lang, 'L’Agence', 'The Agency', 'La Agencia', '关于本行'),
                   subId: 'agences',
-                  subLabel: tr(lang, 'Bureaux', 'Offices', 'Oficinas', '分支机构')
+                  subLabel: tr(lang, 'Nos agences', 'Our Offices', 'Oficinas', '分支机构')
                 },
                 { id: 'courtiers', label: t.nav.brokers },
                 {
                   id: 'franchises',
-                  label: tr(
-                    lang,
-                    'Franchises (Pacini, Arabian Oud, Torino, La Fayette, Cotard, Daoust)',
-                    'Franchises (Pacini, Arabian Oud, Torino, La Fayette, Cotard, Daoust)',
-                    'Franquicias (Pacini, Arabian Oud, Torino, La Fayette, Cotard, Daoust)',
-                    '连锁特许经营 (Pacini, Arabian Oud, Torino, La Fayette, Cotard, Daoust)'
-                  )
+                  label: tr(lang, 'Franchises', 'Franchises', 'Franquicias', '特许经营')
                 },
-                { id: 'proprietes', label: `${t.nav.properties} (${totalDealsCount})` },
+                {
+                  id: 'proprietes',
+                  label: dealsCount > 0 ? `${t.nav.properties} (${dealsCount})` : t.nav.properties
+                },
                 {
                   id: 'investisseurs-internationaux',
                   label: tr(
                     lang,
-                    'Portail Investisseurs Internationaux',
-                    'International Investors Portal',
-                    'Portal Inversores Internacionales',
-                    '国际投资者门户 (税务与豁免)'
+                    'Investisseurs Internationaux',
+                    'International Investors',
+                    'Inversores Internacionales',
+                    '国际投资者门户'
                   )
                 },
                 {
                   id: 'outils',
-                  label: tr(lang, 'Chiffrier MREX & Outils Financiers', 'MREX Simulator & Financial Tools', 'Simulador MREX y Herramientas', 'MREX 精算模型与金融工具'),
+                  label: tr(lang, 'Outils & Médias', 'Tools & Media', 'Herramientas y Medios', '金融工具与媒体'),
                   subId: 'evenements',
                   subLabel: tr(lang, 'Actualités', 'News', 'Noticias', '最新动态')
                 },
@@ -637,21 +640,23 @@ export default function HeaderNav({
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    padding: '12px 0',
-                    borderBottom: '1px solid rgba(255,255,255,0.06)'
+                    padding: '13px 0',
+                    borderBottom: '1px solid rgba(255,255,255,0.07)'
                   }}
                 >
                   <button
                     onClick={() => navigateTo(item.id)}
-                    className="serif-title"
                     style={{
                       background: 'none',
                       border: 'none',
                       padding: 0,
                       textAlign: 'left',
-                      color: activePage === item.id ? 'var(--gold-light)' : '#fff',
-                      fontWeight: 600,
-                      fontSize: '1.2rem',
+                      fontFamily: 'var(--font-sans)',
+                      color: activePage === item.id ? 'var(--gold)' : '#ffffff',
+                      fontWeight: activePage === item.id ? 700 : 600,
+                      fontSize: '0.92rem',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.06em',
                       cursor: 'pointer'
                     }}
                   >

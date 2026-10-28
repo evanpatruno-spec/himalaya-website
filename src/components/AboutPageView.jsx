@@ -52,20 +52,27 @@ export default function AboutPageView({
     if (!sectorKey || sectorKey === 'all') return true;
     const name = fr.name || '';
     const id = fr.id || '';
+    const sectorVal = fr.sectorValue || '';
     if (sectorKey === 'restauration') {
       return (
-        ['Subway', 'Thaïzone', 'Les Moulins La Fayette', 'Pacini', 'Grillade Torino'].includes(name) ||
-        ['pacini', 'grillade_torino', 'moulin_lafayette'].includes(id)
+        sectorVal === 'Restauration & Alimentation' ||
+        ['Subway', 'Thaïzone', 'Les Moulins La Fayette', 'Pacini', 'Grillade Torino', 'Chocolat Cotard'].includes(name) ||
+        ['pacini', 'grillade_torino', 'moulin_lafayette', 'chocolat_cotard'].includes(id)
       );
     }
-    if (sectorKey === 'chocolaterie') {
+    if (sectorKey === 'commerce_detail') {
       return (
-        ['Chocolat Cotard', 'Les Pères Nature', 'Arabian Oud'].includes(name) ||
-        ['chocolat_cotard', 'arabian_oud'].includes(id)
+        sectorVal === 'Commerce de détail' ||
+        ['Arabian Oud'].includes(name) ||
+        ['arabian_oud'].includes(id)
       );
     }
     if (sectorKey === 'services') {
-      return ['Nettoyeur Daoust'].includes(name) || ['nettoyeur_daoust'].includes(id);
+      return (
+        sectorVal === 'Services & Cliniques' ||
+        ['Nettoyeur Daoust'].includes(name) ||
+        ['nettoyeur_daoust'].includes(id)
+      );
     }
     return true;
   };
@@ -967,15 +974,15 @@ export default function AboutPageView({
                 },
                 {
                   id: 'restauration',
-                  label: tr(lang, 'Restauration & Boulangerie', 'Restaurant & Bakery', 'Restauración y Panadería', '餐饮与烘焙连锁')
+                  label: tr(lang, 'Restauration & Alimentation (4)', 'Food & Dining (4)', 'Restauración y Alimentación (4)', '餐饮与食品零售 (4)')
                 },
                 {
-                  id: 'chocolaterie',
-                  label: tr(lang, 'Chocolaterie & Café', 'Chocolate & Café', 'Chocolatería y Café', '巧克力与精品咖啡')
+                  id: 'commerce_detail',
+                  label: tr(lang, 'Commerce de détail & Parfumerie (1)', 'Retail & Perfumery (1)', 'Comercio minorista y Perfumería (1)', '奢华香氛与精品零售 (1)')
                 },
                 {
                   id: 'services',
-                  label: tr(lang, 'Services & Entretien', 'Services & Dry Cleaning', 'Servicios y Tintorería', '生活服务与干洗')
+                  label: tr(lang, 'Services & Entretien (1)', 'Services & Dry Cleaning (1)', 'Servicios y Tintorería (1)', '生活服务与干洗 (1)')
                 }
               ].map((tab) => {
                 const isSelected = franchiseSectorFilter === tab.id;
