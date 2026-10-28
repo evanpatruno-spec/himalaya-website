@@ -129,16 +129,134 @@ export default function App() {
   });
   const [webLeads, setWebLeads] = useState(() => getStoredWebLeads());
 
-  // Détection du défilement avec hystérésis
+  // Détection du défilement avec hystérésis + Barre de progression dorée
   useEffect(() => {
+    let bar = document.getElementById('hm-reading-progress');
+    if (!bar && document.body) {
+      bar = document.createElement('div');
+      bar.id = 'hm-reading-progress';
+      document.body.prepend(bar);
+    }
     const onScroll = () => {
       const y = window.scrollY;
       setIsScrolled(prev => (prev ? y > 35 : y > 110));
+      if (bar) {
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const pct = height > 0 ? Math.min(100, Math.max(0, (y / height) * 100)) : 0;
+        bar.style.width = pct + '%';
+      }
     };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  // Moteur global d'animations au défilement (Scroll Reveal + Stagger) & Anti-orphelins typographiques
+  useEffect(() => {
+    let revealObs = null;
+
+    const applyMotionAndTypography = () => {
+      // 1. Liens insécables sur ponctuations françaises (?, !, :, ;, », %, $) et derniers mots courts des titres/paragraphes
+      const textTargets = document.querySelectorAll('h1, h2, h3, h4, p, li, a, button, .badge-gold');
+      textTargets.forEach(el => {
+        if (el.dataset.hmTypoBound === '1') return;
+        const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+        const nodes = [];
+        let n;
+        while ((n = walker.nextNode())) nodes.push(n);
+        nodes.forEach(textNode => {
+          let v = textNode.nodeValue;
+          if (!v || !v.trim()) return;
+          v = v.replace(/\s+([?!:;»%$→])/g, '\u00A0$1');
+          textNode.nodeValue = v;
+        });
+        if (el.matches('h1, h2, h3, h4') && nodes.length > 0) {
+          const lastNode = nodes[nodes.length - 1];
+          const lv = lastNode.nodeValue;
+          if (lv && lv.trim().length > 0) {
+            lastNode.nodeValue = lv.replace(/\s+(\S{1,10}\s*)$/, '\u00A0$1');
+          }
+        }
+        el.dataset.hmTypoBound = '1';
+      });
+
+      // 2. Enregistrement des éléments animés au scroll
+      const toObserve = [];
+      const register = (el, variant = 'hm-anim-up', delayMs = 0) => {
+        if (!el || el.classList.contains('hm-anim') || el.closest('.modal-backdrop') || el.closest('.main-header')) return;
+        el.classList.add('hm-anim', variant);
+        if (delayMs > 0) el.style.setProperty('--hm-delay', `${delayMs}ms`);
+        toObserve.push(el);
+      };
+
+      // Grilles avec effet cascade (Stagger)
+      document.querySelectorAll('.specialty-grid, .properties-grid, .brokers-grid').forEach(grid => {
+        Array.from(grid.children).forEach((card, idx) => {
+          register(card, 'hm-anim-up', (idx % 4) * 85);
+        });
+      });
+
+      // Grilles CSS inline (chiffres clés, franchises, cartes d'outils, agences, balados)
+      document.querySelectorAll('main section .container > div').forEach(block => {
+        const st = block.getAttribute('style') || '';
+        if (st.includes('grid')) {
+          Array.from(block.children).forEach((child, idx) => {
+            register(child, 'hm-anim-up', (idx % 4) * 85);
+          });
+        }
+      });
+
+      // Titres de sections & en-têtes éditoriaux
+      document.querySelectorAll('main section h2, main section h3, .gold-hairline').forEach(el => {
+        register(el, 'hm-anim-up', 0);
+      });
+
+      if (!revealObs && typeof IntersectionObserver !== 'undefined') {
+        revealObs = new IntersectionObserver(
+          entries => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('hm-in-view');
+                revealObs.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.08, rootMargin: '0px 0px -30px 0px' }
+        );
+      }
+
+      toObserve.forEach(el => {
+        if (revealObs) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top < window.innerHeight * 0.92) {
+            el.classList.add('hm-in-view');
+          } else {
+            revealObs.observe(el);
+          }
+        } else {
+          el.classList.add('hm-in-view');
+        }
+      });
+    };
+
+    const t1 = setTimeout(applyMotionAndTypography, 40);
+    const t2 = setTimeout(applyMotionAndTypography, 350);
+
+    const mutObs = new MutationObserver(() => {
+      applyMotionAndTypography();
+    });
+    const rootEl = document.getElementById('root');
+    if (rootEl) {
+      mutObs.observe(rootEl, { childList: true, subtree: true });
+    }
+
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      mutObs.disconnect();
+      if (revealObs) revealObs.disconnect();
+    };
+  }, [activePage, lang, filtrePropriete, rechercheBut, filtreRegion, brokerCategoryFilter, aboutInitialTab, toolInitialTab, contactTab]);
 
   // Synchronisation URL propre (/proprietes/slug, /courtiers/slug, /investisseurs-internationaux, etc.) + rétrocompatibilité ?propriete= & #hash (#15)
   useEffect(() => {
