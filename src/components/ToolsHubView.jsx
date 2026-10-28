@@ -567,44 +567,45 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
           </div>
         )}
 
-        {/* Barre d'onglets épurée sur 1 seule ligne (sans titre redondant ni icônes lourdes) */}
+        {/* Barre d'onglets épurée strictement sur 1 seule ligne */}
         <div
           style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            flexWrap: 'wrap',
-            gap: '8px',
+            flexWrap: 'nowrap',
+            overflowX: 'auto',
+            scrollbarWidth: 'none',
+            gap: '2px',
             borderBottom: '1px solid var(--border-subtle)',
             marginBottom: '36px'
           }}
         >
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
-            {toolsList.map((tool) => {
-              const isActive = activeTool === tool.id;
-              return (
-                <button
-                  key={tool.id}
-                  onClick={() => setActiveTool(tool.id)}
-                  style={{
-                    background: 'transparent',
-                    border: 'none',
-                    borderBottom: isActive ? '2px solid var(--gold)' : '2px solid transparent',
-                    padding: '11px 13px',
-                    textAlign: 'left',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s ease',
-                    color: isActive ? 'var(--gold-light)' : 'var(--text-secondary)',
-                    fontWeight: isActive ? 700 : 500,
-                    fontSize: '0.82rem',
-                    whiteSpace: 'nowrap'
-                  }}
-                >
-                  {tool.title}
-                </button>
-              );
-            })}
-          </div>
+          {toolsList.map((tool) => {
+            const isActive = activeTool === tool.id;
+            return (
+              <button
+                key={tool.id}
+                onClick={() => setActiveTool(tool.id)}
+                style={{
+                  background: 'transparent',
+                  border: 'none',
+                  borderBottom: isActive ? '2px solid var(--gold)' : '2px solid transparent',
+                  padding: '11px 8px',
+                  textAlign: 'center',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  color: isActive ? 'var(--gold-light)' : 'var(--text-secondary)',
+                  fontWeight: isActive ? 700 : 500,
+                  fontSize: '0.77rem',
+                  whiteSpace: 'nowrap',
+                  flexShrink: 0
+                }}
+              >
+                {tool.title}
+              </button>
+            );
+          })}
         </div>
 
         {/* =================================================================
