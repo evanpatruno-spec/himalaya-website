@@ -117,6 +117,7 @@ export default function App() {
   const [contactTab, setContactTab] = useState('general');
   const [contactSubmitted, setContactSubmitted] = useState(false);
   const [contactForm, setContactForm] = useState({
+    selectedBrokerId: '',
     subject: 'Acquérir une propriété / Dossiers hors-marché',
     assetType: 'Pourvoirie / Camping / Villégiature',
     preferredTime: 'Matin (8h–12h)',
@@ -477,7 +478,7 @@ export default function App() {
       case 'investisseurs-internationaux': return tr(lang, 'Portail Investisseurs Internationaux', 'International Investors Desk', 'Portal de Inversores Internacionales', '国际买家与投资专区');
       case 'courtiers': return t.nav.brokers;
       case 'agences': return t.nav.agencies;
-      case 'outils': return tr(lang, 'Outils & Simulateur SCHL APH Select', 'MREX & CMHC MLI Select Simulators', 'Herramientas y Simulador SCHL APH Select', 'MREX 与 SCHL APH Select 金融模拟器');
+      case 'outils': return tr(lang, 'Outils, Calculateurs & Évaluation Immobilière', 'Tools, Calculators & Property Valuation', 'Herramientas, Calculadoras y Evaluación', '金融计算器、物业估值与资源');
       case 'evenements': return t.nav.news;
       case 'balados': return t.nav.podcasts;
       case 'nous-joindre': return t.nav.contact;
@@ -487,8 +488,11 @@ export default function App() {
 
   const handleContactSubmit = async (e) => {
     e.preventDefault();
+    const chosenBroker = INITIAL_HIMALAYA_BROKERS.find(b => b.id === contactForm.selectedBrokerId) || null;
     await submitLeadToProspection({
       type: contactTab === 'valuation' ? 'valuation' : 'contact',
+      source: contactTab === 'valuation' ? 'Évaluation immobilière (Nous joindre)' : 'Formulaire Nous joindre',
+      name: contactForm.fullName,
       subject: contactTab === 'valuation' ? `Évaluation : ${contactForm.assetType}` : contactForm.subject,
       assetType: contactForm.assetType,
       preferredTime: contactForm.preferredTime,
@@ -497,6 +501,9 @@ export default function App() {
       email: contactForm.email,
       city: contactForm.city,
       revenue: contactForm.revenue,
+      assigned_broker: chosenBroker ? chosenBroker.name : 'Direction générale — Immobilier Himalaya',
+      broker_email: chosenBroker ? chosenBroker.email : 'info@himalayacorp.com',
+      broker_id: chosenBroker ? chosenBroker.id : '',
       message: contactForm.message
         ? `[Rappel souhaité : ${contactForm.preferredTime}] ${contactForm.message}`
         : `[Rappel souhaité : ${contactForm.preferredTime}]`

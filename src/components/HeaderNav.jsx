@@ -1,6 +1,26 @@
-import React from 'react';
-import { ExternalLink, Menu, X, ArrowRight } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { ExternalLink, Menu, X, ArrowRight, Globe } from 'lucide-react';
 import { LANGUAGE_OPTIONS, tr } from '../data/translations';
+
+const EXTRA_TRANSLATE_LANGUAGES = [
+  { code: 'FR', label: 'Français (Original)', native: true },
+  { code: 'EN', label: 'English (Native)', native: true },
+  { code: 'ES', label: 'Español (Nativo)', native: true },
+  { code: 'ZH', label: '中文 — Mandarin (原生)', native: true },
+  { code: 'ar', label: 'العربية (Arabic)', native: false },
+  { code: 'hy', label: 'Հայերեն (Armenian)', native: false },
+  { code: 'pt', label: 'Português (Portuguese)', native: false },
+  { code: 'it', label: 'Italiano (Italian)', native: false },
+  { code: 'de', label: 'Deutsch (German)', native: false },
+  { code: 'ru', label: 'Русский (Russian)', native: false },
+  { code: 'ja', label: '日本語 (Japanese)', native: false },
+  { code: 'ko', label: '한국어 (Korean)', native: false },
+  { code: 'hi', label: 'हिन्दी (Hindi)', native: false },
+  { code: 'he', label: 'עברית (Hebrew)', native: false },
+  { code: 'fa', label: 'فارسی (Persian)', native: false },
+  { code: 'tr', label: 'Türkçe (Turkish)', native: false },
+  { code: 'vi', label: 'Tiếng Việt (Vietnamese)', native: false }
+];
 
 export default function HeaderNav({
   activePage,
@@ -17,6 +37,80 @@ export default function HeaderNav({
   totalDealsCount = 0
 }) {
   const dealsCount = liveDealsCount || totalDealsCount;
+  const [translateMenuOpen, setTranslateMenuOpen] = useState(false);
+  const [activeAutoTranslate, setActiveAutoTranslate] = useState('');
+  const translateRef = useRef(null);
+
+  useEffect(() => {
+    const onClickOutside = (e) => {
+      if (translateRef.current && !translateRef.current.contains(e.target)) {
+        setTranslateMenuOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', onClickOutside);
+    return () => document.removeEventListener('mousedown', onClickOutside);
+  }, []);
+
+  const triggerPageTranslation = (item) => {
+    setTranslateMenuOpen(false);
+    if (item.native) {
+      setActiveAutoTranslate('');
+      // Nettoyer le cookie Google Translate si actif
+      document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+      document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${window.location.hostname};`;
+      const combo = document.querySelector('.goog-te-combo');
+      if (combo) {
+        combo.value = '';
+        combo.dispatchEvent(new Event('change'));
+      }
+      handleLanguageChange(item.code);
+      return;
+    }
+
+    // Traduction automatique Google Translate dans la langue choisie
+    setActiveAutoTranslate(item.code);
+    const cookieVal = `/fr/${item.code}`;
+    document.cookie = `googtrans=${cookieVal}; path=/`;
+    document.cookie = `googtrans=${cookieVal}; path=/; domain=${window.location.hostname}`;
+
+    const applyCombo = () => {
+      const combo = document.querySelector('.goog-te-combo');
+      if (combo) {
+        combo.value = item.code;
+        combo.dispatchEvent(new Event('change'));
+        return true;
+      }
+      return false;
+    };
+
+    if (!applyCombo()) {
+      if (!document.getElementById('hm-google-translate-elem')) {
+        const holder = document.createElement('div');
+        holder.id = 'hm-google-translate-elem';
+        holder.style.display = 'none';
+        document.body.appendChild(holder);
+      }
+      window.googleTranslateElementInit = () => {
+        if (window.google && window.google.translate) {
+          new window.google.translate.TranslateElement(
+            { pageLanguage: 'fr', autoDisplay: false },
+            'hm-google-translate-elem'
+          );
+          setTimeout(applyCombo, 350);
+          setTimeout(applyCombo, 900);
+        }
+      };
+      if (!document.getElementById('hm-google-translate-script')) {
+        const s = document.createElement('script');
+        s.id = 'hm-google-translate-script';
+        s.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+        s.async = true;
+        document.body.appendChild(s);
+      } else {
+        setTimeout(applyCombo, 300);
+      }
+    }
+  };
   return (
     <header className={`main-header ${isScrolled ? 'is-scrolled' : ''}`}>
       <div className="container header-inner">
@@ -361,20 +455,26 @@ export default function HeaderNav({
               </div>
             </li>
 
-            {/* 5. OUTILS & MÉDIAS ▾ */}
+            {/* 5. OUTILS ▾ (Calculateurs, évaluation immobilière et ressources) */}
             <li className="nav-item-dropdown">
               <button
-                className={`nav-btn ${
-                  activePage === 'outils' || activePage === 'evenements' || activePage === 'balados'
-                    ? 'active'
-                    : ''
-                }`}
+                className={`nav-btn ${activePage === 'outils' ? 'active' : ''}`}
                 onClick={() => navigateTo('outils', { toolTab: 'plex' })}
               >
-                {tr(lang, 'Outils & Médias', 'Tools & Media', 'Herramientas', '金融工具与媒体')}{' '}
+                {tr(lang, 'Outils', 'Tools', 'Herramientas', '金融工具')}{' '}
                 <span className="nav-btn-chevron">▾</span>
               </button>
               <div className="nav-dropdown-panel">
+                <button
+                  type="button"
+                  className="nav-dropdown-link"
+                  onClick={() => navigateTo('outils', { toolTab: 'valuation' })}
+                >
+                  <span className="nav-dropdown-link-title" style={{ color: 'var(--gold-light)' }}>
+                    {tr(lang, 'Évalue ma propriété (Vendre / Louer)', 'Value My Property (Sell / Lease)', 'Evalúa mi propiedad (Vender / Alquilar)', '评估我的物业（出售/出租）')}
+                  </span>
+                </button>
+                <div className="nav-dropdown-divider" />
                 <button
                   type="button"
                   className="nav-dropdown-link"
@@ -411,15 +511,25 @@ export default function HeaderNav({
                 <button
                   type="button"
                   className="nav-dropdown-link"
+                  onClick={() => navigateTo('outils', { toolTab: 'affordability' })}
+                >
+                  <span className="nav-dropdown-link-title">
+                    {tr(lang, 'Capacité d’emprunt & Frais', 'Borrowing Capacity & Costs', 'Capacidad de préstamo y costos', '贷款能力与交割费用')}
+                  </span>
+                </button>
+                <div className="nav-dropdown-divider" />
+                <button
+                  type="button"
+                  className="nav-dropdown-link"
                   onClick={() => navigateTo('investisseurs-internationaux')}
                 >
-                  <span className="nav-dropdown-link-title" style={{ color: 'var(--gold-light)' }}>
+                  <span className="nav-dropdown-link-title">
                     {tr(
                       lang,
-                      'Portail Investisseurs Internationaux',
-                      'International Investors Guide',
-                      'Guía Inversores Internacionales',
-                      '国际买家税务与豁免指南'
+                      'Ressources : Investisseurs Internationaux',
+                      'Resources: International Investors',
+                      'Recursos: Inversores Internacionales',
+                      '资源：国际投资者指南'
                     )}
                   </span>
                 </button>
@@ -434,14 +544,37 @@ export default function HeaderNav({
                     <ExternalLink size={12} style={{ color: 'var(--gold)' }} />
                   </span>
                 </a>
-                <div className="nav-dropdown-divider" />
+                <button
+                  type="button"
+                  className="nav-dropdown-link"
+                  onClick={() => navigateTo('a-propos', { aboutTab: 'liens' })}
+                >
+                  <span className="nav-dropdown-link-title">
+                    {tr(lang, 'Ressources & Partenaires officiels', 'Resources & Official Partners', 'Recursos y Socios oficiales', '行业资源与官方合作伙伴')}
+                  </span>
+                </button>
+              </div>
+            </li>
+
+            {/* 6. MÉDIAS ▾ (Activités, événements et actualités) */}
+            <li className="nav-item-dropdown">
+              <button
+                className={`nav-btn ${
+                  activePage === 'evenements' || activePage === 'balados' ? 'active' : ''
+                }`}
+                onClick={() => navigateTo('evenements')}
+              >
+                {tr(lang, 'Médias', 'Media', 'Medios', '媒体动态')}{' '}
+                <span className="nav-btn-chevron">▾</span>
+              </button>
+              <div className="nav-dropdown-panel align-right">
                 <button
                   type="button"
                   className="nav-dropdown-link"
                   onClick={() => navigateTo('evenements')}
                 >
                   <span className="nav-dropdown-link-title">
-                    {tr(lang, 'Actualités & Événements', 'News & Events', 'Noticias y Eventos', '新闻与展会活动')}
+                    {tr(lang, 'Activités, événements et actualités', 'Activities, Events & News', 'Actividades, eventos y noticias', '最新活动、展会与新闻动态')}
                   </span>
                 </button>
                 <button
@@ -450,13 +583,13 @@ export default function HeaderNav({
                   onClick={() => navigateTo('balados')}
                 >
                   <span className="nav-dropdown-link-title">
-                    {tr(lang, 'Balados', 'Podcasts', 'Pódcasts', '播客专栏')}
+                    {tr(lang, 'Balados & Conférences', 'Podcasts & Talks', 'Pódcasts y Conferencias', '播客专栏与行业论坛')}
                   </span>
                 </button>
               </div>
             </li>
 
-            {/* 6. NOUS JOINDRE ▾ */}
+            {/* 7. NOUS JOINDRE ▾ */}
             <li className="nav-item-dropdown">
               <button
                 className={`nav-btn nav-btn-cta ${activePage === 'nous-joindre' ? 'active' : ''}`}
@@ -496,37 +629,135 @@ export default function HeaderNav({
             </li>
           </ul>
 
+          {/* Sélecteur de langues + Bouton « Translate this page into your language » */}
           <div
+            ref={translateRef}
             style={{
+              position: 'relative',
               display: 'inline-flex',
-              alignItems: 'center',
+              flexDirection: 'column',
+              alignItems: 'flex-end',
+              justifyContent: 'center',
               gap: '3px',
               marginLeft: '4px',
               paddingLeft: '8px',
-              borderLeft: '1px solid rgba(255,255,255,0.16)'
+              borderLeft: '1px solid rgba(255,255,255,0.16)',
+              flexShrink: 0
             }}
           >
-            {LANGUAGE_OPTIONS.map((opt, idx) => (
-              <React.Fragment key={opt.code}>
-                {idx > 0 && <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.72rem' }}>|</span>}
-                <button
-                  type="button"
-                  onClick={() => handleLanguageChange(opt.code)}
-                  title={opt.fullLabel}
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '2px' }}>
+              {LANGUAGE_OPTIONS.map((opt, idx) => (
+                <React.Fragment key={opt.code}>
+                  {idx > 0 && <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.7rem' }}>|</span>}
+                  <button
+                    type="button"
+                    onClick={() => triggerPageTranslation({ code: opt.code, native: true })}
+                    title={opt.fullLabel}
+                    style={{
+                      background: 'transparent',
+                      color: lang === opt.code && !activeAutoTranslate ? 'var(--gold)' : '#ffffff',
+                      border: 'none',
+                      padding: '2px 4px',
+                      fontSize: '0.74rem',
+                      fontWeight: lang === opt.code && !activeAutoTranslate ? 700 : 500,
+                      cursor: 'pointer'
+                    }}
+                  >
+                    {opt.label}
+                  </button>
+                </React.Fragment>
+              ))}
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setTranslateMenuOpen(prev => !prev)}
+              title="Translate this page into your language"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '4px',
+                background: translateMenuOpen || activeAutoTranslate ? 'rgba(200, 164, 93, 0.16)' : 'rgba(255, 255, 255, 0.04)',
+                border: '1px solid rgba(200, 164, 93, 0.42)',
+                borderRadius: '5px',
+                padding: '2px 7px',
+                fontSize: '0.62rem',
+                fontWeight: 600,
+                color: 'var(--gold-light)',
+                cursor: 'pointer',
+                whiteSpace: 'nowrap',
+                letterSpacing: '0.01em',
+                transition: 'all 0.2s ease'
+              }}
+            >
+              <Globe size={10} style={{ color: 'var(--gold)' }} />
+              <span>Translate this page into your language</span>
+            </button>
+
+            {translateMenuOpen && (
+              <div
+                style={{
+                  position: 'absolute',
+                  top: 'calc(100% + 10px)',
+                  right: 0,
+                  width: '235px',
+                  maxHeight: '360px',
+                  overflowY: 'auto',
+                  background: 'rgba(9, 9, 11, 0.98)',
+                  backdropFilter: 'blur(16px)',
+                  border: '1px solid rgba(200, 164, 93, 0.45)',
+                  borderRadius: '10px',
+                  padding: '8px',
+                  boxShadow: '0 16px 36px rgba(0,0,0,0.85)',
+                  zIndex: 260
+                }}
+              >
+                <div
                   style={{
-                    background: 'transparent',
-                    color: lang === opt.code ? 'var(--gold)' : '#ffffff',
-                    border: 'none',
-                    padding: '4px 4px',
-                    fontSize: '0.76rem',
-                    fontWeight: lang === opt.code ? 700 : 500,
-                    cursor: 'pointer'
+                    fontSize: '0.66rem',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.1em',
+                    color: 'var(--gold)',
+                    fontWeight: 700,
+                    padding: '4px 8px 6px',
+                    borderBottom: '1px solid rgba(255,255,255,0.08)',
+                    marginBottom: '4px'
                   }}
                 >
-                  {opt.label}
-                </button>
-              </React.Fragment>
-            ))}
+                  Translate this page into your language
+                </div>
+                {EXTRA_TRANSLATE_LANGUAGES.map(item => {
+                  const isCurrent = item.native
+                    ? lang === item.code && !activeAutoTranslate
+                    : activeAutoTranslate === item.code;
+                  return (
+                    <button
+                      key={item.code}
+                      type="button"
+                      onClick={() => triggerPageTranslation(item)}
+                      style={{
+                        width: '100%',
+                        textAlign: 'left',
+                        background: isCurrent ? 'rgba(200, 164, 93, 0.16)' : 'transparent',
+                        color: isCurrent ? 'var(--gold-light)' : '#ffffff',
+                        border: 'none',
+                        borderRadius: '6px',
+                        padding: '7px 10px',
+                        fontSize: '0.78rem',
+                        fontWeight: isCurrent ? 700 : 500,
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between'
+                      }}
+                    >
+                      <span>{item.label}</span>
+                      {isCurrent && <span style={{ color: 'var(--gold)', fontSize: '0.7rem' }}>✓</span>}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </div>
 
@@ -563,6 +794,8 @@ export default function HeaderNav({
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
+                flexWrap: 'wrap',
+                gap: '10px',
                 marginBottom: '16px',
                 paddingBottom: '12px',
                 borderBottom: '1px solid rgba(255,255,255,0.08)'
@@ -578,18 +811,48 @@ export default function HeaderNav({
               >
                 {tr(lang, 'Navigation Principale', 'Main Navigation', 'Navegación Principal', '网站主导航')}
               </span>
-              <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-                {LANGUAGE_OPTIONS.map(opt => (
-                  <button
-                    key={opt.code}
-                    type="button"
-                    onClick={() => handleLanguageChange(opt.code)}
-                    className={lang === opt.code ? 'btn-gold' : 'btn-outline'}
-                    style={{ padding: '4px 10px', fontSize: '0.74rem' }}
-                  >
-                    {opt.label}
-                  </button>
-                ))}
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '6px' }}>
+                <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                  {LANGUAGE_OPTIONS.map(opt => (
+                    <button
+                      key={opt.code}
+                      type="button"
+                      onClick={() => triggerPageTranslation({ code: opt.code, native: true })}
+                      className={lang === opt.code && !activeAutoTranslate ? 'btn-gold' : 'btn-outline'}
+                      style={{ padding: '4px 10px', fontSize: '0.74rem' }}
+                    >
+                      {opt.label}
+                    </button>
+                  ))}
+                </div>
+                <select
+                  aria-label="Translate this page into your language"
+                  value={activeAutoTranslate || lang}
+                  onChange={e => {
+                    const val = e.target.value;
+                    const found = EXTRA_TRANSLATE_LANGUAGES.find(x => x.code === val);
+                    if (found) triggerPageTranslation(found);
+                  }}
+                  style={{
+                    background: 'rgba(200, 164, 93, 0.12)',
+                    color: 'var(--gold-light)',
+                    border: '1px solid rgba(200, 164, 93, 0.45)',
+                    borderRadius: '6px',
+                    padding: '5px 8px',
+                    fontSize: '0.74rem',
+                    fontWeight: 600,
+                    cursor: 'pointer'
+                  }}
+                >
+                  <option value={lang} disabled>
+                    🌐 Translate this page into your language
+                  </option>
+                  {EXTRA_TRANSLATE_LANGUAGES.map(item => (
+                    <option key={item.code} value={item.code} style={{ background: '#09090b', color: '#fff' }}>
+                      {item.label}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -631,9 +894,13 @@ export default function HeaderNav({
                 },
                 {
                   id: 'outils',
-                  label: tr(lang, 'Outils & Médias', 'Tools & Media', 'Herramientas y Medios', '金融工具与媒体'),
-                  subId: 'evenements',
-                  subLabel: tr(lang, 'Actualités', 'News', 'Noticias', '最新动态')
+                  label: tr(lang, 'Outils (Calculateurs, Évaluation & Ressources)', 'Tools (Calculators, Valuation & Resources)', 'Herramientas (Calculadoras y Evaluación)', '金融工具（计算器、物业估值与资源）')
+                },
+                {
+                  id: 'evenements',
+                  label: tr(lang, 'Médias (Activités, Événements & Actualités)', 'Media (Activities, Events & News)', 'Medios (Actividades, Eventos y Noticias)', '媒体动态（活动、展会与新闻）'),
+                  subId: 'balados',
+                  subLabel: tr(lang, 'Balados', 'Podcasts', 'Pódcasts', '播客专栏')
                 },
                 {
                   id: 'nous-joindre',

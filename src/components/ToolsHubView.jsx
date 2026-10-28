@@ -13,6 +13,7 @@ import {
   X
 } from 'lucide-react';
 import { submitLeadToProspection } from '../utils/prospectionBridge';
+import { INITIAL_HIMALAYA_BROKERS } from '../data/brokersData';
 import { tr, pickLang } from '../data/translations';
 import ChiffrierDealSimulator from './ChiffrierDealSimulator';
 
@@ -148,6 +149,20 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
   const [clEscalation, setClEscalation] = useState(3);
   const [clTermYears, setClTermYears] = useState(5);
 
+  // --- 9. Évalue ma propriété (Vendre ou Louer) ---
+  const [valPurpose, setValPurpose] = useState('Vendre');
+  const [valAssetType, setValAssetType] = useState('Commercial / Industriel / Bureau');
+  const [valCity, setValCity] = useState('');
+  const [valSurfaceOrUnits, setValSurfaceOrUnits] = useState('');
+  const [valGrossRevenue, setValGrossRevenue] = useState('');
+  const [valExpectedPrice, setValExpectedPrice] = useState('');
+  const [valBrokerId, setValBrokerId] = useState('');
+  const [valFullName, setValFullName] = useState('');
+  const [valPhone, setValPhone] = useState('');
+  const [valEmail, setValEmail] = useState('');
+  const [valNotes, setValNotes] = useState('');
+  const [valSubmitted, setValSubmitted] = useState(false);
+
   // --- Lead Modal ---
   const [leadModalOpen, setLeadModalOpen] = useState(false);
   const [leadName, setLeadName] = useState('');
@@ -187,6 +202,12 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
     Math.round(Number(n) || 0).toLocaleString(tr(lang, 'fr-CA', 'en-CA', 'es-ES', 'zh-CN')) + ' $';
 
   const toolsList = [
+    {
+      id: 'valuation',
+      icon: Building2,
+      title: tr(lang, 'Évalue ma propriété', 'Value My Property', 'Evalúa mi propiedad', '评估我的物业'),
+      sub: tr(lang, 'Évaluation pour vendre ou louer', 'Valuation to Sell or Lease', 'Evaluación para vender o alquilar', '出售或出租物业评估')
+    },
     {
       id: 'plex',
       icon: Building2,
@@ -1430,6 +1451,8 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
           </div>
         )}
 
+
+
         {/* =================================================================
             OUTIL 5 : FRAIS DE CLÔTURE & LIQUIDITÉS CHEZ LE NOTAIRE — Épuré
            ================================================================= */}
@@ -1565,6 +1588,8 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
             </div>
           </div>
         )}
+
+
 
         {/* =================================================================
             OUTIL 6 : COMPARATEUR LOUER VS ACHETER — Épuré sans boîte
@@ -1870,6 +1895,8 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
           </div>
         )}
 
+
+
         {/* =================================================================
             OUTIL 8 : LOYER COMMERCIAL NET VS BRUT ($/PI²/AN) — Épuré sans boîte (#8)
            ================================================================= */}
@@ -2070,6 +2097,245 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
                     <Printer size={15} /> {tr(lang, 'Imprimer / Exporter ce bilan (PDF)', 'Print / Export Summary (PDF)', 'Imprimir / Exportar resumen (PDF)', '打印 / 导出计算报告 (PDF)')}
                   </button>
                 </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+
+
+        {/* =================================================================
+            OUTIL 9 : ÉVALUE MA PROPRIÉTÉ (POUR VENDRE OU LOUER)
+           ================================================================= */}
+        {activeTool === 'valuation' && (
+          <div style={{ paddingTop: '4px' }}>
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
+                gap: '48px',
+                alignItems: 'start'
+              }}
+            >
+              <div>
+                <span className="badge-gold" style={{ marginBottom: '8px' }}>
+                  {tr(lang, 'Service Clients • Vente & Location', 'Client Service • Sale & Lease', 'Servicio al Cliente • Venta y Alquiler', '客户服务 • 出售与出租')}
+                </span>
+                <h3 className="serif-title" style={{ fontSize: '2.1rem', fontWeight: 600, marginBottom: '12px' }}>
+                  {tr(lang, 'Évalue ma propriété', 'Value My Property', 'Evalúa mi propiedad', '评估我的物业')}
+                </h3>
+                <p style={{ color: 'var(--text-secondary)', fontSize: '0.94rem', lineHeight: 1.65, marginBottom: '24px' }}>
+                  {tr(
+                    lang,
+                    'Vous souhaitez vendre ou louer un immeuble commercial, industriel, un terrain, une entreprise récréotouristique (pourvoirie, camping, auberge) ou une propriété résidentielle ? Nos courtiers réalisent une analyse de valeur marchande rigoureuse et confidentielle.',
+                    'Looking to sell or lease a commercial, industrial, land, resort (outfitter, campground, inn) or residential property? Our brokers provide a rigorous, confidential market valuation.',
+                    '¿Desea vender o alquilar una propiedad comercial, industrial, turística o residencial? Nuestros corredores realizan un análisis de valor de mercado riguroso y confidencial.',
+                    '想要出售或出租商业、工业、度假村或住宅物业？我们的资深经纪人为您提供严谨保密的市场价值评估。'
+                  )}
+                </p>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', borderTop: '1px solid var(--border-subtle)', paddingTop: '20px' }}>
+                  {[
+                    tr(lang, 'Analyse comparative des transactions récentes (Centris / MLS & hors-marché)', 'Comparative analysis of recent transactions (Centris / MLS & off-market)', 'Análisis comparativo de transacciones recientes (Centris / MLS)', '近期成交案例对比分析 (Centris / MLS 及非公开市场)'),
+                    tr(lang, 'Évaluation du taux de capitalisation (TGA / Cap Rate) et normalisation du RNO', 'Cap Rate valuation and NOI normalization for income properties', 'Evaluación de tasa de capitalización (Cap Rate) y NOI', '收益型物业资本化率 (Cap Rate) 与净营业收入评估'),
+                    tr(lang, 'Mise en marché stratégique locale et internationale (réseau CQF & acheteurs qualifiés)', 'Strategic local and international marketing (CQF network & qualified buyers)', 'Comercialización estratégica local e internacional', '本地及国际战略营销推广（CQF 网络与合格买家库）')
+                  ].map((pt, i) => (
+                    <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '0.88rem', color: 'var(--text-main)' }}>
+                      <CheckCircle2 size={16} style={{ color: 'var(--gold)', flexShrink: 0, marginTop: '2px' }} />
+                      <span>{pt}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div
+                style={{
+                  background: 'rgba(255, 255, 255, 0.02)',
+                  border: '1px solid rgba(200, 164, 93, 0.35)',
+                  borderRadius: '12px',
+                  padding: '28px'
+                }}
+              >
+                {valSubmitted ? (
+                  <div style={{ textAlign: 'center', padding: '24px 8px' }}>
+                    <CheckCircle2 size={44} style={{ color: 'var(--gold)', margin: '0 auto 12px' }} />
+                    <h4 className="serif-title" style={{ fontSize: '1.4rem', fontWeight: 600, marginBottom: '8px' }}>
+                      {tr(lang, 'Demande d’évaluation transmise', 'Valuation Request Sent', 'Solicitud de evaluación enviada', '评估申请已提交')}
+                    </h4>
+                    <p style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', marginBottom: '20px' }}>
+                      {tr(
+                        lang,
+                        'Votre demande d’évaluation a été acheminée avec succès. Votre courtier communiquera avec vous rapidement.',
+                        'Your valuation request has been routed successfully. Your broker will contact you shortly.',
+                        'Su solicitud de evaluación ha sido enviada con éxito.',
+                        '您的物业评估申请已成功分派，经纪人将尽快与您联系。'
+                      )}
+                    </p>
+                    <button type="button" onClick={() => setValSubmitted(false)} className="btn-gold">
+                      {tr(lang, 'Nouvelle demande d’évaluation', 'New Valuation Request', 'Nueva solicitud', '提交新的评估申请')}
+                    </button>
+                  </div>
+                ) : (
+                  <form
+                    onSubmit={async (e) => {
+                      e.preventDefault();
+                      const chosenBroker = INITIAL_HIMALAYA_BROKERS.find(b => b.id === valBrokerId) || null;
+                      await submitLeadToProspection({
+                        type: 'valuation',
+                        source: `Outil Évalue ma propriété (${valPurpose})`,
+                        name: valFullName,
+                        fullName: valFullName,
+                        phone: valPhone,
+                        email: valEmail,
+                        city: valCity,
+                        assetType: valAssetType,
+                        revenue: valGrossRevenue || valExpectedPrice,
+                        assigned_broker: chosenBroker ? chosenBroker.name : 'Direction générale — Immobilier Himalaya',
+                        broker_email: chosenBroker ? chosenBroker.email : 'info@himalayacorp.com',
+                        message: `[Objectif : ${valPurpose}] [Type : ${valAssetType}] [Ville/Adresse : ${valCity}] [Superficie/Unités : ${valSurfaceOrUnits}] [Revenus/Prix : ${valGrossRevenue} / ${valExpectedPrice}] ${valNotes}`
+                      });
+                      setValSubmitted(true);
+                    }}
+                    style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}
+                  >
+                    {/* Objectif : Vendre ou Louer */}
+                    <div>
+                      <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--gold-light)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '6px' }}>
+                        {tr(lang, 'Objectif de la démarche', 'Objective', 'Objetivo', '委托目标')}
+                      </label>
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+                        {[
+                          { id: 'Vendre', label: tr(lang, 'Vendre ma propriété', 'Sell My Property', 'Vender mi propiedad', '出售我的物业') },
+                          { id: 'Louer', label: tr(lang, 'Louer ma propriété', 'Lease My Property', 'Alquilar mi propiedad', '出租我的物业') }
+                        ].map(opt => (
+                          <button
+                            key={opt.id}
+                            type="button"
+                            onClick={() => setValPurpose(opt.id)}
+                            className={valPurpose === opt.id ? 'btn-gold' : 'btn-outline'}
+                            style={{ padding: '8px 12px', fontSize: '0.82rem' }}
+                          >
+                            {opt.label}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Choix du courtier */}
+                    <div>
+                      <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-secondary)', marginBottom: '4px' }}>
+                        {tr(lang, 'Choisir directement votre courtier (optionnel)', 'Choose Your Broker (optional)', 'Elegir su corredor (opcional)', '选择负责经纪人（可选）')}
+                      </label>
+                      <select
+                        className="form-control"
+                        value={valBrokerId}
+                        onChange={e => setValBrokerId(e.target.value)}
+                      >
+                        <option value="">
+                          {tr(lang, 'Direction générale — Immobilier Himalaya (info@himalayacorp.com)', 'General Management — Immobilier Himalaya (info@himalayacorp.com)', 'Dirección General — Immobilier Himalaya', '喜马拉雅地产总部管理层')}
+                        </option>
+                        {INITIAL_HIMALAYA_BROKERS.map(b => (
+                          <option key={b.id} value={b.id}>
+                            {b.name} — {pickLang(b, 'shortTitle', lang)} ({b.email})
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    {/* Type d'actif */}
+                    <div>
+                      <label style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-secondary)', marginBottom: '4px' }}>
+                        {tr(lang, 'Catégorie de propriété', 'Property Category', 'Categoría de propiedad', '物业类别')}
+                      </label>
+                      <select
+                        className="form-control"
+                        value={valAssetType}
+                        onChange={e => setValAssetType(e.target.value)}
+                      >
+                        <option value="Commercial / Industriel / Bureau">{tr(lang, 'Immeuble commercial / Industriel / Bureau', 'Commercial / Industrial / Office', 'Comercial / Industrial / Oficina', '商业 / 工业 / 办公楼')}</option>
+                        <option value="Auberge / Camping / Pourvoirie">{tr(lang, 'Auberge / Camping / Pourvoirie / Hôtellerie', 'Inn / Campground / Outfitter / Resort', 'Posada / Camping / Coto / Hotel', '旅馆 / 露营地 / 度假村 / 酒店')}</option>
+                        <option value="Multilogement / Plex">{tr(lang, 'Multilogement / Plex d’investissement', 'Multi-Family / Investment Plex', 'Multifamiliar / Plex de inversión', '多户投资公寓 (Plex)')}</option>
+                        <option value="Terrain de développement">{tr(lang, 'Terrain de développement', 'Development Land', 'Terreno de desarrollo', '开发用地')}</option>
+                        <option value="Propriété résidentielle">{tr(lang, 'Propriété résidentielle', 'Residential Property', 'Propiedad residencial', '住宅物业')}</option>
+                      </select>
+                    </div>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                      <input
+                        required
+                        type="text"
+                        className="form-control"
+                        placeholder={tr(lang, 'Ville ou adresse de la propriété *', 'Property City or Address *', 'Ciudad o dirección *', '物业所在城市或地址 *')}
+                        value={valCity}
+                        onChange={e => setValCity(e.target.value)}
+                      />
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder={tr(lang, 'Superficie (pi²/acres) ou nb d’unités', 'Area (sq.ft./acres) or Units', 'Superficie o unidades', '面积或单元数量')}
+                        value={valSurfaceOrUnits}
+                        onChange={e => setValSurfaceOrUnits(e.target.value)}
+                      />
+                    </div>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder={tr(lang, 'Revenus bruts annuels ($) (si applicable)', 'Annual Gross Income ($)', 'Ingresos brutos anuales ($)', '年度总营收 ($)')}
+                        value={valGrossRevenue}
+                        onChange={e => setValGrossRevenue(e.target.value)}
+                      />
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder={tr(lang, 'Prix ou loyer visé ($)', 'Target Price or Rent ($)', 'Precio o alquiler deseado ($)', '期望售价或租金 ($)')}
+                        value={valExpectedPrice}
+                        onChange={e => setValExpectedPrice(e.target.value)}
+                      />
+                    </div>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                      <input
+                        required
+                        type="text"
+                        className="form-control"
+                        placeholder={tr(lang, 'Votre nom complet *', 'Your Full Name *', 'Nombre completo *', '您的姓名 *')}
+                        value={valFullName}
+                        onChange={e => setValFullName(e.target.value)}
+                      />
+                      <input
+                        required
+                        type="tel"
+                        className="form-control"
+                        placeholder={tr(lang, 'Téléphone *', 'Phone *', 'Teléfono *', '联系电话 *')}
+                        value={valPhone}
+                        onChange={e => setValPhone(e.target.value)}
+                      />
+                    </div>
+
+                    <input
+                      required
+                      type="email"
+                      className="form-control"
+                      placeholder={tr(lang, 'Adresse courriel *', 'Email Address *', 'Correo electrónico *', '电子邮箱 *')}
+                      value={valEmail}
+                      onChange={e => setValEmail(e.target.value)}
+                    />
+
+                    <textarea
+                      rows={3}
+                      className="form-control"
+                      placeholder={tr(lang, 'Précisions sur la propriété (rénovations, bail, équipements, échéancier)...', 'Property details (renovations, lease, equipment, timeline)...', 'Detalles de la propiedad...', '物业补充说明...')}
+                      value={valNotes}
+                      onChange={e => setValNotes(e.target.value)}
+                    />
+
+                    <button type="submit" className="btn-gold" style={{ width: '100%' }}>
+                      {tr(lang, 'Demander mon évaluation confidentielle', 'Request My Confidential Valuation', 'Solicitar mi evaluación confidencial', '申请保密物业估值')} <ArrowRight size={15} />
+                    </button>
+                  </form>
+                )}
               </div>
             </div>
           </div>

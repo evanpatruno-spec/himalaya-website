@@ -438,8 +438,19 @@ button, select, input, textarea {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 5px;
   list-style: none;
+}
+
+/* Masquer la barre supérieure intrusive de Google Translate lors de la traduction automatique */
+iframe.goog-te-banner-frame,
+.goog-te-banner-frame.skiptranslate,
+#goog-gt-tt,
+.goog-te-balloon-frame {
+  display: none !important;
+}
+body {
+  top: 0px !important;
 }
 
 .nav-item-dropdown {

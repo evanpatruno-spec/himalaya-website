@@ -497,6 +497,7 @@ export default function HomeView({
 
           <div style={{
             paddingTop: '44px',
+            paddingBottom: '48px',
             borderTop: '1px solid var(--border-subtle)',
             display: 'flex',
             alignItems: 'center',
@@ -522,6 +523,132 @@ export default function HomeView({
               <button onClick={() => navigateTo('nous-joindre', { contactTab: 'valuation' })} className="btn-outline">
                 {t.home.evaluateBtn}
               </button>
+            </div>
+          </div>
+
+          {/* 3 ACCÈS DIRECTS EN BAS DE PAGE : CLIENTS • COURTIERS • MEMBRES */}
+          <div
+            style={{
+              paddingTop: '44px',
+              borderTop: '1px solid rgba(200, 164, 93, 0.28)',
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+              gap: '24px'
+            }}
+          >
+            {/* 1. CLIENTS */}
+            <div
+              onClick={() => navigateTo('outils', { toolTab: 'valuation' })}
+              style={{
+                background: 'rgba(255, 255, 255, 0.02)',
+                border: '1px solid rgba(200, 164, 93, 0.32)',
+                borderRadius: '12px',
+                padding: '28px 26px',
+                cursor: 'pointer',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                gap: '16px',
+                transition: 'border-color 0.25s ease, transform 0.25s ease, background 0.25s ease'
+              }}
+            >
+              <div>
+                <span className="badge-gold" style={{ marginBottom: '8px' }}>
+                  01 • {tr(lang, 'Espace Clients', 'Clients Portal', 'Espacio Clientes', '客户专区')}
+                </span>
+                <h4 className="serif-title" style={{ fontSize: '1.35rem', fontWeight: 600, color: '#ffffff', marginBottom: '8px' }}>
+                  {tr(lang, '« Évalue ma propriété »', '“Value My Property”', '« Evalúa mi propiedad »', '“评估我的物业”')}
+                </h4>
+                <p style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', lineHeight: 1.6, margin: 0 }}>
+                  {tr(
+                    lang,
+                    'Obtenez une évaluation professionnelle et confidentielle de votre propriété commerciale, récréotouristique ou résidentielle pour vendre ou louer.',
+                    'Request a confidential professional valuation of your commercial, resort, or residential property to sell or lease.',
+                    'Obtenga una evaluación profesional y confidencial de su propiedad comercial, turística o residencial para vender o alquilar.',
+                    '获取商业、度假或住宅物业的专业保密估值，助您顺利出售或出租。'
+                  )}
+                </p>
+              </div>
+              <span className="editorial-link" style={{ marginTop: '4px' }}>
+                {tr(lang, 'Évaluer pour vendre ou louer', 'Evaluate to Sell or Lease', 'Evaluar para vender o alquilar', '评估出售或出租')} <ArrowRight size={14} />
+              </span>
+            </div>
+
+            {/* 2. COURTIERS */}
+            <div
+              onClick={() => navigateTo('a-propos', { aboutTab: 'carrieres' })}
+              style={{
+                background: 'rgba(255, 255, 255, 0.02)',
+                border: '1px solid rgba(200, 164, 93, 0.32)',
+                borderRadius: '12px',
+                padding: '28px 26px',
+                cursor: 'pointer',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                gap: '16px',
+                transition: 'border-color 0.25s ease, transform 0.25s ease, background 0.25s ease'
+              }}
+            >
+              <div>
+                <span className="badge-gold" style={{ marginBottom: '8px' }}>
+                  02 • {tr(lang, 'Espace Courtiers', 'Brokers & Careers', 'Espacio Corredores', '经纪人专区')}
+                </span>
+                <h4 className="serif-title" style={{ fontSize: '1.35rem', fontWeight: 600, color: '#ffffff', marginBottom: '8px' }}>
+                  {tr(lang, '« Joignez-vous à nous »', '“Join Our Team”', '« Únase a nosotros »', '“加入我们”')}
+                </h4>
+                <p style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', lineHeight: 1.6, margin: 0 }}>
+                  {tr(
+                    lang,
+                    'Propulsez votre carrière au sein d’une agence d’expérience tournée vers la collaboration, les mandats d’envergure et le réseau international.',
+                    'Advance your career with an experienced brokerage built on collaboration, major mandates, and an international network.',
+                    'Impulse su carrera en una agencia experimentada enfocada en la colaboración y una red internacional.',
+                    '加入注重协作、大型项目与国际网络的资深房地产经纪机构，开启卓越职业生涯。'
+                  )}
+                </p>
+              </div>
+              <span className="editorial-link" style={{ marginTop: '4px' }}>
+                {tr(lang, 'Découvrir les opportunités', 'Explore Career Opportunities', 'Descubrir oportunidades', '探索职业机会')} <ArrowRight size={14} />
+              </span>
+            </div>
+
+            {/* 3. MEMBRES */}
+            <div
+              onClick={() => setNdaModalDeal(null)}
+              style={{
+                background: 'rgba(200, 164, 93, 0.05)',
+                border: '1px solid rgba(200, 164, 93, 0.45)',
+                borderRadius: '12px',
+                padding: '28px 26px',
+                cursor: 'pointer',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                gap: '16px',
+                transition: 'border-color 0.25s ease, transform 0.25s ease, background 0.25s ease'
+              }}
+            >
+              <div>
+                <span className="badge-gold" style={{ marginBottom: '8px' }}>
+                  03 • {tr(lang, 'Espace Membres', 'Members Access', 'Espacio Miembros', '会员专区')}
+                </span>
+                <h4 className="serif-title" style={{ fontSize: '1.35rem', fontWeight: 600, color: '#ffffff', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <Lock size={17} style={{ color: 'var(--gold)', flexShrink: 0 }} />
+                  <span>{tr(lang, 'Base de données exclusive', 'Exclusive Database Access', 'Base de datos exclusiva', '专属保密数据库')}</span>
+                </h4>
+                <p style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', lineHeight: 1.6, margin: 0 }}>
+                  {tr(
+                    lang,
+                    'Accès sécurisé à la base de données exclusive d’Immobilier Himalaya : dossiers hors-marché (NDA), états financiers et inscriptions privées.',
+                    'Secure access to Immobilier Himalaya’s exclusive database: off-market mandates (NDA), financial statements, and private listings.',
+                    'Acceso seguro a la base de datos exclusiva de Immobilier Himalaya: propiedades fuera de mercado (NDA) y estados financieros.',
+                    '安全访问喜马拉雅地产专属数据库：非公开保密房源 (NDA)、财务报表及私密挂牌项目。'
+                  )}
+                </p>
+              </div>
+              <span className="editorial-link" style={{ marginTop: '4px' }}>
+                {tr(lang, 'Accès sécurisé (NDA)', 'Secure Access (NDA)', 'Acceso seguro (NDA)', '安全访问 (NDA)')} <ArrowRight size={14} />
+              </span>
             </div>
           </div>
         </div>

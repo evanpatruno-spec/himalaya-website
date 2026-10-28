@@ -1,6 +1,7 @@
 import React from 'react';
-import { CheckCircle2 } from 'lucide-react';
-import { tr } from '../data/translations';
+import { CheckCircle2, Mail, Phone, UserCheck } from 'lucide-react';
+import { INITIAL_HIMALAYA_BROKERS } from '../data/brokersData';
+import { tr, pickLang } from '../data/translations';
 
 export default function ContactView({
   lang,
@@ -13,6 +14,39 @@ export default function ContactView({
   setContactForm,
   handleContactSubmit
 }) {
+  const selectedBroker =
+    INITIAL_HIMALAYA_BROKERS.find(b => b.id === contactForm.selectedBrokerId) || null;
+  const recipientEmail = selectedBroker ? selectedBroker.email : 'info@himalayacorp.com';
+  const recipientName = selectedBroker
+    ? selectedBroker.name
+    : tr(
+        lang,
+        'Direction générale — Immobilier Himalaya',
+        'General Management — Immobilier Himalaya',
+        'Dirección General — Immobilier Himalaya',
+        '喜马拉雅地产总部管理层'
+      );
+
+  const directMailtoHref = `mailto:${recipientEmail}?subject=${encodeURIComponent(
+    contactTab === 'valuation'
+      ? `[Évaluation immobilière] ${contactForm.assetType || ''} — ${contactForm.city || ''}`
+      : `[Message Web Himalaya] ${contactForm.subject || ''}`
+  )}&body=${encodeURIComponent(
+    [
+      `Nom : ${contactForm.fullName || ''}`,
+      `Téléphone : ${contactForm.phone || ''}`,
+      `Courriel : ${contactForm.email || ''}`,
+      `Courtier destinataire : ${recipientName}`,
+      contactTab === 'valuation' ? `Ville / Adresse : ${contactForm.city || ''}` : '',
+      contactTab === 'valuation' && contactForm.revenue ? `Prix souhaité / Revenus : ${contactForm.revenue}` : '',
+      `Moment de rappel préféré : ${contactForm.preferredTime || ''}`,
+      '',
+      contactForm.message || ''
+    ]
+      .filter(Boolean)
+      .join('\n')
+  )}`;
+
   return (
     <main style={{ flex: 1, padding: '44px 0 80px' }}>
       <div className="container">
@@ -85,14 +119,152 @@ export default function ContactView({
               <div style={{ textAlign: 'center', padding: '28px 10px' }}>
                 <CheckCircle2 size={42} color="#e3c485" style={{ margin: '0 auto 12px' }} />
                 <h3 style={{ fontSize: '1.35rem', fontWeight: 700, marginBottom: '8px' }}>{t.contact.sentTitle}</h3>
-                <p style={{ color: 'var(--text-secondary)', marginBottom: '18px', fontSize: '0.88rem' }}>
+                <p style={{ color: 'var(--text-secondary)', marginBottom: '12px', fontSize: '0.88rem' }}>
                   {t.contact.sentDesc}
                 </p>
-                <button onClick={() => setContactSubmitted(false)} className="btn-gold">{t.contact.newMsgBtn}</button>
+                <div
+                  style={{
+                    background: 'rgba(200, 164, 93, 0.1)',
+                    border: '1px solid rgba(200, 164, 93, 0.38)',
+                    borderRadius: '10px',
+                    padding: '14px 18px',
+                    marginBottom: '20px',
+                    fontSize: '0.84rem',
+                    color: 'var(--text-main)'
+                  }}
+                >
+                  <div style={{ color: 'var(--gold-light)', fontWeight: 700, marginBottom: '4px' }}>
+                    {tr(
+                      lang,
+                      'Acheminement automatique confirmé :',
+                      'Automatic routing confirmed:',
+                      'Enrutamiento automático confirmado:',
+                      '自动分派已确认：'
+                    )}
+                  </div>
+                  <div>
+                    <strong>{recipientName}</strong> (<span style={{ color: 'var(--gold-light)' }}>{recipientEmail}</span>)
+                  </div>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', flexWrap: 'wrap' }}>
+                  <a href={directMailtoHref} className="btn-outline" style={{ textDecoration: 'none' }}>
+                    <Mail size={15} />{' '}
+                    {tr(
+                      lang,
+                      `Ouvrir aussi dans mon logiciel courriel (${recipientEmail})`,
+                      `Also open in my email client (${recipientEmail})`,
+                      `Abrir también en mi cliente de correo (${recipientEmail})`,
+                      `同时在邮件客户端中打开 (${recipientEmail})`
+                    )}
+                  </a>
+                  <button onClick={() => setContactSubmitted(false)} className="btn-gold">
+                    {t.contact.newMsgBtn}
+                  </button>
+                </div>
               </div>
             ) : (
               <form onSubmit={handleContactSubmit}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                  {/* Menu déroulant permettant aux visiteurs de choisir directement leur courtier */}
+                  <div>
+                    <label
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        fontSize: '0.76rem',
+                        color: 'var(--gold-light)',
+                        fontWeight: 600,
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.06em',
+                        marginBottom: '6px'
+                      }}
+                    >
+                      <UserCheck size={14} style={{ color: 'var(--gold)' }} />
+                      <span>
+                        {tr(
+                          lang,
+                          'Choisir directement votre courtier destinataire',
+                          'Select Your Broker Directly',
+                          'Seleccione directamente a su corredor',
+                          '直接选择您的负责经纪人'
+                        )}
+                      </span>
+                    </label>
+                    <select
+                      className="form-control"
+                      value={contactForm.selectedBrokerId || ''}
+                      onChange={e => setContactForm({ ...contactForm, selectedBrokerId: e.target.value })}
+                    >
+                      <option value="">
+                        {tr(
+                          lang,
+                          'Direction générale — Immobilier Himalaya (info@himalayacorp.com)',
+                          'General Management — Immobilier Himalaya (info@himalayacorp.com)',
+                          'Dirección General — Immobilier Himalaya (info@himalayacorp.com)',
+                          '总部管理层 — Immobilier Himalaya (info@himalayacorp.com)'
+                        )}
+                      </option>
+                      {INITIAL_HIMALAYA_BROKERS.map(broker => (
+                        <option key={broker.id} value={broker.id}>
+                          {broker.name} — {pickLang(broker, 'shortTitle', lang)} ({broker.email})
+                        </option>
+                      ))}
+                    </select>
+
+                    {selectedBroker && (
+                      <div
+                        style={{
+                          marginTop: '10px',
+                          padding: '10px 14px',
+                          borderRadius: '8px',
+                          background: 'rgba(200, 164, 93, 0.08)',
+                          border: '1px solid rgba(200, 164, 93, 0.35)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          gap: '12px',
+                          flexWrap: 'wrap'
+                        }}
+                      >
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                          {selectedBroker.photo && (
+                            <img
+                              src={selectedBroker.photo}
+                              alt={selectedBroker.name}
+                              style={{
+                                width: '38px',
+                                height: '38px',
+                                borderRadius: '50%',
+                                objectFit: 'cover',
+                                objectPosition: 'top center',
+                                border: '1px solid var(--gold)'
+                              }}
+                            />
+                          )}
+                          <div>
+                            <div style={{ fontSize: '0.86rem', fontWeight: 700, color: '#fff' }}>
+                              {selectedBroker.name}
+                            </div>
+                            <div style={{ fontSize: '0.74rem', color: 'var(--gold-light)' }}>
+                              {pickLang(selectedBroker, 'shortTitle', lang)}
+                            </div>
+                          </div>
+                        </div>
+                        <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', textAlign: 'right' }}>
+                          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', color: 'var(--gold-light)', fontWeight: 600 }}>
+                            <Mail size={12} /> {selectedBroker.email}
+                          </div>
+                          {selectedBroker.phone && (
+                            <div style={{ marginTop: '2px' }}>
+                              <Phone size={11} style={{ verticalAlign: 'middle', marginRight: '4px' }} />
+                              {selectedBroker.phone}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </div>
                   {contactTab === 'valuation' ? (
                     <>
                       <div>
