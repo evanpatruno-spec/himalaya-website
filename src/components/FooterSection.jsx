@@ -164,7 +164,7 @@ export default function FooterSection({
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
               <span>
-                © 2026 Immobilier Himalaya Real Estate Corp.{' '}
+                © 2027 Immobilier Himalaya Real Estate Corp.{' '}
                 {tr(lang, 'Tous droits réservés.', 'All rights reserved.', 'Todos los derechos reservados.', '保留所有权利。')}
               </span>
               <span>|</span>

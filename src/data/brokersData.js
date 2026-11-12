@@ -73,7 +73,7 @@ export const INITIAL_HIMALAYA_BROKERS = [
     "email": "g.mondoux@himalayacorp.com",
     "phone": "(514) 884-1052",
     "officePhone": "514-898-4898",
-    "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/11_courtierGrand.JPG",
+    "photo": "/DATA/COURTIERINFOSUP/11_courtierGrand.JPG",
     "city": "Montréal",
     "city_en": "Montreal",
     "address": "2000 av. McGill Collège, bureau 600, Montréal (QC) H3A 3H3",
@@ -143,8 +143,7 @@ export const INITIAL_HIMALAYA_BROKERS = [
     "categories": [
       "direction",
       "commercial",
-      "residentiel",
-      "international"
+      "residentiel"
     ],
     "title_es": "Corredor Inmobiliario Residencial y Comercial Certificado, Socio y DIRECTOR DE AGENCIA",
     "title_zh": "特许住宅与商业房地产经纪人、合伙人兼机构总监 (Agency Director)",
@@ -199,8 +198,7 @@ export const INITIAL_HIMALAYA_BROKERS = [
     "bio_en": "Femme dynamique, énergique et toujours  à l’affût de nouveaux défis, après une carrière de notaire, elle tisse des liens sérieux avec des gens d’affaires de la France et des États-Unis (Floride) avec l’objectif de supporter les Français à venir investir et/ou s’établir au Québec et supporter les gens dans l'achat ou la vente de leur immeuble situés en Floride, en collaboration avec les courtiers immobiliers américains.\n\nA cet effet, pour offrir un service hors du commun, elle décide d’allier ses connaissances du droit notarial aux cours de Courtier immobilier résidentiel et commercial de même qu’aux cours donnés à l’école des Hautes Études Commerciales (HEC) Montréal, entre-autres, la Négociation commerciale internationale.\n\nPar conséquent, elle est en  mesure de supporter ses clients dans leurs recherches d’achat ou de vente de franchise, de locaux commerciaux à louer, d’entreprise ou d’immeuble à acheter ou à vendre.\n\nN’hésitez pas à communiquer avec elle pour toute information suppplémentaire.",
     "categories": [
       "commercial",
-      "residentiel",
-      "international"
+      "residentiel"
     ],
     "title_es": "Corredora Inmobiliaria Residencial y Comercial",
     "title_zh": "住宅与商业房地产经纪人",
@@ -253,8 +251,7 @@ export const INITIAL_HIMALAYA_BROKERS = [
     "bio_en": "Sylvie Castonguay is a real estate broker with over twenty years' experience in the field.  She has been specializing in the purchase and sale of campgrounds throughout Quebec for the past ten years, and is your reference in the field!  However, she has many other strings to her bow, such as the search for zoned land for resort or mini-home development projects, as well as assistance with the acquisition or sale of residential, commercial or industrial property.  Don't hesitate to contact her to make your goals and dreams a reality, because she'll work for you successfully and professionally!",
     "categories": [
       "commercial",
-      "residentiel",
-      "international"
+      "residentiel"
     ],
     "title_es": "Corredora Inmobiliaria Residencial y Comercial",
     "title_zh": "住宅与商业房地产经纪人",
@@ -351,8 +348,7 @@ export const INITIAL_HIMALAYA_BROKERS = [
     "bio_en": "Your Dedicated Real Estate Broker\r\nWith an in-depth knowledge of the Quebec real estate market and a genuine passion for real estate, I put my expertise at the service of your ambitions. My experience has allowed me to develop a unique understanding of my clients’ needs and the specific characteristics of each neighbourhood.\n\nMy philosophy is built on three essential pillars: personalized guidance at every step, complete transparency throughout every transaction, and an unwavering commitment to your success. Your satisfaction and trust are at the heart of my professional practice.\n\n ",
     "categories": [
       "commercial",
-      "residentiel",
-      "international"
+      "residentiel"
     ],
     "title_es": "Corredora Inmobiliaria Residencial y Comercial",
     "title_zh": "住宅与商业房地产经纪人",
@@ -403,8 +399,7 @@ export const INITIAL_HIMALAYA_BROKERS = [
     "bio_en": "Joseph Jacob has an extensive amount of experience in nationwide sales and service in the electronics industry and in the management of income properties. He speaks three languages ??(French, English and Arabic) and pays special attention to locating and negotiating your commercial, industrial or residential real estate transactions successfully.",
     "categories": [
       "commercial",
-      "residentiel",
-      "international"
+      "residentiel"
     ],
     "title_es": "Corredor Inmobiliario Residencial y Comercial",
     "title_zh": "住宅与商业房地产经纪人",
@@ -502,8 +497,7 @@ export const INITIAL_HIMALAYA_BROKERS = [
     "bio_en": "Olivier Meunier is the Executive Vice President of Syner-China, a consulting firm specializing in business in China. Speaking as much in French as in Mandarin, he has been traveling to China regularly for several years, where he has established a broad network of contacts spread out in several major cities in China.\n\nAfter more than a dozen stays in China, he acquired an unequaled expertise for exchanges between Chinese and Westerners. Also, Olivier holds a major in East Asian Studies, his knowledge of the language and understanding of such culture are essential assets to facilitate mutual understanding and favorable exchanges with the Chinese.\n\nOlivier Meunier is also the Director of the Qigong Institute of Quebec, an institute that works in the field of health and wellness.\n\nHis objective is to promote the cultural and business potential of Québec and the West to the China and to increase opportunities for exchange and cooperation between China and Canada.\n\nHe represents Himalaya Real Estate Corp. to develop and promote the  market of Canada and internationally for the Chinese business community.",
     "categories": [
       "commercial",
-      "residentiel",
-      "international"
+      "residentiel"
     ],
     "title_es": "Corredor Inmobiliario Residencial y Comercial, Consultor China-Canadá",
     "title_zh": "住宅与商业房地产经纪人 • 中加商务与投资顾问",
@@ -555,8 +549,7 @@ export const INITIAL_HIMALAYA_BROKERS = [
     "bio": "\"Taline est une nouvelle agente immobilière résidentielle qui insuffle une énergie dynamique au secteur. Possédant un baccalauréat en administration des affaires, elle occupe actuellement le poste d'assistante administrative au sein d'une société de développement immobilier. Depuis sa jeunesse, sa passion précoce pour l'immobilier et le design intérieur guide son parcours professionnel. Alliant professionnalisme, convivialité et un travail acharné, Taline se distingue par son engagement envers l'excellence. Son éducation formelle et son expérience pratique créent une fondation solide pour une carrière prometteuse dans le domaine immobilier. Avec Taline, l'avenir de l'immobilier résidentiel prend vie à travers une approche dévouée et chaleureuse. De plus, elle est parfaitement trilingue, et serait ravis de vous servir en Français, Anglais ou Arménien.\"",
     "bio_en": "\"Taline is a new residential real estate agent who brings dynamic energy to the sector. Holding a bachelor's degree in business administration, she currently serves as an administrative assistant within a real estate development company. Since her youth, her passion for real estate and interior design has guided her professional journey. Combining professionalism, friendliness, and hard work, Taline stands out through her commitment to excellence. Her formal education and practical experience establish a strong foundation for a promising career in the real estate field. With Taline, the future of residential real estate comes to life through a dedicated and warm approach. In addition, she is perfectly trilingual, and would be delighted to serve you in French, English or Armenian.\"",
     "categories": [
-      "residentiel",
-      "international"
+      "residentiel"
     ],
     "title_es": "Corredora Inmobiliaria Residencial",
     "title_zh": "住宅房地产经纪人",
@@ -702,8 +695,7 @@ export const INITIAL_HIMALAYA_BROKERS = [
     "bio": "Je m'appelle Nagatha. J'ai une passion pour la vie. J’apprécie chaque instant que je reçois. Je pense que nous devons tous aimer où nous vivons et comment nous vivons. L’endroit où vous vivez joue un grand rôle dans votre bonheur. Je vais donc faire cette carrière avec passion et dévouement. Je veillerai à ce que chaque client reçoive le service de notre agence avec honnêteté, car nous visons la plus entière satisfaction.\n\nLa famille est importante pour moi et cette carrière était quelque chose dans mon esprit depuis mon jeune âge. J'étais fasciné chaque fois que je voyais un panneau de vente devant une maison. En vieillissant, j’ai réalisé que tout cela comportait beaucoup de responsabilités. Nous avons une grande équipe, donc je suis prêt à donner le meilleur de moi-même. Notre mission est de maintenir notre réputation. Je suis motivé par le défi et la récompense que représente l’établissement de relations de confiance et de relations dans ce secteur. Devenir courtier immobilier n’est pas seulement un objectif de carrière pour moi ; c’est une passion et un chemin que j’ai hâte de poursuivre avec dévouement et cœur.\n\nUne belle carrière commence par un excellent service. Je suis entouré de professionnels. Je suis prêt à travailler avec eux et à faire partie de ce groupe.",
     "bio_en": "My name is Nagatha. I have a passion for Life. I enjoy every single moment I get. I think we all need to like where we live and how we live. The place you live, takes a big part in your happiness. So I will be doing this career with passion and dedication. I will make sure each and every client receives the service with our agency with honesty as we aim for fullest satisfaction.\n\nFamily is important for me, and this career was something in my mind since my young age. I was fascinated whenever I see a sales board in front of a house. As I grow older, I realised it all comes with a lot of responsibilities. We have a great team, so I am ready to give my best into it. Our mission is to keep our reputation. I’m motivated by the challenge and the reward of building trust and relationships in this industry. Becoming a real estate broker isn’t just a career goal for me; it’s a passion and a path I’m eager to pursue with dedication and heart.\n\nA great career starts with great service. I am surrounded with professionals. I am ready to work with them and be part of that group.",
     "categories": [
-      "residentiel",
-      "international"
+      "residentiel"
     ],
     "title_es": "Corredora Inmobiliaria Residencial",
     "title_zh": "住宅房地产经纪人",
@@ -754,8 +746,7 @@ export const INITIAL_HIMALAYA_BROKERS = [
     "bio_en": "With over 17 years of experience working directly with clients and the last three dedicated to residential real estate, I bring a unique blend of discipline, technical expertise, and client-focused service to every transaction. My background in telecommunications and technology has shaped me into a natural problem solver with a strong understanding of modern tools, systems, and communication strategies.",
     "categories": [
       "commercial",
-      "residentiel",
-      "international"
+      "residentiel"
     ],
     "title_es": "Corredor Inmobiliario Residencial y Comercial",
     "title_zh": "住宅与商业房地产经纪人",
@@ -851,8 +842,7 @@ export const INITIAL_HIMALAYA_BROKERS = [
     "bio": "Yun est une ingénieure reconnue par l’OIQ, spécialisée en génie du bâtiment. Après avoir travaillé plus de six ans dans le domaine de la construction, elle a constaté que les gens de son entourage la consultaient souvent pour l’acquisition de leurs propriétés. Elle a donc finalement décidé de se lancer dans le monde de l’immobilier afin de transformer son passe-temps en une carrière officielle.\nÉtant membre en règle d’un autre Ordre professionnel, Yun a déjà fait ses preuves quant à ses valeurs vis-à-vis son travail. De plus, au fils des années, elle a eu l’occasion d’enrichir ses méthodes de communication dans divers contextes, ce qui lui a permis de perfectionner son service à la clientèle.\nSur ce, elle est prête à vous accueillir et elle peut vous assister en français, en anglais ou en chinois (mandarin).\nYUN À VOS SERVICES~~~",
     "bio_en": "Yun is an engineer recognized by the OIQ, specializing in building engineering. After working for over six years in the construction industry, she realized that people around her often came to her for advice when purchasing properties. So, she finally decided to dive into the world of real estate and turn her hobby into an official career.\nAs a member in good standing of another professional Order, Yun has already proven her strong work values. Over the years, she has also had the opportunity to enhance her communication skills in various contexts, allowing her to refine her customer service approach.\nWith that, she’s ready to welcome you and can assist you in French, English, or Mandarin Chinese.\nYUN AT YOUR SERVICE ~~~",
     "categories": [
-      "residentiel",
-      "international"
+      "residentiel"
     ],
     "title_es": "Corredora Inmobiliaria Residencial",
     "title_zh": "住宅房地产经纪人 • 魁北克注册建筑工程师背景 (OIQ)",
@@ -903,8 +893,7 @@ export const INITIAL_HIMALAYA_BROKERS = [
     "bio_en": "Before becoming an broker, Pengbo ZHAO worked in CCTV for seven or eight years. He would never have imagined that many years later, he would be able to find unprecedented energy and passion in his life in the profession of real estate brokerage.\n\nThis profession is not only able to earn money to support the family and allow oneself to live a good life, but the nature and connotation of the work are completely different from the rigid positioning of real estate agents in my mind.\n\nPengbo ZHAO emphasized that as a real estate agent in this land of Canada, you are never selling houses, but serving customers with heart-to-heart and down-to-earth.\n\nYou just need to seriously understand customer needs, query information for customers in a down-to-earth manner, solve problems, can achieve good performance.\n\nThere is no unnecessary entertainment, no invisible commissions, no malicious competition among peers, everything is clear and transparent, black and white, simple and atmospheric, without any gray areas.\n\nIt's mine, I'll take it, I shouldn't have it, I can't touch it, and I don't want to touch it. Because it is clean and simple, you can go all out. Moreover,  Pengbo ZHAO felt that in the real estate industry, he had a sense of accomplishment that he had never had in the film and television industry. Whenever he sees that a client buys his favorite house at a suitable price, he feels satisfied and excited, just as happy as buying a house himself. Many clients say that Pengbo ZHAO is the most heart-warming real estate agent in Montreal, but Pengbo ZHAO himself feels that the real estate brokerage profession itself needs practitioners to do heart-warming things. Become a real estate agent in Canada! Because nothing more than two results: Just do it and you'll disappear...Or, just do it and you'll be addicted... Canada is cold, please poke the QR code and let me warm you up.\n\n \n\n ",
     "categories": [
       "commercial",
-      "residentiel",
-      "international"
+      "residentiel"
     ],
     "title_es": "Corredor Inmobiliario Residencial y Comercial",
     "title_zh": "住宅与商业房地产经纪人",
@@ -936,7 +925,7 @@ export const INITIAL_HIMALAYA_BROKERS = [
     "email": "ebcaraibes@gmail.com",
     "phone": "1 809 890 1174",
     "officePhone": "1 809 890 1174",
-    "photo": "https://www.himalayacorp.com/DATA/COURTIERINFOSUP/44_courtierGrand.JPG",
+    "photo": "/DATA/COURTIERINFOSUP/44_courtierGrand.JPG",
     "city": "Las Terrenas, Rép. Dominicaine",
     "city_en": "Las Terrenas, Dominican Republic",
     "address": "Las Terrenas, République Dominicaine",

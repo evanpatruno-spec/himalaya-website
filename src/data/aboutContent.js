@@ -57,7 +57,7 @@ export const ABOUT_CONTENT = {
           name: 'Geniev Mondoux',
           role: 'Vice-Président — Courtier immobilier agréé',
           credentials: 'CPA, MBA • Co-fondateur & Directeur d’agence',
-          portrait: 'https://www.himalayacorp.com/DATA/COURTIERINFOSUP/11_courtierGrand.JPG',
+          portrait: '/DATA/COURTIERINFOSUP/11_courtierGrand.JPG',
           photos: [
             '/DATA/CMSIMAGE/721.jpg',
             '/DATA/CMSIMAGE/722.jpg'
@@ -471,7 +471,7 @@ export const ABOUT_CONTENT = {
           name: 'Geniev Mondoux',
           role: 'Vice-President — Chartered Real Estate Broker',
           credentials: 'CPA, MBA • Co-Founder & Agency Executive Officer',
-          portrait: 'https://www.himalayacorp.com/DATA/COURTIERINFOSUP/11_courtierGrand.JPG',
+          portrait: '/DATA/COURTIERINFOSUP/11_courtierGrand.JPG',
           photos: [
             '/DATA/CMSIMAGE/721.jpg',
             '/DATA/CMSIMAGE/722.jpg'
@@ -884,7 +884,7 @@ ABOUT_CONTENT.ES = {
         name: 'Geniev Mondoux',
         role: 'Vicepresidente — Corredor inmobiliario certificado',
         credentials: 'CPA, MBA • Cofundador y Director de agencia',
-        portrait: 'https://www.himalayacorp.com/DATA/COURTIERINFOSUP/11_courtierGrand.JPG',
+        portrait: '/DATA/COURTIERINFOSUP/11_courtierGrand.JPG',
         photos: [
           '/DATA/CMSIMAGE/721.jpg',
           '/DATA/CMSIMAGE/722.jpg'
@@ -1310,7 +1310,7 @@ ABOUT_CONTENT.ZH = {
         name: 'Geniev Mondoux',
         role: '副总裁 — 特许房地产经纪人',
         credentials: 'CPA, MBA • 联合创始人兼机构行政总监',
-        portrait: 'https://www.himalayacorp.com/DATA/COURTIERINFOSUP/11_courtierGrand.JPG',
+        portrait: '/DATA/COURTIERINFOSUP/11_courtierGrand.JPG',
         photos: [
           '/DATA/CMSIMAGE/721.jpg',
           '/DATA/CMSIMAGE/722.jpg'

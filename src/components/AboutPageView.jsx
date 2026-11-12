@@ -246,11 +246,12 @@ export default function AboutPageView({
               >
                 {c.whoWeAre.profileTitle}
               </h3>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '20px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%' }}>
                 {c.whoWeAre.profileParagraphs.map((para, idx) => (
                   <p
                     key={idx}
                     style={{
+                      width: '100%',
                       fontSize: '0.94rem',
                       color: 'var(--text-secondary)',
                       lineHeight: 1.75

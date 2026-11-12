@@ -50,9 +50,32 @@ export default function NewsEventsView({
                   {pickLang(ev, 'description', lang)}
                 </p>
               </div>
-              <a href={ev.url} target="_blank" rel="noreferrer" className="editorial-link" style={{ alignSelf: 'flex-start' }}>
-                {t.news.detailsBtn} <ExternalLink size={13} />
-              </a>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
+                <button
+                  type="button"
+                  onClick={() =>
+                    setSelectedNewsArticle({
+                      ...ev,
+                      excerpt: ev.description,
+                      excerpt_en: ev.description_en,
+                      excerpt_es: ev.description_es,
+                      excerpt_zh: ev.description_zh
+                    })
+                  }
+                  className="editorial-link"
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+                >
+                  {t.news.detailsBtn} <ArrowRight size={13} />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => navigateTo('nous-joindre')}
+                  className="editorial-link"
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, color: 'var(--text-secondary)' }}
+                >
+                  {tr(lang, 'Prendre rendez-vous sur place', 'Schedule a Meeting on Site', 'Agendar cita en el evento', '预约展会现场会面')} <ArrowRight size={13} />
+                </button>
+              </div>
             </div>
           ))}
         </div>

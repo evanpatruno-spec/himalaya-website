@@ -74,6 +74,7 @@ export const HIMALAYA_AGENCIES = [
 export const HIMALAYA_EVENTS = [
   {
     id: 'event_71',
+    year: '2027',
     title: 'Salon de la Franchise à Paris — Édition 2027',
     title_en: 'Franchise Expo Paris — 2027 Edition',
     title_es: 'Salón de la Franquicia de París — Edición 2027',
@@ -102,8 +103,8 @@ export const HIMALAYA_EVENTS = [
     highlight_en: 'Meet our brokers active in franchises and international development in Paris.',
     highlight_es: 'Conozca en París a nuestros corredores activos en franquicias y desarrollo internacional.',
     highlight_zh: '在巴黎与我们的特许经营及国际商业拓展专家团队面对面交流。',
-    image: 'https://www.himalayacorp.com/DATA/EVENEMENT/132_liste~v~img_4549.JPG',
-    url: 'https://www.himalayacorp.com/fr/evenements/71-salon-de-la-franchise-a-paris-edition-2027.html'
+    image: '/DATA/EVENEMENT/132_liste~v~img_4549.JPG',
+    url: 'https://www.franchiseparis.com'
   }
 ];
 

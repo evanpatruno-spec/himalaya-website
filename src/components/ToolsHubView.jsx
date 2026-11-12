@@ -23,7 +23,7 @@ function getEffectiveMonthlyRate(annualPct) {
   return Math.pow(1 + (annualPct / 100) / 2, 1 / 6) - 1;
 }
 
-// Calcul officiel des droits de mutation (Taxe de bienvenue 2026 — Québec & Montréal)
+// Calcul officiel des droits de mutation (Taxe de bienvenue 2027 — Québec & Montréal)
 function computeWelcomeTax(price, isMontreal, lang = 'FR') {
   let rem = Math.max(0, Number(price) || 0);
   const brackets = [];
@@ -87,7 +87,7 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
     }
   }, [initialTool]);
 
-  // --- 1. Rentabilité Commerciale & Plex (calculateur_rentabilite_plex_2026) ---
+  // --- 1. Rentabilité Commerciale & Plex (calculateur_rentabilite_plex_2027) ---
   const [plexPrice, setPlexPrice] = useState(850000);
   const [plexGrossIncome, setPlexGrossIncome] = useState(72000);
   const [plexVacancy, setPlexVacancy] = useState(3.0);
@@ -230,7 +230,7 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
       id: 'welcome',
       icon: Landmark,
       title: tr(lang, 'Taxe de bienvenue', 'Welcome Tax', 'Impuesto de Transferencia', '魁北克欢迎税'),
-      sub: tr(lang, 'Barèmes Québec & Montréal 2026', 'Quebec & Montreal 2026 Brackets', 'Tarifas Quebec y Montreal 2026', '魁北克与蒙特利尔 2026 税率')
+      sub: tr(lang, 'Barèmes Québec & Montréal 2027', 'Quebec & Montreal 2027 Brackets', 'Tarifas Quebec y Montreal 2027', '魁北克与蒙特利尔 2027 税率')
     },
     {
       id: 'closing',
@@ -939,14 +939,14 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
         )}
 
         {/* =================================================================
-            OUTIL 4 : TAXE DE BIENVENUE (DROITS DE MUTATION QC & MTL 2026) — Épuré
+            OUTIL 4 : TAXE DE BIENVENUE (DROITS DE MUTATION QC & MTL 2027) — Épuré
            ================================================================= */}
         {activeTool === 'welcome' && (
           <div style={{ paddingTop: '8px' }}>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '40px' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 <h3 className="serif-title" style={{ fontSize: '1.35rem', fontWeight: 600, color: 'var(--gold-light)', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-                  {tr(lang, 'Calcul des droits de mutation (Barèmes 2026)', 'Property Transfer Duties (2026 Brackets)', 'Cálculo de Impuestos de Transferencia (Tarifas 2026)', '土地转让税计算 (2026 税率标准)')}
+                  {tr(lang, 'Calcul des droits de mutation (Barèmes 2027)', 'Property Transfer Duties (2027 Brackets)', 'Cálculo de Impuestos de Transferencia (Tarifas 2027)', '土地转让税计算 (2027 税率标准)')}
                 </h3>
                 <div>
                   <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
