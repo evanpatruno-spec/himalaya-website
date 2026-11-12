@@ -509,31 +509,6 @@ export const HIMALAYA_NEWS = [
 
 export const HIMALAYA_PODCASTS = [
   {
-    id: 'pod_himalaya_1',
-    series: 'himalaya',
-    episode: 'Immobilier Himalaya • Capsule Vidéo',
-    episode_en: 'Himalaya Real Estate • Video Feature',
-    episode_es: 'Immobilier Himalaya • Cápsula de Video',
-    episode_zh: '喜马拉雅地产 • 官方视频专访',
-    title: 'Présentation & Vision — Immobilier Himalaya Real Estate Corp.',
-    title_en: 'Presentation & Vision — Immobilier Himalaya Real Estate Corp.',
-    title_es: 'Presentación y Visión — Immobilier Himalaya Real Estate Corp.',
-    title_zh: '企业愿景与战略专访 — 喜马拉雅地产集团',
-    hosts: 'Roger Rhéaume (Président, DA) & Geniev Mondoux (Vice-Président, CPA, MBA)',
-    hosts_en: 'Roger Rhéaume (President) & Geniev Mondoux (Vice-President, CPA, MBA)',
-    hosts_es: 'Roger Rhéaume (Presidente) y Geniev Mondoux (Vicepresidente, CPA, MBA)',
-    hosts_zh: 'Roger Rhéaume（总裁）与 Geniev Mondoux（副总裁，CPA, MBA）',
-    duration: 'Vidéo YouTube',
-    youtubeEmbed: 'https://www.youtube.com/embed/IFmG6c3ywJY',
-    youtubeUrl: 'https://www.youtube.com/watch?v=IFmG6c3ywJY',
-    platformUrl: 'https://www.youtube.com/watch?v=IFmG6c3ywJY',
-    platformLabel: 'YouTube Officiel',
-    description: 'Présentation officielle de la vision d’Immobilier Himalaya par ses co-fondateurs Roger Rhéaume et Geniev Mondoux : courtage commercial, industriel, pourvoiries, campings, franchises et réseau international.',
-    description_en: 'Official presentation of Himalaya Real Estate’s vision by co-founders Roger Rhéaume and Geniev Mondoux across commercial, industrial, resort, franchise, and international brokerage.',
-    description_es: 'Presentación oficial de la visión de Immobilier Himalaya por sus cofundadores Roger Rhéaume y Geniev Mondoux en corretaje comercial, industrial, turístico, franquicias e internacional.',
-    description_zh: '联合创始人 Roger Rhéaume 与 Geniev Mondoux 深度解析喜马拉雅地产在商业、工业、旅游度假庄园、连锁特许经营及国际市场的布局。'
-  },
-  {
     id: 'pod_apciq_1',
     series: 'apciq',
     episode: 'APCIQ • L’immobilier en mouvement',
