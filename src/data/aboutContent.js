@@ -49,8 +49,6 @@ export const ABOUT_CONTENT = {
       heading: 'Une agence immobilière menée par des professionnels de cœur',
       intro:
         'Immobilier Himalaya a été fondée par deux collaborateurs de longue date partageant, depuis leur rencontre en 1998, les mêmes valeurs de respect, d’intégrité, de communication et d’excellence. Pour Geniev Mondoux et Roger Rhéaume, un processus immobilier n’est pas uniquement une transaction : c’est une occasion de créer des liens, de rassembler les gens et offrir à leurs clients la chance de réaliser les projets qui leur tiennent à cœur.',
-      videoTitle: 'Présentation vidéo — Immobilier Himalaya',
-      videoUrl: 'https://www.youtube.com/embed/IFmG6c3ywJY',
       founders: [
         {
           id: 'geniev-mondoux',
@@ -463,8 +461,6 @@ export const ABOUT_CONTENT = {
       heading: 'A Real Estate Agency Led By Passionate Professionals',
       intro:
         'Himalaya Real Estate was founded by two long-time collaborators who have shared the same values of respect, integrity, communication, and excellence since they first met in 1998. For Geniev Mondoux and Roger Rhéaume, real estate is not just a transaction: it is an opportunity to create bonds, bring people together, and offer their clients the chance to carry out the projects that matter most to them.',
-      videoTitle: 'Video Presentation — Himalaya Real Estate',
-      videoUrl: 'https://www.youtube.com/embed/IFmG6c3ywJY',
       founders: [
         {
           id: 'geniev-mondoux',
@@ -876,8 +872,6 @@ ABOUT_CONTENT.ES = {
     heading: 'Una agencia inmobiliaria dirigida por profesionales apasionados',
     intro:
       'Immobilier Himalaya fue fundada por dos colaboradores de larga trayectoria que comparten, desde su primer encuentro en 1998, los mismos valores de respeto, integridad, comunicación y excelencia. Para Geniev Mondoux y Roger Rhéaume, un proceso inmobiliario no es simplemente una transacción: es una oportunidad para crear lazos, unir a las personas y ofrecer a sus clientes la posibilidad de hacer realidad los proyectos que más les importan.',
-    videoTitle: 'Presentación en video — Immobilier Himalaya',
-    videoUrl: 'https://www.youtube.com/embed/IFmG6c3ywJY',
     founders: [
       {
         id: 'geniev-mondoux',
@@ -1302,8 +1296,6 @@ ABOUT_CONTENT.ZH = {
     heading: '由充满热忱的专业人士领航的房地产机构',
     intro:
       '喜马拉雅地产（Immobilier Himalaya）由两位长期合作伙伴共同创立。自 1998 年相识以来，他们始终秉持着尊重、诚信、沟通与卓越的共同价值观。对于 Geniev Mondoux 与 Roger Rhéaume 而言，房地产不仅是一笔交易，更是建立深厚联结、凝聚人脉并助力客户实现人生与事业理想的重要契机。',
-    videoTitle: '视频介绍 — 喜马拉雅地产 (Immobilier Himalaya)',
-    videoUrl: 'https://www.youtube.com/embed/IFmG6c3ywJY',
     founders: [
       {
         id: 'geniev-mondoux',

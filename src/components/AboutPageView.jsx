@@ -360,7 +360,7 @@ export default function AboutPageView({
                   className="btn-outline"
                   style={{ padding: '8px 16px', fontSize: '0.82rem' }}
                 >
-                  {tr(lang, 'Histoire des co-fondateurs & vidéo', 'Read Full Co-Founders Story & Video', 'Historia de los cofundadores y video', '联合创始人故事与视频介绍')}{' '}
+                  {tr(lang, 'Histoire des co-fondateurs', 'Read Full Co-Founders Story', 'Historia de los cofundadores', '联合创始人故事')}{' '}
                   <ArrowRight size={14} />
                 </button>
               </div>
@@ -671,33 +671,6 @@ export default function AboutPageView({
                 </div>
               );
             })}
-
-            {/* Vidéo officielle présente sur co-fondateurs.html */}
-            <div>
-              <h3 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: '14px' }}>
-                {c.coFounders.videoTitle}
-              </h3>
-              <div
-                style={{
-                  position: 'relative',
-                  width: '100%',
-                  aspectRatio: '16 / 9',
-                  maxHeight: '420px',
-                  borderRadius: '10px',
-                  overflow: 'hidden',
-                  border: '1px solid var(--border-subtle)',
-                  background: '#000'
-                }}
-              >
-                <iframe
-                  src={c.coFounders.videoUrl}
-                  title={c.coFounders.videoTitle}
-                  style={{ width: '100%', height: '100%', border: 0 }}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-              </div>
-            </div>
           </div>
         )}
 
