@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ExternalLink, Menu, X, ArrowRight, Globe } from 'lucide-react';
-import { LANGUAGE_OPTIONS, tr } from '../data/translations';
+import { LANGUAGE_OPTIONS, tr, pickLang } from '../data/translations';
+import { SPECIALTIES_DATA } from '../data/siteContent';
 import LanguageFlag from './LanguageFlag';
 import {
   CONSENT_UPDATED_EVENT,
@@ -403,57 +404,29 @@ export default function HeaderNav({
                 <button
                   type="button"
                   className="nav-dropdown-link"
-                  onClick={() => navigateTo('proprietes', { filtrePropriete: 'all', propertiesViewMode: 'grid' })}
+                  onClick={() => navigateTo('proprietes', { filtrePropriete: 'all', rechercheBut: 'all', propertiesViewMode: 'grid' })}
                 >
                   <span className="nav-dropdown-link-title">
                     {tr(lang, 'Toutes les propriétés', 'All Properties', 'Todas las propiedades', '全部物业')}
                   </span>
                 </button>
-                <button
-                  type="button"
-                  className="nav-dropdown-link"
-                  onClick={() => navigateTo('proprietes', { filtrePropriete: 'commercial', propertiesViewMode: 'grid' })}
-                >
-                  <span className="nav-dropdown-link-title">
-                    {tr(lang, 'Commercial & Investissement', 'Commercial & Investment', 'Comercial e Inversión', '商业与投资物业')}
-                  </span>
-                </button>
-                <button
-                  type="button"
-                  className="nav-dropdown-link"
-                  onClick={() => navigateTo('proprietes', { filtrePropriete: 'pourvoirie', propertiesViewMode: 'grid' })}
-                >
-                  <span className="nav-dropdown-link-title">
-                    {tr(lang, 'Pourvoiries & Hôtellerie', 'Outfitters & Hospitality', 'Cotos Turísticos y Hotelería', '狩猎度假村与酒店')}
-                  </span>
-                </button>
-                <button
-                  type="button"
-                  className="nav-dropdown-link"
-                  onClick={() => navigateTo('proprietes', { filtrePropriete: 'camping', propertiesViewMode: 'grid' })}
-                >
-                  <span className="nav-dropdown-link-title">
-                    {tr(lang, 'Camping', 'Campgrounds', 'Camping', '露营地')}
-                  </span>
-                </button>
-                <button
-                  type="button"
-                  className="nav-dropdown-link"
-                  onClick={() => navigateTo('proprietes', { filtrePropriete: 'terrain', propertiesViewMode: 'grid' })}
-                >
-                  <span className="nav-dropdown-link-title">
-                    {tr(lang, 'Terrains', 'Land', 'Terrenos', '开发土地')}
-                  </span>
-                </button>
-                <button
-                  type="button"
-                  className="nav-dropdown-link"
-                  onClick={() => navigateTo('proprietes', { filtrePropriete: 'residentiel', propertiesViewMode: 'grid' })}
-                >
-                  <span className="nav-dropdown-link-title">
-                    {tr(lang, 'Résidentiel', 'Residential', 'Residencial', '住宅物业')}
-                  </span>
-                </button>
+                <div className="nav-dropdown-divider" />
+                {SPECIALTIES_DATA.map(spec => (
+                  <button
+                    key={spec.id}
+                    type="button"
+                    className="nav-dropdown-link"
+                    onClick={() => navigateTo('proprietes', {
+                      filtrePropriete: spec.filterKey,
+                      rechercheBut: 'all',
+                      propertiesViewMode: 'grid'
+                    })}
+                  >
+                    <span className="nav-dropdown-link-title">
+                      {pickLang(spec, 'title', lang)}
+                    </span>
+                  </button>
+                ))}
                 <div className="nav-dropdown-divider" />
                 <button
                   type="button"

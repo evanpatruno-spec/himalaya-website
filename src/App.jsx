@@ -326,27 +326,47 @@ export default function App() {
           const cat = normalizeText(d.category);
           const desc = normalizeText(d.description);
           const title = normalizeText(d.title);
+          const zonage = normalizeText(d.specs?.Zonage || '');
+          const pays = normalizeText(d.specs?.Pays || d.country || '');
+          const txType = normalizeText(d.transaction_type);
           const f = normalizeText(filtrePropriete);
-          if (f === 'pourvoirie') {
-            if (!cat.includes('camping') && !cat.includes('pourvoirie') && !cat.includes('hotellerie') && !desc.includes('camping') && !desc.includes('pourvoirie') && !desc.includes('chalet') && !desc.includes('villegiature')) {
+          const isCommercialCat =
+            !cat.includes('terrain') &&
+            ['commercial', 'industriel', 'entreprise', 'investissement', 'restaurant', 'resto-bar', 'commerce de detail', 'boutique', 'bureaux', 'clinique', 'franchise'].some(k => cat.includes(k));
+
+          if (f === 'vente_commercial' || f === 'commercial') {
+            if (!isCommercialCat || txType === 'location') return false;
+          } else if (f === 'location_commercial') {
+            if (txType !== 'location' || !isCommercialCat) return false;
+          } else if (f === 'pourvoirie') {
+            if (!cat.includes('camping') && !cat.includes('pourvoirie') && !cat.includes('hotellerie') && !cat.includes('domaine') && !cat.includes('villegiature') && !desc.includes('camping') && !desc.includes('pourvoirie') && !desc.includes('auberge') && !desc.includes('chalet') && !desc.includes('villegiature')) {
               return false;
             }
           } else if (f === 'camping') {
             if (!cat.includes('camping') && !title.includes('camping') && !desc.includes('camping')) {
               return false;
             }
-          } else if (f === 'commercial') {
-            if (!cat.includes('commercial') && !cat.includes('industriel') && !cat.includes('entreprise') && !cat.includes('investissement')) {
-              return false;
-            }
           } else if (f === 'terrain') {
-            if (!cat.includes('terrain') && !title.includes('terrain') && !desc.includes('terrain vacant')) {
+            if (!cat.includes('terrain') && !title.includes('terrain') && !desc.includes('terrain vacant') && !desc.includes('terrain constructible') && !desc.includes('terrain commercial')) {
               return false;
             }
           } else if (f === 'residentiel') {
             if (!cat.includes('residentiel') && !desc.includes('residentiel') && !desc.includes('maison') && !desc.includes('condo')) {
               return false;
             }
+          } else if (f === 'international') {
+            const isIntl = (pays && pays !== 'canada') || normalizeText(d.region) === 'republique dominicaine';
+            if (!isIntl) return false;
+          } else if (f === 'franchise') {
+            if (!cat.includes('franchise') && !title.includes('franchise') && !desc.includes('franchise')) {
+              return false;
+            }
+          } else if (f === 'multilogement') {
+            const isMulti =
+              ['multilogement', 'multi-logement', 'multifamilial', 'plex'].some(k => cat.includes(k) || title.includes(k)) ||
+              zonage.includes('multifamilial') ||
+              ['multilogement', 'multi-logement', 'multiresidentiel', 'duplex', 'triplex', 'quadruplex', 'immeuble a revenus'].some(k => desc.includes(k));
+            if (!isMulti) return false;
           }
         }
 

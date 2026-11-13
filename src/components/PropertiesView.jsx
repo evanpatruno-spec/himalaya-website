@@ -1,7 +1,8 @@
 import React, { Suspense, lazy } from 'react';
 import { Lock, LayoutGrid, Map as MapIcon } from 'lucide-react';
 import { INITIAL_HIMALAYA_BROKERS } from '../data/brokersData';
-import { tr } from '../data/translations';
+import { SPECIALTIES_DATA } from '../data/siteContent';
+import { tr, pickLang } from '../data/translations';
 import { CURRENCY_OPTIONS, getCurrencyDisclaimerText } from '../utils/currencyService';
 import PropertyCard from './PropertyCard';
 
@@ -46,6 +47,16 @@ export default function PropertiesView({
       ? [{ id: 'Vendu', label: tr(lang, 'Vendu', 'Sold', 'Vendido', '已售') }]
       : [])
   ];
+
+  const handleStatusChange = (nextTx) => {
+    setRechercheBut(nextTx);
+    if (
+      (nextTx === 'Location' && filtrePropriete === 'vente_commercial') ||
+      (nextTx === 'Vente' && filtrePropriete === 'location_commercial')
+    ) {
+      setFiltrePropriete('all');
+    }
+  };
 
   return (
     <main style={{ flex: 1, padding: '44px 0 80px' }}>
@@ -101,7 +112,7 @@ export default function PropertiesView({
               {statusTabs.map(st => (
                 <button
                   key={st.id}
-                  onClick={() => setRechercheBut(st.id)}
+                  onClick={() => handleStatusChange(st.id)}
                   style={{
                     padding: '6px 11px',
                     borderRadius: '6px',
@@ -163,10 +174,6 @@ export default function PropertiesView({
                 <MapIcon size={14} /> {t.properties.viewMap}
               </button>
             </div>
-
-            <button onClick={() => setNdaModalDeal(null)} className="btn-outline">
-              <Lock size={14} /> {t.home.offMarketBtn}
-            </button>
           </div>
         </div>
 
@@ -189,16 +196,30 @@ export default function PropertiesView({
               onChange={e => setSearchKeyword(e.target.value)}
             />
 
-            <select className="form-control" value={filtrePropriete} onChange={e => setFiltrePropriete(e.target.value)}>
+            <select
+              className="form-control"
+              value={filtrePropriete === 'commercial' ? 'vente_commercial' : filtrePropriete}
+              onChange={e => {
+                const nextCat = e.target.value;
+                setFiltrePropriete(nextCat);
+                if (nextCat === 'vente_commercial' || nextCat === 'location_commercial') {
+                  setRechercheBut('all');
+                }
+              }}
+            >
               <option value="all">{t.hero.allCategories}</option>
-              <option value="commercial">{t.hero.catCommercial}</option>
-              <option value="pourvoirie">{t.hero.catOutfitter}</option>
-              <option value="camping">{tr(lang, 'Camping', 'Campgrounds', 'Camping', '露营地')}</option>
-              <option value="terrain">{t.hero.catLand}</option>
-              <option value="residentiel">{t.hero.catResidential}</option>
+              {SPECIALTIES_DATA.map(spec => (
+                <option key={spec.id} value={spec.filterKey}>
+                  {pickLang(spec, 'title', lang)}
+                </option>
+              ))}
             </select>
 
-            <select className="form-control" value={rechercheBut} onChange={e => setRechercheBut(e.target.value)}>
+            <select
+              className="form-control"
+              value={rechercheBut}
+              onChange={e => handleStatusChange(e.target.value)}
+            >
               <option value="all">{t.properties.saleAndRent}</option>
               <option value="Vente">{t.properties.forSale}</option>
               <option value="Location">{t.properties.forRent}</option>

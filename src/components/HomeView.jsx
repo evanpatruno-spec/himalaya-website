@@ -130,15 +130,15 @@ export default function HomeView({
 
               <select
                 className="form-control"
-                value={filtrePropriete}
+                value={filtrePropriete === 'commercial' ? 'vente_commercial' : filtrePropriete}
                 onChange={e => setFiltrePropriete(e.target.value)}
               >
                 <option value="all">{t.hero.allCategories}</option>
-                <option value="commercial">{t.hero.catCommercial}</option>
-                <option value="pourvoirie">{t.hero.catOutfitter}</option>
-                <option value="camping">{tr(lang, 'Camping', 'Campgrounds', 'Camping', '露营地')}</option>
-                <option value="terrain">{t.hero.catLand}</option>
-                <option value="residentiel">{t.hero.catResidential}</option>
+                {SPECIALTIES_DATA.map(spec => (
+                  <option key={spec.id} value={spec.filterKey}>
+                    {pickLang(spec, 'title', lang)}
+                  </option>
+                ))}
               </select>
 
               <select
@@ -186,17 +186,11 @@ export default function HomeView({
               <div
                 key={spec.id}
                 className="specialty-card"
-                onClick={() => {
-                  if (spec.id === 'pourvoirieCamping') {
-                    navigateTo('proprietes', { filtrePropriete: 'pourvoirie' });
-                  } else if (spec.id === 'commercial') {
-                    navigateTo('proprietes', { filtrePropriete: 'commercial' });
-                  } else if (spec.id === 'residentiel') {
-                    navigateTo('proprietes', { filtrePropriete: 'residentiel' });
-                  } else {
-                    navigateTo('courtiers', { brokerCategoryFilter: 'international' });
-                  }
-                }}
+                onClick={() => navigateTo('proprietes', {
+                  filtrePropriete: spec.filterKey,
+                  rechercheBut: 'all',
+                  propertiesViewMode: 'grid'
+                })}
               >
                 <img
                   src={spec.image}
@@ -204,13 +198,13 @@ export default function HomeView({
                   onError={e => { e.target.src = spec.fallbackImage; }}
                 />
                 <div className="specialty-overlay">
-                  <span className="editorial-num" style={{ marginBottom: '8px', fontSize: '1.25rem' }}>
-                    0{idx + 1}
+                  <span className="editorial-num" style={{ marginBottom: '8px', fontSize: '1.15rem' }}>
+                    {String(idx + 1).padStart(2, '0')}
                   </span>
-                  <span style={{ fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--gold-light)', fontWeight: 600, marginBottom: '4px' }}>
+                  <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--gold-light)', fontWeight: 600, marginBottom: '4px' }}>
                     {pickLang(spec, 'subtitle', lang)}
                   </span>
-                  <h3 className="serif-title" style={{ fontSize: '1.45rem', fontWeight: 600, marginBottom: '12px', color: '#fff', lineHeight: 1.2 }}>
+                  <h3 className="serif-title" style={{ fontSize: '1.35rem', fontWeight: 600, marginBottom: '10px', color: '#fff', lineHeight: 1.2 }}>
                     {pickLang(spec, 'title', lang)}
                   </h3>
                   <span className="editorial-link">
@@ -269,7 +263,7 @@ export default function HomeView({
               {[
                 { id: 'all', label: t.home.tabAll },
                 { id: 'pourvoirie', label: t.home.tabOutfitter },
-                { id: 'commercial', label: t.home.tabCommercial },
+                { id: 'vente_commercial', label: t.home.tabCommercial },
                 { id: 'terrain', label: t.home.tabLand }
               ].map(tab => (
                 <button

@@ -525,7 +525,9 @@ body {
   position: absolute;
   top: calc(100% - 8px);
   left: 0;
-  min-width: 215px;
+  min-width: 235px;
+  max-height: calc(100vh - 96px);
+  overflow-y: auto;
   background: rgba(11, 11, 14, 0.98);
   backdrop-filter: blur(18px);
   border-top: 2px solid var(--gold);
@@ -740,12 +742,12 @@ body {
 .specialty-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+  gap: 20px;
 }
 
 .specialty-card {
   position: relative;
-  height: 330px;
+  height: 270px;
   border-radius: 8px;
   overflow: hidden;
   border: none;
