@@ -3,7 +3,11 @@ import { Phone, ArrowRight } from 'lucide-react';
 import { INITIAL_HIMALAYA_BROKERS } from '../data/brokersData';
 import { tr, pickLang } from '../data/translations';
 import { dealBelongsToBroker } from '../utils/prospectionBridge';
-import { getBrokerLanguages, getBrokerLanguageName } from '../utils/brokerLanguages';
+import {
+  BROKER_SPOKEN_LANGUAGES,
+  getBrokerLanguages,
+  getBrokerLanguageName
+} from '../utils/brokerLanguages';
 import LanguageFlag from './LanguageFlag';
 
 export default function BrokersView({
@@ -72,12 +76,12 @@ export default function BrokersView({
             {tr(lang, 'Langue parlée :', 'Spoken Language:', 'Idioma hablado:', '服务语言筛选：')}
           </span>
           {[
-            { id: 'all', flags: [], label: tr(lang, 'Toutes', 'All', 'Todos', '全部') },
-            { id: 'fr', flags: ['FR'], label: getBrokerLanguageName('fr', lang) },
-            { id: 'en', flags: ['EN'], label: getBrokerLanguageName('en', lang) },
-            { id: 'zh', flags: ['ZH'], label: getBrokerLanguageName('zh', lang) },
-            { id: 'es', flags: ['ES'], label: getBrokerLanguageName('es', lang) },
-            { id: 'ar_hy', flags: ['AR', 'HY'], label: tr(lang, 'Arabe & Arménien', 'Arabic & Armenian', 'Árabe y Armenio', '阿拉伯语 / 亚美尼亚语') }
+            { id: 'all', flagCode: null, label: tr(lang, 'Toutes', 'All', 'Todos', '全部') },
+            ...BROKER_SPOKEN_LANGUAGES.map(code => ({
+              id: code,
+              flagCode: code,
+              label: getBrokerLanguageName(code, lang)
+            }))
           ].map(lg => {
             const active = brokerLanguageFilter === lg.id;
             return (
@@ -100,13 +104,7 @@ export default function BrokersView({
                   transition: 'all 0.2s ease'
                 }}
               >
-                {lg.flags.length > 0 && (
-                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                    {lg.flags.map(flagCode => (
-                      <LanguageFlag key={flagCode} code={flagCode} width={18} height={12} bordered />
-                    ))}
-                  </span>
-                )}
+                {lg.flagCode && <LanguageFlag code={lg.flagCode} width={18} height={12} bordered />}
                 <span>{lg.label}</span>
               </button>
             );

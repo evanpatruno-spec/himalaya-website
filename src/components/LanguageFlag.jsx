@@ -13,7 +13,7 @@ function buildStarPoints(cx, cy, outerR, angleDeg = -90) {
 
 /**
  * Vector country/language flags for native interface and broker spoken languages
- * (FR, EN, ES, ZH, AR, HY).
+ * (FR, EN, ES, ZH, AR, HY, HT).
  * Rendered as inline SVGs so flags display consistently on Windows, macOS, and mobile browsers.
  */
 export default function LanguageFlag({ code, width = 22, height = 15, bordered = false, style = {} }) {
@@ -103,6 +103,26 @@ export default function LanguageFlag({ code, width = 22, height = 15, bordered =
         <rect width="24" height="16" fill="#0033A0" />
         <rect x="0" y="0" width="24" height="5.4" fill="#D90012" />
         <rect x="0" y="10.6" width="24" height="5.4" fill="#F2A800" />
+      </svg>
+    );
+  }
+
+  if (normalizedCode === 'HT') {
+    return (
+      <svg width={width} height={height} viewBox="0 0 24 16" aria-hidden="true" style={baseStyle}>
+        <rect x="0" y="0" width="24" height="8.1" fill="#00209F" />
+        <rect x="0" y="8" width="24" height="8" fill="#D21034" />
+        <rect x="9" y="5" width="6" height="6" rx="0.4" fill="#FFFFFF" />
+        <rect x="9.5" y="9.1" width="5" height="1.4" fill="#016A16" />
+        <path
+          d="M12,6 V9.2 M10.6,6.6 Q12,5.6 13.4,6.6 M10.9,7.3 Q12,6.4 13.1,7.3"
+          stroke="#016A16"
+          strokeWidth="0.7"
+          fill="none"
+          strokeLinecap="round"
+        />
+        <rect x="10.7" y="8.4" width="2.6" height="0.8" fill="#D21034" />
+        <circle cx="12" cy="8.2" r="0.55" fill="#F1B517" />
       </svg>
     );
   }

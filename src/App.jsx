@@ -391,10 +391,7 @@ export default function App() {
         if (!cats.includes(brokerCategoryFilter)) return false;
       }
       if (brokerLanguageFilter !== 'all') {
-        const spoken = getBrokerLanguages(b);
-        if (brokerLanguageFilter === 'ar_hy') {
-          if (!spoken.includes('ar') && !spoken.includes('hy')) return false;
-        } else if (!spoken.includes(brokerLanguageFilter)) {
+        if (!getBrokerLanguages(b).includes(brokerLanguageFilter)) {
           return false;
         }
       }

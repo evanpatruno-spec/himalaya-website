@@ -1,5 +1,15 @@
 import { tr } from '../data/translations.js';
 
+export const BROKER_SPOKEN_LANGUAGES = ['fr', 'en', 'zh', 'es', 'ar', 'hy', 'ht'];
+
+const EXTRA_LANGUAGE_BROKERS = {
+  zh: ['olivier_meunier', 'yun_zhang', 'pengbo_zhao'],
+  es: ['roger_rheaume', 'sylvie_castonguay', 'eric_barelier'],
+  ar: ['mike_ainajian', 'joseph_jacob'],
+  hy: ['mike_ainajian', 'taline_ovayan'],
+  ht: ['shella_hubert']
+};
+
 /**
  * Returns the canonical language codes spoken by a given broker.
  * Always includes French ('fr') and English ('en'), plus additional languages by broker profile.
@@ -7,10 +17,9 @@ import { tr } from '../data/translations.js';
 export function getBrokerLanguages(broker) {
   const id = broker?.id || '';
   const codes = ['fr', 'en'];
-  if (['olivier_meunier', 'yun_zhang', 'pengbo_zhao'].includes(id)) codes.push('zh');
-  if (['roger_rheaume', 'sylvie_castonguay', 'eric_barelier'].includes(id)) codes.push('es');
-  if (['mike_ainajian', 'joseph_jacob'].includes(id)) codes.push('ar');
-  if (['mike_ainajian', 'taline_ovayan'].includes(id)) codes.push('hy');
+  for (const [langCode, brokerIds] of Object.entries(EXTRA_LANGUAGE_BROKERS)) {
+    if (brokerIds.includes(id)) codes.push(langCode);
+  }
   return codes;
 }
 
@@ -25,7 +34,8 @@ export function getBrokerLanguageName(code, lang) {
     zh: tr(lang, 'Mandarin', 'Mandarin', 'Mandarín', '普通话'),
     es: tr(lang, 'Espagnol', 'Spanish', 'Español', '西班牙语'),
     ar: tr(lang, 'Arabe', 'Arabic', 'Árabe', '阿拉伯语'),
-    hy: tr(lang, 'Arménien', 'Armenian', 'Armenio', '亚美尼亚语')
+    hy: tr(lang, 'Arménien', 'Armenian', 'Armenio', '亚美尼亚语'),
+    ht: tr(lang, 'Créole', 'Haitian Creole', 'Criollo haitiano', '海地克里奥尔语')
   };
   return labels[normalized] || '';
 }
