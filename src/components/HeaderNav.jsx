@@ -142,8 +142,7 @@ export default function HeaderNav({
               <button
                 className={`nav-btn ${
                   activePage === 'a-propos' ||
-                  activePage === 'agences' ||
-                  activePage === 'investisseurs-internationaux'
+                  activePage === 'agences'
                     ? 'active'
                     : ''
                 }`}
@@ -178,21 +177,6 @@ export default function HeaderNav({
                 >
                   <span className="nav-dropdown-link-title">
                     {tr(lang, 'Agences partenaires', 'Partner Agencies', 'Agencias asociadas', '国际合作机构')}
-                  </span>
-                </button>
-                <button
-                  type="button"
-                  className="nav-dropdown-link"
-                  onClick={() => navigateTo('investisseurs-internationaux')}
-                >
-                  <span className="nav-dropdown-link-title" style={{ color: 'var(--gold-light)' }}>
-                    {tr(
-                      lang,
-                      'Investisseurs Internationaux',
-                      'International Investors Portal',
-                      'Portal Inversores Internacionales',
-                      '国际投资者专属门户'
-                    )}
                   </span>
                 </button>
                 <button
@@ -527,21 +511,6 @@ export default function HeaderNav({
                   </span>
                 </button>
                 <div className="nav-dropdown-divider" />
-                <button
-                  type="button"
-                  className="nav-dropdown-link"
-                  onClick={() => navigateTo('investisseurs-internationaux')}
-                >
-                  <span className="nav-dropdown-link-title">
-                    {tr(
-                      lang,
-                      'Ressources : Investisseurs Internationaux',
-                      'Resources: International Investors',
-                      'Recursos: Inversores Internacionales',
-                      '资源：国际投资者指南'
-                    )}
-                  </span>
-                </button>
                 <a
                   href="https://equipeimpact-multi-prets.zohobookings.ca/#/Himalaya"
                   target="_blank"
@@ -889,16 +858,6 @@ export default function HeaderNav({
                 {
                   id: 'proprietes',
                   label: `${t.nav.properties} (${dealsCount || 59})`
-                },
-                {
-                  id: 'investisseurs-internationaux',
-                  label: tr(
-                    lang,
-                    'Investisseurs Internationaux',
-                    'International Investors',
-                    'Inversores Internacionales',
-                    '国际投资者门户'
-                  )
                 },
                 {
                   id: 'outils',

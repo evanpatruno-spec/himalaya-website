@@ -194,7 +194,7 @@ export default function HomeView({
                   } else if (spec.id === 'residentiel') {
                     navigateTo('proprietes', { filtrePropriete: 'residentiel' });
                   } else {
-                    navigateTo('investisseurs-internationaux');
+                    navigateTo('courtiers', { brokerCategoryFilter: 'international' });
                   }
                 }}
               >
@@ -517,9 +517,6 @@ export default function HomeView({
             <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
               <button onClick={() => navigateTo('courtiers')} className="btn-gold">
                 {t.home.ourBrokersBtn} <ArrowRight size={15} />
-              </button>
-              <button onClick={() => navigateTo('investisseurs-internationaux')} className="btn-outline">
-                {tr(lang, 'Portail International', 'International Desk', 'Portal Internacional', '国际买家专区')}
               </button>
               <button onClick={() => navigateTo('nous-joindre', { contactTab: 'valuation' })} className="btn-outline">
                 {t.home.evaluateBtn}

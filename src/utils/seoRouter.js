@@ -9,7 +9,6 @@ export const VALID_SITE_PAGES = [
   'agences',
   'a-propos',
   'outils',
-  'investisseurs-internationaux',
   'evenements',
   'balados',
   'nous-joindre'
@@ -279,13 +278,6 @@ export function updateDynamicSEO({ activePage, selectedDeal, selectedBroker, lan
         'Financial Simulator, APH Select & Real Estate Calculators | Immobilier Himalaya',
         'Simulador financiero, APH Select y Calculadoras | Immobilier Himalaya',
         '商业多户财务模型、APH Select 与按揭计算器 | 喜马拉雅地产'
-      ),
-      'investisseurs-internationaux': tr(
-        lang,
-        'Portail Investisseurs Internationaux — Fiscalité, Loi Non-Résidents & Financement | Immobilier Himalaya',
-        'International Investors Portal — Taxation, Foreign Buyer Exemptions & Financing | Immobilier Himalaya',
-        'Portal de Inversores Internacionales — Fiscalidad, Exenciones y Financiamiento | Immobilier Himalaya',
-        '国际投资者门户 — 魁北克商业地产豁免政策、税务与跨境融资指南 | 喜马拉雅地产'
       ),
       'zone-equipe': 'Portail Zone Équipe & Synchronisation CRM | Immobilier Himalaya'
     };

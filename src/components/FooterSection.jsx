@@ -123,12 +123,6 @@ export default function FooterSection({
                   {t.nav.tools}
                 </button>
                 <button
-                  onClick={() => navigateTo('investisseurs-internationaux')}
-                  style={{ background: 'none', border: 'none', color: 'var(--gold-light)', cursor: 'pointer', textAlign: 'left' }}
-                >
-                  {tr(lang, 'International', 'International', 'Internacional', '国际投资')}
-                </button>
-                <button
                   onClick={() => navigateTo('evenements')}
                   style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', textAlign: 'left' }}
                 >

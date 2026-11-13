@@ -29,7 +29,6 @@ const PodcastsView = lazy(() => import('./components/PodcastsView'));
 const ContactView = lazy(() => import('./components/ContactView'));
 const AboutPageView = lazy(() => import('./components/AboutPageView'));
 const ToolsHubView = lazy(() => import('./components/ToolsHubView'));
-const InternationalInvestorsView = lazy(() => import('./components/InternationalInvestorsView'));
 
 const PropertyDetailModal = lazy(() => import('./components/PropertyDetailModal'));
 const BuyerNDAModal = lazy(() => import('./components/BuyerNDAModal'));
@@ -479,7 +478,6 @@ export default function App() {
       case 'a-propos': return t.nav.about;
       case 'proprietes': return t.nav.properties;
       case 'franchises': return tr(lang, 'Franchises', 'Franchises', 'Franquicias', '特许经营');
-      case 'investisseurs-internationaux': return tr(lang, 'Portail Investisseurs Internationaux', 'International Investors Desk', 'Portal de Inversores Internacionales', '国际买家与投资专区');
       case 'courtiers': return t.nav.brokers;
       case 'agences': return t.nav.agencies;
       case 'outils': return t.nav.tools;
@@ -614,18 +612,6 @@ export default function App() {
             onNavigate={navigateTo}
             initialTab="franchises"
             standaloneFranchisePage={true}
-          />
-        )}
-
-        {activePage === 'investisseurs-internationaux' && (
-          <InternationalInvestorsView
-            lang={lang}
-            rates={exchangeRates}
-            currency={currency}
-            onCurrencyChange={setCurrency}
-            onSelectBroker={openBrokerModal}
-            onNavigate={navigateTo}
-            onLeadsUpdated={() => setWebLeads(getStoredWebLeads())}
           />
         )}
 
