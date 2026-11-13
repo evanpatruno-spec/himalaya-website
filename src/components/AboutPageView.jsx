@@ -1065,7 +1065,7 @@ export default function AboutPageView({
                   <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
                     <span style={{ color: 'var(--gold)' }}>•</span>
                     <span>
-                      <strong style={{ color: '#fff', fontWeight: 600 }}>{tr(lang, 'Écosystème spécialisé', 'Specialized Partner Network', 'Red de socios especializados', '专业合作伙伴网络')}</strong> — {tr(lang, 'Droit de la franchise, géomarketing et design commercial (Fasken, Tutino, FlagFranchise, Indicia).', 'Franchise law, geomarketing, and commercial design (Fasken, Tutino, FlagFranchise, Indicia).', 'Derecho de franquicias, geomarketing y diseño comercial.', '涵盖特许经营法律、地理营销与商业设计。')}
+                      <strong style={{ color: '#fff', fontWeight: 600 }}>{tr(lang, 'Écosystème spécialisé', 'Specialized Partner Network', 'Red de socios especializados', '专业合作伙伴网络')}</strong> — {tr(lang, 'Droit de la franchise, géomarketing et design commercial (Fasken, Tutino, Imagine Franchise, Indicia).', 'Franchise law, geomarketing, and commercial design (Fasken, Tutino, Imagine Franchise, Indicia).', 'Derecho de franquicias, geomarketing y diseño comercial.', '涵盖特许经营法律、地理营销与商业设计。')}
                     </span>
                   </div>
                 </div>

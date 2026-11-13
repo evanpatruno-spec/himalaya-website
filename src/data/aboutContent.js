@@ -376,13 +376,6 @@ export const ABOUT_CONTENT = {
               website: 'https://indicia.ca'
             },
             {
-              name: 'FLAGFRANCHISE — Sylvie Grégoire, MBA, CRHA, Présidente',
-              specialty: 'Consultation internationale en franchise (Amérique du Nord & Europe)',
-              address: 'Québec & Europe',
-              contact: '1-819-347-7633 / 1-844-347-7633 • info@flagfranchise.com',
-              website: 'https://flagfranchise.com'
-            },
-            {
               name: 'DSD Groupe Design — Dimitri Smolens, APDIQ, DIC',
               specialty: 'Services d’aménagement commercial et design intérieur',
               address: '2197, rue Sherbrooke Est, suite 010, Montréal, QC H2K 1C8',
@@ -783,13 +776,6 @@ export const ABOUT_CONTENT = {
               address: '3467 des Entreprises Blvd., Suite 103, Terrebonne, QC J6X 4J9',
               contact: '450-477-3330 • daniel.lemire@indicia.ca',
               website: 'https://indicia.ca'
-            },
-            {
-              name: 'FLAGFRANCHISE — Sylvie Grégoire, MBA, CRHA, President',
-              specialty: 'International franchise consulting (North America & Europe)',
-              address: 'Quebec & Europe',
-              contact: '1-819-347-7633 / 1-844-347-7633 • info@flagfranchise.com',
-              website: 'https://flagfranchise.com'
             },
             {
               name: 'DSD Groupe Design — Dimitri Smolens, APDIQ, DIC',
@@ -1210,13 +1196,6 @@ ABOUT_CONTENT.ES = {
             website: 'https://indicia.ca'
           },
           {
-            name: 'FLAGFRANCHISE — Sylvie Grégoire, MBA, CRHA, Presidenta',
-            specialty: 'Consultoría internacional en franquicias (América del Norte y Europa)',
-            address: 'Quebec y Europa',
-            contact: '1-819-347-7633 / 1-844-347-7633 • info@flagfranchise.com',
-            website: 'https://flagfranchise.com'
-          },
-          {
             name: 'DSD Groupe Design — Dimitri Smolens, APDIQ, DIC',
             specialty: 'Planificación de espacios comerciales y diseño de interiores',
             address: '2197, rue Sherbrooke Est, suite 010, Montreal, QC H2K 1C8',
@@ -1632,13 +1611,6 @@ ABOUT_CONTENT.ZH = {
             address: '3467, boul. des Entreprises, suite 103, Terrebonne, QC J6X 4J9',
             contact: '450-477-3330 • daniel.lemire@indicia.ca',
             website: 'https://indicia.ca'
-          },
-          {
-            name: 'FLAGFRANCHISE — Sylvie Grégoire, MBA, CRHA, 总裁',
-            specialty: '国际特许经营咨询（北美与欧洲市场）',
-            address: 'Québec & Europe',
-            contact: '1-819-347-7633 / 1-844-347-7633 • info@flagfranchise.com',
-            website: 'https://flagfranchise.com'
           },
           {
             name: 'DSD Groupe Design — Dimitri Smolens, APDIQ, DIC',

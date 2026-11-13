@@ -985,9 +985,9 @@ export const HIMALAYA_FRANCHISE_HIGHLIGHTS = [
     title_en: 'Specialized Franchise Partner Network',
     title_es: 'Red de Socios Especializados en Franquicias',
     title_zh: '特许经营专业合作伙伴网络',
-    desc: 'Collaboration avec les partenaires officiels répertoriés d’Himalaya : Fasken (Me Frédéric P. Gilbert), Tutino Joseph Grégoire (Me Isabelle Grégoire), Imagine Franchise (Stéphane Breault), FlagFranchise (Sylvie Grégoire), Indicia Géomarketing et DSD Groupe Design.',
-    desc_en: 'Collaboration with Himalaya’s official partners: Fasken (Frédéric P. Gilbert), Tutino Joseph Grégoire (Isabelle Grégoire), Imagine Franchise (Stéphane Breault), FlagFranchise (Sylvie Grégoire), Indicia Geomarketing, and DSD Groupe Design.',
-    desc_es: 'Colaboración con los socios oficiales de Himalaya: Fasken (Frédéric P. Gilbert), Tutino Joseph Grégoire (Isabelle Grégoire), Imagine Franchise (Stéphane Breault), FlagFranchise (Sylvie Grégoire), Indicia Geomarketing y DSD Groupe Design.',
-    desc_zh: '与喜马拉雅官方认证伙伴紧密合作：Fasken 律所、Tutino Joseph Grégoire 律所、Imagine Franchise、FlagFranchise、Indicia 地理营销及 DSD Groupe Design。'
+    desc: 'Collaboration avec les partenaires officiels répertoriés d’Himalaya : Fasken (Me Frédéric P. Gilbert), Tutino Joseph Grégoire (Me Isabelle Grégoire), Imagine Franchise (Stéphane Breault), Indicia Géomarketing et DSD Groupe Design.',
+    desc_en: 'Collaboration with Himalaya’s official partners: Fasken (Frédéric P. Gilbert), Tutino Joseph Grégoire (Isabelle Grégoire), Imagine Franchise (Stéphane Breault), Indicia Geomarketing, and DSD Groupe Design.',
+    desc_es: 'Colaboración con los socios oficiales de Himalaya: Fasken (Frédéric P. Gilbert), Tutino Joseph Grégoire (Isabelle Grégoire), Imagine Franchise (Stéphane Breault), Indicia Geomarketing y DSD Groupe Design.',
+    desc_zh: '与喜马拉雅官方认证伙伴紧密合作：Fasken 律所、Tutino Joseph Grégoire 律所、Imagine Franchise、Indicia 地理营销及 DSD Groupe Design。'
   }
 ];
