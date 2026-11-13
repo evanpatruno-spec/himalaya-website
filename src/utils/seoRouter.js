@@ -230,6 +230,7 @@ export function updateDynamicSEO({ activePage, selectedDeal, selectedBroker, lan
       image: selectedBroker.photo,
       telephone: selectedBroker.phone,
       email: selectedBroker.email,
+      ...(selectedBroker.website ? { sameAs: [selectedBroker.website] } : {}),
       address: {
         '@type': 'PostalAddress',
         streetAddress: selectedBroker.address || '2000, avenue McGill College, bureau 600',

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { X, Phone, Mail, MapPin, Globe, ChevronRight, Share2 } from 'lucide-react';
+import { X, Phone, Mail, MapPin, Globe, ExternalLink, ChevronRight, Share2 } from 'lucide-react';
 import { HIMALAYA_FRANCHISES } from '../data/siteContent';
 import { tr, pickLang } from '../data/translations';
 import { getBrokerUrlPath } from '../utils/seoRouter';
@@ -129,6 +129,20 @@ export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSe
               <a href={`mailto:${broker.email}`} className="btn-outline" title={broker.email}>
                 <Mail size={15} /> {broker.email}
               </a>
+              {broker.website && (
+                <a
+                  href={broker.website}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="btn-outline"
+                  title={broker.website}
+                  style={{ borderColor: 'rgba(200, 164, 93, 0.45)', color: 'var(--gold-light)' }}
+                >
+                  <Globe size={15} color="var(--gold)" />
+                  <span>{broker.website.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')}</span>
+                  <ExternalLink size={12} color="var(--gold)" />
+                </a>
+              )}
             </div>
           </div>
 

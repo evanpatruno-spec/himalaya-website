@@ -1,5 +1,5 @@
 import React from 'react';
-import { Phone, ArrowRight } from 'lucide-react';
+import { Phone, ArrowRight, Globe, ExternalLink } from 'lucide-react';
 import { INITIAL_HIMALAYA_BROKERS } from '../data/brokersData';
 import { tr, pickLang } from '../data/translations';
 import { dealBelongsToBroker } from '../utils/prospectionBridge';
@@ -140,6 +140,30 @@ export default function BrokersView({
                     <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px' }}>
                       <span>{pickLang(broker, 'city', lang)}</span>
                     </div>
+                    {broker.website && (
+                      <div style={{ marginTop: '6px' }}>
+                        <a
+                          href={broker.website}
+                          target="_blank"
+                          rel="noreferrer"
+                          onClick={e => e.stopPropagation()}
+                          style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '5px',
+                            fontSize: '0.78rem',
+                            fontWeight: 600,
+                            color: 'var(--gold-light)',
+                            textDecoration: 'underline',
+                            textUnderlineOffset: '3px'
+                          }}
+                        >
+                          <Globe size={12} color="var(--gold)" />
+                          <span>{broker.website.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')}</span>
+                          <ExternalLink size={11} color="var(--gold)" />
+                        </a>
+                      </div>
+                    )}
                     {(() => {
                       const spokenCodes = getBrokerLanguages(broker);
                       const spokenText = spokenCodes.map(code => getBrokerLanguageName(code, lang)).filter(Boolean).join(', ');

@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { 
-  X, MapPin, Phone, Mail, ExternalLink, FileText, Maximize2,
+  X, MapPin, Phone, Mail, Globe, ExternalLink, FileText, Maximize2,
   ChevronLeft, ChevronRight, Sparkles, Lock, Share2, CheckCircle2, Calculator, ArrowRight, ArrowLeftRight
 } from 'lucide-react';
-import { isNdaSignedForDeal } from '../utils/prospectionBridge';
+import { isNdaSignedForDeal, normalizeText } from '../utils/prospectionBridge';
+import { INITIAL_HIMALAYA_BROKERS } from '../data/brokersData';
 import { tr, pickLang } from '../data/translations';
 import liveDealsData from '../data/himalayaLiveDeals.json';
 import {
@@ -267,11 +268,20 @@ export default function PropertyDetailModal({
     return true;
   });
 
-  const broker = (deal.brokers_details && deal.brokers_details[0]) || {
+  const rawBroker = (deal.brokers_details && deal.brokers_details[0]) || {
     name: deal.assigned_broker || 'Direction Himalaya',
     phone: '514-898-4898',
     email: 'r.rheaume@himalayacorp.com',
     photo: '/gx/00/defaut_courtier.jpg'
+  };
+  const matchedRosterBroker = INITIAL_HIMALAYA_BROKERS.find(
+    b =>
+      (rawBroker.email && b.email && b.email.toLowerCase() === rawBroker.email.toLowerCase()) ||
+      (rawBroker.name && normalizeText(b.name) === normalizeText(rawBroker.name))
+  );
+  const broker = {
+    ...rawBroker,
+    website: rawBroker.website || matchedRosterBroker?.website || ''
   };
 
   // Partage avec URL dédiée SEO /proprietes/22685883-... (#15)
@@ -831,6 +841,30 @@ export default function PropertyDetailModal({
                       : tr(lang, 'Copier courriel', 'Copy Email', 'Copiar correo', '复制邮箱')}
                   </button>
                 </div>
+
+                {broker.website && (
+                  <div style={{ marginBottom: '8px' }}>
+                    <a
+                      href={broker.website}
+                      target="_blank"
+                      rel="noreferrer"
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        fontSize: '0.78rem',
+                        fontWeight: 600,
+                        color: 'var(--gold-light)',
+                        textDecoration: 'underline',
+                        textUnderlineOffset: '3px'
+                      }}
+                    >
+                      <Globe size={13} color="var(--gold)" />
+                      <span>{broker.website.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')}</span>
+                      <ExternalLink size={11} color="var(--gold)" />
+                    </a>
+                  </div>
+                )}
 
                 {onFilterByBroker && (
                   <button 
