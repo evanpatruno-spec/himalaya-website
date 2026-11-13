@@ -70,7 +70,7 @@ export const ABOUT_CONTENT = {
           id: 'roger-rheaume',
           name: 'Roger Rhéaume',
           role: 'Président — Courtier immobilier agréé, DA',
-          credentials: 'Co-fondateur • Membre du CA de l’OACIQ',
+          credentials: 'Co-fondateur • Ancien membre du CA de l’OACIQ',
           portrait: '/DATA/COURTIERINFOSUP/99_courtierGrand.jpg',
           photos: [
             '/DATA/CMSIMAGE/200.jpg',
@@ -88,7 +88,7 @@ export const ABOUT_CONTENT = {
             {
               subtitle: 'La passion de l’immobilier',
               paragraphs: [
-                'Mon expérience antérieure dans le domaine du commerce et des services m’a amené à me développer dans le secteur du courtage commercial. J’ai acquis plus de 20 ans d’expérience avant de créer, avec mon partenaire, une entreprise de courtage : Immobilier Himalaya Real Estate Corp. L’immobilier est pour moi une passion que j’ai acquise. Je suis présentement sur le Conseil d’Administration de l’OACIQ. J’ai été sur le CA du Collège Immobilier du Québec plus de 5 années, ainsi que Président du comité commercial de la CIGM plus de 6 années. En 2022, j’ai ouvert un bureau de courtage immobilier au Mexique avec un partenaire, Fabien Herman, afin d’aider les investisseurs québécois et français à acquérir des biens immobiliers. J’ai aussi créé des relations d’affaires avec des courtiers en République Dominicaine pour ces mêmes raisons.',
+                'Mon expérience antérieure dans le domaine du commerce et des services m’a amené à me développer dans le secteur du courtage commercial. J’ai acquis plus de 20 ans d’expérience avant de créer, avec mon partenaire, une entreprise de courtage : Immobilier Himalaya Real Estate Corp. L’immobilier est pour moi une passion que j’ai acquise. J’ai été membre du Conseil d’Administration de l’OACIQ durant 3 années. J’ai aussi été sur le CA du Collège Immobilier du Québec plus de 5 années, ainsi que Président du comité commercial de la CIGM plus de 6 années. En 2022, j’ai ouvert un bureau de courtage immobilier au Mexique avec un partenaire, Fabien Herman, afin d’aider les investisseurs québécois et français à acquérir des biens immobiliers. J’ai aussi créé des relations d’affaires avec des courtiers en République Dominicaine pour ces mêmes raisons.',
                 'Ma passion m’a amené à offrir des formations et des conférences aux courtiers pour que tous et chacun soient plus informés. Étant un grand voyageur, j’ai combiné le travail avec les voyages. Je suis présent dans plusieurs pays comme courtier immobilier, pour des inscriptions et pour des projets de développement immobilier.'
               ]
             }
@@ -485,7 +485,7 @@ export const ABOUT_CONTENT = {
           id: 'roger-rheaume',
           name: 'Roger Rhéaume',
           role: 'President — Chartered Real Estate Broker, DA',
-          credentials: 'Co-Founder • Member of the OACIQ Board of Directors',
+          credentials: 'Co-Founder • Former Member of the OACIQ Board of Directors',
           portrait: '/DATA/COURTIERINFOSUP/99_courtierGrand.jpg',
           photos: [
             '/DATA/CMSIMAGE/200.jpg',
@@ -503,7 +503,7 @@ export const ABOUT_CONTENT = {
             {
               subtitle: 'The Passion of Real Estate',
               paragraphs: [
-                'My previous experience in trade and services led me to the commercial brokerage sector. I acquired more than 20 years of experience in marketing and business before creating, with my partner, our brokerage firm: Himalaya Real Estate Corp. Real estate is a lifelong passion. I currently serve on the Board of Directors of the OACIQ, served for over 5 years on the Board of the Collège Immobilier du Québec, and served as Chairman of the Commercial Committee of the GMREB (CIGM) for more than 6 years. In 2022, I also opened a real estate brokerage office in Mexico with partner Fabien Herman to help Quebec and French investors acquire properties, in addition to establishing business relationships with brokers in the Dominican Republic.',
+                'My previous experience in trade and services led me to the commercial brokerage sector. I acquired more than 20 years of experience in marketing and business before creating, with my partner, our brokerage firm: Himalaya Real Estate Corp. Real estate is a lifelong passion. I previously served for 3 years on the Board of Directors of the OACIQ, served for over 5 years on the Board of the Collège Immobilier du Québec, and served as Chairman of the Commercial Committee of the GMREB (CIGM) for more than 6 years. In 2022, I also opened a real estate brokerage office in Mexico with partner Fabien Herman to help Quebec and French investors acquire properties, in addition to establishing business relationships with brokers in the Dominican Republic.',
                 'My passion led me to offer training courses and lectures to brokers so that everyone is better informed. Being an avid traveler, I combined my work with international travel, remaining active across several countries for listings and real estate development projects.'
               ]
             }
@@ -899,7 +899,7 @@ ABOUT_CONTENT.ES = {
         id: 'roger-rheaume',
         name: 'Roger Rhéaume',
         role: 'Presidente — Corredor inmobiliario certificado, DA',
-        credentials: 'Cofundador • Miembro del Consejo de Administración de la OACIQ',
+        credentials: 'Cofundador • Exmiembro del Consejo de Administración de la OACIQ',
         portrait: '/DATA/COURTIERINFOSUP/99_courtierGrand.jpg',
         photos: [
           '/DATA/CMSIMAGE/200.jpg',
@@ -917,7 +917,7 @@ ABOUT_CONTENT.ES = {
           {
             subtitle: 'La pasión por el sector inmobiliario',
             paragraphs: [
-              'Mi experiencia previa en el ámbito del comercio y los servicios me llevó a desarrollarme en el corretaje inmobiliario comercial. Adquirí más de 20 años de experiencia antes de fundar, junto a mi socio, nuestra firma de corretaje: Immobilier Himalaya Real Estate Corp. El sector inmobiliario es una verdadera pasión para mí. Actualmente formo parte del Consejo de Administración de la OACIQ, integré durante más de 5 años el Consejo del Collège Immobilier du Québec y fui Presidente del Comité Comercial de la CIGM durante más de 6 años. En 2022 abrí una oficina de corretaje inmobiliario en México junto a mi socio Fabien Herman para ayudar a inversionistas quebequenses y franceses a adquirir propiedades, además de establecer relaciones comerciales con corredores en la República Dominicana.',
+              'Mi experiencia previa en el ámbito del comercio y los servicios me llevó a desarrollarme en el corretaje inmobiliario comercial. Adquirí más de 20 años de experiencia antes de fundar, junto a mi socio, nuestra firma de corretaje: Immobilier Himalaya Real Estate Corp. El sector inmobiliario es una verdadera pasión para mí. Formé parte del Consejo de Administración de la OACIQ durante 3 años, integré durante más de 5 años el Consejo del Collège Immobilier du Québec y fui Presidente del Comité Comercial de la CIGM durante más de 6 años. En 2022 abrí una oficina de corretaje inmobiliario en México junto a mi socio Fabien Herman para ayudar a inversionistas quebequenses y franceses a adquirir propiedades, además de establecer relaciones comerciales con corredores en la República Dominicana.',
               'Mi pasión me ha llevado a impartir formaciones y conferencias a corredores para que todos estén mejor informados. Como gran viajero, he combinado mi trabajo con los viajes internacionales, teniendo presencia activa en varios países como corredor inmobiliario para captaciones y proyectos de desarrollo inmobiliario.'
             ]
           }
@@ -1329,7 +1329,7 @@ ABOUT_CONTENT.ZH = {
         id: 'roger-rheaume',
         name: 'Roger Rhéaume',
         role: '总裁 — 特许房地产经纪人, DA',
-        credentials: '联合创始人 • 魁北克房地产经纪自律监管机构 (OACIQ) 董事会成员',
+        credentials: '联合创始人 • 前 OACIQ 董事会成员',
         portrait: '/DATA/COURTIERINFOSUP/99_courtierGrand.jpg',
         photos: [
           '/DATA/CMSIMAGE/200.jpg',
@@ -1347,7 +1347,7 @@ ABOUT_CONTENT.ZH = {
           {
             subtitle: '对房地产事业的无限热忱',
             paragraphs: [
-              '我早年在商业贸易与服务领域积累的丰富经验，引领我走向商业地产经纪行业。在积累了超过 20 年的商业与营销经验后，我与合伙人共同创立了喜马拉雅地产集团（Immobilier Himalaya Real Estate Corp.）。房地产是我毕生挚爱的事业。我目前担任魁北克房地产经纪自律监管机构（OACIQ）董事会成员，曾任魁北克房地产学院（Collège Immobilier du Québec）董事逾 5 年，并担任大蒙特利尔房地产董事会（CIGM）商业委员会主席超过 6 年。2022 年，我与合伙人 Fabien Herman 在墨西哥开设了房地产经纪办事处，协助魁北克与法国投资者购置海外物业；同时，我也与多米尼加共和国的房地产经纪机构建立了紧密的业务合作关系。',
+              '我早年在商业贸易与服务领域积累的丰富经验，引领我走向商业地产经纪行业。在积累了超过 20 年的商业与营销经验后，我与合伙人共同创立了喜马拉雅地产集团（Immobilier Himalaya Real Estate Corp.）。房地产是我毕生挚爱的事业。我曾担任魁北克房地产经纪自律监管机构（OACIQ）董事会成员 3 年，曾任魁北克房地产学院（Collège Immobilier du Québec）董事逾 5 年，并担任大蒙特利尔房地产董事会（CIGM）商业委员会主席超过 6 年。2022 年，我与合伙人 Fabien Herman 在墨西哥开设了房地产经纪办事处，协助魁北克与法国投资者购置海外物业；同时，我也与多米尼加共和国的房地产经纪机构建立了紧密的业务合作关系。',
               '出于对行业的热爱，我长期为房地产经纪人提供专业培训与专题讲座，助力同行提升专业素养。作为一名资深旅行家，我将事业与环球旅行完美结合，在多个国家积极开展房源代理与房地产开发项目。'
             ]
           }
