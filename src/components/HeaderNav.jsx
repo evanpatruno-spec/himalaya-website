@@ -453,7 +453,7 @@ export default function HeaderNav({
             <li className="nav-item-dropdown">
               <button
                 className={`nav-btn ${activePage === 'outils' ? 'active' : ''}`}
-                onClick={() => navigateTo('outils', { toolTab: 'plex' })}
+                onClick={() => navigateTo('outils', { toolTab: 'valuation' })}
               >
                 {tr(lang, 'Outils', 'Tools', 'Herramientas', '金融工具')}{' '}
                 <span className="nav-btn-chevron">▾</span>
@@ -469,21 +469,6 @@ export default function HeaderNav({
                   </span>
                 </button>
                 <div className="nav-dropdown-divider" />
-                <button
-                  type="button"
-                  className="nav-dropdown-link"
-                  onClick={() => navigateTo('outils', { toolTab: 'plex' })}
-                >
-                  <span className="nav-dropdown-link-title">
-                    {tr(
-                      lang,
-                      'Chiffrier financier & APH Select',
-                      'Financial & MLI Select Simulator',
-                      'Simulador financiero y APH Select',
-                      '商业多户与 APH Select 精算模型'
-                    )}
-                  </span>
-                </button>
                 <button
                   type="button"
                   className="nav-dropdown-link"

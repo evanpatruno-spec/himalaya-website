@@ -772,9 +772,6 @@ export default function PropertyDetailModal({
                     deal={deal}
                     lang={lang}
                     compact={true}
-                    onOpenFullChiffrier={(d) => {
-                      if (onSimulateInTools) onSimulateInTools(d);
-                    }}
                   />
                 </div>
               )}

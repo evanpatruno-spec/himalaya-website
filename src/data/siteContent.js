@@ -667,24 +667,9 @@ export const HIMALAYA_PODCASTS = [
 
 export const SPECIALTIES_DATA = [
   {
-    id: 'venteCommercial',
-    filterKey: 'vente_commercial',
-    title: 'Vente Commercial',
-    title_en: 'Commercial Sales',
-    title_es: 'Venta Comercial',
-    title_zh: '商业地产出售',
-    subtitle: 'Bâtisses commerciales, industrielles, commerces & bureaux à vendre',
-    subtitle_en: 'Commercial, industrial buildings, businesses & offices for sale',
-    subtitle_es: 'Edificios comerciales, industriales, negocios y oficinas en venta',
-    subtitle_zh: '商业楼宇、工业厂房、商铺与写字楼出售',
-    filterCategory: 'Vente Commercial',
-    image: '/gx/01/specialite1.jpg',
-    fallbackImage: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=900&q=80'
-  },
-  {
     id: 'pourvoirieCamping',
     filterKey: 'pourvoirie',
-    title: 'Auberge, Camping & Pourvoirie',
+    title: 'Auberge, camping et pourvoirie',
     title_en: 'Inn, Campground & Outfitter',
     title_es: 'Posada, Camping y Coto Turístico',
     title_zh: '度假旅馆、露营地与狩猎领地',
@@ -695,51 +680,6 @@ export const SPECIALTIES_DATA = [
     filterCategory: 'Pourvoirie',
     image: '/gx/01/specialite2.jpg',
     fallbackImage: 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=900&q=80'
-  },
-  {
-    id: 'residentiel',
-    filterKey: 'residentiel',
-    title: 'Résidentiel',
-    title_en: 'Residential',
-    title_es: 'Residencial',
-    title_zh: '住宅与投资物业',
-    subtitle: 'Clients privilégiés, propriétés résidentielles & investissement',
-    subtitle_en: 'Privileged clients, residential properties & investment',
-    subtitle_es: 'Clientes privilegiados, propiedades residenciales e inversión',
-    subtitle_zh: '高端住宅、精品洋房及尊享置业顾问',
-    filterCategory: 'Résidentiel',
-    image: '/gx/01/specialite3.jpg',
-    fallbackImage: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=900&q=80'
-  },
-  {
-    id: 'international',
-    filterKey: 'international',
-    title: 'International',
-    title_en: 'International',
-    title_es: 'Internacional',
-    title_zh: '国际地产项目',
-    subtitle: 'Propriétés hors Canada & opportunités à l’étranger',
-    subtitle_en: 'International properties & overseas investment opportunities',
-    subtitle_es: 'Propiedades internacionales y oportunidades en el extranjero',
-    subtitle_zh: '海外优质房地产项目与跨境投资物业',
-    filterCategory: 'International',
-    image: '/gx/01/specialite4.jpg',
-    fallbackImage: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=900&q=80'
-  },
-  {
-    id: 'terrain',
-    filterKey: 'terrain',
-    title: 'Terrain & développement',
-    title_en: 'Land & Development',
-    title_es: 'Terrenos y Desarrollo',
-    title_zh: '土地与开发用地',
-    subtitle: 'Terrains commerciaux, multifamiliaux, terres & projets à bâtir',
-    subtitle_en: 'Commercial land, multi-family development sites & acreages',
-    subtitle_es: 'Terrenos comerciales, multifamiliares y proyectos de desarrollo',
-    subtitle_zh: '商业开发土地、多户规划地块及成片土地',
-    filterCategory: 'Terrain',
-    image: '/gx/01/specialite5.jpg',
-    fallbackImage: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=900&q=80'
   },
   {
     id: 'locationCommercial',
@@ -772,6 +712,51 @@ export const SPECIALTIES_DATA = [
     fallbackImage: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=80'
   },
   {
+    id: 'terrain',
+    filterKey: 'terrain',
+    title: 'Terrain et développement',
+    title_en: 'Land & Development',
+    title_es: 'Terrenos y Desarrollo',
+    title_zh: '土地与开发用地',
+    subtitle: 'Terrains commerciaux, multifamiliaux, terres & projets à bâtir',
+    subtitle_en: 'Commercial land, multi-family development sites & acreages',
+    subtitle_es: 'Terrenos comerciales, multifamiliares y proyectos de desarrollo',
+    subtitle_zh: '商业开发土地、多户规划地块及成片土地',
+    filterCategory: 'Terrain',
+    image: '/gx/01/specialite5.jpg',
+    fallbackImage: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=900&q=80'
+  },
+  {
+    id: 'venteCommercial',
+    filterKey: 'vente_commercial',
+    title: 'Vente commercial',
+    title_en: 'Commercial Sales',
+    title_es: 'Venta Comercial',
+    title_zh: '商业地产出售',
+    subtitle: 'Bâtisses commerciales, industrielles, commerces & bureaux à vendre',
+    subtitle_en: 'Commercial, industrial buildings, businesses & offices for sale',
+    subtitle_es: 'Edificios comerciales, industriales, negocios y oficinas en venta',
+    subtitle_zh: '商业楼宇、工业厂房、商铺与写字楼出售',
+    filterCategory: 'Vente Commercial',
+    image: '/gx/01/specialite1.jpg',
+    fallbackImage: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=900&q=80'
+  },
+  {
+    id: 'international',
+    filterKey: 'international',
+    title: 'International',
+    title_en: 'International',
+    title_es: 'Internacional',
+    title_zh: '国际地产项目',
+    subtitle: 'Propriétés hors Canada & opportunités à l’étranger',
+    subtitle_en: 'International properties & overseas investment opportunities',
+    subtitle_es: 'Propiedades internacionales y oportunidades en el extranjero',
+    subtitle_zh: '海外优质房地产项目与跨境投资物业',
+    filterCategory: 'International',
+    image: '/gx/01/specialite4.jpg',
+    fallbackImage: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=900&q=80'
+  },
+  {
     id: 'multilogement',
     filterKey: 'multilogement',
     title: 'Multilogement',
@@ -785,6 +770,21 @@ export const SPECIALTIES_DATA = [
     filterCategory: 'Multilogement',
     image: '/gx/01/specialite8.jpg',
     fallbackImage: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=900&q=80'
+  },
+  {
+    id: 'residentiel',
+    filterKey: 'residentiel',
+    title: 'Résidentiel',
+    title_en: 'Residential',
+    title_es: 'Residencial',
+    title_zh: '住宅与投资物业',
+    subtitle: 'Clients privilégiés, propriétés résidentielles & investissement',
+    subtitle_en: 'Privileged clients, residential properties & investment',
+    subtitle_es: 'Clientes privilegiados, propiedades residenciales e inversión',
+    subtitle_zh: '高端住宅、精品洋房及尊享置业顾问',
+    filterCategory: 'Résidentiel',
+    image: '/gx/01/specialite3.jpg',
+    fallbackImage: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=900&q=80'
   }
 ];
 

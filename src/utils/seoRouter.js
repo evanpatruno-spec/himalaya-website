@@ -274,10 +274,10 @@ export function updateDynamicSEO({ activePage, selectedDeal, selectedBroker, lan
       ),
       outils: tr(
         lang,
-        'Chiffrier financier, APH Select & Calculateurs immobiliers | Immobilier Himalaya',
-        'Financial Simulator, APH Select & Real Estate Calculators | Immobilier Himalaya',
-        'Simulador financiero, APH Select y Calculadoras | Immobilier Himalaya',
-        '商业多户财务模型、APH Select 与按揭计算器 | 喜马拉雅地产'
+        'Outils & Calculateurs immobiliers | Immobilier Himalaya',
+        'Real Estate Tools & Calculators | Immobilier Himalaya',
+        'Herramientas y Calculadoras inmobiliarias | Immobilier Himalaya',
+        '房地产金融工具与按揭计算器 | 喜马拉雅地产'
       ),
       'zone-equipe': 'Portail Zone Équipe & Synchronisation CRM | Immobilier Himalaya'
     };

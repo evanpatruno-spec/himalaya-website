@@ -182,7 +182,7 @@ export default function HomeView({
           </div>
 
           <div className="specialty-grid">
-            {SPECIALTIES_DATA.map((spec, idx) => (
+            {SPECIALTIES_DATA.map((spec) => (
               <div
                 key={spec.id}
                 className="specialty-card"
@@ -198,12 +198,6 @@ export default function HomeView({
                   onError={e => { e.target.src = spec.fallbackImage; }}
                 />
                 <div className="specialty-overlay">
-                  <span className="editorial-num" style={{ marginBottom: '8px', fontSize: '1.15rem' }}>
-                    {String(idx + 1).padStart(2, '0')}
-                  </span>
-                  <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--gold-light)', fontWeight: 600, marginBottom: '4px' }}>
-                    {pickLang(spec, 'subtitle', lang)}
-                  </span>
                   <h3 className="serif-title" style={{ fontSize: '1.35rem', fontWeight: 600, marginBottom: '10px', color: '#fff', lineHeight: 1.2 }}>
                     {pickLang(spec, 'title', lang)}
                   </h3>

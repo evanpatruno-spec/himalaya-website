@@ -195,11 +195,11 @@ export default function TeamZoneView({
 
               <button
                 type="button"
-                onClick={() => onNavigate && onNavigate('outils', { toolTab: 'plex' })}
+                onClick={() => onNavigate && onNavigate('outils', { toolTab: 'mortgage' })}
                 className="btn-outline"
               >
                 <Calculator size={14} color="var(--gold)" />
-                {tr(lang, 'Ouvrir le Chiffrier', 'Open Financial Simulator', 'Abrir Simulador Financiero', '打开财务精算模型')}
+                {tr(lang, 'Ouvrir les calculateurs', 'Open Calculators', 'Abrir Calculadoras', '打开金融计算器')}
               </button>
 
               <a

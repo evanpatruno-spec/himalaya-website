@@ -104,7 +104,7 @@ export default function App() {
   const [selectedBroker, setSelectedBroker] = useState(null);
   const [ndaModalDeal, setNdaModalDeal] = useState(undefined);
   const [toolPreselectedDeal, setToolPreselectedDeal] = useState(null);
-  const [toolInitialTab, setToolInitialTab] = useState('plex');
+  const [toolInitialTab, setToolInitialTab] = useState('valuation');
   const [aboutInitialTab, setAboutInitialTab] = useState('qui-nous-sommes');
   const [preselectedFranchiseId, setPreselectedFranchiseId] = useState(null);
   const [newsYearFilter, setNewsYearFilter] = useState('all');
@@ -745,7 +745,7 @@ export default function App() {
             onSimulateInTools={deal => {
               closeDealModal();
               setToolPreselectedDeal(deal);
-              navigateTo('outils', { toolTab: 'plex' });
+              navigateTo('outils', { toolTab: 'mortgage' });
             }}
           />
         )}

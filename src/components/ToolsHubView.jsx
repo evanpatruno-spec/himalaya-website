@@ -15,7 +15,6 @@ import {
 import { submitLeadToProspection } from '../utils/prospectionBridge';
 import { INITIAL_HIMALAYA_BROKERS } from '../data/brokersData';
 import { tr, pickLang } from '../data/translations';
-import ChiffrierDealSimulator from './ChiffrierDealSimulator';
 import Law25FormConsent from './Law25FormConsent';
 
 // Capitalisation semi-annuelle canadienne (Loi sur l'intérêt au Canada)
@@ -80,11 +79,13 @@ function computeWelcomeTax(price, isMontreal, lang = 'FR') {
 
 export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, preselectedDeal, onClearPreselectedDeal, initialTool }) {
   const lang = t?.code || propLang || 'FR';
-  const [activeTool, setActiveTool] = useState(initialTool || 'plex');
+  const [activeTool, setActiveTool] = useState(
+    initialTool && initialTool !== 'plex' ? initialTool : 'valuation'
+  );
 
   useEffect(() => {
     if (initialTool) {
-      setActiveTool(initialTool);
+      setActiveTool(initialTool === 'plex' ? 'valuation' : initialTool);
     }
   }, [initialTool]);
 
@@ -210,12 +211,6 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
       icon: Building2,
       title: tr(lang, 'Vendre ou louer avec nous', 'Sell or Lease With Us', 'Vender o alquilar con nosotros', '与我们携手出售或出租'),
       sub: tr(lang, 'Confier votre projet à notre équipe', 'Partner With Our Team', 'Confiar su proyecto a nuestro equipo', '委托我们的专业团队')
-    },
-    {
-      id: 'plex',
-      icon: Building2,
-      title: tr(lang, 'Chiffrier & APH Select', 'Commercial & MLI Select', 'Simulador y APH Select', '商业与 APH Select 精算'),
-      sub: tr(lang, 'TGA (Cap Rate), MRB, RNO & Cashflow', 'Cap Rate, GIM, NOI & Cashflow', 'Cap Rate, MRB, NOI y Flujo de Caja', '资本化率、净营业收入与现金流')
     },
     {
       id: 'mortgage',
@@ -610,19 +605,6 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
             );
           })}
         </div>
-
-        {/* =================================================================
-            OUTIL 1 : CHIFFRIER FINANCIER & SCHL APH SELECT (SANS DOUBLON)
-           ================================================================= */}
-        {activeTool === 'plex' && (
-          <div style={{ paddingTop: '4px' }}>
-            <ChiffrierDealSimulator
-              deal={preselectedDeal || { price: plexPrice, specs: { 'Taxes municipales': plexTaxMun, 'Taxes scolaires': plexTaxScol } }}
-              lang={lang}
-              compact={false}
-            />
-          </div>
-        )}
 
         {/* =================================================================
             OUTIL 2 : CAPACITÉ D'EMPRUNT (TEST B-20) — Épuré sans boîte
