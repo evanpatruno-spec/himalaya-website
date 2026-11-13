@@ -13,7 +13,7 @@ function buildStarPoints(cx, cy, outerR, angleDeg = -90) {
 
 /**
  * Vector country/language flags for native interface and broker spoken languages
- * (FR, EN, ES, ZH, AR, HY, HT).
+ * (FR, EN, ES, ZH, AR, HY, HT, TA, MU).
  * Rendered as inline SVGs so flags display consistently on Windows, macOS, and mobile browsers.
  */
 export default function LanguageFlag({ code, width = 22, height = 15, bordered = false, style = {} }) {
@@ -123,6 +123,40 @@ export default function LanguageFlag({ code, width = 22, height = 15, bordered =
         />
         <rect x="10.7" y="8.4" width="2.6" height="0.8" fill="#D21034" />
         <circle cx="12" cy="8.2" r="0.55" fill="#F1B517" />
+      </svg>
+    );
+  }
+
+  if (normalizedCode === 'TA') {
+    return (
+      <svg width={width} height={height} viewBox="0 0 30 20" aria-hidden="true" style={baseStyle}>
+        <rect width="30" height="20" fill="#FFBE29" />
+        <rect x="1.5" y="1.5" width="4" height="17" fill="#00534E" />
+        <rect x="5.5" y="1.5" width="4" height="17" fill="#EB7400" />
+        <rect x="11" y="1.5" width="17.5" height="17" fill="#8D153A" />
+        <circle cx="12.7" cy="3.2" r="0.75" fill="#FFBE29" />
+        <circle cx="26.8" cy="3.2" r="0.75" fill="#FFBE29" />
+        <circle cx="12.7" cy="16.8" r="0.75" fill="#FFBE29" />
+        <circle cx="26.8" cy="16.8" r="0.75" fill="#FFBE29" />
+        <path
+          d="M15.6,5.2 L16.2,10.6 M14.8,9.4 H16.8 M16.4,9.8 L18.2,8.5 M18.2,8.2 C18.2,6.4 20.5,6.4 20.4,8.3 L22.8,9.1 C24.1,7.5 23.6,5.6 25.1,5.6 M18.3,9.2 L23.1,10.1 L22.2,12.2 H18.2 Z M18.4,12 L17.3,14.6 M20.1,12 L19.8,14.6 M22,12 L23.5,14.6"
+          stroke="#FFBE29"
+          strokeWidth="1.25"
+          fill="#FFBE29"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  }
+
+  if (normalizedCode === 'MU') {
+    return (
+      <svg width={width} height={height} viewBox="0 0 24 16" aria-hidden="true" style={baseStyle}>
+        <rect x="0" y="0" width="24" height="4.1" fill="#EA2839" />
+        <rect x="0" y="4" width="24" height="4.1" fill="#1A206D" />
+        <rect x="0" y="8" width="24" height="4.1" fill="#FFD500" />
+        <rect x="0" y="12" width="24" height="4" fill="#00A551" />
       </svg>
     );
   }
