@@ -12,6 +12,12 @@ export default function NewsEventsView({
   setSelectedNewsArticle,
   navigateTo
 }) {
+  const archiveYears = [
+    'all',
+    ...Array.from(new Set(HIMALAYA_NEWS.map(n => n.year).filter(Boolean))).sort((a, b) => Number(b) - Number(a))
+  ];
+  const activeYearFilter = archiveYears.includes(newsYearFilter) ? newsYearFilter : 'all';
+
   return (
     <main style={{ flex: 1, padding: '44px 0 80px' }}>
       <div className="container">
@@ -87,8 +93,8 @@ export default function NewsEventsView({
 
           {/* Filtres d'archives par année */}
           <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
-            {['all', '2026', '2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018'].map(yr => {
-              const active = newsYearFilter === yr;
+            {archiveYears.map(yr => {
+              const active = activeYearFilter === yr;
               return (
                 <button
                   key={yr}
@@ -112,7 +118,7 @@ export default function NewsEventsView({
         </div>
 
         <div className="properties-grid">
-          {HIMALAYA_NEWS.filter(n => newsYearFilter === 'all' || n.year === newsYearFilter).map(news => (
+          {HIMALAYA_NEWS.filter(n => activeYearFilter === 'all' || n.year === activeYearFilter).map(news => (
             <div
               key={news.id}
               onClick={() => setSelectedNewsArticle(news)}
