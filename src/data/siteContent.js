@@ -811,28 +811,6 @@ export const TOOLS_TABS_DATA = [
     sub_en: 'Commercial & Franchises',
     sub_es: 'Comercial y Franquicias',
     sub_zh: '商业地产与连锁选址'
-  },
-  {
-    id: 'rvb',
-    title: 'Louer vs Acheter',
-    title_en: 'Rent vs. Buy',
-    title_es: 'Alquilar vs. Comprar',
-    title_zh: '租房 vs 买房',
-    sub: 'Équité bâtie vs Loyers perdus',
-    sub_en: 'Net Equity vs. Lost Rent',
-    sub_es: 'Capital acumulado vs. Alquiler',
-    sub_zh: '净资产积累与租金成本对比'
-  },
-  {
-    id: 'wait',
-    title: 'Attendre vs Acheter',
-    title_en: 'Wait vs. Buy',
-    title_es: 'Esperar vs. Comprar',
-    title_zh: '等待 vs 立即购买',
-    sub: 'Impact baisse de taux vs prix',
-    sub_en: 'Rate Drop vs. Price Growth',
-    sub_es: 'Baja de tasas vs. Aumento de precio',
-    sub_zh: '利率下降与房价上涨成本对比'
   }
 ];
 

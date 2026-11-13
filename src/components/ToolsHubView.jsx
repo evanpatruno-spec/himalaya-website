@@ -5,8 +5,6 @@ import {
   Home,
   FileText,
   Landmark,
-  Scale,
-  Clock,
   CheckCircle2,
   ArrowRight,
   Printer,
@@ -24,10 +22,10 @@ const TOOL_ICONS = {
   affordability: Calculator,
   welcome: Landmark,
   closing: FileText,
-  commercialLease: Building2,
-  rvb: Scale,
-  wait: Clock
+  commercialLease: Building2
 };
+
+const isValidToolId = (toolId) => TOOLS_TABS_DATA.some((item) => item.id === toolId);
 
 // Capitalisation semi-annuelle canadienne (Loi sur l'intérêt au Canada)
 function getEffectiveMonthlyRate(annualPct) {
@@ -92,12 +90,12 @@ function computeWelcomeTax(price, isMontreal, lang = 'FR') {
 export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, preselectedDeal, onClearPreselectedDeal, initialTool, onToolChange }) {
   const lang = t?.code || propLang || 'FR';
   const [activeTool, setActiveTool] = useState(
-    initialTool && initialTool !== 'plex' ? initialTool : 'valuation'
+    isValidToolId(initialTool) ? initialTool : 'valuation'
   );
 
   useEffect(() => {
     if (initialTool) {
-      setActiveTool(initialTool === 'plex' ? 'valuation' : initialTool);
+      setActiveTool(isValidToolId(initialTool) ? initialTool : 'valuation');
     }
   }, [initialTool]);
 
@@ -141,21 +139,6 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
   const [ccNotary, setCcNotary] = useState(2200);
   const [ccMove, setCcMove] = useState(1500);
 
-  // --- 6. Louer vs Acheter ---
-  const [rvbRent, setRvbRent] = useState(1950);
-  const [rvbRentInc, setRvbRentInc] = useState(3.0);
-  const [rvbYears, setRvbYears] = useState(5);
-  const [rvbPrice, setRvbPrice] = useState(480000);
-  const [rvbDown, setRvbDown] = useState(48000);
-  const [rvbRate, setRvbRate] = useState(4.59);
-
-  // --- 7. Attendre vs Acheter ---
-  const [waitPrice, setWaitPrice] = useState(550000);
-  const [waitRateNow, setWaitRateNow] = useState(4.69);
-  const [waitMonths, setWaitMonths] = useState(12);
-  const [waitApprec, setWaitApprec] = useState(5.0);
-  const [waitRateFuture, setWaitRateFuture] = useState(4.0);
-
   // --- 8. Loyer Commercial Net vs Brut ($/pi²/an) ---
   const [clArea, setClArea] = useState(2500);
   const [clBaseRent, setClBaseRent] = useState(28);
@@ -197,9 +180,6 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
       setWtPrice(p);
       setWtIsMtl(/montr[eé]al/i.test(String(preselectedDeal.city || '') + ' ' + String(preselectedDeal.region || '')));
       setCcPrice(p);
-      setRvbPrice(p);
-      setRvbDown(Math.round(p * 0.2));
-      setWaitPrice(p);
 
       const rawMun = preselectedDeal.specs?.['Taxes municipales'];
       if (rawMun) {
@@ -373,72 +353,6 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
     const totalCash = down + schlTax + welcome + others;
     return { down, schlPrem, schlTax, welcome, others, totalCash };
   }, [ccPrice, ccDownPct, ccInsp, ccNotary, ccMove, lang]);
-
-  // Calcul 6 : Louer vs Acheter
-  const rvbResult = useMemo(() => {
-    let totalRent = 0;
-    let currRent = Number(rvbRent);
-    for (let i = 0; i < rvbYears; i++) {
-      totalRent += currRent * 12;
-      currRent *= 1 + Number(rvbRentInc) / 100;
-    }
-    const endRent = Number(rvbRent) * Math.pow(1 + Number(rvbRentInc) / 100, rvbYears - 1);
-
-    let loan = Math.max(0, rvbPrice - rvbDown);
-    if (rvbPrice > 0 && rvbDown / rvbPrice < 0.2) loan *= 1.04;
-    const r = getEffectiveMonthlyRate(rvbRate);
-    const n = 25 * 12;
-    const pmt = loan > 0 && r > 0 ? (loan * (r * Math.pow(1 + r, n))) / (Math.pow(1 + r, n) - 1) : 0;
-
-    let balance = loan;
-    let principalPaid = 0;
-    for (let m = 1; m <= rvbYears * 12; m++) {
-      const interest = balance * r;
-      const principal = Math.max(0, pmt - interest);
-      principalPaid += principal;
-      balance -= principal;
-    }
-    const futurePrice = rvbPrice * Math.pow(1.03, rvbYears);
-    const capitalGain = futurePrice - rvbPrice;
-    const totalEquity = Number(rvbDown) + principalPaid + capitalGain;
-    const netWealthCreated = principalPaid + capitalGain;
-
-    return {
-      totalRent,
-      endRent,
-      principalPaid,
-      capitalGain,
-      futurePrice,
-      totalEquity,
-      netWealthCreated
-    };
-  }, [rvbRent, rvbRentInc, rvbYears, rvbPrice, rvbDown, rvbRate]);
-
-  // Calcul 7 : Attendre vs Acheter
-  const waitResult = useMemo(() => {
-    const rNow = getEffectiveMonthlyRate(waitRateNow);
-    const n = 25 * 12;
-    const loanNow = waitPrice * 0.9;
-    const pmtNow = loanNow > 0 && rNow > 0 ? (loanNow * rNow) / (1 - Math.pow(1 + rNow, -n)) : 0;
-
-    const appreciationAmt = waitPrice * ((waitApprec / 100) * (waitMonths / 12));
-    const priceFuture = Number(waitPrice) + appreciationAmt;
-    const loanFuture = priceFuture * 0.9;
-    const rFuture = getEffectiveMonthlyRate(waitRateFuture);
-    const pmtFuture =
-      loanFuture > 0 && rFuture > 0 ? (loanFuture * rFuture) / (1 - Math.pow(1 + rFuture, -n)) : 0;
-    const pmtDiff = pmtFuture - pmtNow;
-    const totalImpact = appreciationAmt + pmtDiff * 60;
-
-    return {
-      appreciationAmt,
-      priceFuture,
-      pmtNow,
-      pmtFuture,
-      pmtDiff,
-      totalImpact
-    };
-  }, [waitPrice, waitRateNow, waitMonths, waitApprec, waitRateFuture]);
 
   // Calcul 8 : Loyer Commercial Net vs Brut ($/pi²/an)
   const clResult = useMemo(() => {
@@ -1127,314 +1041,6 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
             </div>
           </div>
         )}
-
-
-
-        {/* =================================================================
-            OUTIL 6 : COMPARATEUR LOUER VS ACHETER — Épuré sans boîte
-           ================================================================= */}
-        {activeTool === 'rvb' && (
-          <div style={{ paddingTop: '8px' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '40px' }}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                <h3 className="serif-title" style={{ fontSize: '1.35rem', fontWeight: 600, color: 'var(--gold-light)', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-                  {tr(lang, 'Paramètres Louer vs Acheter', 'Rent vs. Ownership Parameters', 'Parámetros Alquilar vs. Comprar', '租房 vs 买房对比参数')}
-                </h3>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-                  <div>
-                    <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {tr(lang, 'Loyer mensuel actuel ($)', 'Current Monthly Rent ($)', 'Alquiler mensual actual ($)', '当前每月租金 ($)')}
-                    </label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      value={rvbRent}
-                      step="50"
-                      onChange={(e) => setRvbRent(Number(e.target.value))}
-                    />
-                  </div>
-                  <div>
-                    <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {tr(lang, 'Horizon de comparaison', 'Comparison Horizon (Years)', 'Horizonte de comparación', '对比周期 (年)')}
-                    </label>
-                    <select
-                      className="form-control"
-                      value={rvbYears}
-                      onChange={(e) => setRvbYears(Number(e.target.value))}
-                    >
-                      <option value={3}>3 {tr(lang, 'ans', 'years', 'años', '年')}</option>
-                      <option value={5}>5 {tr(lang, 'ans', 'years', 'años', '年')}</option>
-                      <option value={10}>10 {tr(lang, 'ans', 'years', 'años', '年')}</option>
-                    </select>
-                  </div>
-                </div>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px' }}>
-                  <div>
-                    <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {tr(lang, 'Prix propriété ($)', 'Property Price ($)', 'Precio propiedad ($)', '房产价格 ($)')}
-                    </label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      value={rvbPrice}
-                      step="10000"
-                      onChange={(e) => setRvbPrice(Number(e.target.value))}
-                    />
-                  </div>
-                  <div>
-                    <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {tr(lang, 'Mise de fonds ($)', 'Down Payment ($)', 'Pago inicial ($)', '首付款 ($)')}
-                    </label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      value={rvbDown}
-                      step="2500"
-                      onChange={(e) => setRvbDown(Number(e.target.value))}
-                    />
-                  </div>
-                  <div>
-                    <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {tr(lang, 'Taux (%)', 'Rate (%)', 'Tasa (%)', '利率 (%)')}
-                    </label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      value={rvbRate}
-                      step="0.05"
-                      onChange={(e) => setRvbRate(Number(e.target.value))}
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div
-                style={{
-                  padding: '4px 0',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
-                  gap: '22px'
-                }}
-              >
-                <div>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', paddingBottom: '20px', marginBottom: '20px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-                    <div style={{ borderLeft: '2px solid #f87171', paddingLeft: '14px' }}>
-                      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                        {tr(lang, `Loyers perdus (${rvbYears} ans)`, `Rent Lost (${rvbYears} yrs)`, `Alquileres perdidos (${rvbYears} años)`, `累计纯租金支出 (${rvbYears} 年)`)}
-                      </div>
-                      <div className="num-metric" style={{ fontSize: '1.55rem', fontWeight: 700, color: '#f87171', marginTop: '4px' }}>
-                        - {fmtCAD(rvbResult.totalRent)}
-                      </div>
-                    </div>
-                    <div style={{ borderLeft: '2px solid var(--gold)', paddingLeft: '14px' }}>
-                      <div style={{ fontSize: '0.75rem', color: 'var(--gold)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                        {tr(lang, `Équité totale (${rvbYears} ans)`, `Total Equity (${rvbYears} yrs)`, `Patrimonio total (${rvbYears} años)`, `累计房产净值 (${rvbYears} 年)`)}
-                      </div>
-                      <div className="num-metric gold-gradient-text" style={{ fontSize: '1.55rem', fontWeight: 700, marginTop: '4px' }}>
-                        + {fmtCAD(rvbResult.totalEquity)}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div>
-                    <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)' }}>
-                      {tr(
-                        lang,
-                        'Nouvel enrichissement net créé (Capital remboursé + Plus-value 3 %/an)',
-                        'New Net Wealth Created (Principal Repaid + 3%/yr Appreciation)',
-                        'Nueva riqueza neta creada (Capital amortizado + Plusvalía 3 %/año)',
-                        '新增净财富积累 (已还本金 + 每年 3% 房产增值)'
-                      )}
-                    </div>
-                    <div className="num-metric gold-gradient-text" style={{ fontSize: '2.1rem', fontWeight: 700, marginTop: '4px' }}>
-                      + {fmtCAD(rvbResult.netWealthCreated)}
-                    </div>
-                  </div>
-                </div>
-
-                <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-                  <button
-                    onClick={() => {
-                      setLeadSent(false);
-                      setLeadModalOpen(true);
-                    }}
-                    className="btn-gold"
-                    style={{ flex: 1 }}
-                  >
-                    {tr(lang, 'Recevoir ce bilan par courriel', 'Receive Summary by Email', 'Recibir resumen por correo', '通过电子邮件接收计算报告')}
-                  </button>
-                  <button
-                    onClick={() => window.print()}
-                    className="btn-outline"
-                  >
-                    <Printer size={15} /> {tr(lang, 'Imprimer / Exporter ce bilan (PDF)', 'Print / Export Summary (PDF)', 'Imprimir / Exportar resumen (PDF)', '打印 / 导出计算报告 (PDF)')}
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* =================================================================
-            OUTIL 7 : ATTENDRE VS ACHETER (COÛT DE L'ATTENTE) — Épuré sans boîte
-           ================================================================= */}
-        {activeTool === 'wait' && (
-          <div style={{ paddingTop: '8px' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '40px' }}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                <h3 className="serif-title" style={{ fontSize: '1.35rem', fontWeight: 600, color: 'var(--gold-light)', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-                  {tr(lang, 'Impact d’attendre une baisse de taux', 'Cost of Waiting Parameters', 'Impacto de esperar una baja de tasas', '等待降息 vs 立即购买参数')}
-                </h3>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-                  <div>
-                    <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {tr(lang, 'Prix de la propriété aujourd’hui ($)', 'Property Price Today ($)', 'Precio de la propiedad hoy ($)', '当前房产价格 ($)')}
-                    </label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      value={waitPrice}
-                      step="10000"
-                      onChange={(e) => setWaitPrice(Number(e.target.value))}
-                    />
-                  </div>
-                  <div>
-                    <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {tr(lang, 'Délai d’attente (Mois)', 'Wait Period (Months)', 'Período de espera (Meses)', '等待周期 (月)')}
-                    </label>
-                    <select
-                      className="form-control"
-                      value={waitMonths}
-                      onChange={(e) => setWaitMonths(Number(e.target.value))}
-                    >
-                      <option value={6}>6 {tr(lang, 'mois', 'months', 'meses', '个月')}</option>
-                      <option value={12}>12 {tr(lang, 'mois', 'months', 'meses', '个月')}</option>
-                      <option value={18}>18 {tr(lang, 'mois', 'months', 'meses', '个月')}</option>
-                      <option value={24}>24 {tr(lang, 'mois', 'months', 'meses', '个月')}</option>
-                    </select>
-                  </div>
-                </div>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px' }}>
-                  <div>
-                    <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {tr(lang, 'Taux actuel (%)', 'Rate Today (%)', 'Tasa actual (%)', '当前利率 (%)')}
-                    </label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      value={waitRateNow}
-                      step="0.05"
-                      onChange={(e) => setWaitRateNow(Number(e.target.value))}
-                    />
-                  </div>
-                  <div>
-                    <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {tr(lang, 'Taux espéré (%)', 'Future Rate (%)', 'Tasa futura esperada (%)', '预期未来利率 (%)')}
-                    </label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      value={waitRateFuture}
-                      step="0.05"
-                      onChange={(e) => setWaitRateFuture(Number(e.target.value))}
-                    />
-                  </div>
-                  <div>
-                    <label style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'block', marginBottom: '5px' }}>
-                      {tr(lang, 'Hausse prix (%/an)', 'Price Growth (%/yr)', 'Aumento de precio (%/año)', '房价年涨幅 (%/年)')}
-                    </label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      value={waitApprec}
-                      step="0.5"
-                      onChange={(e) => setWaitApprec(Number(e.target.value))}
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div
-                style={{
-                  padding: '4px 0',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between'
-                }}
-              >
-                <div>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', paddingBottom: '20px', borderBottom: '1px solid rgba(255,255,255,0.08)', marginBottom: '18px' }}>
-                    <div style={{ borderLeft: '2px solid #f87171', paddingLeft: '14px' }}>
-                      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                        {tr(lang, `Prix futur estimé (+${waitMonths} mois)`, `Future Property Price (+${waitMonths}m)`, `Precio futuro estimado (+${waitMonths} meses)`, `预估未来房价 (+${waitMonths} 个月)`)}
-                      </div>
-                      <div className="num-metric" style={{ fontSize: '1.45rem', fontWeight: 700, marginTop: '4px' }}>
-                        {fmtCAD(waitResult.priceFuture)}
-                      </div>
-                      <div style={{ fontSize: '0.8rem', color: '#f87171', marginTop: '2px' }}>
-                        + {fmtCAD(waitResult.appreciationAmt)}
-                      </div>
-                    </div>
-                    <div style={{ borderLeft: '2px solid var(--gold)', paddingLeft: '14px' }}>
-                      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                        {tr(lang, 'Plus-value manquée en attendant', 'Equity Missed While Waiting', 'Plusvalía perdida por esperar', '等待期间错失的房产增值')}
-                      </div>
-                      <div className="num-metric gold-gradient-text" style={{ fontSize: '1.45rem', fontWeight: 700, marginTop: '4px' }}>
-                        {fmtCAD(waitResult.appreciationAmt)}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div
-                    style={{
-                      fontSize: '0.92rem',
-                      lineHeight: 1.65,
-                      color: 'var(--text-secondary)'
-                    }}
-                  >
-                    {waitResult.totalImpact > 0
-                      ? tr(
-                          lang,
-                          `Attendre ${waitMonths} mois vous coûterait environ ${fmtCAD(waitResult.totalImpact)} de plus sur 5 ans en raison de la hausse des prix, même si les taux baissent.`,
-                          `Waiting ${waitMonths} months would cost you approximately ${fmtCAD(waitResult.totalImpact)} more over 5 years due to property appreciation, even with a lower rate.`,
-                          `Esperar ${waitMonths} meses le costaría aproximadamente ${fmtCAD(waitResult.totalImpact)} más en 5 años debido al aumento de precios, incluso si bajan las tasas.`,
-                          `由于房价上涨，即使未来利率下调，等待 ${waitMonths} 个月仍将在 5 年内使您的总成本增加约 ${fmtCAD(waitResult.totalImpact)}。`
-                        )
-                      : tr(
-                          lang,
-                          'La baisse de taux projetée compense la hausse de prix estimée sur cette période.',
-                          'The projected interest rate drop offsets the estimated price increase over this period.',
-                          'La baja de tasa proyectada compensa el aumento de precio estimado durante este período.',
-                          '在此期间，预期的利率下降足以抵消预估的房价上涨成本。'
-                        )}
-                  </div>
-                </div>
-
-                <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginTop: '24px' }}>
-                  <button
-                    onClick={() => {
-                      setLeadSent(false);
-                      setLeadModalOpen(true);
-                    }}
-                    className="btn-gold"
-                    style={{ flex: 1 }}
-                  >
-                    {tr(lang, 'Recevoir ce bilan par courriel', 'Receive Summary by Email', 'Recibir resumen por correo', '通过电子邮件接收计算报告')}
-                  </button>
-                  <button
-                    onClick={() => window.print()}
-                    className="btn-outline"
-                  >
-                    <Printer size={15} /> {tr(lang, 'Imprimer / Exporter ce bilan (PDF)', 'Print / Export Summary (PDF)', 'Imprimir / Exportar resumen (PDF)', '打印 / 导出计算报告 (PDF)')}
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-
 
         {/* =================================================================
             OUTIL 8 : LOYER COMMERCIAL NET VS BRUT ($/PI²/AN) — Épuré sans boîte (#8)

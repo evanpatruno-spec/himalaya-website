@@ -450,7 +450,7 @@ export default function HeaderNav({
               </div>
             </li>
 
-            {/* 5. OUTILS ▾ (Mêmes 8 onglets et même ordre que le bandeau horizontal de la page Outils) */}
+            {/* 5. OUTILS ▾ (Mêmes 6 onglets et même ordre que le bandeau horizontal de la page Outils) */}
             <li className="nav-item-dropdown">
               <button
                 className={`nav-btn ${activePage === 'outils' ? 'active' : ''}`}
