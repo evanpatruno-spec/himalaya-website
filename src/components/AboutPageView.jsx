@@ -171,32 +171,31 @@ export default function AboutPageView({
     const assignedBrokerNames = assignedFranchiseBrokers.map((b) => b.name).join(' & ') || 'Roger Rhéaume';
     const assignedBrokerEmails = assignedFranchiseBrokers.map((b) => b.email).filter(Boolean);
 
+    const commonLead = {
+      fullName: franchiseContactName,
+      email: franchiseEmail,
+      phone: franchisePhone,
+      city: franchiseRegions,
+      assigned_broker: assignedBrokerNames,
+      broker_email: assignedBrokerEmails[0] || null,
+      broker_emails: assignedBrokerEmails
+    };
+
     if (franchiseFormMode === 'landlord') {
       await submitLeadToProspection({
+        ...commonLead,
         type: 'franchise_local_proprietaire',
         source: 'Formulaire Propriétaire — Proposer un local commercial (#8)',
         subject: `Local commercial proposé aux bannières : ${franchiseRegions} (${franchiseSqft || franchiseBrand})`,
-        fullName: franchiseContactName,
-        email: franchiseEmail,
-        phone: franchisePhone,
-        city: franchiseRegions,
-        assigned_broker: assignedBrokerNames,
-        broker_email: assignedBrokerEmails[0] || null,
-        broker_emails: assignedBrokerEmails,
         message: `Profil: Propriétaire d'immeuble | Adresse / Ville du local: ${franchiseRegions} | Superficie disponible: ${franchiseSqft} | Loyer net demandé / Détails: ${franchiseBrand} | Configuration / Vocation: ${franchiseSector} | Notes: ${franchiseNotes}`
       });
     } else {
       await submitLeadToProspection({
+        ...commonLead,
         type: 'franchise_implantation',
         source: 'Formulaire Franchises & Bannières (#36)',
         subject: `Implantation Franchise : ${franchiseBrand} (${franchiseSector})`,
-        fullName: franchiseContactName,
-        email: franchiseEmail,
-        phone: franchisePhone,
-        city: franchiseRegions,
-        assigned_broker: assignedBrokerNames,
-        broker_email: assignedBrokerEmails[0] || null,
-        broker_emails: assignedBrokerEmails,
+        franchise_name: franchiseBrand,
         message: `Bannière: ${franchiseBrand} | Secteur: ${franchiseSector} | Superficie recherchée: ${franchiseSqft} | Régions cibles: ${franchiseRegions} | Détails: ${franchiseNotes}`
       });
     }
