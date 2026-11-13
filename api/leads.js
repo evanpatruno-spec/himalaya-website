@@ -107,8 +107,14 @@ export default async function handler(req, res) {
 
     if (resendKey) {
       const recipients = [targetEmail];
-      if (brokerEmail && brokerEmail.includes('@') && !recipients.includes(brokerEmail)) {
-        recipients.push(brokerEmail);
+      const extraBrokerEmails = [
+        ...(Array.isArray(lead.broker_emails) ? lead.broker_emails : []),
+        ...(brokerEmail ? [brokerEmail] : [])
+      ];
+      for (const addr of extraBrokerEmails) {
+        if (typeof addr === 'string' && addr.includes('@') && !recipients.includes(addr)) {
+          recipients.push(addr);
+        }
       }
 
       const htmlBody = `

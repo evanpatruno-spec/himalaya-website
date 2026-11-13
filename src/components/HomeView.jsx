@@ -425,7 +425,7 @@ export default function HomeView({
               {HIMALAYA_FRANCHISES.map((fr) => (
                 <div
                   key={fr.id}
-                  onClick={() => navigateTo('franchises')}
+                  onClick={() => navigateTo('franchises', { preselectedFranchiseId: fr.id })}
                   style={{
                     background: 'transparent',
                     borderTop: '1px solid rgba(200, 164, 93, 0.35)',

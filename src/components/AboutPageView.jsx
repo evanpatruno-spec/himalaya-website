@@ -22,9 +22,32 @@ import {
   HIMALAYA_FRANCHISES,
   HIMALAYA_FRANCHISE_HIGHLIGHTS
 } from '../data/siteContent';
+import { INITIAL_HIMALAYA_BROKERS } from '../data/brokersData';
 import { tr, pickLang } from '../data/translations';
 import Law25FormConsent from './Law25FormConsent';
-import { submitLeadToProspection } from '../utils/prospectionBridge';
+import { normalizeText, submitLeadToProspection } from '../utils/prospectionBridge';
+
+function findFranchiseByName(brandText) {
+  const needle = normalizeText(brandText);
+  if (!needle) return null;
+  return (
+    HIMALAYA_FRANCHISES.find((f) =>
+      [f.name, f.name_en, f.name_es, f.name_zh]
+        .filter(Boolean)
+        .some((label) => normalizeText(label) === needle)
+    ) || null
+  );
+}
+
+function getAllFranchiseDivisionBrokerIds() {
+  const seen = new Set();
+  for (const fr of HIMALAYA_FRANCHISES) {
+    for (const id of fr.brokerIds || []) {
+      seen.add(id);
+    }
+  }
+  return seen.size > 0 ? Array.from(seen) : ['roger_rheaume', 'mike_ainajian'];
+}
 
 export default function AboutPageView({
   lang = 'FR',
@@ -32,7 +55,9 @@ export default function AboutPageView({
   onSelectBroker,
   onNavigate,
   initialTab = 'qui-nous-sommes',
-  standaloneFranchisePage = false
+  standaloneFranchisePage = false,
+  preselectedFranchiseId = null,
+  onClearPreselectedFranchise
 }) {
   const c = ABOUT_CONTENT[lang] || ABOUT_CONTENT.FR;
   const [activeTab, setActiveTab] = useState(standaloneFranchisePage ? 'franchises' : (initialTab || 'qui-nous-sommes'));
@@ -104,8 +129,48 @@ export default function AboutPageView({
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
+  const handleSelectFranchiseBrand = (fr) => {
+    if (!fr) return;
+    setFranchiseFormMode('tenant');
+    setFranchiseSent(false);
+    setFranchiseBrand(fr.name);
+    if (fr.sectorValue) setFranchiseSector(fr.sectorValue);
+    const el = document.getElementById('franchise-contact-form') || document.getElementById('form-franchise-himalaya');
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  useEffect(() => {
+    if (!preselectedFranchiseId) return;
+    const match = HIMALAYA_FRANCHISES.find((f) => f.id === preselectedFranchiseId);
+    if (match) {
+      setActiveTab('franchises');
+      setFranchiseFormMode('tenant');
+      setFranchiseSent(false);
+      setFranchiseBrand(match.name);
+      if (match.sectorValue) setFranchiseSector(match.sectorValue);
+      setTimeout(() => {
+        const el = document.getElementById('franchise-contact-form') || document.getElementById('form-franchise-himalaya');
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 60);
+    }
+    if (onClearPreselectedFranchise) onClearPreselectedFranchise();
+  }, [preselectedFranchiseId, onClearPreselectedFranchise]);
+
+  // Courtiers attitrés alignés exactement sur la fiche de chaque franchise sélectionnée
+  const selectedFranchise = franchiseFormMode === 'tenant' ? findFranchiseByName(franchiseBrand) : null;
+  const assignedBrokerIds = selectedFranchise?.brokerIds?.length
+    ? selectedFranchise.brokerIds
+    : getAllFranchiseDivisionBrokerIds();
+  const brokerCatalog = INITIAL_HIMALAYA_BROKERS.length > 0 ? INITIAL_HIMALAYA_BROKERS : directors;
+  const assignedFranchiseBrokers = assignedBrokerIds
+    .map((id) => brokerCatalog.find((b) => b.id === id))
+    .filter(Boolean);
+
   const handleFranchiseSubmit = async (e) => {
     e.preventDefault();
+    const assignedBrokerNames = assignedFranchiseBrokers.map((b) => b.name).join(' & ') || 'Roger Rhéaume';
+    const assignedBrokerEmails = assignedFranchiseBrokers.map((b) => b.email).filter(Boolean);
+
     if (franchiseFormMode === 'landlord') {
       await submitLeadToProspection({
         type: 'franchise_local_proprietaire',
@@ -115,6 +180,9 @@ export default function AboutPageView({
         email: franchiseEmail,
         phone: franchisePhone,
         city: franchiseRegions,
+        assigned_broker: assignedBrokerNames,
+        broker_email: assignedBrokerEmails[0] || null,
+        broker_emails: assignedBrokerEmails,
         message: `Profil: Propriétaire d'immeuble | Adresse / Ville du local: ${franchiseRegions} | Superficie disponible: ${franchiseSqft} | Loyer net demandé / Détails: ${franchiseBrand} | Configuration / Vocation: ${franchiseSector} | Notes: ${franchiseNotes}`
       });
     } else {
@@ -126,6 +194,9 @@ export default function AboutPageView({
         email: franchiseEmail,
         phone: franchisePhone,
         city: franchiseRegions,
+        assigned_broker: assignedBrokerNames,
+        broker_email: assignedBrokerEmails[0] || null,
+        broker_emails: assignedBrokerEmails,
         message: `Bannière: ${franchiseBrand} | Secteur: ${franchiseSector} | Superficie recherchée: ${franchiseSqft} | Régions cibles: ${franchiseRegions} | Détails: ${franchiseNotes}`
       });
     }
@@ -905,13 +976,7 @@ export default function AboutPageView({
               {filteredFranchises.map((fr) => (
                 <div
                   key={fr.id}
-                  onClick={() => {
-                    setFranchiseFormMode('tenant');
-                    setFranchiseBrand(fr.name);
-                    if (fr.sectorValue) setFranchiseSector(fr.sectorValue);
-                    const el = document.getElementById('franchise-contact-form') || document.getElementById('form-franchise-himalaya');
-                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                  }}
+                  onClick={() => handleSelectFranchiseBrand(fr)}
                   style={{
                     background: 'transparent',
                     borderTop: '1px solid rgba(200, 164, 93, 0.38)',
@@ -1073,12 +1138,26 @@ export default function AboutPageView({
 
                 {/* Courtiers attitrés */}
                 <div style={{ fontSize: '0.72rem', color: 'var(--gold)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '16px' }}>
-                  {tr(lang, 'Courtiers attitrés — Division Franchise', 'Assigned Brokers — Franchise Division', 'Corredores asignados — División Franquicias', '特许经营专属经纪人')}
+                  {selectedFranchise
+                    ? assignedFranchiseBrokers.length === 1
+                      ? tr(
+                          lang,
+                          `Courtier attitré — ${pickLang(selectedFranchise, 'name', lang)}`,
+                          `Assigned Broker — ${pickLang(selectedFranchise, 'name', lang)}`,
+                          `Corredor asignado — ${pickLang(selectedFranchise, 'name', lang)}`,
+                          `${pickLang(selectedFranchise, 'name', lang)} 专属经纪人`
+                        )
+                      : tr(
+                          lang,
+                          `Courtiers attitrés — ${pickLang(selectedFranchise, 'name', lang)}`,
+                          `Assigned Brokers — ${pickLang(selectedFranchise, 'name', lang)}`,
+                          `Corredores asignados — ${pickLang(selectedFranchise, 'name', lang)}`,
+                          `${pickLang(selectedFranchise, 'name', lang)} 专属经纪人`
+                        )
+                    : tr(lang, 'Courtiers attitrés — Division Franchise', 'Assigned Brokers — Franchise Division', 'Corredores asignados — División Franquicias', '特许经营专属经纪人')}
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '28px', flexWrap: 'wrap' }}>
-                  {directors
-                    .filter((d) => ['roger_rheaume', 'mike_ainajian'].includes(d.id))
-                    .map((brk) => (
+                  {assignedFranchiseBrokers.map((brk) => (
                       <div key={brk.id} style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
                         <img
                           src={brk.photo}
@@ -1214,7 +1293,22 @@ export default function AboutPageView({
                           {tr(lang, 'Demande transmise avec succès', 'Franchise Request Sent', 'Solicitud enviada con éxito', '选址需求已成功发送')}
                         </div>
                         <div style={{ fontSize: '0.86rem', color: 'var(--text-secondary)' }}>
-                          {tr(lang, 'Roger Rhéaume ou Mike Ainajian communiquera avec vous rapidement.', 'Roger Rhéaume or Mike Ainajian will contact you shortly.', 'Roger Rhéaume o Mike Ainajian se pondrá en contacto con usted.', 'Roger Rhéaume 或 Mike Ainajian 将尽快与您联系。')}
+                          {(() => {
+                            const names = assignedFranchiseBrokers.map((b) => b.name);
+                            const frList = names.length > 0 ? names.join(' ou ') : 'Roger Rhéaume';
+                            const enList = names.length > 0 ? names.join(' or ') : 'Roger Rhéaume';
+                            const esList = names.length > 0 ? names.join(' o ') : 'Roger Rhéaume';
+                            const zhList = names.length > 0 ? names.join(' 或 ') : 'Roger Rhéaume';
+                            const pluralFr = names.length > 1 ? 'communiqueront' : 'communiquera';
+                            const pluralEs = names.length > 1 ? 'se pondrán' : 'se pondrá';
+                            return tr(
+                              lang,
+                              `${frList} ${pluralFr} avec vous rapidement.`,
+                              `${enList} will contact you shortly.`,
+                              `${esList} ${pluralEs} en contacto con usted.`,
+                              `${zhList} 将尽快与您联系。`
+                            );
+                          })()}
                         </div>
                       </div>
                     </div>

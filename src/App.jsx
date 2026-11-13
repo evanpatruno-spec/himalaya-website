@@ -106,6 +106,7 @@ export default function App() {
   const [toolPreselectedDeal, setToolPreselectedDeal] = useState(null);
   const [toolInitialTab, setToolInitialTab] = useState('plex');
   const [aboutInitialTab, setAboutInitialTab] = useState('qui-nous-sommes');
+  const [preselectedFranchiseId, setPreselectedFranchiseId] = useState(null);
   const [newsYearFilter, setNewsYearFilter] = useState('all');
   const [selectedNewsArticle, setSelectedNewsArticle] = useState(null);
   const [legalModalType, setLegalModalType] = useState(null);
@@ -413,6 +414,11 @@ export default function App() {
     if (options.contactTab !== undefined) setContactTab(options.contactTab);
     if (options.aboutTab !== undefined) setAboutInitialTab(options.aboutTab);
     if (options.toolTab !== undefined) setToolInitialTab(options.toolTab);
+    if (options.preselectedFranchiseId !== undefined) {
+      setPreselectedFranchiseId(options.preselectedFranchiseId);
+    } else {
+      setPreselectedFranchiseId(null);
+    }
 
     if (document.activeElement instanceof HTMLElement) {
       document.activeElement.blur();
@@ -427,7 +433,9 @@ export default function App() {
     if (window.location.pathname !== targetPath || window.location.search || window.location.hash) {
       window.history.pushState({ page }, '', targetPath);
     }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (!options.preselectedFranchiseId) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   const openDealModal = (deal) => {
@@ -586,6 +594,8 @@ export default function App() {
             onSelectBroker={openBrokerModal}
             onNavigate={navigateTo}
             initialTab={aboutInitialTab}
+            preselectedFranchiseId={preselectedFranchiseId}
+            onClearPreselectedFranchise={() => setPreselectedFranchiseId(null)}
           />
         )}
 
@@ -597,6 +607,8 @@ export default function App() {
             onNavigate={navigateTo}
             initialTab="franchises"
             standaloneFranchisePage={true}
+            preselectedFranchiseId={preselectedFranchiseId}
+            onClearPreselectedFranchise={() => setPreselectedFranchiseId(null)}
           />
         )}
 
