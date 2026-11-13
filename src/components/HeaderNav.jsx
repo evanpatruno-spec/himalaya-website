@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ExternalLink, Menu, X, ArrowRight, Globe } from 'lucide-react';
 import { LANGUAGE_OPTIONS, tr } from '../data/translations';
+import LanguageFlag from './LanguageFlag';
 import {
   CONSENT_UPDATED_EVENT,
   clearGoogleTranslateArtifacts,
@@ -650,28 +651,38 @@ export default function HeaderNav({
               flexShrink: 0
             }}
           >
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '2px' }}>
-              {LANGUAGE_OPTIONS.map((opt, idx) => (
-                <React.Fragment key={opt.code}>
-                  {idx > 0 && <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.7rem' }}>|</span>}
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '7px', marginBottom: '2px' }}>
+              {LANGUAGE_OPTIONS.map((opt) => {
+                const isSelected = lang === opt.code && !activeAutoTranslate;
+                return (
                   <button
+                    key={opt.code}
                     type="button"
                     onClick={() => triggerPageTranslation({ code: opt.code, native: true })}
                     title={opt.fullLabel}
+                    aria-label={opt.fullLabel}
+                    aria-pressed={isSelected}
                     style={{
                       background: 'transparent',
-                      color: lang === opt.code && !activeAutoTranslate ? 'var(--gold)' : '#ffffff',
                       border: 'none',
-                      padding: '2px 4px',
-                      fontSize: '0.74rem',
-                      fontWeight: lang === opt.code && !activeAutoTranslate ? 700 : 500,
-                      cursor: 'pointer'
+                      padding: '1px',
+                      borderRadius: '4px',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      cursor: 'pointer',
+                      opacity: isSelected ? 1 : 0.72,
+                      transform: isSelected ? 'scale(1.06)' : 'scale(1)',
+                      boxShadow: isSelected
+                        ? '0 0 0 1.5px var(--gold), 0 2px 8px rgba(200, 164, 93, 0.35)'
+                        : '0 0 0 1px rgba(255, 255, 255, 0.18)',
+                      transition: 'opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease'
                     }}
                   >
-                    {opt.label}
+                    <LanguageFlag code={opt.code} width={22} height={15} />
                   </button>
-                </React.Fragment>
-              ))}
+                );
+              })}
             </div>
 
             <button
@@ -752,10 +763,14 @@ export default function HeaderNav({
                         cursor: 'pointer',
                         display: 'flex',
                         alignItems: 'center',
-                        justifyContent: 'space-between'
+                        justifyContent: 'space-between',
+                        gap: '8px'
                       }}
                     >
-                      <span>{item.label}</span>
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+                        {item.native && <LanguageFlag code={item.code} width={18} height={12} />}
+                        <span>{item.label}</span>
+                      </span>
                       {isCurrent && <span style={{ color: 'var(--gold)', fontSize: '0.7rem' }}>✓</span>}
                     </button>
                   );
@@ -816,18 +831,24 @@ export default function HeaderNav({
                 {tr(lang, 'Navigation Principale', 'Main Navigation', 'Navegación Principal', '网站主导航')}
               </span>
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '6px' }}>
-                <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-                  {LANGUAGE_OPTIONS.map(opt => (
-                    <button
-                      key={opt.code}
-                      type="button"
-                      onClick={() => triggerPageTranslation({ code: opt.code, native: true })}
-                      className={lang === opt.code && !activeAutoTranslate ? 'btn-gold' : 'btn-outline'}
-                      style={{ padding: '4px 10px', fontSize: '0.74rem' }}
-                    >
-                      {opt.label}
-                    </button>
-                  ))}
+                <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                  {LANGUAGE_OPTIONS.map(opt => {
+                    const isSelected = lang === opt.code && !activeAutoTranslate;
+                    return (
+                      <button
+                        key={opt.code}
+                        type="button"
+                        onClick={() => triggerPageTranslation({ code: opt.code, native: true })}
+                        title={opt.fullLabel}
+                        aria-label={opt.fullLabel}
+                        aria-pressed={isSelected}
+                        className={isSelected ? 'btn-gold' : 'btn-outline'}
+                        style={{ padding: '6px 10px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
+                      >
+                        <LanguageFlag code={opt.code} width={22} height={15} />
+                      </button>
+                    );
+                  })}
                 </div>
                 <select
                   aria-label="Translate this page into your language"
