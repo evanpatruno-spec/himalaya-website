@@ -13,7 +13,7 @@ import nodemailer from 'nodemailer';
  * - SMTP_USER               : Utilisateur / courriel SMTP
  * - SMTP_PASS               : Mot de passe ou mot de passe d'application SMTP
  * - SMTP_FROM               : Expéditeur SMTP (défaut : SMTP_USER)
- * - LEAD_NOTIFICATION_EMAIL : Courriel de copie agence (défaut : info@himalayacorp.com ; 'none' pour désactiver)
+ * - LEAD_NOTIFICATION_EMAIL : Courriel de copie optionnel ajouté en plus des courtiers attitrés (par défaut aucun ; info@himalayacorp.com en repli s'il n'y a aucun courtier attitré)
  * - CRM_WEBHOOK_URL         : URL Webhook CRM (défaut : https://himalaya-prospection.vercel.app/api/cloud-sync)
  */
 
@@ -53,7 +53,7 @@ export function buildRecipients(lead, agencyEmailSetting = process.env.LEAD_NOTI
     candidates.push(lead.broker_email);
   }
 
-  const agencySetting = agencyEmailSetting === undefined ? DEFAULT_AGENCY_EMAIL : String(agencyEmailSetting).trim();
+  const agencySetting = agencyEmailSetting ? String(agencyEmailSetting).trim() : '';
   if (agencySetting && agencySetting.toLowerCase() !== 'none' && agencySetting.toLowerCase() !== 'false') {
     candidates.push(...agencySetting.split(/[,;]/));
   }
