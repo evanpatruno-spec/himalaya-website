@@ -885,8 +885,8 @@ export const HIMALAYA_FRANCHISES = [
     category_zh: '餐饮与特色烧烤',
     sectorValue: 'Restauration & Alimentation',
     website: 'https://grilladetorino.com',
-    brokerIds: ['roger_rheaume'],
-    brokerNames: 'Roger Rhéaume'
+    brokerIds: ['roger_rheaume', 'mike_ainajian'],
+    brokerNames: 'Roger Rhéaume & Mike Ainajian'
   },
   {
     id: 'moulin_lafayette',

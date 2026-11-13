@@ -31,6 +31,7 @@ export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSe
   const rawMarkets = pickLang(broker, 'markets', lang);
   const displayMarkets = Array.isArray(rawMarkets) ? rawMarkets : (broker.markets || []);
   const brokerFranchises = HIMALAYA_FRANCHISES.filter(f => f.brokerIds && f.brokerIds.includes(broker.id));
+  const hasSectionsAfterMarkets = brokerFranchises.length > 0 || deals.length > 0;
 
   const handleShareProfile = () => {
     const shareUrl = `${window.location.origin}${getBrokerUrlPath(broker)}`;
@@ -162,10 +163,10 @@ export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSe
           {displayMarkets && displayMarkets.length > 0 && (
             <div style={{
               paddingTop: '16px',
-              paddingBottom: deals.length > 0 ? '20px' : '4px',
-              marginBottom: deals.length > 0 ? '24px' : '0',
+              paddingBottom: hasSectionsAfterMarkets ? '20px' : '4px',
+              marginBottom: hasSectionsAfterMarkets ? '24px' : '0',
               borderTop: '1px solid var(--border-subtle)',
-              borderBottom: deals.length > 0 ? '1px solid var(--border-subtle)' : 'none',
+              borderBottom: hasSectionsAfterMarkets ? '1px solid var(--border-subtle)' : 'none',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
@@ -191,28 +192,56 @@ export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSe
               </div>
               <div style={{
                 display: 'flex',
-                alignItems: 'center',
-                gap: '28px',
+                alignItems: 'stretch',
+                gap: '12px',
                 flexWrap: 'wrap'
               }}>
-                {brokerFranchises.map(fr => (
-                  <div key={fr.id} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    {fr.logo && (
-                      <img
-                        src={fr.logo}
-                        alt={fr.name}
-                        title={fr.name}
-                        style={{
-                          height: '32px',
-                          maxWidth: '120px',
-                          width: 'auto',
-                          objectFit: 'contain',
-                          filter: fr.invertLogo ? 'brightness(0) invert(1)' : 'none'
-                        }}
-                      />
-                    )}
-                  </div>
-                ))}
+                {brokerFranchises.map(fr => {
+                  const franchiseName = pickLang(fr, 'name', lang);
+                  const opticalHeight = fr.logoHeight
+                    ? `${Math.min(38, Math.max(22, Math.round(parseInt(fr.logoHeight, 10) * 0.42)))}px`
+                    : '30px';
+                  const Tag = fr.website ? 'a' : 'div';
+                  const linkProps = fr.website
+                    ? { href: fr.website, target: '_blank', rel: 'noreferrer' }
+                    : {};
+                  return (
+                    <Tag
+                      key={fr.id}
+                      {...linkProps}
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '12px',
+                        padding: '8px 14px',
+                        borderRadius: '8px',
+                        background: 'rgba(255, 255, 255, 0.03)',
+                        border: '1px solid rgba(200, 164, 93, 0.28)',
+                        textDecoration: 'none',
+                        color: '#fff'
+                      }}
+                    >
+                      {fr.logo && (
+                        <img
+                          src={fr.logo}
+                          alt={franchiseName}
+                          title={franchiseName}
+                          style={{
+                            height: opticalHeight,
+                            maxWidth: '96px',
+                            width: 'auto',
+                            objectFit: 'contain',
+                            flexShrink: 0,
+                            filter: fr.invertLogo ? 'brightness(0) invert(1)' : 'none'
+                          }}
+                        />
+                      )}
+                      <span style={{ fontSize: '0.84rem', fontWeight: 600, color: '#fff', whiteSpace: 'nowrap' }}>
+                        {franchiseName}
+                      </span>
+                    </Tag>
+                  );
+                })}
               </div>
             </div>
           )}
