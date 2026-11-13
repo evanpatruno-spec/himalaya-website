@@ -38,6 +38,7 @@ export default function AboutPageView({
   const [activeTab, setActiveTab] = useState(standaloneFranchisePage ? 'franchises' : (initialTab || 'qui-nous-sommes'));
   const [openFaqIndex, setOpenFaqIndex] = useState(0);
   const [faqSearchQuery, setFaqSearchQuery] = useState('');
+  const [faqCategoryFilter, setFaqCategoryFilter] = useState('all');
   const [linksSection, setLinksSection] = useState('partenaires');
   const [expandedFounders, setExpandedFounders] = useState({});
   const [franchiseSectorFilter, setFranchiseSectorFilter] = useState('all');
@@ -1840,7 +1841,7 @@ export default function AboutPageView({
         )}
 
         {/* =================================================================
-            ONGLET 5 : FOIRE AUX QUESTIONS — FAQ (faq.html — 12 Q&R officielles)
+            ONGLET 5 : FOIRE AUX QUESTIONS — FAQ MULTI-DOMAINES
            ================================================================= */}
         {activeTab === 'faq' && (() => {
           const normalizeFaqText = (str = '') =>
@@ -1848,25 +1849,87 @@ export default function AboutPageView({
               .normalize('NFD')
               .replace(/[\u0300-\u036f]/g, '')
               .toLowerCase();
+          const faqCategories = Array.isArray(c.faq.categories) ? c.faq.categories : [];
+          const categoryLabelMap = Object.fromEntries(
+            faqCategories.map((cat) => [cat.id, cat.label])
+          );
           const trimmedQuery = faqSearchQuery.trim();
           const normalizedQuery = normalizeFaqText(trimmedQuery);
           const isSearchActive = normalizedQuery.length > 0;
           const filteredFaqItems = c.faq.items
             .map((item, originalIdx) => ({ ...item, originalIdx }))
             .filter((item) => {
+              if (faqCategoryFilter !== 'all' && item.category !== faqCategoryFilter) {
+                return false;
+              }
               if (!isSearchActive) return true;
+              const catLabel = categoryLabelMap[item.category] || '';
               return (
                 normalizeFaqText(item.q).includes(normalizedQuery) ||
-                normalizeFaqText(item.a).includes(normalizedQuery)
+                normalizeFaqText(item.a).includes(normalizedQuery) ||
+                normalizeFaqText(catLabel).includes(normalizedQuery)
               );
             });
 
           return (
-            <div style={{ maxWidth: '900px' }}>
+            <div style={{ maxWidth: '960px' }}>
               <div style={{ marginBottom: '22px' }}>
                 <h2 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '6px' }}>{c.faq.heading}</h2>
                 <p style={{ fontSize: '0.92rem', color: 'var(--text-secondary)' }}>{c.faq.subtitle}</p>
               </div>
+
+              {/* Barre de filtrage par domaine immobilier */}
+              {faqCategories.length > 0 && (
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '20px',
+                    flexWrap: 'wrap',
+                    borderBottom: '1px solid var(--border-subtle)',
+                    paddingBottom: '12px',
+                    marginBottom: '22px'
+                  }}
+                >
+                  {faqCategories.map((cat) => {
+                    const isSelected = faqCategoryFilter === cat.id;
+                    const catCount =
+                      cat.id === 'all'
+                        ? c.faq.items.length
+                        : c.faq.items.filter((item) => item.category === cat.id).length;
+                    return (
+                      <button
+                        key={cat.id}
+                        type="button"
+                        onClick={() => {
+                          setFaqCategoryFilter(cat.id);
+                          const firstIdx =
+                            cat.id === 'all'
+                              ? 0
+                              : c.faq.items.findIndex((item) => item.category === cat.id);
+                          setOpenFaqIndex(firstIdx >= 0 ? firstIdx : -1);
+                        }}
+                        style={{
+                          background: 'transparent',
+                          border: 'none',
+                          borderBottom: isSelected ? '2px solid var(--gold)' : '2px solid transparent',
+                          padding: '6px 0 10px',
+                          marginBottom: '-13px',
+                          color: isSelected ? 'var(--gold-light)' : 'var(--text-secondary)',
+                          fontSize: '0.84rem',
+                          fontWeight: isSelected ? 700 : 500,
+                          letterSpacing: '0.02em',
+                          cursor: 'pointer',
+                          transition: 'color 0.2s ease, border-color 0.2s ease',
+                          whiteSpace: 'nowrap'
+                        }}
+                      >
+                        {cat.label} ({catCount})
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
 
               {/* Champ de recherche architectural souligné (Idée #15) */}
               <div
@@ -1887,10 +1950,10 @@ export default function AboutPageView({
                   onChange={(e) => setFaqSearchQuery(e.target.value)}
                   placeholder={tr(
                     lang,
-                    'Rechercher un sujet dans la FAQ : OACIQ, mise de fonds, bail commercial, commission...',
-                    'Search a topic in the FAQ: OACIQ, down payment, commercial lease, commission...',
-                    'Buscar un tema en las FAQ: OACIQ, pago inicial, contrato comercial, comisión...',
-                    '在常见问题中搜索：OACIQ、首付、商业租约、佣金...'
+                    'Rechercher dans la FAQ : pourvoiries, campings, franchises, multi-logement, bail commercial, bureaux...',
+                    'Search the FAQ: outfitters, campgrounds, franchises, multi-family, commercial lease, offices...',
+                    'Buscar en las FAQ: pourvoiries, campings, franquicias, multifamiliar, alquiler comercial, oficinas...',
+                    '在常见问题中搜索：狩猎度假庄园、露营地、特许经营、多户公寓、商业租约、写字楼...'
                   )}
                   style={{
                     width: '100%',
@@ -1944,17 +2007,21 @@ export default function AboutPageView({
                   </p>
                   <button
                     type="button"
-                    onClick={() => setFaqSearchQuery('')}
+                    onClick={() => {
+                      setFaqSearchQuery('');
+                      setFaqCategoryFilter('all');
+                    }}
                     className="btn-outline"
                     style={{ padding: '7px 14px', fontSize: '0.8rem' }}
                   >
-                    {tr(lang, 'Réinitialiser la recherche', 'Reset search', 'Restablecer búsqueda', '重置搜索')}
+                    {tr(lang, 'Réinitialiser les filtres', 'Reset Filters', 'Restablecer filtros', '重置筛选')}
                   </button>
                 </div>
               ) : (
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                   {filteredFaqItems.map((item, idx) => {
                     const isOpen = isSearchActive ? true : openFaqIndex === item.originalIdx;
+                    const catLabel = categoryLabelMap[item.category];
                     return (
                       <div
                         key={item.originalIdx}
@@ -1965,6 +2032,7 @@ export default function AboutPageView({
                         }}
                       >
                         <button
+                          type="button"
                           onClick={() => setOpenFaqIndex(isOpen ? -1 : item.originalIdx)}
                           style={{
                             width: '100%',
@@ -1982,7 +2050,26 @@ export default function AboutPageView({
                             fontWeight: 600
                           }}
                         >
-                          <span>{item.q}</span>
+                          <div>
+                            {catLabel && (
+                              <div
+                                style={{
+                                  fontSize: '0.7rem',
+                                  fontWeight: 700,
+                                  textTransform: 'uppercase',
+                                  letterSpacing: '0.09em',
+                                  color: 'var(--gold)',
+                                  marginBottom: '4px'
+                                }}
+                              >
+                                {catLabel}
+                              </div>
+                            )}
+                            <span>
+                              <span style={{ color: 'var(--gold-light)', marginRight: '8px' }}>{idx + 1}.</span>
+                              {item.q}
+                            </span>
+                          </div>
                           <ChevronDown
                             size={18}
                             style={{
@@ -1999,7 +2086,8 @@ export default function AboutPageView({
                               padding: '0 0 18px',
                               fontSize: '0.92rem',
                               color: 'var(--text-secondary)',
-                              lineHeight: 1.7
+                              lineHeight: 1.72,
+                              whiteSpace: 'pre-line'
                             }}
                           >
                             {item.a}
