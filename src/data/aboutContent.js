@@ -385,27 +385,13 @@ export const ABOUT_CONTENT = {
           ]
         },
         {
-          category: 'Partenaires internationaux (France, République Dominicaine, Costa Rica)',
+          category: 'Partenaires internationaux (République Dominicaine)',
           items: [
-            {
-              name: 'France — HGV Conseil (Vuthy Hang) & Maison Pregevole-1968 (Sylvie Prégevole)',
-              specialty: 'Courtage en assurance, gestion privée et retraite de l’expatrié',
-              address: 'Rueil-Malmaison (92500) & France',
-              contact: 'vuthy.hang@hgv-conseil.fr • sylviepregevole@maisonpregevole1968.com',
-              website: 'https://hgv-conseil.fr',
-              website2: 'https://maisonpregevole1968.com'
-            },
             {
               name: 'République Dominicaine — Wilfredo Mena & Asocs. / Revart',
               specialty: 'Architecture, construction et supervision de projets immobiliers',
               address: 'République Dominicaine',
               contact: '809-788-0121 / 829-601-6745'
-            },
-            {
-              name: 'Costa Rica — ICS Consultores (Marco Aguilar)',
-              specialty: 'Consultation fiscale et accompagnement corporatif',
-              address: 'Costa Rica',
-              contact: 'maguilar@icsconsultores.com'
             }
           ]
         }
@@ -787,27 +773,13 @@ export const ABOUT_CONTENT = {
           ]
         },
         {
-          category: 'International Partners (France, Dominican Republic, Costa Rica)',
+          category: 'International Partners (Dominican Republic)',
           items: [
-            {
-              name: 'France — HGV Conseil (Vuthy Hang) & Maison Pregevole-1968 (Sylvie Prégevole)',
-              specialty: 'Insurance brokerage, private wealth management & expatriate retirement',
-              address: 'Rueil-Malmaison (92500) & France',
-              contact: 'vuthy.hang@hgv-conseil.fr • sylviepregevole@maisonpregevole1968.com',
-              website: 'https://hgv-conseil.fr',
-              website2: 'https://maisonpregevole1968.com'
-            },
             {
               name: 'Dominican Republic — Wilfredo Mena & Asocs. / Revart',
               specialty: 'Architecture, construction, and project supervision',
               address: 'Dominican Republic',
               contact: '809-788-0121 / 829-601-6745'
-            },
-            {
-              name: 'Costa Rica — ICS Consultores (Marco Aguilar)',
-              specialty: 'Tax-risk consulting and corporate outsourcing',
-              address: 'Costa Rica',
-              contact: 'maguilar@icsconsultores.com'
             }
           ]
         }
@@ -1205,27 +1177,13 @@ ABOUT_CONTENT.ES = {
         ]
       },
       {
-        category: 'Socios internacionales (Francia, República Dominicana, Costa Rica)',
+        category: 'Socios internacionales (República Dominicana)',
         items: [
-          {
-            name: 'Francia — HGV Conseil (Vuthy Hang) & Maison Pregevole-1968 (Sylvie Prégevole)',
-            specialty: 'Corretaje de seguros, gestión patrimonial privada y jubilación para expatriados',
-            address: 'Rueil-Malmaison (92500) y Francia',
-            contact: 'vuthy.hang@hgv-conseil.fr • sylviepregevole@maisonpregevole1968.com',
-            website: 'https://hgv-conseil.fr',
-            website2: 'https://maisonpregevole1968.com'
-          },
           {
             name: 'República Dominicana — Wilfredo Mena & Asocs. / Revart',
             specialty: 'Arquitectura, construcción y supervisión de proyectos inmobiliarios',
             address: 'República Dominicana',
             contact: '809-788-0121 / 829-601-6745'
-          },
-          {
-            name: 'Costa Rica — ICS Consultores (Marco Aguilar)',
-            specialty: 'Consultoría fiscal y acompañamiento corporativo',
-            address: 'Costa Rica',
-            contact: 'maguilar@icsconsultores.com'
           }
         ]
       }
@@ -1622,27 +1580,13 @@ ABOUT_CONTENT.ZH = {
         ]
       },
       {
-        category: '国际合作伙伴（法国、多米尼加共和国、哥斯达黎加）',
+        category: '国际合作伙伴（多米尼加共和国）',
         items: [
-          {
-            name: '法国 — HGV Conseil (Vuthy Hang) & Maison Pregevole-1968 (Sylvie Prégevole)',
-            specialty: '保险经纪、私人财富管理与外派人士退休规划',
-            address: 'Rueil-Malmaison (92500) & France',
-            contact: 'vuthy.hang@hgv-conseil.fr • sylviepregevole@maisonpregevole1968.com',
-            website: 'https://hgv-conseil.fr',
-            website2: 'https://maisonpregevole1968.com'
-          },
           {
             name: '多米尼加共和国 — Wilfredo Mena & Asocs. / Revart',
             specialty: '建筑设计、工程施工与房地产项目监理',
             address: 'République Dominicaine',
             contact: '809-788-0121 / 829-601-6745'
-          },
-          {
-            name: '哥斯达黎加 — ICS Consultores (Marco Aguilar)',
-            specialty: '税务咨询与企业商务配套服务',
-            address: 'Costa Rica',
-            contact: 'maguilar@icsconsultores.com'
           }
         ]
       }
