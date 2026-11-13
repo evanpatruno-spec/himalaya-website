@@ -962,7 +962,7 @@ export default function AboutPageView({
                   {/* Actions discrètes (#1 & #5 : Pré-remplir le formulaire + Site officiel) */}
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '18px', flexWrap: 'wrap' }}>
                     <span className="editorial-link" style={{ fontSize: '0.73rem' }}>
-                      {tr(lang, 'Chercher un local', 'Find a Location', 'Buscar local', '寻找门店选址')} <ArrowRight size={12} />
+                      {tr(lang, 'Ouvrir une franchise', 'Open a Franchise', 'Abrir una franquicia', '开设加盟店')} <ArrowRight size={12} />
                     </span>
                     {fr.website && (
                       <a
