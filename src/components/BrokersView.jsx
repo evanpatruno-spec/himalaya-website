@@ -72,7 +72,7 @@ export default function BrokersView({
             {tr(lang, 'Langue parlée :', 'Spoken Language:', 'Idioma hablado:', '服务语言筛选：')}
           </span>
           {[
-            { id: 'all', flags: [], label: tr(lang, `Toutes (${INITIAL_HIMALAYA_BROKERS.length})`, `All (${INITIAL_HIMALAYA_BROKERS.length})`, `Todos (${INITIAL_HIMALAYA_BROKERS.length})`, `全部语言 (${INITIAL_HIMALAYA_BROKERS.length})`) },
+            { id: 'all', flags: [], label: tr(lang, 'Toutes', 'All', 'Todos', '全部') },
             { id: 'fr', flags: ['FR'], label: getBrokerLanguageName('fr', lang) },
             { id: 'en', flags: ['EN'], label: getBrokerLanguageName('en', lang) },
             { id: 'zh', flags: ['ZH'], label: getBrokerLanguageName('zh', lang) },
