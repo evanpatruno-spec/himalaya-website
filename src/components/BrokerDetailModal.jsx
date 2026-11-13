@@ -3,6 +3,8 @@ import { X, Phone, Mail, MapPin, Globe, ChevronRight, Share2 } from 'lucide-reac
 import { HIMALAYA_FRANCHISES } from '../data/siteContent';
 import { tr, pickLang } from '../data/translations';
 import { getBrokerUrlPath } from '../utils/seoRouter';
+import { getBrokerLanguages, getBrokerLanguageName } from '../utils/brokerLanguages';
+import LanguageFlag from './LanguageFlag';
 
 export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSelectDeal }) {
   const [copied, setCopied] = useState(false);
@@ -31,7 +33,10 @@ export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSe
   const rawMarkets = pickLang(broker, 'markets', lang);
   const displayMarkets = Array.isArray(rawMarkets) ? rawMarkets : (broker.markets || []);
   const brokerFranchises = HIMALAYA_FRANCHISES.filter(f => f.brokerIds && f.brokerIds.includes(broker.id));
+  const spokenLanguages = getBrokerLanguages(broker);
+  const hasMarkets = Array.isArray(displayMarkets) && displayMarkets.length > 0;
   const hasSectionsAfterMarkets = brokerFranchises.length > 0 || deals.length > 0;
+  const hasSectionsAfterLanguages = hasMarkets || hasSectionsAfterMarkets;
 
   const handleShareProfile = () => {
     const shareUrl = `${window.location.origin}${getBrokerUrlPath(broker)}`;
@@ -160,7 +165,48 @@ export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSe
             </div>
           )}
 
-          {displayMarkets && displayMarkets.length > 0 && (
+          {spokenLanguages.length > 0 && (
+            <div style={{
+              paddingTop: '16px',
+              paddingBottom: hasSectionsAfterLanguages ? '16px' : '4px',
+              marginBottom: !hasMarkets && hasSectionsAfterMarkets ? '24px' : '0',
+              borderTop: '1px solid var(--border-subtle)',
+              borderBottom: !hasMarkets && hasSectionsAfterMarkets ? '1px solid var(--border-subtle)' : 'none',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              flexWrap: 'wrap',
+              gap: '12px'
+            }}>
+              <div style={{ fontSize: '0.73rem', color: 'var(--gold)', textTransform: 'uppercase', letterSpacing: '0.09em', fontWeight: 700 }}>
+                {t?.brokers?.languages || tr(lang, 'Langues parlées', 'Languages spoken', 'Idiomas hablados', '工作语言')}
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
+                {spokenLanguages.map(code => {
+                  const label = getBrokerLanguageName(code, lang);
+                  return (
+                    <span
+                      key={code}
+                      title={label}
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '7px',
+                        fontSize: '0.86rem',
+                        fontWeight: 600,
+                        color: '#fff'
+                      }}
+                    >
+                      <LanguageFlag code={code} width={20} height={14} bordered />
+                      <span>{label}</span>
+                    </span>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {hasMarkets && (
             <div style={{
               paddingTop: '16px',
               paddingBottom: hasSectionsAfterMarkets ? '20px' : '4px',

@@ -21,6 +21,7 @@ import FooterSection from './components/FooterSection';
 import HomeView from './components/HomeView';
 import Law25ConsentBanner from './components/Law25ConsentBanner';
 import { OPEN_LEGAL_EVENT } from './utils/consentManager';
+import { getBrokerLanguages } from './utils/brokerLanguages';
 
 // Code-splitting & Lazy Loading des vues et modales (#16)
 const PropertiesView = lazy(() => import('./components/PropertiesView'));
@@ -382,30 +383,6 @@ export default function App() {
       });
   }, [liveDealsData, rechercheBut, filtrePropriete, filtreRegion, filtreCourtier, filtreBudget, searchKeyword, sortBy]);
 
-  // Langues parlées par courtier
-  const getBrokerLanguages = (b) => {
-    const id = b.id || '';
-    const codes = ['fr', 'en'];
-    if (['olivier_meunier', 'yun_zhang', 'pengbo_zhao'].includes(id)) codes.push('zh');
-    if (['roger_rheaume', 'sylvie_castonguay', 'eric_barelier'].includes(id)) codes.push('es');
-    if (['mike_ainajian', 'joseph_jacob'].includes(id)) codes.push('ar');
-    if (['mike_ainajian', 'taline_ovayan'].includes(id)) codes.push('hy');
-    return codes;
-  };
-
-  const getBrokerLanguageLabels = (b) => {
-    const codes = getBrokerLanguages(b);
-    const map = {
-      fr: 'FR',
-      en: 'EN',
-      zh: tr(lang, 'Mandarin (中文)', 'Mandarin (中文)', 'Mandarín (中文)', '普通话 (中文)'),
-      es: tr(lang, 'Espagnol', 'Spanish', 'Español', '西班牙语'),
-      ar: tr(lang, 'Arabe', 'Arabic', 'Árabe', '阿拉伯语'),
-      hy: tr(lang, 'Arménien', 'Armenian', 'Armenio', '亚美尼亚语')
-    };
-    return codes.map(c => map[c]).filter(Boolean);
-  };
-
   const filteredBrokers = useMemo(() => {
     const q = normalizeText(brokerSearch);
     return INITIAL_HIMALAYA_BROKERS.filter(b => {
@@ -657,7 +634,6 @@ export default function App() {
             setBrokerCategoryFilter={setBrokerCategoryFilter}
             brokerLanguageFilter={brokerLanguageFilter}
             setBrokerLanguageFilter={setBrokerLanguageFilter}
-            getBrokerLanguageLabels={getBrokerLanguageLabels}
             openBrokerModal={openBrokerModal}
           />
         )}

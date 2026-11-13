@@ -3,6 +3,8 @@ import { Phone, ArrowRight } from 'lucide-react';
 import { INITIAL_HIMALAYA_BROKERS } from '../data/brokersData';
 import { tr, pickLang } from '../data/translations';
 import { dealBelongsToBroker } from '../utils/prospectionBridge';
+import { getBrokerLanguages, getBrokerLanguageName } from '../utils/brokerLanguages';
+import LanguageFlag from './LanguageFlag';
 
 export default function BrokersView({
   lang,
@@ -15,7 +17,6 @@ export default function BrokersView({
   setBrokerCategoryFilter,
   brokerLanguageFilter,
   setBrokerLanguageFilter,
-  getBrokerLanguageLabels,
   openBrokerModal
 }) {
   return (
@@ -71,12 +72,12 @@ export default function BrokersView({
             {tr(lang, 'Langue parlée :', 'Spoken Language:', 'Idioma hablado:', '服务语言筛选：')}
           </span>
           {[
-            { id: 'all', label: tr(lang, 'Toutes (14)', 'All (14)', 'Todos (14)', '全部语言 (14)') },
-            { id: 'fr', label: tr(lang, 'Français', 'French', 'Francés', '法语 (FR)') },
-            { id: 'en', label: tr(lang, 'Anglais', 'English', 'Inglés', '英语 (EN)') },
-            { id: 'zh', label: tr(lang, 'Mandarin (中文)', 'Mandarin (中文)', 'Mandarín (中文)', '普通话 (中文)') },
-            { id: 'es', label: tr(lang, 'Espagnol', 'Spanish', 'Español', '西班牙语 (ES)') },
-            { id: 'ar_hy', label: tr(lang, 'Arabe & Arménien', 'Arabic & Armenian', 'Árabe y Armenio', '阿拉伯语 / 亚美尼亚语') }
+            { id: 'all', flags: [], label: tr(lang, `Toutes (${INITIAL_HIMALAYA_BROKERS.length})`, `All (${INITIAL_HIMALAYA_BROKERS.length})`, `Todos (${INITIAL_HIMALAYA_BROKERS.length})`, `全部语言 (${INITIAL_HIMALAYA_BROKERS.length})`) },
+            { id: 'fr', flags: ['FR'], label: getBrokerLanguageName('fr', lang) },
+            { id: 'en', flags: ['EN'], label: getBrokerLanguageName('en', lang) },
+            { id: 'zh', flags: ['ZH'], label: getBrokerLanguageName('zh', lang) },
+            { id: 'es', flags: ['ES'], label: getBrokerLanguageName('es', lang) },
+            { id: 'ar_hy', flags: ['AR', 'HY'], label: tr(lang, 'Arabe & Arménien', 'Arabic & Armenian', 'Árabe y Armenio', '阿拉伯语 / 亚美尼亚语') }
           ].map(lg => {
             const active = brokerLanguageFilter === lg.id;
             return (
@@ -93,10 +94,20 @@ export default function BrokersView({
                   fontSize: '0.82rem',
                   fontWeight: active ? 700 : 400,
                   color: active ? 'var(--gold-light)' : 'var(--text-secondary)',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
                   transition: 'all 0.2s ease'
                 }}
               >
-                {lg.label}
+                {lg.flags.length > 0 && (
+                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                    {lg.flags.map(flagCode => (
+                      <LanguageFlag key={flagCode} code={flagCode} width={18} height={12} bordered />
+                    ))}
+                  </span>
+                )}
+                <span>{lg.label}</span>
               </button>
             );
           })}
@@ -131,9 +142,36 @@ export default function BrokersView({
                     <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px' }}>
                       <span>{pickLang(broker, 'city', lang)}</span>
                     </div>
-                    <div style={{ fontSize: '0.73rem', color: 'var(--text-muted)', marginTop: '6px' }}>
-                      {getBrokerLanguageLabels(broker).join(' • ')}
-                    </div>
+                    {(() => {
+                      const spokenCodes = getBrokerLanguages(broker);
+                      const spokenText = spokenCodes.map(code => getBrokerLanguageName(code, lang)).filter(Boolean).join(', ');
+                      return (
+                        <div
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            flexWrap: 'wrap',
+                            gap: '6px',
+                            marginTop: '8px'
+                          }}
+                          aria-label={`${t.brokers.languages} : ${spokenText}`}
+                        >
+                          {spokenCodes.map(code => {
+                            const label = getBrokerLanguageName(code, lang);
+                            return (
+                              <span
+                                key={code}
+                                title={label}
+                                aria-label={label}
+                                style={{ display: 'inline-flex', alignItems: 'center' }}
+                              >
+                                <LanguageFlag code={code} width={20} height={14} bordered />
+                              </span>
+                            );
+                          })}
+                        </div>
+                      );
+                    })()}
                   </div>
 
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px', paddingTop: '12px', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
