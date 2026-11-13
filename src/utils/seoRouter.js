@@ -259,6 +259,13 @@ export function updateDynamicSEO({ activePage, selectedDeal, selectedBroker, lan
         'Nuestros corredores inmobiliarios certificados OACIQ | Immobilier Himalaya',
         'OACIQ 持牌房地产经纪人团队 | 喜马拉雅地产'
       ),
+      agences: tr(
+        lang,
+        'Agences partenaires internationales | Immobilier Himalaya',
+        'International Partner Agencies | Immobilier Himalaya',
+        'Agencias asociadas internacionales | Immobilier Himalaya',
+        '国际合作房地产机构 | 喜马拉雅地产'
+      ),
       franchises: tr(
         lang,
         'Franchises & Expansion commerciale (Membre CQF) | Immobilier Himalaya',

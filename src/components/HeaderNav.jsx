@@ -177,7 +177,7 @@ export default function HeaderNav({
                   onClick={() => navigateTo('agences')}
                 >
                   <span className="nav-dropdown-link-title">
-                    {tr(lang, 'Nos agences', 'Our Offices', 'Nuestras oficinas', '分支机构')}
+                    {tr(lang, 'Agences partenaires', 'Partner Agencies', 'Agencias asociadas', '国际合作机构')}
                   </span>
                 </button>
                 <button
@@ -873,7 +873,7 @@ export default function HeaderNav({
                   id: 'a-propos',
                   label: tr(lang, 'L’Agence', 'The Agency', 'La Agencia', '关于本行'),
                   subId: 'agences',
-                  subLabel: tr(lang, 'Nos agences', 'Our Offices', 'Oficinas', '分支机构')
+                  subLabel: tr(lang, 'Agences partenaires', 'Partner Agencies', 'Agencias asociadas', '国际合作机构')
                 },
                 { id: 'courtiers', label: t.nav.brokers },
                 {

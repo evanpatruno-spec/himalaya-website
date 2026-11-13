@@ -27,7 +27,7 @@ export const TRANSLATIONS = {
       home: 'Accueil',
       properties: 'Propriétés',
       brokers: 'Courtiers',
-      agencies: 'Agences',
+      agencies: 'Agences partenaires',
       about: 'À propos',
       news: 'Actualités',
       podcasts: 'Balados',
@@ -105,9 +105,10 @@ export const TRANSLATIONS = {
       specialties: 'Marchés & Pays'
     },
     agencies: {
-      title: 'Notre agence',
-      subtitle: 'Siège social situé au 2000, avenue McGill College, bureau 600 à Montréal (Québec) et réseau international.',
-      emailBtn: 'Courriel'
+      title: 'Agences partenaires',
+      subtitle: 'Réseau international d’agences immobilières partenaires collaborant avec Immobilier Himalaya à travers le monde.',
+      emailBtn: 'Courriel',
+      websiteBtn: 'Site web'
     },
     about: {
       title: 'À propos d’Immobilier',
@@ -221,7 +222,7 @@ export const TRANSLATIONS = {
       home: 'Home',
       properties: 'Properties',
       brokers: 'Brokers',
-      agencies: 'Agencies',
+      agencies: 'Partner Agencies',
       about: 'About Us',
       news: 'News',
       podcasts: 'Podcasts',
@@ -299,9 +300,10 @@ export const TRANSLATIONS = {
       specialties: 'Markets & Countries'
     },
     agencies: {
-      title: 'Our agency',
-      subtitle: 'Head office located at 2000 McGill College Ave, Suite 600 in Montreal (Quebec) and international network.',
-      emailBtn: 'Email'
+      title: 'Partner Agencies',
+      subtitle: 'International network of partner real estate agencies collaborating with Immobilier Himalaya worldwide.',
+      emailBtn: 'Email',
+      websiteBtn: 'Website'
     },
     about: {
       title: 'About Himalaya',
@@ -415,7 +417,7 @@ export const TRANSLATIONS = {
       home: 'Inicio',
       properties: 'Propiedades',
       brokers: 'Corredores',
-      agencies: 'Agencias',
+      agencies: 'Agencias asociadas',
       about: 'Nosotros',
       news: 'Noticias',
       podcasts: 'Pódcasts',
@@ -493,9 +495,10 @@ export const TRANSLATIONS = {
       specialties: 'Mercados y Países'
     },
     agencies: {
-      title: 'Nuestra agencia',
-      subtitle: 'Sede central ubicada en 2000 McGill College Ave, Suite 600 en Montreal (Quebec) y red internacional.',
-      emailBtn: 'Correo'
+      title: 'Agencias asociadas',
+      subtitle: 'Red internacional de agencias inmobiliarias asociadas que colaboran con Immobilier Himalaya.',
+      emailBtn: 'Correo',
+      websiteBtn: 'Sitio web'
     },
     about: {
       title: 'Acerca de Himalaya',
@@ -609,7 +612,7 @@ export const TRANSLATIONS = {
       home: '首页',
       properties: '精选物业',
       brokers: '地产经纪',
-      agencies: '分支机构',
+      agencies: '合作机构',
       about: '关于我们',
       news: '新闻动态',
       podcasts: '播客专栏',
@@ -687,9 +690,10 @@ export const TRANSLATIONS = {
       specialties: '服务市场与国家'
     },
     agencies: {
-      title: '办公机构与国际网络',
-      subtitle: '总部位于蒙特利尔（魁北克省）2000 McGill College Ave, Suite 600，并拥有国际合作网络。',
-      emailBtn: '发送邮件'
+      title: '国际合作机构',
+      subtitle: '与喜马拉雅地产开展国际业务合作的海外合作房地产经纪机构网络。',
+      emailBtn: '发送邮件',
+      websiteBtn: '官方网站'
     },
     about: {
       title: '关于喜马拉雅地产',
