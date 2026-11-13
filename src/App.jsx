@@ -29,6 +29,8 @@ const BrokersView = lazy(() => import('./components/BrokersView'));
 const AgenciesView = lazy(() => import('./components/AgenciesView'));
 const NewsEventsView = lazy(() => import('./components/NewsEventsView'));
 const PodcastsView = lazy(() => import('./components/PodcastsView'));
+const PressPublicationsView = lazy(() => import('./components/PressPublicationsView'));
+const VideosView = lazy(() => import('./components/VideosView'));
 const ContactView = lazy(() => import('./components/ContactView'));
 const AboutPageView = lazy(() => import('./components/AboutPageView'));
 const ToolsHubView = lazy(() => import('./components/ToolsHubView'));
@@ -496,6 +498,8 @@ export default function App() {
       case 'outils': return t.nav.tools;
       case 'evenements': return t.nav.news;
       case 'balados': return t.nav.podcasts;
+      case 'presse': return t.nav.press;
+      case 'videos': return t.nav.videos;
       case 'nous-joindre': return t.nav.contact;
       default: return '';
     }
@@ -690,6 +694,14 @@ export default function App() {
             setPlayingPodcastId={setPlayingPodcastId}
             navigateTo={navigateTo}
           />
+        )}
+
+        {activePage === 'presse' && (
+          <PressPublicationsView lang={lang} navigateTo={navigateTo} />
+        )}
+
+        {activePage === 'videos' && (
+          <VideosView lang={lang} navigateTo={navigateTo} />
         )}
 
         {activePage === 'nous-joindre' && (

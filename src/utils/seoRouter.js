@@ -11,6 +11,8 @@ export const VALID_SITE_PAGES = [
   'outils',
   'evenements',
   'balados',
+  'presse',
+  'videos',
   'nous-joindre'
 ];
 
@@ -279,6 +281,20 @@ export function updateDynamicSEO({ activePage, selectedDeal, selectedBroker, lan
         'Real Estate Tools & Calculators | Immobilier Himalaya',
         'Herramientas y Calculadoras inmobiliarias | Immobilier Himalaya',
         '房地产金融工具与按揭计算器 | 喜马拉雅地产'
+      ),
+      presse: tr(
+        lang,
+        'Revue de presse & Publications | Immobilier Himalaya',
+        'Press & Publications | Immobilier Himalaya',
+        'Prensa y Publicaciones | Immobilier Himalaya',
+        '媒体报道与专业专栏 | 喜马拉雅地产'
+      ),
+      videos: tr(
+        lang,
+        'Capsules vidéo & Visites | Immobilier Himalaya',
+        'Videos & Property Tours | Immobilier Himalaya',
+        'Videos y Recorridos | Immobilier Himalaya',
+        '视频专栏与实景看房 | 喜马拉雅地产'
       ),
       'zone-equipe': 'Portail Zone Équipe & Synchronisation CRM | Immobilier Himalaya'
     };

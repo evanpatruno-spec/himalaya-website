@@ -136,6 +136,18 @@ export default function FooterSection({
                   {t.nav.podcasts}
                 </button>
                 <button
+                  onClick={() => navigateTo('presse')}
+                  style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', textAlign: 'left' }}
+                >
+                  {t.nav.press}
+                </button>
+                <button
+                  onClick={() => navigateTo('videos')}
+                  style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', textAlign: 'left' }}
+                >
+                  {t.nav.videos}
+                </button>
+                <button
                   onClick={() => navigateTo('nous-joindre')}
                   style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', textAlign: 'left' }}
                 >

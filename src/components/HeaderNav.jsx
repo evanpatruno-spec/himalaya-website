@@ -490,7 +490,12 @@ export default function HeaderNav({
             <li className="nav-item-dropdown">
               <button
                 className={`nav-btn ${
-                  activePage === 'evenements' || activePage === 'balados' ? 'active' : ''
+                  activePage === 'evenements' ||
+                  activePage === 'balados' ||
+                  activePage === 'presse' ||
+                  activePage === 'videos'
+                    ? 'active'
+                    : ''
                 }`}
                 onClick={() => navigateTo('evenements')}
               >
@@ -514,6 +519,24 @@ export default function HeaderNav({
                 >
                   <span className="nav-dropdown-link-title">
                     {tr(lang, 'Balados & Conférences', 'Podcasts & Talks', 'Pódcasts y Conferencias', '播客专栏与行业论坛')}
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  className="nav-dropdown-link"
+                  onClick={() => navigateTo('presse')}
+                >
+                  <span className="nav-dropdown-link-title">
+                    {tr(lang, 'Revue de presse & Publications', 'Press & Publications', 'Prensa y Publicaciones', '媒体报道与专业专栏')}
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  className="nav-dropdown-link"
+                  onClick={() => navigateTo('videos')}
+                >
+                  <span className="nav-dropdown-link-title">
+                    {tr(lang, 'Capsules vidéo & Visites', 'Videos & Property Tours', 'Videos y Recorridos', '视频专栏与实景看房')}
                   </span>
                 </button>
               </div>
@@ -838,8 +861,11 @@ export default function HeaderNav({
                 {
                   id: 'evenements',
                   label: tr(lang, 'Médias (Activités, Événements & Actualités)', 'Media (Activities, Events & News)', 'Medios (Actividades, Eventos y Noticias)', '媒体动态（活动、展会与新闻）'),
-                  subId: 'balados',
-                  subLabel: tr(lang, 'Balados', 'Podcasts', 'Pódcasts', '播客专栏')
+                  subLinks: [
+                    { id: 'balados', label: tr(lang, 'Balados', 'Podcasts', 'Pódcasts', '播客专栏') },
+                    { id: 'presse', label: tr(lang, 'Presse & Publications', 'Press & Publications', 'Prensa y Publicaciones', '媒体与专栏') },
+                    { id: 'videos', label: tr(lang, 'Capsules vidéo', 'Videos & Tours', 'Videos y Recorridos', '视频与看房') }
+                  ]
                 },
                 {
                   id: 'nous-joindre',
@@ -850,6 +876,8 @@ export default function HeaderNav({
                   key={item.id}
                   style={{
                     display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: '10px',
                     alignItems: 'center',
                     justifyContent: 'space-between',
                     padding: '13px 0',
@@ -882,6 +910,26 @@ export default function HeaderNav({
                     >
                       {item.subLabel} <ArrowRight size={12} />
                     </button>
+                  )}
+                  {item.subLinks && (
+                    <div style={{ width: '100%', display: 'flex', flexWrap: 'wrap', gap: '16px', paddingTop: '4px' }}>
+                      {item.subLinks.map(sub => (
+                        <button
+                          key={sub.id}
+                          onClick={() => navigateTo(sub.id)}
+                          className="editorial-link"
+                          style={{
+                            background: 'none',
+                            border: 'none',
+                            cursor: 'pointer',
+                            fontSize: '0.74rem',
+                            color: activePage === sub.id ? '#ffffff' : undefined
+                          }}
+                        >
+                          {sub.label} <ArrowRight size={12} />
+                        </button>
+                      ))}
+                    </div>
                   )}
                 </div>
               ))}
