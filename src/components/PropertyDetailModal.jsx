@@ -13,6 +13,7 @@ import {
   getCurrencyDisclaimerText
 } from '../utils/currencyService';
 import { getPropertyUrlPath } from '../utils/seoRouter';
+import { buildGoogleMapsUrl } from '../utils/mapLinks';
 import ChiffrierDealSimulator from './ChiffrierDealSimulator';
 
 const FALLBACK_IMG = 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=80';
@@ -314,6 +315,8 @@ export default function PropertyDetailModal({
   const displayPrice = pickLang(deal, 'price_raw', lang);
   const displayDesc = pickLang(deal, 'description', lang);
   const displayUrl = pickLang(deal, 'url', lang) || deal.url;
+  const googleMapsUrl = buildGoogleMapsUrl(deal);
+  const addressLabel = `${deal.address ? `${deal.address}, ` : ''}${deal.city || ''}${deal.region ? ` (${deal.region})` : ''}`.trim();
   const displayTransactionType =
     deal.transaction_type === 'Location'
       ? tr(lang, 'À louer', 'For Rent', 'En alquiler', '出租')
@@ -503,10 +506,46 @@ export default function PropertyDetailModal({
               <h2 className="serif-title" style={{ fontSize: '2rem', fontWeight: 600, lineHeight: 1.2, marginBottom: '8px' }}>
                 {displayTitle}
               </h2>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--text-secondary)', fontSize: '0.88rem', marginBottom: '18px' }}>
-                <MapPin size={15} color="var(--gold)" />
-                <span>{deal.address ? `${deal.address}, ` : ''}{deal.city} ({deal.region})</span>
-              </div>
+              {googleMapsUrl ? (
+                <a
+                  href={googleMapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title={tr(lang, 'Ouvrir l’adresse dans Google Maps', 'Open address in Google Maps', 'Abrir dirección en Google Maps', '在 Google 地图中打开地址')}
+                  aria-label={`${addressLabel} — Google Maps`}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    flexWrap: 'wrap',
+                    gap: '6px',
+                    color: 'var(--text-secondary)',
+                    fontSize: '0.88rem',
+                    marginBottom: '18px',
+                    textDecoration: 'none',
+                    borderBottom: '1px dashed rgba(200, 164, 93, 0.45)',
+                    paddingBottom: '2px',
+                    transition: 'color 0.18s ease, border-color 0.18s ease',
+                    cursor: 'pointer'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color = 'var(--gold-light)';
+                    e.currentTarget.style.borderBottomColor = 'var(--gold)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color = 'var(--text-secondary)';
+                    e.currentTarget.style.borderBottomColor = 'rgba(200, 164, 93, 0.45)';
+                  }}
+                >
+                  <MapPin size={15} color="var(--gold)" style={{ flexShrink: 0 }} />
+                  <span>{addressLabel}</span>
+                  <ExternalLink size={12} color="var(--gold)" className="no-print" style={{ flexShrink: 0 }} />
+                </a>
+              ) : (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--text-secondary)', fontSize: '0.88rem', marginBottom: '18px' }}>
+                  <MapPin size={15} color="var(--gold)" />
+                  <span>{addressLabel}</span>
+                </div>
+              )}
 
               <div style={{
                 display: 'flex',
