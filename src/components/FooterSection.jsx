@@ -1,7 +1,8 @@
 import React from 'react';
-import { Lock, Phone, LayoutGrid, Sparkles, Mail, X } from 'lucide-react';
+import { Lock, Phone, LayoutGrid, Sparkles, Mail, X, SlidersHorizontal } from 'lucide-react';
 import { OFFICIAL_SOCIAL_LINKS, LEGAL_DOCUMENTS } from '../data/siteContent';
 import { tr, pickLang } from '../data/translations';
+import { openCookiePreferencesModal } from '../utils/consentManager';
 
 export default function FooterSection({
   lang,
@@ -189,6 +190,25 @@ export default function FooterSection({
               >
                 {tr(lang, 'Politique de confidentialité', 'Privacy Policy (Law 25)', 'Política de privacidad (Ley 25)', '隐私政策 (第25号法案)')}
               </button>
+              <span>|</span>
+              <button
+                type="button"
+                onClick={() => openCookiePreferencesModal(null)}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: 'var(--gold-light)',
+                  cursor: 'pointer',
+                  fontSize: '0.76rem',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '5px',
+                  textDecoration: 'underline'
+                }}
+              >
+                <SlidersHorizontal size={12} />
+                {tr(lang, 'Gérer les témoins', 'Cookie Settings', 'Gestionar cookies', '管理 Cookie')}
+              </button>
             </div>
 
             <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
@@ -249,6 +269,22 @@ export default function FooterSection({
                   </p>
                 </div>
               ))}
+              {legalModalType === 'privacy' && (
+                <div style={{ display: 'flex', justifyContent: 'flex-end', paddingTop: '4px' }}>
+                  <button
+                    type="button"
+                    className="btn-outline"
+                    onClick={() => {
+                      setLegalModalType(null);
+                      openCookiePreferencesModal(null);
+                    }}
+                    style={{ fontSize: '0.82rem', padding: '8px 14px', borderColor: 'var(--gold)', color: 'var(--gold-light)' }}
+                  >
+                    <SlidersHorizontal size={14} />
+                    {tr(lang, 'Gérer mes témoins (Loi 25)', 'Manage Cookie Settings (Law 25)', 'Gestionar cookies (Ley 25)', '管理 Cookie 偏好')}
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>

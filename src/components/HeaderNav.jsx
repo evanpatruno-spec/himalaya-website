@@ -1,6 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ExternalLink, Menu, X, ArrowRight, Globe } from 'lucide-react';
 import { LANGUAGE_OPTIONS, tr } from '../data/translations';
+import {
+  CONSENT_UPDATED_EVENT,
+  clearGoogleTranslateArtifacts,
+  hasConsentFor,
+  openCookiePreferencesModal
+} from '../utils/consentManager';
 
 const EXTRA_TRANSLATE_LANGUAGES = [
   { code: 'FR', label: 'Français (Original)', native: true },
@@ -51,23 +57,7 @@ export default function HeaderNav({
     return () => document.removeEventListener('mousedown', onClickOutside);
   }, []);
 
-  const triggerPageTranslation = (item) => {
-    setTranslateMenuOpen(false);
-    if (item.native) {
-      setActiveAutoTranslate('');
-      // Nettoyer le cookie Google Translate si actif
-      document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-      document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${window.location.hostname};`;
-      const combo = document.querySelector('.goog-te-combo');
-      if (combo) {
-        combo.value = '';
-        combo.dispatchEvent(new Event('change'));
-      }
-      handleLanguageChange(item.code);
-      return;
-    }
-
-    // Traduction automatique Google Translate dans la langue choisie
+  const activateGoogleTranslate = (item) => {
     setActiveAutoTranslate(item.code);
     const cookieVal = `/fr/${item.code}`;
     document.cookie = `googtrans=${cookieVal}; path=/`;
@@ -110,6 +100,43 @@ export default function HeaderNav({
         setTimeout(applyCombo, 300);
       }
     }
+  };
+
+  useEffect(() => {
+    const onApplyTranslate = (e) => {
+      if (e?.detail && hasConsentFor('preferences')) {
+        activateGoogleTranslate(e.detail);
+      }
+    };
+    const onConsentChange = (e) => {
+      if (!e?.detail?.categories?.preferences) {
+        setActiveAutoTranslate('');
+      }
+    };
+    window.addEventListener('himalaya:apply-google-translate', onApplyTranslate);
+    window.addEventListener(CONSENT_UPDATED_EVENT, onConsentChange);
+    return () => {
+      window.removeEventListener('himalaya:apply-google-translate', onApplyTranslate);
+      window.removeEventListener(CONSENT_UPDATED_EVENT, onConsentChange);
+    };
+  }, []);
+
+  const triggerPageTranslation = (item) => {
+    setTranslateMenuOpen(false);
+    if (item.native) {
+      setActiveAutoTranslate('');
+      clearGoogleTranslateArtifacts();
+      handleLanguageChange(item.code);
+      return;
+    }
+
+    // Loi 25 : exiger le consentement « Préférences » avant de charger Google Translate / poser googtrans
+    if (!hasConsentFor('preferences')) {
+      openCookiePreferencesModal(item);
+      return;
+    }
+
+    activateGoogleTranslate(item);
   };
   return (
     <header className={`main-header ${isScrolled ? 'is-scrolled' : ''}`}>

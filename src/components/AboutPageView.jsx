@@ -23,6 +23,7 @@ import {
   HIMALAYA_FRANCHISE_HIGHLIGHTS
 } from '../data/siteContent';
 import { tr, pickLang } from '../data/translations';
+import Law25FormConsent from './Law25FormConsent';
 import { submitLeadToProspection } from '../utils/prospectionBridge';
 
 export default function AboutPageView({
@@ -92,6 +93,7 @@ export default function AboutPageView({
   const [franchiseEmail, setFranchiseEmail] = useState('');
   const [franchisePhone, setFranchisePhone] = useState('');
   const [franchiseNotes, setFranchiseNotes] = useState('');
+  const [franchiseLaw25Consent, setFranchiseLaw25Consent] = useState(false);
   const [franchiseSent, setFranchiseSent] = useState(false);
 
   const scrollToFranchiseForm = (mode = 'tenant') => {
@@ -136,6 +138,7 @@ export default function AboutPageView({
   const [careerPhone, setCareerPhone] = useState('');
   const [careerAddress, setCareerAddress] = useState('');
   const [careerMotivation, setCareerMotivation] = useState('');
+  const [careerLaw25Consent, setCareerLaw25Consent] = useState(false);
   const [careerSent, setCareerSent] = useState(false);
 
   const handleCareerSubmit = async (e) => {
@@ -1468,6 +1471,7 @@ export default function AboutPageView({
                       </div>
                     </div>
 
+                    <Law25FormConsent lang={lang} checked={franchiseLaw25Consent} onChange={setFranchiseLaw25Consent} compact />
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px', paddingTop: '8px' }}>
                       <span style={{ fontSize: '0.76rem', color: 'var(--text-muted)' }}>
                         * {tr(lang, 'Traitement confidentiel — Roger Rhéaume & Mike Ainajian', 'Confidential handling — Roger Rhéaume & Mike Ainajian', 'Tratamiento confidencial — Roger Rhéaume & Mike Ainajian', '由 Roger Rhéaume 与 Mike Ainajian 保密跟进')}
@@ -1820,6 +1824,7 @@ export default function AboutPageView({
                     />
                   </div>
 
+                  <Law25FormConsent lang={lang} checked={careerLaw25Consent} onChange={setCareerLaw25Consent} compact />
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px', paddingTop: '8px' }}>
                     <span style={{ fontSize: '0.76rem', color: 'var(--text-muted)' }}>
                       * {tr(lang, 'Champs obligatoires. Traitement 100 % confidentiel.', 'Required fields. Treated with 100% confidentiality.', 'Campos obligatorios. Tratamiento 100 % confidencial.', '必填项。所有信息均严格保密处理。')}

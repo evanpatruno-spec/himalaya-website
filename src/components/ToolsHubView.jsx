@@ -16,6 +16,7 @@ import { submitLeadToProspection } from '../utils/prospectionBridge';
 import { INITIAL_HIMALAYA_BROKERS } from '../data/brokersData';
 import { tr, pickLang } from '../data/translations';
 import ChiffrierDealSimulator from './ChiffrierDealSimulator';
+import Law25FormConsent from './Law25FormConsent';
 
 // Capitalisation semi-annuelle canadienne (Loi sur l'intérêt au Canada)
 function getEffectiveMonthlyRate(annualPct) {
@@ -161,6 +162,7 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
   const [valPhone, setValPhone] = useState('');
   const [valEmail, setValEmail] = useState('');
   const [valNotes, setValNotes] = useState('');
+  const [valLaw25Consent, setValLaw25Consent] = useState(false);
   const [valSubmitted, setValSubmitted] = useState(false);
 
   // --- Lead Modal ---
@@ -168,6 +170,7 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
   const [leadName, setLeadName] = useState('');
   const [leadEmail, setLeadEmail] = useState('');
   const [leadPhone, setLeadPhone] = useState('');
+  const [leadLaw25Consent, setLeadLaw25Consent] = useState(false);
   const [leadSent, setLeadSent] = useState(false);
 
   // Pré-remplissage automatique lorsqu'on arrive depuis une fiche propriété (#6)
@@ -1914,6 +1917,13 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
                       onChange={e => setValNotes(e.target.value)}
                     />
 
+                    <Law25FormConsent
+                      lang={lang}
+                      checked={valLaw25Consent}
+                      onChange={setValLaw25Consent}
+                      compact
+                    />
+
                     <button type="submit" className="btn-gold" style={{ width: '100%' }}>
                       {tr(lang, 'Discuter de mon projet avec un courtier', 'Discuss My Project With a Broker', 'Hablar de mi proyecto con un corredor', '与经纪人洽谈我的项目')} <ArrowRight size={15} />
                     </button>
@@ -1988,6 +1998,7 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
                     value={leadPhone}
                     onChange={(e) => setLeadPhone(e.target.value)}
                   />
+                  <Law25FormConsent lang={lang} checked={leadLaw25Consent} onChange={setLeadLaw25Consent} compact />
                   <div style={{ display: 'flex', gap: '10px', marginTop: '6px' }}>
                     <button type="submit" className="btn-gold" style={{ flex: 1 }}>
                       {tr(lang, 'Envoyer mon bilan', 'Send My Report', 'Enviar mi informe', '发送我的报告')} <ArrowRight size={15} />

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { CheckCircle2, Mail, Phone, UserCheck } from 'lucide-react';
 import { INITIAL_HIMALAYA_BROKERS } from '../data/brokersData';
 import { tr, pickLang } from '../data/translations';
+import Law25FormConsent from './Law25FormConsent';
 
 export default function ContactView({
   lang,
@@ -14,6 +15,7 @@ export default function ContactView({
   setContactForm,
   handleContactSubmit
 }) {
+  const [law25Accepted, setLaw25Accepted] = useState(false);
   const selectedBroker =
     INITIAL_HIMALAYA_BROKERS.find(b => b.id === contactForm.selectedBrokerId) || null;
   const recipientEmail = selectedBroker ? selectedBroker.email : 'info@himalayacorp.com';
@@ -385,6 +387,14 @@ export default function ContactView({
                     value={contactForm.message}
                     onChange={e => setContactForm({ ...contactForm, message: e.target.value })}
                   />
+                  <div style={{ margin: '10px 0 12px' }}>
+                    <Law25FormConsent
+                      lang={lang}
+                      checked={law25Accepted}
+                      onChange={setLaw25Accepted}
+                      compact
+                    />
+                  </div>
                   <button type="submit" className="btn-gold" style={{ width: '100%' }}>
                     {contactTab === 'valuation' ? t.contact.submitValuationBtn : t.contact.submitBtn}
                   </button>

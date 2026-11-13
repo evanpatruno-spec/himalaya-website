@@ -19,6 +19,8 @@ import {
 import HeaderNav from './components/HeaderNav';
 import FooterSection from './components/FooterSection';
 import HomeView from './components/HomeView';
+import Law25ConsentBanner from './components/Law25ConsentBanner';
+import { OPEN_LEGAL_EVENT } from './utils/consentManager';
 
 // Code-splitting & Lazy Loading des vues et modales (#16)
 const PropertiesView = lazy(() => import('./components/PropertiesView'));
@@ -285,6 +287,15 @@ export default function App() {
       lang
     });
   }, [activePage, selectedDeal, selectedBroker, lang]);
+
+  // Ouverture des documents légaux (Loi 25) depuis les formulaires ou le bandeau témoins
+  useEffect(() => {
+    const onOpenLegal = (e) => {
+      if (e?.detail) setLegalModalType(e.detail);
+    };
+    window.addEventListener(OPEN_LEGAL_EVENT, onOpenLegal);
+    return () => window.removeEventListener(OPEN_LEGAL_EVENT, onOpenLegal);
+  }, []);
 
   // Régions uniques nettoyées
   const availableRegions = useMemo(() => {
@@ -698,6 +709,13 @@ export default function App() {
         navigateTo={navigateTo}
         legalModalType={legalModalType}
         setLegalModalType={setLegalModalType}
+      />
+
+      <Law25ConsentBanner
+        lang={lang}
+        onGrantTranslateConsent={(item) =>
+          window.dispatchEvent(new CustomEvent('himalaya:apply-google-translate', { detail: item }))
+        }
       />
 
       {/* MODALES AVEC LAZY LOADING */}

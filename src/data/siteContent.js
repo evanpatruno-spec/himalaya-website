@@ -781,30 +781,50 @@ export const LEGAL_DOCUMENTS = {
         heading_en: "1. Collection & Use of Personal Information",
         heading_es: "1. Recopilación y uso de información personal",
         heading_zh: "1. 个人信息的收集与使用",
-        body: "Immobilier Himalaya Real Estate Corp. recueille uniquement les renseignements personnels que vous transmettez volontairement via nos formulaires (nom, numéro de téléphone, adresse courriel, critères d’investissement ou candidature). Ces renseignements sont utilisés exclusivement pour traiter votre demande immobilière, vous mettre en relation avec le courtier attitré ou évaluer votre candidature.",
-        body_en: "Immobilier Himalaya Real Estate Corp. collects only the personal information you voluntarily submit through our forms (name, phone number, email address, investment criteria, or career application). This information is used exclusively to process your real estate inquiry, connect you with the assigned broker, or evaluate your application.",
-        body_es: "Immobilier Himalaya Real Estate Corp. recopila únicamente la información personal que usted transmite voluntariamente a través de nuestros formularios (nombre, número de teléfono, correo electrónico, criterios de inversión o candidatura). Esta información se utiliza exclusivamente para procesar su solicitud inmobiliaria, ponerle en contacto con el corredor asignado o evaluar su postulación.",
-        body_zh: "喜马拉雅地产集团（Immobilier Himalaya Real Estate Corp.）仅收集您通过本网站表单自愿提交的个人信息（姓名、电话号码、电子邮箱、投资需求或求职申请）。上述信息仅用于处理您的置业咨询、为您对接专属经纪人或评估您的求职申请。"
+        body: "Immobilier Himalaya Real Estate Corp. recueille uniquement les renseignements personnels que vous transmettez volontairement via nos formulaires (nom, numéro de téléphone, adresse courriel, critères d’investissement, ententes NDA ou candidatures). Ces renseignements sont utilisés exclusivement pour traiter votre demande immobilière, vous mettre en relation avec le courtier attitré ou évaluer votre dossier.",
+        body_en: "Immobilier Himalaya Real Estate Corp. collects only the personal information you voluntarily submit through our forms (name, phone number, email address, investment criteria, NDA agreements, or career applications). This information is used exclusively to process your real estate inquiry, connect you with the assigned broker, or evaluate your file.",
+        body_es: "Immobilier Himalaya Real Estate Corp. recopila únicamente la información personal que usted transmite voluntariamente mediante nuestros formularios (nombre, teléfono, correo electrónico, criterios de inversión, acuerdos NDA o candidaturas). Se utiliza exclusivamente para atender su solicitud inmobiliaria, conectarle con el corredor asignado o evaluar su candidatura.",
+        body_zh: "喜马拉雅地产集团（Immobilier Himalaya Real Estate Corp.）仅收集您通过本网站表单自愿提交的个人信息（姓名、电话、邮箱、投资需求、NDA 保密协议或求职申请）。上述信息仅用于处理您的置业咨询、为您对接专属经纪人或评估您的申请。"
       },
       {
-        heading: "2. Conservation, sécurité et confidentialité",
-        heading_en: "2. Retention, Security & Confidentiality",
-        heading_es: "2. Conservación, seguridad y confidencialidad",
-        heading_zh: "2. 数据保存、安全保障与严格保密",
-        body: "Conformément aux obligations déontologiques de l’OACIQ et à la Loi 25 sur la protection des renseignements personnels dans le secteur privé au Québec, vos données sont traitées de manière strictement confidentielle et ne sont jamais vendues ni cédées à des tiers non autorisés.",
-        body_en: "In compliance with OACIQ professional standards and Quebec’s Law 25 on the protection of personal information in the private sector, your data is treated with strict confidentiality and is never sold or disclosed to unauthorized third parties.",
-        body_es: "De conformidad con las obligaciones deontológicas de la OACIQ y la Ley 25 sobre la protección de datos personales en el sector privado de Quebec, sus datos se tratan de forma estrictamente confidencial y nunca se venden ni ceden a terceros no autorizados.",
-        body_zh: "严格遵循魁北克房地产经纪自律监管机构（OACIQ）职业道德规范及魁北克私营部门个人信息保护法（第 25 号法案），您的个人数据将受到严格保密，绝不会出售或泄露给任何未经授权的第三方。"
+        heading: "2. Témoins (cookies), stockage local et services tiers",
+        heading_en: "2. Cookies, Local Storage & Third-Party Services",
+        heading_es: "2. Cookies, almacenamiento local y servicios de terceros",
+        heading_zh: "2. Cookie、本地存储与第三方服务",
+        body: "Ce site n’active aucun traceur analytique ou publicitaire par défaut et utilise des polices typographiques hébergées localement (aucune requête vers Google Fonts). Le stockage strictement nécessaire sert uniquement à mémoriser votre langue d’affichage native (FR/EN/ES/ZH), votre décision Loi 25 et l’accès à vos dossiers NDA. Le module externe Google Translate (témoin googtrans) pour les langues additionnelles demeure désactivé tant que vous n’y consentez pas explicitement dans « Gérer les témoins ».",
+        body_en: "This site activates zero analytics or advertising trackers by default and serves self-hosted fonts locally (no external Google Fonts requests). Strictly necessary local storage is used solely to remember your native language (FR/EN/ES/ZH), your Law 25 consent record, and NDA session status. The external Google Translate widget (googtrans cookie) for extra languages remains disabled unless you explicitly opt in via Cookie Settings.",
+        body_es: "Este sitio no activa ningún rastreador analítico ni publicitario por defecto y aloja localmente sus fuentes tipográficas (sin solicitudes externas a Google Fonts). El almacenamiento estrictamente necesario solo conserva su idioma nativo (FR/EN/ES/ZH), su elección de la Ley 25 y el estado de su NDA. El módulo externo Google Translate (cookie googtrans) permanece desactivado salvo consentimiento explícito en «Gestionar cookies».",
+        body_zh: "本网站默认不启用任何第三方统计或广告追踪脚本，并采用本地托管字体（不向 Google Fonts 发送外部请求）。严格必要的本地存储仅用于保存原生界面语言（FR/EN/ES/ZH）、您的第 25 号法案同意记录及 NDA 会话状态。针对额外语种的 Google Translate（googtrans Cookie）仅在您于“管理 Cookie”中明确同意后才会加载。"
       },
       {
-        heading: "3. Responsable de la protection des renseignements personnels",
-        heading_en: "3. Privacy Officer Contact",
-        heading_es: "3. Responsable de la protección de datos personales",
-        heading_zh: "3. 个人信息保护负责人联系方式",
-        body: "Pour toute demande d’accès, de rectification ou de retrait de vos renseignements personnels, vous pouvez communiquer avec la direction d’Immobilier Himalaya Real Estate Corp. au 2000, avenue McGill College, bureau 600, Montréal (Québec) H3A 3H3, par téléphone au 1 800 820-4828 ou par courriel à r.rheaume@himalayacorp.com.",
-        body_en: "For any request to access, rectify, or withdraw your personal information, please contact the management of Immobilier Himalaya Real Estate Corp. at 2000 McGill College Ave, Suite 600, Montreal (Quebec) H3A 3H3, by phone at 1 800 820-4828, or by email at r.rheaume@himalayacorp.com.",
-        body_es: "Para cualquier solicitud de acceso, rectificación o eliminación de sus datos personales, puede comunicarse con la dirección de Immobilier Himalaya Real Estate Corp. en 2000 McGill College Ave, Suite 600, Montreal (Quebec) H3A 3H3, por teléfono al 1 800 820-4828 o por correo electrónico a r.rheaume@himalayacorp.com.",
-        body_zh: "如您有任何查阅、更正或撤回个人信息的请求，请联系喜马拉雅地产集团管理层：地址 2000 McGill College Ave, Suite 600, Montreal (QC) H3A 3H3，电话 1 800 820-4828，或发送邮件至 r.rheaume@himalayacorp.com。"
+        heading: "3. Conservation, sécurité et hébergement",
+        heading_en: "3. Retention, Security & Safeguards",
+        heading_es: "3. Conservación, seguridad y resguardo",
+        heading_zh: "3. 数据保存、安全保障与保密责任",
+        body: "Conformément aux obligations déontologiques de l’OACIQ et à la Loi 25 sur la protection des renseignements personnels dans le secteur privé au Québec, vos données sont protégées par des mesures de sécurité raisonnables, conservées uniquement pour la durée requise aux fins déclarées ou légales, et ne sont jamais vendues ni cédées à des tiers non autorisés.",
+        body_en: "In compliance with OACIQ professional standards and Quebec’s Law 25 on the protection of personal information in the private sector, your data is safeguarded using reasonable security measures, retained only as long as required for the stated or statutory purposes, and never sold or disclosed to unauthorized third parties.",
+        body_es: "De conformidad con las normas de la OACIQ y la Ley 25 de Quebec sobre la protección de datos personales en el sector privado, sus datos están protegidos mediante medidas de seguridad adecuadas, se conservan únicamente durante el tiempo necesario y nunca se venden ni ceden a terceros no autorizados.",
+        body_zh: "严格遵循魁北克房地产经纪自律监管机构（OACIQ）职业规范及魁北克私营部门个人信息保护法（第 25 号法案），我们采取合理安全措施保护您的个人数据，仅在实现收集目的或法定期限内保留，绝不出售或泄露给任何未经授权的第三方。"
+      },
+      {
+        heading: "4. Vos droits (accès, rectification et retrait du consentement)",
+        heading_en: "4. Your Rights (Access, Rectification & Consent Withdrawal)",
+        heading_es: "4. Sus derechos (acceso, rectificación y retirada del consentimiento)",
+        heading_zh: "4. 您的权利（查阅、更正与撤回同意）",
+        body: "En vertu de la Loi 25, vous disposez d’un droit d’accès, de rectification et, dans certains cas, de portabilité ou de désindexation de vos renseignements personnels. Vous pouvez également retirer votre consentement à tout moment pour les témoins optionnels via le bouton « Gérer les témoins » dans le pied de page.",
+        body_en: "Under Law 25, you have the right to request access to, rectification of, and where applicable portability or de-indexation of your personal information. You may also withdraw consent for optional cookies at any time using the Cookie Settings link in the footer.",
+        body_es: "En virtud de la Ley 25, usted tiene derecho a solicitar el acceso, la rectificación y, cuando corresponda, la portabilidad de sus datos personales. También puede retirar su consentimiento para cookies opcionales en cualquier momento desde el enlace «Gestionar cookies» en el pie de página.",
+        body_zh: "根据第 25 号法案，您有权要求查阅、更正您的个人信息，并在适用情况下请求数据可携或取消索引。您亦可随时通过页脚的“管理 Cookie”按钮撤回对可选 Cookie 的同意。"
+      },
+      {
+        heading: "5. Responsable de la protection des renseignements personnels (RPRP)",
+        heading_en: "5. Privacy Officer (RPRP) Contact",
+        heading_es: "5. Responsable de la protección de datos personales (RPRP)",
+        heading_zh: "5. 个人信息保护负责人（RPRP）联系方式",
+        body: "Pour exercer vos droits ou adresser toute question relative à la Loi 25, veuillez communiquer avec le Responsable de la protection des renseignements personnels (RPRP) — Direction d’Immobilier Himalaya Real Estate Corp., 2000, avenue McGill College, bureau 600, Montréal (Québec) H3A 3H3, par téléphone au 1 800 820-4828 ou par courriel à r.rheaume@himalayacorp.com.",
+        body_en: "To exercise your rights or submit any inquiry regarding Law 25 compliance, please contact the Privacy Officer (RPRP) — Management, Immobilier Himalaya Real Estate Corp., 2000 McGill College Ave, Suite 600, Montreal (Quebec) H3A 3H3, by phone at 1 800 820-4828, or by email at r.rheaume@himalayacorp.com.",
+        body_es: "Para ejercer sus derechos o realizar consultas sobre la Ley 25, comuníquese con el Responsable de la Protección de Datos Personales (RPRP) — Dirección de Immobilier Himalaya Real Estate Corp., 2000 McGill College Ave, Suite 600, Montreal (Quebec) H3A 3H3, al 1 800 820-4828 o por correo a r.rheaume@himalayacorp.com.",
+        body_zh: "如需行使上述权利或咨询第 25 号法案相关事宜，请联系喜马拉雅地产集团个人信息保护负责人（RPRP）：地址 2000 McGill College Ave, Suite 600, Montreal (QC) H3A 3H3，电话 1 800 820-4828，或发送邮件至 r.rheaume@himalayacorp.com。"
       }
     ]
   }

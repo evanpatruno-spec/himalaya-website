@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { X, Shield, CheckCircle2, Lock } from 'lucide-react';
 import { submitLeadToProspection, markNdaSigned } from '../utils/prospectionBridge';
 import { tr, pickLang } from '../data/translations';
+import Law25FormConsent from './Law25FormConsent';
 
 export default function BuyerNDAModal({ deal, t, onClose }) {
   const lang = t?.code || 'FR';
@@ -12,7 +13,8 @@ export default function BuyerNDAModal({ deal, t, onClose }) {
     phone: '',
     liquidity: '500k_1m',
     experience: 'oui',
-    acceptNDA: false
+    acceptNDA: false,
+    acceptLaw25: false
   });
   const [submitted, setSubmitted] = useState(false);
 
@@ -234,6 +236,15 @@ export default function BuyerNDAModal({ deal, t, onClose }) {
                     )}
                   </span>
                 </label>
+              </div>
+
+              <div style={{ marginBottom: '18px' }}>
+                <Law25FormConsent
+                  lang={lang}
+                  checked={formData.acceptLaw25}
+                  onChange={(checked) => setFormData({ ...formData, acceptLaw25: checked })}
+                  compact
+                />
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>

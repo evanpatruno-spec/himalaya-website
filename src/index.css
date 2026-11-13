@@ -1,10 +1,10 @@
-/* Uniformisation de 100 % des chiffres (0-9, $, %, €, ¥, +, -) avec la police sans-serif Inter tabulaire */
+/* Uniformisation de 100 % des chiffres (0-9, $, %, €, ¥, +, -) avec la police sans-serif Inter auto-hébergée */
 @font-face {
   font-family: 'HimalayaDigits';
   font-style: normal;
   font-weight: 400 800;
   font-display: swap;
-  src: local('Inter'), url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2) format('woff2');
+  src: local('Inter'), local('Inter Variable'), url('@fontsource-variable/inter/files/inter-latin-wght-normal.woff2') format('woff2-variations');
   unicode-range: U+0030-0039, U+0024, U+0025, U+002B, U+002D, U+20AC, U+00A5;
 }
 
@@ -13,7 +13,7 @@
   font-style: italic;
   font-weight: 400 800;
   font-display: swap;
-  src: local('Inter'), url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2) format('woff2');
+  src: local('Inter'), local('Inter Variable'), url('@fontsource-variable/inter/files/inter-latin-wght-normal.woff2') format('woff2-variations');
   unicode-range: U+0030-0039, U+0024, U+0025, U+002B, U+002D, U+20AC, U+00A5;
 }
 
@@ -34,8 +34,8 @@
   --border-subtle: rgba(255, 255, 255, 0.14);
   --border-gold: rgba(212, 175, 95, 0.44);
   --success: #f0d596;
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-serif: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-sans: 'Inter Variable', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Inter Variable', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --shadow-lg: 0 18px 44px rgba(6, 9, 15, 0.45);
   --shadow-gold: 0 10px 28px rgba(212, 175, 95, 0.24);
 }
@@ -1132,6 +1132,8 @@ body {
   footer,
   .scroll-top-btn,
   .mobile-bottom-bar,
+  .law25-consent-banner,
+  .law25-modal,
   .btn-gold,
   .btn-outline {
     display: none !important;
@@ -1311,5 +1313,31 @@ p, li {
     transform: none !important;
     filter: none !important;
     transition: none !important;
+  }
+}
+
+/* Bandeau Loi 25 — Consentement granulaire aux témoins */
+.law25-consent-banner {
+  position: fixed;
+  bottom: 18px;
+  left: 18px;
+  right: 18px;
+  max-width: 920px;
+  margin: 0 auto;
+  z-index: 190;
+  background: rgba(17, 21, 31, 0.96);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(212, 175, 95, 0.45);
+  border-radius: 12px;
+  padding: 18px 20px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+}
+
+@media (max-width: 720px) {
+  .law25-consent-banner {
+    bottom: 72px;
+    left: 12px;
+    right: 12px;
+    padding: 14px 16px;
   }
 }
