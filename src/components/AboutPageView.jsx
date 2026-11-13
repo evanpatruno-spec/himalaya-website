@@ -776,7 +776,16 @@ export default function AboutPageView({
                         borderBottom: '1px solid var(--border-subtle)'
                       }}
                     >
-                      <span style={{ fontWeight: 700, color: 'var(--gold)', fontSize: '0.84rem', minWidth: '56px' }}>
+                      <span
+                        style={{
+                          fontWeight: 700,
+                          color: 'var(--gold)',
+                          fontSize: '0.84rem',
+                          minWidth: '122px',
+                          flexShrink: 0,
+                          whiteSpace: 'nowrap'
+                        }}
+                      >
                         {b.code}
                       </span>
                       <span style={{ fontSize: '0.86rem', color: 'var(--text-primary)' }}>{b.name}</span>

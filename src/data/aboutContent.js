@@ -132,11 +132,14 @@ export const ABOUT_CONTENT = {
         'Afin de servir au mieux notre clientèle, nous avons développé des relations d’affaires à l’international, et connaissons très bien le marché immobilier de nombreux pays. Notre solide réseau de contacts fiables nous permet de vous guider vers les meilleures opportunités immobilières. Pour de plus amples renseignements, veuillez communiquer avec nous. C’est avec plaisir que nous vous rencontrerons pour discuter de votre projet et de vos aspirations !',
       associationsTitle: 'Associations dont nous sommes membres',
       associationsText:
-        'Immobilier Himalaya est membre du Conseil québécois de la franchise (CQF) ainsi que de la Fédération des pourvoiries du Québec (FPQ). Cela nous permet d’offrir un service optimal à nos clients cherchant des opportunités de vente, d’achat ou de location dans le secteur commercial, notamment dans le domaine des pourvoiries et campings ou de la restauration.',
+        'Immobilier Himalaya est notamment membre de l’Association professionnelle des courtiers immobiliers du Québec (APCIQ), du Conseil québécois de la franchise (CQF), d’ICSC (International Council of Shopping Centers), de la Fédération des pourvoiries du Québec (FPQ) ainsi que de Camping Québec. Ces affiliations nous permettent d’offrir un service optimal à nos clients cherchant des opportunités de vente, d’achat ou de location dans le secteur commercial, notamment dans le domaine des pourvoiries et campings, du commerce de détail ou de la restauration.',
       associationsBadges: [
         { code: 'OACIQ', name: 'Organisme d’autoréglementation du courtage immobilier du Québec' },
+        { code: 'APCIQ', name: 'Association professionnelle des courtiers immobiliers du Québec' },
         { code: 'FPQ', name: 'Fédération des pourvoiries du Québec' },
-        { code: 'CQF', name: 'Conseil québécois de la franchise' }
+        { code: 'Camping Québec', name: 'Association des terrains de camping du Québec' },
+        { code: 'CQF', name: 'Conseil québécois de la franchise' },
+        { code: 'ICSC', name: 'International Council of Shopping Centers (Innovating Commerce Serving Communities)' }
       ]
     },
 
@@ -544,11 +547,14 @@ export const ABOUT_CONTENT = {
         'In order to best serve our clients, we have developed strong international business relationships and know the real estate markets of many countries. Our reliable network of contacts allows us to guide you toward the best real estate opportunities. Please contact our office—our team will be pleased to meet with you to discuss your project and aspirations!',
       associationsTitle: 'Associations We Are Members Of',
       associationsText:
-        'Himalaya Real Estate is a member of the Quebec Franchise Council (Conseil québécois de la franchise — CQF) and the Quebec Outfitters Federation (Fédération des pourvoiries du Québec — FPQ). This allows us to offer optimal service to clients seeking sales, acquisitions, or leasing opportunities in the commercial sector, particularly in outfitters, campsites, and hospitality/restaurants.',
+        'Himalaya Real Estate is a member of the Quebec Professional Association of Real Estate Brokers (QPAREB / APCIQ), the Quebec Franchise Council (Conseil québécois de la franchise — CQF), ICSC, the Quebec Outfitters Federation (Fédération des pourvoiries du Québec — FPQ), and Camping Québec. These affiliations allow us to offer optimal service to clients seeking sales, acquisitions, or leasing opportunities in the commercial sector, particularly in outfitters, campgrounds, retail, and hospitality/restaurants.',
       associationsBadges: [
         { code: 'OACIQ', name: 'Organisme d’autoréglementation du courtage immobilier du Québec' },
+        { code: 'APCIQ', name: 'Quebec Professional Association of Real Estate Brokers (QPAREB)' },
         { code: 'FPQ', name: 'Quebec Outfitters Federation (Fédération des pourvoiries du Québec)' },
-        { code: 'CQF', name: 'Quebec Franchise Council (Conseil québécois de la franchise)' }
+        { code: 'Camping Québec', name: 'Association des terrains de camping du Québec' },
+        { code: 'CQF', name: 'Quebec Franchise Council (Conseil québécois de la franchise)' },
+        { code: 'ICSC', name: 'International Council of Shopping Centers (Innovating Commerce Serving Communities)' }
       ]
     },
 
@@ -965,18 +971,24 @@ ABOUT_CONTENT.ES = {
       'Para servir mejor a nuestra clientela, hemos desarrollado sólidas relaciones comerciales a nivel internacional y conocemos en profundidad el mercado inmobiliario de numerosos países. Nuestra confiable red de contactos nos permite guiarle hacia las mejores oportunidades inmobiliarias. Para obtener más información, contáctenos: ¡estaremos encantados de reunirnos con usted para conversar sobre su proyecto y sus aspiraciones!',
     associationsTitle: 'Asociaciones de las que somos miembros',
     associationsText:
-      'Immobilier Himalaya es miembro del Consejo Quebequense de la Franquicia (Conseil québécois de la franchise — CQF) y de la Federación de Cotos de Caza y Pesca de Quebec (Fédération des pourvoiries du Québec — FPQ). Esto nos permite ofrecer un servicio óptimo a nuestros clientes que buscan oportunidades de venta, compra o alquiler en el sector comercial, especialmente en cotos turísticos, campings y restauración.',
+      'Immobilier Himalaya es miembro de la Asociación Profesional de Corredores Inmobiliarios de Quebec (APCIQ), del Consejo Quebequense de la Franquicia (CQF), de ICSC, de la Federación de Cotos de Caza y Pesca de Quebec (FPQ) y de Camping Québec. Esto nos permite ofrecer un servicio óptimo a nuestros clientes que buscan oportunidades de venta, compra o alquiler en el sector comercial, especialmente en cotos turísticos, campings, comercio minorista y restauración.',
     associationsIntro:
-      'Immobilier Himalaya es miembro del Consejo Quebequense de la Franquicia (CQF) y de la Federación de Cotos de Caza y Pesca de Quebec (FPQ).',
+      'Immobilier Himalaya es miembro de la APCIQ, del Consejo Quebequense de la Franquicia (CQF), de ICSC, de la Federación de Cotos de Caza y Pesca de Quebec (FPQ) y de Camping Québec.',
     associationsBadges: [
       { code: 'OACIQ', name: 'Organismo de Autorregulación del Corretaje Inmobiliario de Quebec (OACIQ)' },
+      { code: 'APCIQ', name: 'Asociación Profesional de Corredores Inmobiliarios de Quebec (APCIQ)' },
       { code: 'FPQ', name: 'Federación de Cotos de Caza y Pesca de Quebec (FPQ)' },
-      { code: 'CQF', name: 'Consejo Quebequense de la Franquicia (CQF)' }
+      { code: 'Camping Québec', name: 'Asociación de Terrenos de Camping de Quebec' },
+      { code: 'CQF', name: 'Consejo Quebequense de la Franquicia (CQF)' },
+      { code: 'ICSC', name: 'International Council of Shopping Centers (Innovating Commerce Serving Communities)' }
     ],
     associations: [
       { code: 'OACIQ', name: 'Organismo de Autorregulación del Corretaje Inmobiliario de Quebec (OACIQ)' },
+      { code: 'APCIQ', name: 'Asociación Profesional de Corredores Inmobiliarios de Quebec (APCIQ)' },
       { code: 'FPQ', name: 'Federación de Cotos de Caza y Pesca de Quebec (FPQ)' },
-      { code: 'CQF', name: 'Consejo Quebequense de la Franquicia (CQF)' }
+      { code: 'Camping Québec', name: 'Asociación de Terrenos de Camping de Quebec' },
+      { code: 'CQF', name: 'Consejo Quebequense de la Franquicia (CQF)' },
+      { code: 'ICSC', name: 'International Council of Shopping Centers (Innovating Commerce Serving Communities)' }
     ]
   },
   careers: {
@@ -1389,18 +1401,24 @@ ABOUT_CONTENT.ZH = {
       '为了更好地服务客户，我们在国际范围内建立了广泛的业务联系，并深入掌握多个国家的房地产市场动态。我们稳固可靠的国际人脉网络能够引导您把握全球优质房地产投资机遇。如需了解更多详情，欢迎随时与我们联系，我们将非常荣幸与您会面，共同探讨您的项目蓝图与投资愿景！',
     associationsTitle: '我们所属的行业协会',
     associationsText:
-      '喜马拉雅地产是魁北克特许经营理事会（Conseil québécois de la franchise — CQF）及魁北克狩猎垂钓度假庄园联合会（Fédération des pourvoiries du Québec — FPQ）的正式成员。这使我们能够为在商业地产领域（尤其是度假庄园、露营地及餐饮连锁行业）寻求出售、收购或租赁机会的客户提供最优质的专业服务。',
+      '喜马拉雅地产是魁北克职业房地产经纪人协会（APCIQ）、魁北克特许经营理事会（CQF）、国际商业地产与零售协会（ICSC）、魁北克狩猎垂钓度假庄园联合会（FPQ）及魁北克露营地协会（Camping Québec）的正式成员。这使我们能够为在商业地产领域（尤其是度假庄园、露营地、商业零售及餐饮连锁行业）寻求出售、收购或租赁机会的客户提供最优质的专业服务。',
     associationsIntro:
-      '喜马拉雅地产是魁北克特许经营理事会（CQF）及魁北克狩猎垂钓度假庄园联合会（FPQ）的正式成员。',
+      '喜马拉雅地产是 APCIQ、魁北克特许经营理事会（CQF）、ICSC、魁北克狩猎垂钓度假庄园联合会（FPQ）及 Camping Québec 的正式成员。',
     associationsBadges: [
       { code: 'OACIQ', name: '魁北克房地产经纪自律监管机构 (Organisme d’autoréglementation du courtage immobilier du Québec)' },
+      { code: 'APCIQ', name: '魁北克职业房地产经纪人协会 (Association professionnelle des courtiers immobiliers du Québec)' },
       { code: 'FPQ', name: '魁北克狩猎垂钓度假庄园联合会 (Fédération des pourvoiries du Québec)' },
-      { code: 'CQF', name: '魁北克特许经营理事会 (Conseil québécois de la franchise)' }
+      { code: 'Camping Québec', name: '魁北克露营地协会 (Association des terrains de camping du Québec)' },
+      { code: 'CQF', name: '魁北克特许经营理事会 (Conseil québécois de la franchise)' },
+      { code: 'ICSC', name: '国际商业地产与零售协会 (International Council of Shopping Centers / ICSC)' }
     ],
     associations: [
       { code: 'OACIQ', name: '魁北克房地产经纪自律监管机构 (OACIQ)' },
+      { code: 'APCIQ', name: '魁北克职业房地产经纪人协会 (APCIQ)' },
       { code: 'FPQ', name: '魁北克狩猎垂钓度假庄园联合会 (FPQ)' },
-      { code: 'CQF', name: '魁北克特许经营理事会 (CQF)' }
+      { code: 'Camping Québec', name: '魁北克露营地协会 (Camping Québec)' },
+      { code: 'CQF', name: '魁北克特许经营理事会 (CQF)' },
+      { code: 'ICSC', name: '国际商业地产与零售协会 (ICSC)' }
     ]
   },
   careers: {
