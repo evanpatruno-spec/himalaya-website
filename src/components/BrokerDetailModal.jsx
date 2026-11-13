@@ -8,7 +8,6 @@ import LanguageFlag from './LanguageFlag';
 
 export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSelectDeal }) {
   const [copied, setCopied] = useState(false);
-  const [emailCopied, setEmailCopied] = useState(false);
 
   useEffect(() => {
     const prev = document.body.style.overflow;
@@ -130,22 +129,6 @@ export default function BrokerDetailModal({ broker, deals = [], t, onClose, onSe
               <a href={`mailto:${broker.email}`} className="btn-outline" title={broker.email}>
                 <Mail size={15} /> {broker.email}
               </a>
-              <button
-                type="button"
-                onClick={() => {
-                  if (navigator.clipboard && broker.email) {
-                    navigator.clipboard.writeText(broker.email);
-                    setEmailCopied(true);
-                    setTimeout(() => setEmailCopied(false), 2200);
-                  }
-                }}
-                className="btn-outline"
-                style={{ padding: '8px 12px', fontSize: '0.76rem' }}
-              >
-                {emailCopied
-                  ? tr(lang, 'Copié !', 'Copied!', '¡Copiado!', '已复制！')
-                  : tr(lang, 'Copier courriel', 'Copy Email', 'Copiar correo', '复制邮箱')}
-              </button>
             </div>
           </div>
 
