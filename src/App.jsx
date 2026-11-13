@@ -626,7 +626,12 @@ export default function App() {
         )}
 
         {activePage === 'agences' && (
-          <AgenciesView lang={lang} t={t} />
+          <AgenciesView
+            lang={lang}
+            t={t}
+            brokers={INITIAL_HIMALAYA_BROKERS}
+            onSelectBroker={openBrokerModal}
+          />
         )}
 
         {activePage === 'courtiers' && (

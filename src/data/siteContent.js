@@ -1,3 +1,9 @@
+/**
+ * Norme standardisée des agences partenaires (onglet « Agences partenaires »).
+ * Chaque agence doit renseigner ses coordonnées générales, son logo officiel (sur fond blanc),
+ * son site web, ainsi qu'un tableau `brokers` listant le ou les courtiers immobiliers responsables
+ * (via `brokerId` relié à INITIAL_HIMALAYA_BROKERS et/ou champs directs name, role, phone, email, photo).
+ */
 export const HIMALAYA_AGENCIES = [
   {
     id: 'hb_caraibes',
@@ -28,6 +34,21 @@ export const HIMALAYA_AGENCIES = [
     director_en: 'Éric Barelier',
     director_es: 'Éric Barelier',
     director_zh: 'Éric Barelier',
+    brokers: [
+      {
+        brokerId: 'eric_barelier',
+        name: 'Éric Barelier',
+        role: 'Courtier immobilier — Rép. Dominicaine',
+        role_en: 'Real Estate Broker — Dominican Republic',
+        role_es: 'Corredor inmobiliario — Rep. Dominicana',
+        role_zh: '房地产经纪人 — 多米尼加共和国',
+        phone: '+1 (809) 890-1174',
+        email: 'ebcaraibes@gmail.com',
+        photo: '/DATA/COURTIERINFOSUP/44_courtierGrand.JPG',
+        photoPosition: '48% 12%',
+        photoScale: 1.45
+      }
+    ],
     image: '/DATA/AGENCE/hb-caraibes-logo.png',
     fallbackImage: 'https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1000&q=80',
     badge: 'Partenaire International — Caraïbes',
