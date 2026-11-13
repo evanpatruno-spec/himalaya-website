@@ -788,6 +788,98 @@ export const SPECIALTIES_DATA = [
   }
 ];
 
+export const TOOLS_TABS_DATA = [
+  {
+    id: 'valuation',
+    highlight: true,
+    title: 'Vendre ou louer avec nous',
+    title_en: 'Sell or Lease With Us',
+    title_es: 'Vender o alquilar con nosotros',
+    title_zh: '与我们携手出售或出租',
+    sub: 'Confier votre projet à notre équipe',
+    sub_en: 'Partner With Our Team',
+    sub_es: 'Confiar su proyecto a nuestro equipo',
+    sub_zh: '委托我们的专业团队'
+  },
+  {
+    id: 'mortgage',
+    title: 'Calculatrice hypothécaire',
+    title_en: 'Mortgage Calculator',
+    title_es: 'Calculadora hipotecaria',
+    title_zh: '按揭贷款计算器',
+    sub: 'Versements & Amortissement',
+    sub_en: 'Payments & Amortization',
+    sub_es: 'Pagos y Amortización',
+    sub_zh: '月供与摊销计算'
+  },
+  {
+    id: 'affordability',
+    title: 'Capacité d’emprunt',
+    title_en: 'Borrowing Capacity',
+    title_es: 'Capacidad de préstamo',
+    title_zh: '贷款能力 (B-20)',
+    sub: 'Test B-20 & Ratios ABD/ATD',
+    sub_en: 'B-20 Stress Test & GDS/TDS',
+    sub_es: 'Prueba B-20 y Ratios',
+    sub_zh: 'B-20 压力测试与负债率'
+  },
+  {
+    id: 'welcome',
+    title: 'Taxe de bienvenue',
+    title_en: 'Welcome Tax',
+    title_es: 'Impuesto de transferencia',
+    title_zh: '魁北克欢迎税',
+    sub: 'Barèmes Québec & Montréal 2027',
+    sub_en: 'Quebec & Montreal 2027 Brackets',
+    sub_es: 'Tarifas Quebec y Montreal 2027',
+    sub_zh: '魁北克与蒙特利尔 2027 税率'
+  },
+  {
+    id: 'closing',
+    title: 'Frais de clôture',
+    title_en: 'Closing Costs',
+    title_es: 'Costos de cierre',
+    title_zh: '交割费用',
+    sub: 'Liquidités requises & Notaire',
+    sub_en: 'Required Cash & Notary',
+    sub_es: 'Liquidez requerida y Notario',
+    sub_zh: '过户所需流动资金与公证费'
+  },
+  {
+    id: 'commercialLease',
+    title: 'Loyer commercial',
+    title_en: 'Commercial Lease',
+    title_es: 'Alquiler comercial',
+    title_zh: '商业租约',
+    sub: 'Commercial & Franchises',
+    sub_en: 'Commercial & Franchises',
+    sub_es: 'Comercial y Franquicias',
+    sub_zh: '商业地产与连锁选址'
+  },
+  {
+    id: 'rvb',
+    title: 'Louer vs Acheter',
+    title_en: 'Rent vs. Buy',
+    title_es: 'Alquilar vs. Comprar',
+    title_zh: '租房 vs 买房',
+    sub: 'Équité bâtie vs Loyers perdus',
+    sub_en: 'Net Equity vs. Lost Rent',
+    sub_es: 'Capital acumulado vs. Alquiler',
+    sub_zh: '净资产积累与租金成本对比'
+  },
+  {
+    id: 'wait',
+    title: 'Attendre vs Acheter',
+    title_en: 'Wait vs. Buy',
+    title_es: 'Esperar vs. Comprar',
+    title_zh: '等待 vs 立即购买',
+    sub: 'Impact baisse de taux vs prix',
+    sub_en: 'Rate Drop vs. Price Growth',
+    sub_es: 'Baja de tasas vs. Aumento de precio',
+    sub_zh: '利率下降与房价上涨成本对比'
+  }
+];
+
 export const OFFICIAL_SOCIAL_LINKS = [
   { id: 'facebook', label: 'Facebook', url: 'https://www.facebook.com/himalayarealestate/' },
   { id: 'linkedin', label: 'LinkedIn', url: 'https://www.linkedin.com/company/immobilier-himalaya-real-estate-corp.' },

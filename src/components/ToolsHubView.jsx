@@ -14,8 +14,20 @@ import {
 } from 'lucide-react';
 import { submitLeadToProspection } from '../utils/prospectionBridge';
 import { INITIAL_HIMALAYA_BROKERS } from '../data/brokersData';
+import { TOOLS_TABS_DATA } from '../data/siteContent';
 import { tr, pickLang } from '../data/translations';
 import Law25FormConsent from './Law25FormConsent';
+
+const TOOL_ICONS = {
+  valuation: Building2,
+  mortgage: Home,
+  affordability: Calculator,
+  welcome: Landmark,
+  closing: FileText,
+  commercialLease: Building2,
+  rvb: Scale,
+  wait: Clock
+};
 
 // Capitalisation semi-annuelle canadienne (Loi sur l'intérêt au Canada)
 function getEffectiveMonthlyRate(annualPct) {
@@ -77,7 +89,7 @@ function computeWelcomeTax(price, isMontreal, lang = 'FR') {
   return { total, brackets };
 }
 
-export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, preselectedDeal, onClearPreselectedDeal, initialTool }) {
+export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, preselectedDeal, onClearPreselectedDeal, initialTool, onToolChange }) {
   const lang = t?.code || propLang || 'FR';
   const [activeTool, setActiveTool] = useState(
     initialTool && initialTool !== 'plex' ? initialTool : 'valuation'
@@ -205,56 +217,12 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
   const fmtCAD = (n) =>
     Math.round(Number(n) || 0).toLocaleString(tr(lang, 'fr-CA', 'en-CA', 'es-ES', 'zh-CN')) + ' $';
 
-  const toolsList = [
-    {
-      id: 'valuation',
-      icon: Building2,
-      title: tr(lang, 'Vendre ou louer avec nous', 'Sell or Lease With Us', 'Vender o alquilar con nosotros', '与我们携手出售或出租'),
-      sub: tr(lang, 'Confier votre projet à notre équipe', 'Partner With Our Team', 'Confiar su proyecto a nuestro equipo', '委托我们的专业团队')
-    },
-    {
-      id: 'mortgage',
-      icon: Home,
-      title: tr(lang, 'Hypothèque', 'Mortgage', 'Hipoteca', '按揭贷款'),
-      sub: tr(lang, 'Versements & Amortissement', 'Payments & Amortization', 'Pagos y Amortización', '月供与摊销计算')
-    },
-    {
-      id: 'affordability',
-      icon: Calculator,
-      title: tr(lang, 'Capacité d’emprunt', 'Borrowing Capacity', 'Capacidad de Préstamo', '贷款能力 (B-20)'),
-      sub: tr(lang, 'Test B-20 & Ratios ABD/ATD', 'B-20 Stress Test & GDS/TDS', 'Prueba B-20 y Ratios', 'B-20 压力测试与负债率')
-    },
-    {
-      id: 'welcome',
-      icon: Landmark,
-      title: tr(lang, 'Taxe de bienvenue', 'Welcome Tax', 'Impuesto de Transferencia', '魁北克欢迎税'),
-      sub: tr(lang, 'Barèmes Québec & Montréal 2027', 'Quebec & Montreal 2027 Brackets', 'Tarifas Quebec y Montreal 2027', '魁北克与蒙特利尔 2027 税率')
-    },
-    {
-      id: 'closing',
-      icon: FileText,
-      title: tr(lang, 'Frais de clôture', 'Closing Costs', 'Costos de Cierre', '交割费用'),
-      sub: tr(lang, 'Liquidités requises & Notaire', 'Required Cash & Notary', 'Liquidez requerida y Notario', '过户所需流动资金与公证费')
-    },
-    {
-      id: 'commercialLease',
-      icon: Building2,
-      title: tr(lang, 'Loyer commercial', 'Commercial Lease', 'Alquiler Comercial', '商业租约'),
-      sub: tr(lang, 'Commercial & Franchises', 'Commercial & Franchises', 'Comercial y Franquicias', '商业地产与连锁选址')
-    },
-    {
-      id: 'rvb',
-      icon: Scale,
-      title: tr(lang, 'Louer vs Acheter', 'Rent vs. Buy', 'Alquilar vs. Comprar', '租房 vs 买房'),
-      sub: tr(lang, 'Équité bâtie vs Loyers perdus', 'Net Equity vs. Lost Rent', 'Capital acumulado vs. Alquiler', '净资产积累与租金成本对比')
-    },
-    {
-      id: 'wait',
-      icon: Clock,
-      title: tr(lang, 'Attendre vs Acheter', 'Wait vs. Buy', 'Esperar vs. Comprar', '等待 vs 立即购买'),
-      sub: tr(lang, 'Impact baisse de taux vs prix', 'Rate Drop vs. Price Growth', 'Baja de tasas vs. Aumento de precio', '利率下降与房价上涨成本对比')
-    }
-  ];
+  const toolsList = TOOLS_TABS_DATA.map((item) => ({
+    id: item.id,
+    icon: TOOL_ICONS[item.id] || Calculator,
+    title: pickLang(item, 'title', lang),
+    sub: pickLang(item, 'sub', lang)
+  }));
 
   // Calcul 1 : Rentabilité Plex & Commercial
   const plexResult = useMemo(() => {
@@ -584,18 +552,21 @@ export default function ToolsHubView({ lang: propLang = 'FR', t, onNavigate, pre
             return (
               <button
                 key={tool.id}
-                onClick={() => setActiveTool(tool.id)}
+                onClick={() => {
+                  setActiveTool(tool.id);
+                  if (onToolChange) onToolChange(tool.id);
+                }}
                 style={{
                   background: 'transparent',
                   border: 'none',
                   borderBottom: isActive ? '2px solid var(--gold)' : '2px solid transparent',
-                  padding: '11px 8px',
+                  padding: '11px 7px',
                   textAlign: 'center',
                   cursor: 'pointer',
                   transition: 'all 0.2s ease',
                   color: isActive ? 'var(--gold-light)' : 'var(--text-secondary)',
                   fontWeight: isActive ? 700 : 500,
-                  fontSize: '0.77rem',
+                  fontSize: '0.76rem',
                   whiteSpace: 'nowrap',
                   flexShrink: 0
                 }}

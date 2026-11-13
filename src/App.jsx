@@ -532,6 +532,7 @@ export default function App() {
       {/* HEADER PRINCIPAL */}
       <HeaderNav
         activePage={activePage}
+        activeToolTab={toolInitialTab}
         lang={lang}
         t={t}
         isScrolled={isScrolled}
@@ -639,6 +640,7 @@ export default function App() {
             preselectedDeal={toolPreselectedDeal}
             onClearPreselectedDeal={() => setToolPreselectedDeal(null)}
             initialTool={toolInitialTab}
+            onToolChange={setToolInitialTab}
           />
         )}
 

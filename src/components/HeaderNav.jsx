@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ExternalLink, Menu, X, ArrowRight, Globe } from 'lucide-react';
+import { Menu, X, ArrowRight, Globe } from 'lucide-react';
 import { LANGUAGE_OPTIONS, tr, pickLang } from '../data/translations';
-import { SPECIALTIES_DATA } from '../data/siteContent';
+import { SPECIALTIES_DATA, TOOLS_TABS_DATA } from '../data/siteContent';
 import LanguageFlag from './LanguageFlag';
 import {
   CONSENT_UPDATED_EVENT,
@@ -32,6 +32,7 @@ const EXTRA_TRANSLATE_LANGUAGES = [
 
 export default function HeaderNav({
   activePage,
+  activeToolTab = 'valuation',
   isScrolled,
   lang,
   t,
@@ -449,7 +450,7 @@ export default function HeaderNav({
               </div>
             </li>
 
-            {/* 5. OUTILS ▾ (Calculateurs, évaluation immobilière et ressources) */}
+            {/* 5. OUTILS ▾ (Mêmes 8 onglets et même ordre que le bandeau horizontal de la page Outils) */}
             <li className="nav-item-dropdown">
               <button
                 className={`nav-btn ${activePage === 'outils' ? 'active' : ''}`}
@@ -459,64 +460,29 @@ export default function HeaderNav({
                 <span className="nav-btn-chevron">▾</span>
               </button>
               <div className="nav-dropdown-panel">
-                <button
-                  type="button"
-                  className="nav-dropdown-link"
-                  onClick={() => navigateTo('outils', { toolTab: 'valuation' })}
-                >
-                  <span className="nav-dropdown-link-title" style={{ color: 'var(--gold-light)' }}>
-                    {tr(lang, 'Vendre ou louer avec nous', 'Sell or Lease With Us', 'Vender o alquilar con nosotros', '与我们携手出售或出租')}
-                  </span>
-                </button>
-                <div className="nav-dropdown-divider" />
-                <button
-                  type="button"
-                  className="nav-dropdown-link"
-                  onClick={() => navigateTo('outils', { toolTab: 'welcome' })}
-                >
-                  <span className="nav-dropdown-link-title">
-                    {tr(lang, 'Taxe de bienvenue', 'Welcome Tax', 'Impuesto de transferencia', '欢迎税计算器')}
-                  </span>
-                </button>
-                <button
-                  type="button"
-                  className="nav-dropdown-link"
-                  onClick={() => navigateTo('outils', { toolTab: 'mortgage' })}
-                >
-                  <span className="nav-dropdown-link-title">
-                    {tr(lang, 'Calculatrice hypothécaire', 'Mortgage Calculator', 'Calculadora hipotecaria', '按揭贷款计算器')}
-                  </span>
-                </button>
-                <button
-                  type="button"
-                  className="nav-dropdown-link"
-                  onClick={() => navigateTo('outils', { toolTab: 'affordability' })}
-                >
-                  <span className="nav-dropdown-link-title">
-                    {tr(lang, 'Capacité d’emprunt & Frais', 'Borrowing Capacity & Costs', 'Capacidad de préstamo y costos', '贷款能力与交割费用')}
-                  </span>
-                </button>
-                <div className="nav-dropdown-divider" />
-                <a
-                  href="https://equipeimpact-multi-prets.zohobookings.ca/#/Himalaya"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="nav-dropdown-link"
-                >
-                  <span className="nav-dropdown-link-title">
-                    {tr(lang, 'Préqualification Multi-Prêts', 'Multi-Prêts Pre-Qualification', 'Precalificación Multi-Prêts', 'Multi-Prêts 按揭预审')}
-                    <ExternalLink size={12} style={{ color: 'var(--gold)' }} />
-                  </span>
-                </a>
-                <button
-                  type="button"
-                  className="nav-dropdown-link"
-                  onClick={() => navigateTo('a-propos', { aboutTab: 'liens' })}
-                >
-                  <span className="nav-dropdown-link-title">
-                    {tr(lang, 'Ressources & Partenaires officiels', 'Resources & Official Partners', 'Recursos y Socios oficiales', '行业资源与官方合作伙伴')}
-                  </span>
-                </button>
+                {TOOLS_TABS_DATA.map((tool, idx) => {
+                  const isToolActive = activePage === 'outils' && activeToolTab === tool.id;
+                  return (
+                    <React.Fragment key={tool.id}>
+                      <button
+                        type="button"
+                        className="nav-dropdown-link"
+                        onClick={() => navigateTo('outils', { toolTab: tool.id })}
+                      >
+                        <span
+                          className="nav-dropdown-link-title"
+                          style={{
+                            color: isToolActive || tool.highlight ? 'var(--gold-light)' : undefined,
+                            fontWeight: isToolActive ? 700 : undefined
+                          }}
+                        >
+                          {pickLang(tool, 'title', lang)}
+                        </span>
+                      </button>
+                      {idx === 0 && <div className="nav-dropdown-divider" />}
+                    </React.Fragment>
+                  );
+                })}
               </div>
             </li>
 
@@ -867,7 +833,7 @@ export default function HeaderNav({
                 },
                 {
                   id: 'outils',
-                  label: tr(lang, 'Outils (Calculateurs, Évaluation & Ressources)', 'Tools (Calculators, Valuation & Resources)', 'Herramientas (Calculadoras y Evaluación)', '金融工具（计算器、物业估值与资源）')
+                  label: tr(lang, 'Outils (Calculateurs & Évaluation)', 'Tools (Calculators & Valuation)', 'Herramientas (Calculadoras y Evaluación)', '金融工具（计算器与物业估值）')
                 },
                 {
                   id: 'evenements',
