@@ -309,14 +309,8 @@ export const ABOUT_CONTENT = {
           ]
         },
         {
-          category: 'Notaires & Arpenteurs-géomètres',
+          category: 'Arpenteurs-géomètres',
           items: [
-            {
-              name: 'Me Lucie Bourbeau, Notaire',
-              specialty: 'Droit immobilier et transactions notariées',
-              address: '1366, av. de Grand-Mère, Shawinigan, QC G9T 2J6',
-              contact: '819-538-7696 • lbourbeau@notarius.net'
-            },
             {
               name: 'Stéphan Roy, Arpenteur-géomètre (Groupe SR)',
               specialty: 'Certificats de localisation, piquetage et arpentage foncier',
@@ -356,7 +350,7 @@ export const ABOUT_CONTENT = {
               website: 'https://www.physis.ca'
             },
             {
-              name: 'MultiTEST — Nicolas Forest, LL.B., Vice-président',
+              name: 'MultiTEST — Krystel Segura, M.Sc., Vice-présidente',
               specialty: 'Services environnementaux et caractérisation de sites',
               address: '464, boul. Roland-Therrien, Longueuil, QC J4H 3V9',
               contact: '514-990-2063 • info@multitest.ca',
@@ -724,14 +718,8 @@ export const ABOUT_CONTENT = {
           ]
         },
         {
-          category: 'Notaries & Land Surveyors',
+          category: 'Land Surveyors',
           items: [
-            {
-              name: 'Lucie Bourbeau, Notary',
-              specialty: 'Real estate law and notarial transactions',
-              address: '1366 Grand-Mère Ave., Shawinigan, QC G9T 2J6',
-              contact: '819-538-7696 • lbourbeau@notarius.net'
-            },
             {
               name: 'Stéphan Roy, Land Surveyor (Groupe SR)',
               specialty: 'Certificates of location, staking, and land surveying',
@@ -771,7 +759,7 @@ export const ABOUT_CONTENT = {
               website: 'https://www.physis.ca'
             },
             {
-              name: 'MultiTEST — Nicolas Forest, LL.B., Vice-President',
+              name: 'MultiTEST — Krystel Segura, M.Sc., Vice-President',
               specialty: 'Environmental site assessments and characterization',
               address: '464 Roland-Therrien Blvd., Longueuil, QC J4H 3V9',
               contact: '514-990-2063 • info@multitest.ca',
@@ -1155,14 +1143,8 @@ ABOUT_CONTENT.ES = {
         ]
       },
       {
-        category: 'Notarios y Agrimensores',
+        category: 'Agrimensores',
         items: [
-          {
-            name: 'Lic. Lucie Bourbeau, Notaria',
-            specialty: 'Derecho inmobiliario y escrituras notariales',
-            address: '1366, av. de Grand-Mère, Shawinigan, QC G9T 2J6',
-            contact: '819-538-7696 • lbourbeau@notarius.net'
-          },
           {
             name: 'Stéphan Roy, Agrimensor (Groupe SR)',
             specialty: 'Certificados de localización, amojonamiento y topografía legal',
@@ -1202,7 +1184,7 @@ ABOUT_CONTENT.ES = {
             website: 'https://www.physis.ca'
           },
           {
-            name: 'MultiTEST — Nicolas Forest, LL.B., Vicepresidente',
+            name: 'MultiTEST — Krystel Segura, M.Sc., Vicepresidenta',
             specialty: 'Servicios ambientales y caracterización de terrenos',
             address: '464, boul. Roland-Therrien, Longueuil, QC J4H 3V9',
             contact: '514-990-2063 • info@multitest.ca',
@@ -1585,14 +1567,8 @@ ABOUT_CONTENT.ZH = {
         ]
       },
       {
-        category: '公证人及土地测量师 (Notaires & Arpenteurs-géomètres)',
+        category: '土地测量师 (Arpenteurs-géomètres)',
         items: [
-          {
-            name: 'Lucie Bourbeau 公证师 (Notaire)',
-            specialty: '房地产法与物业过户公证交易',
-            address: '1366, av. de Grand-Mère, Shawinigan, QC G9T 2J6',
-            contact: '819-538-7696 • lbourbeau@notarius.net'
-          },
           {
             name: 'Stéphan Roy 土地测量师 (Groupe SR)',
             specialty: '物业位置证明书 (Certificat de localisation)、界桩测绘与土地勘测',
@@ -1632,7 +1608,7 @@ ABOUT_CONTENT.ZH = {
             website: 'https://www.physis.ca'
           },
           {
-            name: 'MultiTEST — Nicolas Forest, LL.B., 副总裁',
+            name: 'MultiTEST — Krystel Segura, M.Sc., 副总裁',
             specialty: '场地环境评估与土壤特性表征服务',
             address: '464, boul. Roland-Therrien, Longueuil, QC J4H 3V9',
             contact: '514-990-2063 • info@multitest.ca',
